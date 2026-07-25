@@ -1,0 +1,671 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manual do Usuario - InfoCell ERP Premium</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#0a0e17;color:#e2e8f0;line-height:1.7}
+h1{font-size:28px;color:#06b6d4;margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid #1e293b}
+h2{font-size:20px;color:#22d3ee;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid #1e293b}
+h3{font-size:16px;color:#67e8f9;margin:20px 0 8px}
+p,li,td{font-size:14px;color:#94a3b8}
+a{color:#06b6d4;text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:#1e293b;color:#22d3ee;padding:2px 6px;border-radius:4px;font-size:13px;font-family:'JetBrains Mono',monospace}
+pre{background:#111827;border:1px solid #1e293b;border-radius:8px;padding:16px;overflow-x:auto;font-size:13px;color:#94a3b8;margin:12px 0}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th{background:#06b6d4;color:#fff;padding:10px 12px;text-align:left;font-size:13px;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #1e293b;font-size:13px;color:#94a3b8}
+tr:hover td{background:rgba(6,182,212,.05)}
+.card{background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;margin:16px 0}
+.card h3{margin-top:0}
+.ibox{background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.2);border-radius:8px;padding:16px;margin:12px 0}
+.ibox p{color:#67e8f9}
+.wbox{background:rgba(234,179,8,.05);border:1px solid rgba(234,179,8,.2);border-radius:8px;padding:16px;margin:12px 0}
+.wbox p{color:#fbbf24}
+.ill{background:rgba(168,85,247,.05);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:16px;margin:12px 0}
+.ill p{color:#c084fc}
+ol,ul{padding-left:24px;margin:8px 0}
+li{margin:4px 0}
+.sl li{padding-left:28px;margin:6px 0}
+strong{color:#e2e8f0}
+em{color:#67e8f9;font-style:normal}
+.badge{display:inline-block;background:#06b6d4;color:#fff;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;margin:0 4px}
+.nav{position:fixed;top:0;left:0;width:260px;height:100vh;background:#111827;border-right:1px solid #1e293b;overflow-y:auto;padding:20px 0;z-index:100}
+.nav h3{padding:0 20px;font-size:14px;color:#06b6d4;margin-bottom:8px}
+.nav a{display:block;padding:6px 20px;font-size:13px;color:#94a3b8;transition:all .15s}
+.nav a:hover,.nav a.active{background:rgba(6,182,212,.1);color:#22d3ee}
+.nav .nav-sep{height:1px;background:#1e293b;margin:12px 20px}
+.main{margin-left:280px;padding:32px 40px;max-width:900px}
+.logo{position:fixed;top:0;left:0;width:260px;padding:20px;background:#111827;border-right:1px solid #1e293b;border-bottom:1px solid #1e293b;z-index:101;text-align:center}
+.logo h2{color:#06b6d4;margin:0;font-size:22px;border:none}
+.logo p{font-size:11px;color:#64748b}
+@media(max-width:900px){.nav{display:none}.main{margin-left:0;padding:20px}.logo{display:none}}
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <h2>InfoCell ERP Premium</h2>
+  <p>Manual do Usuario v8.0</p>
+</div>
+
+<nav class="nav">
+  <h3>Inicio</h3>
+  <a href="#intro">Introducao</a>
+  <a href="#acesso">Acesso e Login</a>
+  <a href="#temas">Temas e Personalizacao</a>
+  <a href="#atalhos">Atalhos de Teclado</a>
+  <div class="nav-sep"></div>
+  <h3>Modulos</h3>
+  <a href="#painel">Painel Geral</a>
+  <a href="#os">Ordens de Servico</a>
+  <a href="#pdv">PDV / Caixa</a>
+  <a href="#clientes">Clientes</a>
+  <a href="#pipeline">Pipeline CRM</a>
+  <a href="#interacoes">Interacoes</a>
+  <a href="#servicos">Servicos</a>
+  <a href="#produtos">Produtos / Estoque</a>
+  <a href="#contratos">Contratos</a>
+  <a href="#financeiro">Financeiro</a>
+  <a href="#contas">Contas a Pagar/Receber</a>
+  <a href="#comissoes">Comissoes</a>
+  <a href="#fornecedores">Fornecedores</a>
+  <a href="#compras">Compras</a>
+  <a href="#fidelidade">Fidelidade</a>
+  <a href="#filiais">Filiais</a>
+  <div class="nav-sep"></div>
+  <h3>Produtividade</h3>
+  <a href="#agendamentos">Agendamentos</a>
+  <a href="#calendario">Calendario</a>
+  <a href="#tarefas">Tarefas</a>
+  <a href="#compromissos">Compromissos</a>
+  <a href="#alertas">Alertas</a>
+  <a href="#previsao">Previsao Financeira</a>
+  <div class="nav-sep"></div>
+  <h3>Avancado</h3>
+  <a href="#relatorios">Relatorios Avancados</a>
+  <a href="#automacao">Automacao</a>
+  <a href="#checklists">Checklists</a>
+  <a href="#os-online">OS Online</a>
+  <a href="#wa-central">Central WhatsApp</a>
+  <a href="#ia">Central de IA</a>
+  <a href="#funcionarios">Funcionarios</a>
+  <div class="nav-sep"></div>
+  <h3>Seguranca</h3>
+  <a href="#auditoria">Auditoria</a>
+  <a href="#lgpd">LGPD</a>
+  <a href="#config">Configuracoes</a>
+  <a href="#manual">Manual / Suporte</a>
+</nav>
+
+<div class="main">
+
+<h1 id="intro">Manual do Usuario - InfoCell ERP Premium</h1>
+<p>Bem-vindo ao <strong>InfoCell ERP Premium</strong>, o sistema completo de gestao para assistencia tecnica e loja. Este manual cobre todas as funcionalidades disponiveis no painel.</p>
+
+<div class="card">
+<h3>Visao Geral do Sistema</h3>
+<p>O InfoCell ERP Premium e um sistema integrado que gerencia todo o ciclo do seu negocio:</p>
+<ul>
+  <li><strong>Ordens de Servico (OS)</strong> - Criacao, acompanhamento e gestao completa de reparos</li>
+  <li><strong>PDV / Caixa</strong> - Ponto de venda integrado com fiscal e parcelamento</li>
+  <li><strong>CRM / Clientes</strong> - Cadastro, pipeline de vendas e historico de interacoes</li>
+  <li><strong>Financeiro</strong> - Fluxo de caixa, contas a pagar/receber e relatorios</li>
+  <li><strong>Estoque</strong> - Produtos, fornecedores e compras</li>
+  <li><strong>WhatsApp Integrado</strong> - Envio automatico e central de mensagens</li>
+  <li><strong>Inteligencia Artificial</strong> - Diagnostico automatico e sugestoes</li>
+  <li><strong>Offline / Sincronizacao</strong> - Funciona sem internet com sincronizacao automatica</li>
+</ul>
+</div>
+
+<h2 id="acesso">Acesso e Login</h2>
+<p>Para acessar o sistema:</p>
+<ol>
+  <li>Abra o navegador e acesse o endereco do sistema</li>
+  <li>Digite o <code>usuario</code> e a <code>senha</code></li>
+  <li>Clique em <strong>Entrar</strong></li>
+</ol>
+
+<div class="ibox">
+<p>Credenciais padrao: <code>admin</code> / <code>admin</code></p>
+<p>Altere a senha imediatamente apos o primeiro acesso em <em>Configuracoes</em>.</p>
+</div>
+
+<p>Apos o login, o sistema exibe o <strong>Painel Geral</strong> com visao resumida de todas as metricas importantes.</p>
+
+<h2 id="temas">Temas e Personalizacao</h2>
+<p>O InfoCell oferece <strong>6 temas</strong> para personalizar a aparencia:</p>
+<table>
+  <tr><th>Tema</th><th>Descricao</th></tr>
+  <tr><td><strong>Dark</strong></td><td>Tema escuro padrao com acentos em ciano</td></tr>
+  <tr><td><strong>Sunset</strong></td><td>Quente com tons de laranja e vermelho</td></tr>
+  <tr><td><strong>Ocean</strong></td><td>Azul profundo com gradientes marinhos</td></tr>
+  <tr><td><strong>Executive</strong></td><td>Profissional com dourado e serif</td></tr>
+  <tr><td><strong>Creative</strong></td><td>Neon com efeitos de vidro e blur</td></tr>
+  <tr><td><strong>Minimal</strong></td><td>Claro e limpo, fundo branco</td></tr>
+</table>
+<p>Para trocar o tema, clique no <strong>icone de sol</strong> ao lado de "Administrador" no rodape da sidebar.</p>
+
+<h2 id="atalhos">Atalhos de Teclado</h2>
+<table>
+  <tr><th>Atalho</th><th>Acao</th></tr>
+  <tr><td><code>Ctrl + 1</code></td><td>Abrir Painel</td></tr>
+  <tr><td><code>Ctrl + 2</code></td><td>Abrir Ordens de Servico</td></tr>
+  <tr><td><code>Ctrl + 3</code></td><td>Abrir PDV / Caixa</td></tr>
+  <tr><td><code>Ctrl + 4</code></td><td>Abrir Produtos / Estoque</td></tr>
+  <tr><td><code>/</code></td><td>Focar na busca global</td></tr>
+</table>
+
+<!-- ============ MODULOS ============ -->
+
+<h1 id="painel">Painel Geral</h1>
+<p>O Painel e a tela principal que exibe um resumo de tudo que acontece no sistema.</p>
+
+<div class="card">
+<h3>Funcionalidades do Painel</h3>
+<ul>
+  <li><strong>Alertas rapidos</strong> - Estoque baixo, OS atrasadas, pagamentos pendentes</li>
+  <li><strong>Acesso rapido</strong> - Botoes para Nova OS, Nova Venda, Novo Cliente, Scanner, IA, OS Online, Relatorios</li>
+  <li><strong>Graficos</strong> - Faturamento, OS por status, comparativo mensal</li>
+  <li><strong>OS Recentes</strong> - Lista das ultimas ordens de servico</li>
+  <li><strong>Relogio ao vivo</strong> - Horario atualizado no painel</li>
+</ul>
+</div>
+
+<p>Use o botao <strong>&#8635; Atualizar</strong> para recarregar todos os dados do painel.</p>
+
+<h1 id="os">Ordens de Servico (OS)</h1>
+<p>O modulo mais importante do sistema. Gerencia todo o ciclo de reparos e servicos.</p>
+
+<div class="card">
+<h3>Funcoes Principais</h3>
+<ul>
+  <li><strong>Criar OS</strong> - Cadastro completo com cliente, aparelho, defeito, diagnostico</li>
+  <li><strong>Editar OS</strong> - Atualizar status, valores, pecas utilizadas</li>
+  <li><strong>Preview/Visualizar</strong> - Visualizacao rapida dos dados da OS</li>
+  <li><strong>Enviar WhatsApp</strong> - Compartilhar resumo da OS via WhatsApp</li>
+  <li><strong>Gerar PDF</strong> - Documento formatado para impressao ou envio</li>
+  <li><strong>Excluir</strong> - Remover OS (requer confirmacao)</li>
+  <li><strong>Assinatura Digital</strong> - Captura de assinatura do cliente na tela</li>
+  <li><strong>Fotos do Aparelho</strong> - Upload de fotos via camera ou galeria</li>
+  <li><strong>QR Code</strong> - Etiqueta com QR para o cliente acompanhar</li>
+</ul>
+</div>
+
+<h3>Status das OS</h3>
+<table>
+  <tr><th>Status</th><th>Cor</th><th>Significado</th></tr>
+  <tr><td>Aguardando</td><td style="color:#eab308">Amarelo</td><td>OS criada, aguardando atendimento</td></tr>
+  <tr><td>Em Andamento</td><td style="color:#3b82f6">Azul</td><td>Reparo em execucao</td></tr>
+  <tr><td>Aguardando Peca</td><td style="color:#f97316">Laranja</td><td>Depende de peça para continuidade</td></tr>
+  <tr><td>Concluido</td><td style="color:#22c55e">Verde</td><td>Reparo finalizado, aguardando retirada</td></tr>
+  <tr><td>Entregue</td><td style="color:#a855f7">Roxo</td><td>Cliente retirou o equipamento</td></tr>
+  <tr><td>Cancelado</td><td style="color:#ef4444">Vermelho</td><td>OS cancelada</td></tr>
+</table>
+
+<h3>Envio via WhatsApp</h3>
+<p>Na tabela de OS, clique no <strong>icone verde do WhatsApp</strong> ao lado de cada OS para enviar automaticamente:</p>
+<ul>
+  <li>Mensagem de status atualizada</li>
+  <li>Resumo completo da OS em PDF</li>
+  <li>Lembrete de retirada</li>
+</ul>
+
+<h3>Historico do Equipamento</h3>
+<p>O sistema rastreia <strong>todas as OS por equipamento</strong>. Ao criar uma OS para um aparelho que ja foi atendido, o historico anterior e exibido automaticamente, incluindo:</p>
+<ul>
+  <li>Reparos anteriores</li>
+  <li>Pecas ja utilizadas</li>
+  <li>Garantia de servicos anteriores</li>
+  <li>Numero de serie / IMEI</li>
+</ul>
+
+<h1 id="pdv">PDV / Caixa</h1>
+<p>Ponto de venda integrado para vendas diretas e lancamento de OS.</p>
+
+<div class="card">
+<h3>Funcionalidades</h3>
+<ul>
+  <li><strong>Busca de produtos</strong> - Por nome, codigo ou codigo de barras</li>
+  <li><strong>Scanner de codigo de barras</strong> - Leitura via camera do celular</li>
+  <li><strong>Formas de pagamento</strong> - Dinheiro, PIX, Cartao Credito/Debito,Boleto</li>
+  <li><strong>Parcelamento</strong> - Configuravel ate 12x com juros</li>
+  <li><strong>Desconto</strong> - Valor fixo ou percentual</li>
+  <li><strong>Frete</strong> - Adicionado ao total da venda</li>
+  <li><strong>NFCe</strong> - Emissao de nota fiscal eletronica</li>
+  <li><strong>Recibo</strong> - Impressao de comprovante</li>
+  <li><strong>Abertura/Fechamento de Caixa</strong> - Controle de saldo diario</li>
+</ul>
+</div>
+
+<div class="ibox">
+<p>O PDV gera automaticamente uma OS quando a venda envolve servico de reparo.</p>
+</div>
+
+<h1 id="clientes">Clientes</h1>
+<p>Cadastro completo de clientes com historico integrado.</p>
+
+<div class="card">
+<h3>Campos do Cadastro</h3>
+<ul>
+  <li>Nome, CPF/CNPJ, RG</li>
+  <li>Telefone (formato WhatsApp), Email</li>
+  <li>Endereco com busca por CEP automatica</li>
+  <li>Data de aniversario (para envio de parabens)</li>
+  <li>Tipo: <em>Regular</em>, <em>VIP</em>, <em>Novo</em></li>
+  <li>Observacoes e etiquetas</li>
+</ul>
+</div>
+
+<h3>Funcoes do Modulo</h3>
+<ul>
+  <li><strong>Preview</strong> - Visualizacao rapida com resumo</li>
+  <li><strong>WhatsApp</strong> - Envio direto de mensagem</li>
+  <li><strong>Excluir</strong> - Remocao com confirmacao</li>
+  <li><strong>Exportar</strong> - Lista em formato texto/CSV</li>
+  <li><strong>Historico</strong> - Todas as OS e compras do cliente</li>
+</ul>
+
+<h3>Busca Inteligente</h3>
+<p>A busca global (<code>/</code>) encontra clientes por nome, CPF, telefone ou email em tempo real.</p>
+
+<h1 id="pipeline">Pipeline CRM</h1>
+<p>Visualizacao Kanban do funil de vendas. Arraste os cartoes entre colunas para atualizar o estagio.</p>
+
+<h3>Estagios do Pipeline</h3>
+<table>
+  <tr><th>Estagio</th><th>Descricao</th></tr>
+  <tr><td>Lead</td><td>Contato inicial, ainda nao qualificado</td></tr>
+  <tr><td>Contato</td><td>Primeiro contato realizado</td></tr>
+  <tr><td>Orcamento</td><td>Proposta enviada ao cliente</td></tr>
+  <tr><td>Negociacao</td><td>Em fase de fechamento</td></tr>
+  <tr><td>Fechado</td><td>Venda concretizada</td></tr>
+  <tr><td>Perdido</td><td>Oportunidade nao convertida</td></tr>
+</table>
+
+<h1 id="interacoes">Interacoes</h1>
+<p>Registro de todas as interacoes com clientes: ligacoes, emails, reunioes, WhatsApp.</p>
+<ul>
+  <li>Crie interacoes manualmente ou elas sao geradas automaticamente ao enviar WhatsApp</li>
+  <li>Filtre por cliente, tipo ou periodo</li>
+  <li>Visualize o historico completo de contato</li>
+</ul>
+
+<h1 id="servicos">Servicos</h1>
+<p>Cadastro de servicos oferecidos pela loja.</p>
+
+<div class="card">
+<h3>Campos</h3>
+<ul>
+  <li><strong>Nome do servico</strong> - Ex: Troca de Tela, Limpeza, Formatacao</li>
+  <li><strong>Descricao</strong> - Detalhes do servico</li>
+  <li><strong>Preco</strong> - Valor cobrado</li>
+  <li><strong>Tempo estimado</strong> - Prazo para execucao</li>
+  <li><strong>Categoria</strong> - Classificacao do servico</li>
+</ul>
+</div>
+<p>Os servicos cadastrados aparecem como opcoes ao criar ou editar OS.</p>
+
+<h1 id="produtos">Produtos / Estoque</h1>
+<p>Gestao completa de produtos, estoque e precos.</p>
+
+<div class="card">
+<h3>Funcionalidades</h3>
+<ul>
+  <li><strong>Cadastro completo</strong> - Nome, codigo, barcode, marca, modelo, fornecedor</li>
+  <li><strong>Precos</strong> - Custo, venda, promocao</li>
+  <li><strong>Estoque</strong> - Quantidade atual, estoque minimo, alertas</li>
+  <li><strong>Catalogo de Marcas/Modelos</strong> - Base de dados de equipamentos</li>
+  <li><strong>Preview</strong> - Visualizacao rapida do produto</li>
+  <li><strong>WhatsApp</strong> - Enviar info do produto para cliente</li>
+  <li><strong>Exportar</strong> - Lista de produtos em texto</li>
+  <li><strong>Alerta de Estoque Baixo</strong> - Notificacao automatica</li>
+</ul>
+</div>
+
+<h3>Catalogo de Marcas e Modelos</h3>
+<p>O sistema inclui um catalogo completo de marcas e modelos de equipamentos (smartphones, notebooks, tablets, etc). Ao cadastrar um aparelho na OS, selecione a marca e o modelo para preenchimento automatico.</p>
+
+<h1 id="contratos">Contratos</h1>
+<p>Emissao e gestao de contratos de prestacao de servico.</p>
+<ul>
+  <li>Crie contratos com clausulas padrao ou personalizadas</li>
+  <li>Associate contratos a OS ou clientes</li>
+  <li>Gere PDF do contrato para assinatura</li>
+  <li>Acompanhe vigencia e renovacoes</li>
+</ul>
+
+<h1 id="financeiro">Financeiro</h1>
+<p>Visao completa das finances do negocio.</p>
+
+<div class="card">
+<h3>Funcionalidades</h3>
+<ul>
+  <li><strong>Fluxo de Caixa</strong> - Entradas e saidas do dia/mes</li>
+  <li><strong>Graficos</strong> - Faturamento mensal, por categoria</li>
+  <li><strong>Filtros</strong> - Por periodo, categoria, forma de pagamento</li>
+  <li><strong>Exportar PDF</strong> - Relatorio financeiro completo</li>
+  <li><strong>Comparativo</strong> - Mes atual vs. mes anterior</li>
+</ul>
+</div>
+
+<h1 id="contas">Contas a Pagar / Receber</h1>
+<p>Controle de todas as contas pendentes e recebidas.</p>
+
+<h3>Tipos</h3>
+<table>
+  <tr><th>Tipo</th><th>Descricao</th></tr>
+  <tr><td><strong>Pagar</strong></td><td>Contas que a loja deve (fornecedores, aluguel, etc)</td></tr>
+  <tr><td><strong>Receber</strong></td><td>Valores a receber (OS pendentes, parcelas)</td></tr>
+</table>
+
+<ul>
+  <li>Registre contas com vencimento, valor e categoria</li>
+  <li>Marque como paga/recebida com data efetiva</li>
+  <li>Filtre por status: Pendente, Pago, Atrasado</li>
+  <li>Notificacao automatica para contas proximas ao vencimento</li>
+</ul>
+
+<h1 id="comissoes">Comissoes</h1>
+<p>Calculo e gestao de comissoes dos vendedores/tecnicos.</p>
+<ul>
+  <li>Defina percentual de comissao por funcionario</li>
+  <li>Comissao calculada automaticamente sobre vendas e OS</li>
+  <li>Relatorio de comissoes por periodo</li>
+  <li>Possibilidade de ajuste manual</li>
+</ul>
+
+<h1 id="fornecedores">Fornecedores</h1>
+<p>Cadastro de fornecedores com dados de contato e historico de compras.</p>
+<ul>
+  <li>Nome, CNPJ, telefone, email, endereco</li>
+  <li>Prazo de entrega medio</li>
+  <li>Produtos fornecidos</li>
+  <li>Avaliacao e observacoes</li>
+</ul>
+
+<h1 id="compras">Compras</h1>
+<p>Registro de compras de insumos e produtos para estoque.</p>
+<ul>
+  <li>Selecione o fornecedor</li>
+  <li>Adicione itens com quantidade e preco</li>
+  <li>O estoque e atualizado automaticamente apos confirmacao</li>
+  <li>Historico de compras por fornecedor</li>
+</ul>
+
+<h1 id="fidelidade">Programa de Fidelidade</h1>
+<p>Sistema de pontos e recompensas para clientes frequentes.</p>
+<ul>
+  <li>Clientes ganham pontos a cada compra ou servico</li>
+  <li>Troca de pontos por descontos ou produtos</li>
+  <li>Niveis: <em>Bronze</em>, <em>Prata</em>, <em>Ouro</em>, <em>Platina</em></li>
+  <li>Painel de acompanhamento por cliente</li>
+</ul>
+
+<h1 id="filiais">Filiais</h1>
+<p>Gerenciamento de multiplas filiais da empresa.</p>
+<ul>
+  <li>Cadastro de filiais com endereco e dados proprios</li>
+  <li>Transferencia de produtos entre filiais</li>
+  <li>Relatorios consolidados ou por filial</li>
+  <li>Controle de estoque separado por filial</li>
+</ul>
+
+<!-- ============ PRODUTIVIDADE ============ -->
+
+<h1 id="agendamentos">Agendamentos</h1>
+<p>Agende compromissos e servicos com clientes.</p>
+<ul>
+  <li>Data, hora, cliente e descricao</li>
+  <li>Notificacao antes do horario agendado</li>
+  <li>Vinculo direto com OS</li>
+  <li>Visualizacao em lista e calendario</li>
+</ul>
+
+<h1 id="calendario">Calendario</h1>
+<p>Visualizacao mensal/semanal/diaria de todos os eventos:</p>
+<ul>
+  <li>OS criadas e concluidas</li>
+  <li>Agendamentos</li>
+  <li>Vencimentos de contas</li>
+  <li>Aniversarios de clientes</li>
+  <li>Compromissos pessoais</li>
+</ul>
+
+<h1 id="tarefas">Tarefas</h1>
+<p>Gerenciador de tarefas com prioridade e status.</p>
+<ul>
+  <li>Criar tarefa com titulo, descricao e prioridade</li>
+  <li>Prioridades: <em>Baixa</em>, <em>Media</em>, <em>Alta</em>, <em>Urgente</em></li>
+  <li>Marcar como concluida</li>
+  <li>Filtros por status e prioridade</li>
+  <li>Contador de tarefas pendentes na sidebar</li>
+</ul>
+
+<h1 id="compromissos">Compromissos</h1>
+<p>Agenda de compromissos pessoais e reunioes da equipe.</p>
+<ul>
+  <li>Crie compromissos com data, hora e duracao</li>
+  <li>Defina recorrencia (diaria, semanal, mensal)</li>
+  <li>Lembretes automaticos</li>
+</ul>
+
+<h1 id="alertas">Alertas</h1>
+<p>Central de notificacoes do sistema.</p>
+<ul>
+  <li><strong>Estoque baixo</strong> - Produtos abaixo do minimo</li>
+  <li><strong>OS atrasadas</strong> - Prazo de entrega excedido</li>
+  <li><strong>Contas vencendo</strong> - Pagamentos proximos ao vencimento</li>
+  <li><strong>Aniversariantes</strong> - Clientes que fazem aniversario</li>
+  <li><strong>Garantia expirando</strong> - Servicos com garantia proxima ao fim</li>
+</ul>
+
+<h1 id="previsao">Previsao Financeira</h1>
+<p>Projecao de entradas e saidas para os proximos meses.</p>
+<ul>
+  <li>Baseada em contas recorrentes e historico</li>
+  <li>Grafico de projecao mensal</li>
+  <li>Alertas de deficit ou superavit</li>
+</ul>
+
+<!-- ============ AVANCADO ============ -->
+
+<h1 id="relatorios">Relatorios Avancados</h1>
+<p>Gere relatorios completos de qualquer modulo do sistema.</p>
+
+<div class="card">
+<h3>Tipos de Relatorio</h3>
+<ul>
+  <li><strong>OS</strong> - Lista completa com filtros de periodo, status, tecnico</li>
+  <li><strong>Financeiro</strong> - Fluxo de caixa, receita, despesa, lucro</li>
+  <li><strong>Estoque</strong> - Posicao de estoque, movimentacao, giro</li>
+  <li><strong>Clientes</strong> - Cadastro, frequencia, ticket medio</li>
+  <li><strong>Servicos</strong> - Mais realizados, faturamento por servico</li>
+  <li><strong>Compras</strong> - Historico de compras por fornecedor</li>
+  <li><strong>Fidelidade</strong> - Pontos distribuidos, resgates, ranking</li>
+</ul>
+</div>
+<p>Cada relatorio pode ser exportado em <strong>PDF</strong> para impressao ou envio.</p>
+
+<h1 id="automacao">Automacao</h1>
+<p>Configure acoes automaticas para poupar tempo.</p>
+
+<div class="card">
+<h3>Tipos de Automacao</h3>
+<ul>
+  <li><strong>WhatsApp em Massa</strong> - Enviar lembretes, orcamentos, boas-vindas e parabens automaticamente</li>
+  <li><strong>Lembrete de Retirada</strong> - Mensagem automatica para OS concluidas ha X dias</li>
+  <li><strong>Atualizacao de Status</strong> - Notifica cliente quando status muda</li>
+  <li><strong>Backup Automatico</strong> - Backup periodico dos dados</li>
+  <li><strong>Limpeza LGPD</strong> - Retencao automatica de dados conforme politica</li>
+</ul>
+</div>
+
+<h3>Templates de Mensagens</h3>
+<p>Edite os templates de mensagens automaticas em <em>Automacao > Editar Templates</em>. Variaveis disponiveis:</p>
+<ul>
+  <li><code>{cliente}</code> - Nome do cliente</li>
+  <li><code>{os}</code> - Numero da OS</li>
+  <li><code>{telefone}</code> - Telefone do cliente</li>
+  <li><code>{status}</code> - Status atual da OS</li>
+  <li><code>{valor}</code> - Valor da OS</li>
+</ul>
+
+<h1 id="checklists">Checklists</h1>
+<p>Checklists padronizados para inspecao de equipamentos.</p>
+<ul>
+  <li>Crie checklists por tipo de equipamento</li>
+  <li>Itens com checkbox para preenchimento rapido</li>
+  <li>Associate a OS para inspecao na entrada e saida</li>
+  <li>Historico de checklists preenchidos</li>
+</ul>
+
+<h1 id="os-online">OS Online</h1>
+<p>Sistema de acompanhamento online para clientes.</p>
+<ul>
+  <li>Cliente acompanha o status da OS em tempo real</li>
+  <li>Link compartilhavel via WhatsApp</li>
+  <li>Sem necessidade de login do cliente</li>
+  <li>Exibe status, previsao e valores</li>
+</ul>
+
+<h1 id="wa-central">Central WhatsApp</h1>
+<p>Integracao completa com WhatsApp para comunicacao com clientes.</p>
+
+<div class="card">
+<h3>Modos</h3>
+<ul>
+  <li><strong>Central</strong> - Chat interno com historico de mensagens por contato</li>
+  <li><strong>WhatsApp Web</strong> - Acesse o WhatsApp Web diretamente pelo painel</li>
+</ul>
+</div>
+
+<h3>Funcoes</h3>
+<ul>
+  <li><strong>Envio direto</strong> - Clique no icone verde do WhatsApp em qualquer tabela</li>
+  <li><strong>Templates</strong> - Mensagens pre-definidas para agilizar o atendimento</li>
+  <li><strong>Resumo OS</strong> - Envia resumo completo da OS formatado</li>
+  <li><strong>Lembrete</strong> - Lembrete de retirada automatico</li>
+  <li><strong>Envio em Massa</strong> - Lembretes, orcamentos, boas-vindas e parabens</li>
+  <li><strong>Analytics</strong> - Estisticas de envios por periodo</li>
+  <li><strong>QR Code</strong> - Gere QR Code para contato rapido</li>
+</ul>
+
+<h3>WhatsApp Web</h3>
+<p>Na Central WhatsApp, clique na aba <em>"WhatsApp Web"</em> para:</p>
+<ol>
+  <li>Abrir o WhatsApp Web em uma nova aba</li>
+  <li>Escanear o QR Code com o celular</li>
+  <li>Enviar numeros diretamente pelo painel</li>
+</ol>
+
+<h1 id="ia">Central de IA</h1>
+<p>Assistente inteligente para diagnostico e sugestoes.</p>
+
+<div class="card">
+<h3>Funcionalidades</h3>
+<ul>
+  <li><strong>Diagnostico Automatico</strong> - IA sugere diagnostico baseado no defeito informado</li>
+  <li><strong>Sugestao de Pecas</strong> - Pecas provaveis necessarias para o reparo</li>
+  <li><strong>Estimativa de Custo</strong> - Valor estimado do reparo</li>
+  <li><strong>Monitor de IA</strong> - Acompanhe as respostas e acertos da IA</li>
+  <li><strong>Modo Offline</strong> - Biblioteca local de diagnosticos quando sem internet</li>
+</ul>
+</div>
+
+<h1 id="funcionarios">Funcionarios</h1>
+<p>Cadastro e gestao da equipe.</p>
+<ul>
+  <li>Nome, cargo, telefone, email</li>
+  <li>Percentual de comissao</li>
+  <li>OS atribuidas e historico</li>
+  <li>Desempenho por periodo</li>
+</ul>
+
+<!-- ============ SEGURANCA ============ -->
+
+<h1 id="auditoria">Auditoria</h1>
+<p>Registro completo de todas as acoes realizadas no sistema.</p>
+<ul>
+  <li>Criacao, edicao e exclusao de registros</li>
+  <li>Login e logout de usuarios</li>
+  <li>Envios de WhatsApp</li>
+  <li>Exportacao de dados</li>
+  <li>Filtros por data, usuario e tipo de acao</li>
+</ul>
+
+<h1 id="lgpd">LGPD - Privacidade</h1>
+<p>O sistema atende a <strong>Lei Geral de Protecao de Dados (LGPD)</strong>.</p>
+
+<div class="card">
+<h3>Funcionalidades</h3>
+<ul>
+  <li><strong>Criptografia AES-256-GCM</strong> - Dados sensiveis criptografados</li>
+  <li><strong>Consentimento</strong> - Banner de aceite na primeira visita</li>
+  <li><strong>Retencao de Dados</strong> - Limpeza automatica apos periodo configuravel</li>
+  <li><strong>Exportacao</strong> - O cliente pode solicitar exportacao de seus dados</li>
+  <li><strong>Exclusao</strong> - O cliente pode solicitar exclusao de seus dados</li>
+  <li><strong>Politica de Privacidade</strong> - Texto completo acessivel pelo banner</li>
+  <li><strong>Validacao</strong> - Verificacao de integridade dos dados</li>
+</ul>
+</div>
+
+<h1 id="config">Configuracoes</h1>
+<p>Personalize o sistema conforme sua necessidade.</p>
+
+<div class="card">
+<h3>Itens Configuraveis</h3>
+<ul>
+  <li><strong>Dados da Empresa</strong> - Nome, CNPJ, endereco, telefone, logo</li>
+  <li><strong>Tema</strong> - Escolha entre 6 temas visuais</li>
+  <li><strong>Senha</strong> - Altere a senha de acesso</li>
+  <li><strong>Backup</strong> - Exporte/importe dados completos</li>
+  <li><strong>Backup com Fotos</strong> - Inclui fotos dos aparelhos</li>
+  <li><strong>WhatsApp</strong> - Numero padrao para envios</li>
+  <li><strong>Automacao</strong> - Ative/desative lembretes automaticos</li>
+  <li><strong>LGPD</strong> - Configure retencao de dados</li>
+  <li><strong>Moeda</strong> - Simbolo e formatacao de valores</li>
+  <li><strong>Impressora</strong> - Configuracao de impressao de OS e recibos</li>
+</ul>
+</div>
+
+<h1 id="manual">Manual / Suporte</h1>
+<p>Este manual esta disponivel diretamente pelo painel:</p>
+<ol>
+  <li>Clique em <em>"Manual do Usuario"</em> na sidebar</li>
+  <li>O manual abre em overlay sobre o painel</li>
+  <li>Use a busca para encontrar funcao especifica</li>
+</ol>
+
+<h2>Contato do Desenvolvedor</h2>
+<div class="card">
+<p><strong>Silvio</strong> - Desenvolvedor InfoCell</p>
+<p>Telefone: <code>(81) 98733-2162</code></p>
+<p>Endereco: Av. Fagundes Varela, 380 - Loja 11 - Jardim Atlantico - Olinda/PE</p>
+<p>Site: <a href="https://www.infocelll.com.br">www.infocelll.com.br</a></p>
+</div>
+
+<h2>Solucao de Problemas</h2>
+<table>
+  <tr><th>Problema</th><th>Solucao</th></tr>
+  <tr><td>Dados nao aparecem</td><td>Clique em "Atualizar" no painel</td></tr>
+  <tr><td>Estoque desatualizado</td><td>Verifique se as OS foram finalizadas corretamente</td></tr>
+  <tr><td>WhatsApp nao envia</td><td>Verifique a conexao e o numero configurado</td></tr>
+  <tr><td>PDF nao gera</td><td>Permita popups no navegador para o site</td></tr>
+  <tr><td>Sistema lento</td><td>Limpe o cache do navegador (Ctrl+Shift+Del)</td></tr>
+  <tr><td>Erro ao salvar</td><td>Verifique se todos obrigatorios estao preenchidos</td></tr>
+</table>
+
+<div style="margin-top:40px;padding:20px;text-align:center;border-top:1px solid #1e293b;color:#64748b;font-size:12px">
+  <p>InfoCell ERP Premium v6.0 - Manual do Usuario</p>
+  <p>Desenvolvido por <strong style="color:#06b6d4">Silvio</strong> - Olinda/PE</p>
+  <p style="margin-top:8px">© 2024 InfoCell. Todos os direitos reservados.</p>
+</div>
+
+</div><!-- /main -->
+</body>
+</html>
