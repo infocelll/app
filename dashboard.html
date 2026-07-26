@@ -368,6 +368,7 @@ tr:hover td{background:var(--hover)}
   .stat-icon{width:32px;height:32px;border-radius:8px}
   .stat-icon svg{width:16px;height:16px}
   .charts-row{grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+  .kpi-charts-row{grid-template-columns:1fr;gap:8px;padding:0 12px 12px!important}
   .card{margin-bottom:14px}
   .card-header{padding:12px 14px}
   .card-body{padding:14px}
@@ -418,6 +419,7 @@ tr:hover td{background:var(--hover)}
   table.mobile-card-view tbody td::before{content:attr(data-label);font-weight:600;color:var(--txt3);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
 }
 @media(max-width:480px){
+  .kpi-charts-row{padding:0 8px 8px!important}
   .stats-grid{grid-template-columns:1fr 1fr;gap:6px}
   .stat-card{padding:10px}
   .stat-value{font-size:18px}
@@ -1936,6 +1938,8 @@ tr[data-status]:hover td{background:var(--hover)}
 .dash-widget-placeholder:hover{border-color:var(--cyan);opacity:1;background:var(--cd)}
 .dash-widget-placeholder svg{display:block;margin:0 auto 6px}
 
+.kpi-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
 @media(max-width:768px){
   .edit-mode .dash-widget .size-btns,.edit-mode .dash-widget .widget-size-label{display:none !important}
   .dash-edit-bar{flex-wrap:wrap;padding:10px 12px}
@@ -1961,19 +1965,19 @@ tr[data-status]:hover td{background:var(--hover)}
 @media(max-width:768px){.premium-grid{grid-template-columns:1fr}}
 
 /* ===== SHORTCUT EDITOR ===== */
-.shortcut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:16px 0}
-.shortcut-item{background:var(--input);border:1px solid var(--bdr);border-radius:var(--rs);padding:14px 10px;text-align:center;cursor:grab;transition:all .2s;position:relative}
+.shortcut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;margin:12px 0}
+.shortcut-item{background:var(--input);border:1px solid var(--bdr);border-radius:var(--rs);padding:8px 6px;text-align:center;cursor:grab;transition:all .2s;position:relative}
 .shortcut-item:hover{border-color:var(--cyan);transform:translateY(-2px);box-shadow:var(--sh)}
 .shortcut-item.dragging{opacity:.4;border-color:var(--cyan)}
 .shortcut-item.drag-over{border-color:var(--grn);box-shadow:0 0 0 3px rgba(34,197,94,0.15)}
-.shortcut-item .s-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px}
-.shortcut-item .s-label{font-size:11px;font-weight:600;color:var(--txt);margin-bottom:4px}
-.shortcut-item .s-action{font-size:9px;color:var(--txt3)}
-.shortcut-item .s-remove{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:9px}
+.shortcut-item .s-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-size:14px}
+.shortcut-item .s-label{font-size:10px;font-weight:600;color:var(--txt);margin-bottom:2px}
+.shortcut-item .s-action{font-size:8px;color:var(--txt3)}
+.shortcut-item .s-remove{position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:8px}
 .shortcut-item:hover .s-remove{display:flex}
-.shortcut-editor-add{border:2px dashed var(--bdr);border-radius:var(--rs);padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90px;color:var(--txt3)}
+.shortcut-editor-add{border:2px dashed var(--bdr);border-radius:var(--rs);padding:8px 6px;text-align:center;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60px;color:var(--txt3)}
 .shortcut-editor-add:hover{border-color:var(--cyan);color:var(--cyan)}
-.shortcut-editor-add svg{width:24px;height:24px;margin-bottom:4px}
+.shortcut-editor-add svg{width:20px;height:20px;margin-bottom:2px}
 .sc-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
 .sc-icon-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-height:120px;overflow-y:auto;padding:4px}
 .sc-icon-opt{width:36px;height:36px;border-radius:8px;border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;font-size:14px}
@@ -1987,7 +1991,7 @@ tr[data-status]:hover td{background:var(--hover)}
 .sc-preview{display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);margin-top:10px}
 .sc-preview-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
 .sc-preview-text{font-size:12px;font-weight:600}
-@media(max-width:768px){.shortcut-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}.sc-form-row{grid-template-columns:1fr}}
+@media(max-width:768px){.shortcut-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:4px}.sc-form-row{grid-template-columns:1fr}}
 
 /* ===== DASH SHORTCUT EDITOR ===== */
 .dsh-list{max-height:60vh;overflow-y:auto;padding:4px}
@@ -2210,7 +2214,7 @@ window.addEventListener('DOMContentLoaded',function(){
 <!-- LOGIN -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-card">
-    <div class="logo-icon" style="margin:0 auto 16px">IC</div>
+    <div class="logo-icon" style="margin:0 auto 16px"><img src="logo-infocelll.jpg" style="width:100%;height:100%;object-fit:contain;border-radius:inherit"></div>
     <h2>InfoCell</h2>
     <p style="color:var(--txt3);font-size:13px;margin-bottom:24px">Painel de Gestao</p>
     <input type="text" id="loginUser" placeholder="Usuario" value="admin">
@@ -2230,7 +2234,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-brand"><div class="logo-icon">IC</div><div class="logo-text">Info<span>Cell</span></div></div>
+  <div class="sidebar-brand"><div class="logo-icon"><img src="logo-infocelll.jpg" style="width:100%;height:100%;object-fit:contain;border-radius:inherit"></div><div class="logo-text">Info<span>Cell</span></div></div>
   <nav class="sidebar-nav" id="sidebarNav">
     <div class="nav-pinned">
       <div class="nav-pinned-label" style="display:flex;align-items:center;justify-content:space-between">Acesso Rapido <button class="btn btn-sm" onclick="openSidebarPersonalizer()" style="padding:2px 6px;font-size:10px;line-height:1" title="Personalizar">&#9881;</button></div>
@@ -2279,7 +2283,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <button class="nav-item" data-s="automacao" onclick="showSection('automacao')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Automacao</button>
         <button class="nav-item" data-s="funcionarios" onclick="showSection('funcionarios')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Funcionarios</button>
         <button class="nav-item" data-s="usuarios" onclick="showSection('usuarios')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Usuarios</button>
-        <button class="nav-item" data-s="auditoria" onclick="showSection('auditoria')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Auditoria</button>
+        <button class="nav-item" data-s="historicos" onclick="showSection('historicos')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Historicos</button>
         <button class="nav-item" data-s="lgpd" onclick="showSection('lgpd')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>LGPD</button>
         <button class="nav-item" data-s="ai-monitor" onclick="showSection('ai-monitor')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0110 10 10 10 0 01-10 10A10 10 0 012 12 10 10 0 0112 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>IA Monitor</button>
         <button class="nav-item" data-s="premium" onclick="showSection('premium')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Premium</button>
@@ -2467,7 +2471,7 @@ window.addEventListener('DOMContentLoaded',function(){
           <div class="kpi-bar"><div class="kpi-bar-fill" id="kpiBarSla" style="background:var(--blu);width:0%"></div></div>
         </div>
       </div>
-      <div style="padding:0 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="padding:0 16px 16px" class="kpi-charts-row">
         <div style="background:var(--input);border-radius:var(--rs);padding:12px">
           <div style="font-size:10px;color:var(--txt3);margin-bottom:6px">Tendencia Semanal</div>
           <canvas id="kpiTrendChart" height="80"></canvas>
@@ -3403,8 +3407,8 @@ window.addEventListener('DOMContentLoaded',function(){
   </div>
 
   <!-- AUDITORIA -->
-  <div class="section" id="sec-auditoria">
-    <div class="section-header"><div><h2 class="section-title">Auditoria</h2></div><button class="btn btn-secondary" onclick="DB.audit=[];save();renderAudit()">Limpar</button></div>
+  <div class="section" id="sec-historicos">
+    <div class="section-header"><div><h2 class="section-title">Historicos</h2></div><button class="btn btn-secondary" onclick="DB.audit=[];save();renderAudit()">Limpar</button></div>
     <div class="card"><div class="card-body"><div class="audit-log" id="auditLog"></div></div></div>
   </div>
 
@@ -5234,7 +5238,7 @@ function showSection(name){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   const sec=document.getElementById('sec-'+name);if(sec)sec.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.s===name)});
-  const titles={dashboard:'Painel',ordens:'Ordens de Servico',pdv:'PDV / Caixa',tarefas:'Tarefas',servicos:'Servicos',produtos:'Produtos / Estoque',clientes:'Clientes (CRM)',pipeline:'Pipeline de Vendas',interacoes:'Historico de Interacoes',agendamentos:'Agendamentos',contratos:'Contratos e Assinaturas',fornecedores:'Fornecedores',compras:'Compras',financeiro:'Financeiro',contas:'Contas a Pagar e Receber',relatorios:'Relatorios Avancados',automacao:'Automacao e Campanhas',checklists:'Checklists',funcionarios:'Funcionarios',usuarios:'Usuarios do Sistema',config:'Configuracoes',personalizacao:'Personalizacao Avancada',auditoria:'Auditoria',ia:'Central de IA',manual:'Manual do Usuario','os-online':'OS Online',previsao:'Previsao Financeira','agenda-extra':'Compromissos',alertas:'Alertas'};
+  const titles={dashboard:'Painel',ordens:'Ordens de Servico',pdv:'PDV / Caixa',tarefas:'Tarefas',servicos:'Servicos',produtos:'Produtos / Estoque',clientes:'Clientes (CRM)',pipeline:'Pipeline de Vendas',interacoes:'Historico de Interacoes',agendamentos:'Agendamentos',contratos:'Contratos e Assinaturas',fornecedores:'Fornecedores',compras:'Compras',financeiro:'Financeiro',contas:'Contas a Pagar e Receber',relatorios:'Relatorios Avancados',automacao:'Automacao e Campanhas',checklists:'Checklists',funcionarios:'Funcionarios',usuarios:'Usuarios do Sistema',config:'Configuracoes',personalizacao:'Personalizacao Avancada',historicos:'Historicos',ia:'Central de IA',manual:'Manual do Usuario','os-online':'OS Online',previsao:'Previsao Financeira','agenda-extra':'Compromissos',alertas:'Alertas'};
   document.getElementById('headerTitle').textContent=titles[name]||name;
   document.getElementById('bcSection').textContent=titles[name]||name;
   document.getElementById('sidebar').classList.remove('open');
@@ -5263,7 +5267,7 @@ function renderSection(name){
     case'relatorios':renderRelatorios();break;
     case'automacao':renderCampanhas();renderSegmentation();renderCampaignSuggestions();break;
     case'checklists':if(!document.getElementById('chk-data').value)document.getElementById('chk-data').value=today();renderChecklistHistory();chkUpdateProgress();break;
-    case'auditoria':renderAudit();break;
+    case'historicos':renderAudit();break;
     case'config':loadConfig();break;
     case'personalizacao':renderPersonalizacao();break;
     case'ia':renderIA();break;
@@ -12296,6 +12300,32 @@ function savePersonalizacao(){
   toast('Configuracoes salvas com sucesso!','success');
   addAudit('Personalizacao salva');
 }
+function resetAccentColor(){previewAccentColor('#06b6d4');toast('Cor restaurada','info')}
+function previewFontSize(v){document.getElementById('fontSizeVal').textContent=v;document.documentElement.style.setProperty('--font-size',v+'px')}
+function previewSidebarWidth(v){document.getElementById('sidebarWidthVal').textContent=v;document.documentElement.style.setProperty('--sidebar-width',v+'px')}
+function previewBorderRadius(v){document.getElementById('borderRadiusVal').textContent=v;document.documentElement.style.setProperty('--rs',v+'px')}
+function previewAnimations(v){document.documentElement.style.setProperty('--trans',v?'0.2s':'0s')}
+function previewCompactMode(v){document.documentElement.style.setProperty('--compact',v?'0.6':'1')}
+function previewCardShadows(v){document.documentElement.style.setProperty('--sh',v?'0 2px 8px rgba(0,0,0,.08)':'none')}
+function previewDarkOverride(v){if(v)document.documentElement.classList.add('force-dark');else document.documentElement.classList.remove('force-dark')}
+function previewGridCols(v){document.documentElement.style.setProperty('--grid-cols',v);document.querySelectorAll('[data-gc]').forEach(function(b){b.className='btn btn-sm '+(b.dataset.gc==v?'btn-primary':'btn-secondary')})}
+function previewCardGap(v){document.getElementById('cardGapVal').textContent=v;document.documentElement.style.setProperty('--card-gap',v+'px')}
+function previewTableHeader(v){document.getElementById('tableHeaderVal').textContent=v;document.documentElement.style.setProperty('--th-height',v+'px')}
+function previewBreadcrumb(v){var el=document.querySelector('.breadcrumb');if(el)el.style.display=v?'':'none'}
+function previewFooter(v){var el=document.querySelector('.dash-footer');if(el)el.style.display=v?'':'none'}
+function previewSidebarCompact(v){document.documentElement.classList.toggle('sidebar-compact',v)}
+function previewTableCompact(v){document.documentElement.classList.toggle('table-compact',v)}
+function previewFontFamily(v){document.documentElement.style.setProperty('--font-family',v)}
+function previewCustomTheme(){savePersonalizacao();toast('Visualizando tema...','info')}
+function saveCustomTheme(){savePersonalizacao();toast('Tema salvo!','success')}
+function exportCustomTheme(){var j=JSON.stringify(PERSONALIZACAO,null,2);var b=new Blob([j],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='tema-infocelll.json';a.click();URL.revokeObjectURL(u);toast('Tema exportado','success')}
+function exportAllSettings(){exportCustomTheme()}
+function importAllSettings(){var el=document.getElementById('importArea');if(el)el.style.display=el.style.display==='none'?'':'none'}
+function applyImportedSettings(){var t=document.getElementById('importText');if(!t||!t.value.trim())return;try{var d=JSON.parse(t.value);Object.assign(PERSONALIZACAO,d);savePersonalizacaoToStorage();applyPersonalizacao();toast('Configuracoes importadas!','success');document.getElementById('importArea').style.display='none'}catch(e){toast('JSON invalido','error')}}
+function applyCustomCode(){var css=document.getElementById('pCustomCSS');var js=document.getElementById('pCustomJS');if(css)PERSONALIZACAO.customCSS=css.value;if(js)PERSONALIZACAO.customJS=js.value;savePersonalizacaoToStorage();applyPersonalizacao();toast('Codigo aplicado!','success')}
+function clearCustomCode(){var css=document.getElementById('pCustomCSS');var js=document.getElementById('pCustomJS');if(css)css.value='';if(js)js.value='';applyCustomCode();toast('Codigo limpo','info')}
+function addCustomShortcut(){toast('Atalho adicionado (configure na aba Atalhos)','info')}
+function closeDashShortcutModal(){closeModal('shortcutEditorModal')}
 function renderPersonalizacao(){
   var P=PERSONALIZACAO;
   var e=function(id,v){var el=document.getElementById(id);if(el){if(el.type==='checkbox')el.checked=!!v;else el.value=v;}};

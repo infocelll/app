@@ -952,7 +952,7 @@ a { color:var(--c1); text-decoration:none; }
     <div class="orb"></div><div class="orb"></div><div class="orb"></div>
   </div>
   <div class="login-box">
-    <div class="login-logo">IC</div>
+    <div class="login-logo"><img src="logo-infocelll.jpg" style="width:100%;height:100%;object-fit:contain;border-radius:inherit"></div>
     <div class="login-title">InfoCell Portal</div>
     <div class="login-sub">Acesse seu painel de serviços</div>
     <div class="login-field">
@@ -981,7 +981,7 @@ a { color:var(--c1); text-decoration:none; }
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-left">
-      <div class="topbar-logo">IC</div>
+      <div class="topbar-logo"><img src="logo-infocelll.jpg" style="width:100%;height:100%;object-fit:contain;border-radius:inherit"></div>
       <div class="topbar-title" id="p_topbarTitle">InfoCell</div>
     </div>
     <div class="topbar-right">
@@ -1704,8 +1704,13 @@ function p_renderNotifs() {
 }
 
 function p_markNotifRead(idx) {
-  var notifs = (p_db.osNotificacoes || []).concat(p_db.portalMessages || []);
-  var sorted = notifs.sort(function(a, b) {
+  var notifs = (p_db.osNotificacoes || []).filter(function(n) {
+    return n.cpf === p_client.cpf || n.clienteId === p_client.id;
+  });
+  var portalMsgs = (p_db.portalMessages || []).filter(function(m) {
+    return m.cpf === p_client.cpf || m.clienteId === p_client.id;
+  });
+  var sorted = notifs.concat(portalMsgs).sort(function(a, b) {
     return new Date(b.data || b.timestamp || 0) - new Date(a.data || a.timestamp || 0);
   });
   if (sorted[idx]) {
@@ -1758,11 +1763,15 @@ function p_updateNotifPrefsUI() {
 
 function p_updateTopbar() {
   if (!p_client) return;
-  var notifs = (p_db.osNotificacoes || []).filter(function(n) {
+  var osNotifs = (p_db.osNotificacoes || []).filter(function(n) {
     return (n.cpf === p_client.cpf || n.clienteId === p_client.id) && !n.lido && !n.read;
   });
+  var portalMsgs = (p_db.portalMessages || []).filter(function(m) {
+    return (m.cpf === p_client.cpf || m.clienteId === p_client.id) && !m.lido && !m.read;
+  });
+  var count = osNotifs.length + portalMsgs.length;
   var badge = document.getElementById('p_notifBadge');
-  if (notifs.length > 0) { badge.style.display = 'flex'; badge.textContent = notifs.length; }
+  if (count > 0) { badge.style.display = 'flex'; badge.textContent = count; }
   else { badge.style.display = 'none'; }
 }
 
