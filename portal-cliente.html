@@ -1336,7 +1336,6 @@ a { color:var(--c1); text-decoration:none; }
 
 <!-- ==================== JAVASCRIPT ==================== -->
 <script>
-(function() {
 "use strict";
 
 /* ==================== CONSTANTS ==================== */
@@ -3253,14 +3252,6 @@ window.addEventListener('storage', function(e) {
   }
 });
 
-window.p_login = p_login;
-window.p_logout = p_logout;
-window.p_navTo = p_navTo;
-window.p_toggleHamburger = p_toggleHamburger;
-window.p_toggleNotif = p_toggleNotif;
-window.p_acceptLgpd = p_acceptLgpd;
-window.p_showPrivacyPolicy = p_showPrivacyPolicy;
-
 /* ==================== LGPD + PORTAL SECURITY ==================== */
 function p_maskCPF(cpf) {
   var d = (cpf || '').replace(/\D/g, '');
@@ -3586,6 +3577,7 @@ window.p_toggleTheme = function() {
 };
 
 /* ==================== INIT ==================== */
+try {
 p_initTheme();
 p_initLogin();
 if (!p_checkSession()) {
@@ -3594,6 +3586,7 @@ if (!p_checkSession()) {
 p_checkLgpdConsent();
 p_sessionTimeout();
 p_initPWANotifs();
+} catch(initErr) { console.error('[Portal Init Error]', initErr); }
 
 /* ==================== PWA MANIFEST (inline) ==================== */
 try {
@@ -3637,7 +3630,6 @@ window.p_rateGoogle = function() {
   });
 };
 
-})();
 </script>
 </body>
 </html>
