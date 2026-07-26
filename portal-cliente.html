@@ -775,8 +775,7 @@ a { color:var(--c1); text-decoration:none; }
 .warranty-card .wc-days{font-size:12px;font-weight:600;margin-top:4px}
 
 /* ============ SOS BUTTON ============ */
-.sos-fab{position:fixed;bottom:80px;right:20px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;box-shadow:0 4px 20px rgba(220,38,38,.4);z-index:50;animation:pulse 2s infinite;cursor:pointer;border:none;transition:var(--tr)}
-.sos-fab:hover{transform:scale(1.1)}
+
 
 /* ============ BETTER OS DETAIL ============ */
 .os-detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
@@ -1180,6 +1179,7 @@ a { color:var(--c1); text-decoration:none; }
       <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;font-weight:800;color:#fff">IC</div>
       <div style="font-size:18px;font-weight:700;margin-bottom:4px">InfoCell</div>
       <div style="font-size:13px;color:var(--txt3)">Assistencia Tecnica Especializada</div>
+      <div id="p_lojaInfo"></div>
     </div>
     <div class="card">
       <div class="card-title">📍 Endereco</div>
@@ -1310,9 +1310,6 @@ a { color:var(--c1); text-decoration:none; }
     <button class="btn btn-outline" style="font-size:11px;padding:6px 10px" onclick="p_pwaDismiss()">✕</button>
   </div>
 
-  <!-- SOS BUTTON -->
-  <button class="sos-fab" onclick="p_openWhatsAppSOS()" title="SOS - Emergencia WhatsApp">SOS</button>
-
   <!-- ==================== BOTTOM NAV ==================== -->
   <div class="bottom-nav">
     <div class="nav-items">
@@ -1357,14 +1354,17 @@ var p_sessionLogKey = 'ic_portal_session_log';
 var MAX_LOGIN_ATTEMPTS = 5;
 var LOCKOUT_DURATION = 15 * 60 * 1000;
 
-var STAGES = ['recebido','cadastrado','diagnostico','orcamento','aguardando-aprovacao','aprovado','em-manutencao','testes','pronto','entregue'];
-var STAGE_NAMES = ['Recebido','Cadastro','Diagnostico','Orcamento','Aguardando Aprovacao','Aprovado','Em Manutencao','Testes Finais','Pronto para Retirada','Entregue'];
-var STAGE_ICONS = ['📦','📝','🔍','💰','⏳','✅','🔧','🧪','🔔','🚚'];
+var STAGES = ['recebido','recebida','cadastrado','diagnostico','em-diagnostico','orcamento','aguardando-aprovacao','aprovado','em-manutencao','em-reparo','testes','teste','pronto','pronta','entregue'];
+var STAGE_NAMES = ['Recebido','Recebido','Cadastro','Diagnostico','Diagnostico','Orcamento','Aguardando Aprovacao','Aprovado','Em Manutencao','Em Reparo','Testes Finais','Teste','Pronto para Retirada','Pronto','Entregue'];
+var STAGE_ICONS = ['📦','📦','📝','🔍','🔍','💰','⏳','✅','🔧','🔧','🧪','🧪','🔔','🔔','🚚'];
 var STATUS_LABELS = {
-  'recebido': 'Recebido', 'cadastrado': 'Cadastrado', 'diagnostico': 'Em Diagnostico',
+  'recebido': 'Recebido', 'recebida': 'Recebido',
+  'cadastrado': 'Cadastrado', 'diagnostico': 'Em Diagnostico', 'em-diagnostico': 'Em Diagnostico',
   'orcamento': 'Orcamento Criado', 'aguardando-aprovacao': 'Aguardando Aprovacao',
-  'aprovado': 'Aprovado', 'em-manutencao': 'Em Manutencao', 'testes': 'Testes Finais',
-  'pronto': 'Pronto', 'entregue': 'Entregue', 'cancelado': 'Cancelado'
+  'aprovado': 'Aprovado', 'em-manutencao': 'Em Manutencao', 'em-reparo': 'Em Reparo',
+  'testes': 'Testes Finais', 'teste': 'Teste',
+  'pronto': 'Pronto', 'pronta': 'Pronto',
+  'entregue': 'Entregue', 'cancelado': 'Cancelado'
 };
 var STATUS_LABELS_FULL = STATUS_LABELS;
 
@@ -1582,6 +1582,7 @@ function p_checkSession() {
     p_client = client;
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
+    p_initApp();
     return true;
   } catch (e) { return false; }
 }
