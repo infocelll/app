@@ -186,12 +186,6 @@ a { color:var(--c1); text-decoration:none; }
   color:var(--txt2); transition:var(--tr); font-size:18px;
 }
 .topbar-btn:hover { background:var(--bg4); color:var(--c1); }
-.notif-badge {
-  position:absolute; top:-2px; right:-2px; width:18px; height:18px;
-  border-radius:50%; background:var(--red); color:#fff; font-size:10px;
-  display:flex; align-items:center; justify-content:center; font-weight:700;
-  animation: glowBadge 2s infinite;
-}
 .hamburger-lines { display:flex; flex-direction:column; gap:3px; }
 .hamburger-lines span { display:block; width:16px; height:2px; background:currentColor; border-radius:1px; transition:var(--tr); }
 
@@ -541,43 +535,12 @@ a { color:var(--c1); text-decoration:none; }
 .notif-empty { text-align:center; color:var(--txt3); padding:40px 0; font-size:14px; }
 .notif-prefs{padding:12px;background:var(--bg3);border-radius:var(--r);margin:12px 0}
 .notif-prefs-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--txt2)}
-.notif-toggle{width:40px;height:22px;border-radius:11px;background:var(--bg4);cursor:pointer;position:relative;transition:var(--tr);border:none;flex-shrink:0}
+.toggle{cursor:pointer;position:relative;transition:var(--tr);border:none;flex-shrink:0}
+.toggle::after{content:'';position:absolute;border-radius:50%;background:#fff;transition:var(--tr)}
+.notif-toggle{width:40px;height:22px;border-radius:11px;background:var(--bg4)}
 .notif-toggle.on{background:var(--c1)}
-.notif-toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:var(--tr)}
+.notif-toggle::after{top:3px;left:3px;width:16px;height:16px}
 .notif-toggle.on::after{left:21px}
-
-/* ============ CHAT ============ */
-.chat-container{display:flex;flex-direction:column;height:calc(100vh - 180px);min-height:300px}
-.chat-messages{flex:1;overflow-y:auto;padding:12px 0;display:flex;flex-direction:column;gap:8px}
-.chat-msg{max-width:80%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;position:relative;animation:fadeIn .2s ease}
-.chat-msg.client{align-self:flex-end;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border-bottom-right-radius:4px}
-.chat-msg.support{align-self:flex-start;background:var(--bg3);border:1px solid var(--brd);border-bottom-left-radius:4px}
-.chat-msg .msg-author{font-size:10px;font-weight:600;margin-bottom:2px;opacity:.8}
-.chat-msg .msg-text{word-break:break-word}
-.chat-msg .msg-time{font-size:9px;opacity:.6;margin-top:4px;text-align:right}
-.chat-msg .msg-status{font-size:9px;opacity:.6;margin-top:2px;display:flex;align-items:center;gap:4px}
-.chat-msg .msg-reply{font-size:11px;padding:6px 10px;border-radius:8px;margin-bottom:6px;background:rgba(0,0,0,.15);border-left:2px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);cursor:pointer}
-.chat-msg.support .msg-reply{background:rgba(6,182,212,.08);border-left-color:var(--c1);color:var(--txt3)}
-.chat-typing{align-self:flex-start;padding:8px 16px;background:var(--bg3);border-radius:16px;font-size:12px;color:var(--txt3);display:none;animation:pulse 1s infinite}
-.chat-typing.active{display:flex;gap:4px;align-items:center}
-.chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--txt3);animation:bounceIn .6s infinite}
-.chat-typing span:nth-child(2){animation-delay:.15s}
-.chat-typing span:nth-child(3){animation-delay:.3s}
-.chat-input{display:flex;gap:8px;padding:12px 0;border-top:1px solid var(--brd);align-items:flex-end}
-.chat-input input{flex:1;padding:10px 14px;border-radius:20px;border:1px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:13px;transition:var(--tr);max-height:80px;overflow-y:auto}
-.chat-input input:focus{border-color:var(--c1);outline:none}
-.chat-input button{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:var(--tr)}
-.chat-input button:hover{transform:scale(1.05)}
-.chat-input button:active{transform:scale(.95)}
-.chat-date-divider{text-align:center;font-size:10px;color:var(--txt3);padding:8px 0;position:relative}
-.chat-date-divider::before,.chat-date-divider::after{content:'';position:absolute;top:50%;width:calc(50% - 40px);height:1px;background:var(--brd)}
-.chat-date-divider::before{left:0}
-.chat-date-divider::after{right:0}
-.chat-empty{text-align:center;padding:40px 20px;color:var(--txt3)}
-.chat-empty .ce-icon{font-size:48px;margin-bottom:12px;opacity:.4}
-.chat-empty p{font-size:14px;margin-bottom:4px}
-.chat-empty .ce-sub{font-size:12px;opacity:.7}
-#page-chat{padding-bottom:20px!important}
 
 /* ============ KANBAN ============ */
 .kanban-toggle{display:flex;gap:0;margin-bottom:16px;border-radius:var(--r);overflow:hidden;border:1px solid var(--brd)}
@@ -633,10 +596,10 @@ a { color:var(--c1); text-decoration:none; }
 .sec-info{flex:1}
 .sec-info h4{font-size:13px;font-weight:600;margin-bottom:2px}
 .sec-info p{font-size:11px;color:var(--txt3)}
-.sec-toggle{width:44px;height:24px;border-radius:12px;cursor:pointer;position:relative;transition:var(--tr)}
+.sec-toggle{width:44px;height:24px;border-radius:12px}
 .sec-toggle.on{background:var(--grn)}
 .sec-toggle.off{background:var(--txt3)}
-.sec-toggle::after{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:2px;transition:var(--tr)}
+.sec-toggle::after{width:20px;height:20px;top:2px}
 .sec-toggle.on::after{left:22px}
 .sec-toggle.off::after{left:2px}
 .sec-log{max-height:200px;overflow-y:auto}
@@ -798,9 +761,10 @@ a { color:var(--c1); text-decoration:none; }
 .receipt-footer{text-align:center;margin-top:16px;font-size:11px;color:var(--txt3)}
 
 /* ============ GARANTIA ============ */
-.warranty-active{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(16,185,129,.15);color:var(--grn)}
-.warranty-expiring{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(245,158,11,.15);color:var(--org);animation:glowBadge 2s infinite}
-.warranty-expired{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(239,68,68,.15);color:var(--red)}
+.warranty-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.warranty-active{background:rgba(16,185,129,.15);color:var(--grn)}
+.warranty-expiring{background:rgba(245,158,11,.15);color:var(--org);animation:glowBadge 2s infinite}
+.warranty-expired{background:rgba(239,68,68,.15);color:var(--red)}
 .warranty-card{padding:12px;background:var(--bg3);border-radius:var(--r);margin-bottom:8px;border-left:3px solid var(--grn);transition:var(--tr)}
 .warranty-card.expiring{border-left-color:var(--org)}
 .warranty-card.expired{border-left-color:var(--red);opacity:.7}
@@ -923,9 +887,6 @@ a { color:var(--c1); text-decoration:none; }
   </div>
   <div class="hamburger-item" onclick="p_toggleTheme();p_toggleHamburger()">
     <div class="icon" id="p_hambThemeIcon">🌙</div><span id="p_hambThemeLabel">Modo Escuro</span>
-  </div>
-  <div class="hamburger-item" onclick="p_navTo('chat');p_toggleHamburger()">
-    <div class="icon">💬</div><span>Chat com Suporte</span>
   </div>
   <div class="hamburger-item" onclick="p_viewSessionLog();p_toggleHamburger()">
     <div class="icon">🔒</div><span>Historico de Sessao</span>
@@ -1079,14 +1040,6 @@ a { color:var(--c1); text-decoration:none; }
           <div class="dash-card-title">Garantias</div>
           <div class="dash-card-num" id="p_statGarantia">0</div>
           <div class="dash-card-sub">ativas</div>
-        </div>
-      </div>
-      <div class="dash-card" onclick="p_navTo('chat')">
-        <div class="dash-card-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">💬</div>
-        <div class="dash-card-info">
-          <div class="dash-card-title">Atendimento</div>
-          <div class="dash-card-num" id="p_statMsg">0</div>
-          <div class="dash-card-sub">mensagens</div>
         </div>
       </div>
     </div>
@@ -1299,27 +1252,6 @@ a { color:var(--c1); text-decoration:none; }
     <div id="p_reciboList"></div>
   </div>
 
-  <!-- ==================== PAGE: CHAT ==================== -->
-  <div class="page" id="page-chat">
-    <div class="section-title">💬 Chat com Suporte</div>
-    <div class="chat-container">
-      <div class="chat-messages" id="p_chatMessages">
-        <div class="chat-empty">
-          <div class="ce-icon">💬</div>
-          <p>Inicie uma conversa</p>
-          <p class="ce-sub">Envie duvidas, solicite informacoes ou acompanhe seu atendimento</p>
-        </div>
-      </div>
-      <div class="chat-typing" id="p_chatTyping">
-        <span></span><span></span><span></span> Digitando...
-      </div>
-      <div class="chat-input">
-        <input type="text" id="p_chatInput" placeholder="Digite sua mensagem..." onkeydown="if(event.key==='Enter')p_sendChatMsg()">
-        <button onclick="p_sendChatMsg()">➤</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ==================== PAGE: EQUIPAMENTOS ==================== -->
   <div class="page" id="page-equipamentos">
     <div class="section-title">📱 Meus Equipamentos</div>
@@ -1364,7 +1296,7 @@ a { color:var(--c1); text-decoration:none; }
       <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" onclick="p_notifMarkAllRead()">✓ Marcar todas como lidas</button>
       <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" onclick="p_notifClearAll()">🗑 Limpar</button>
     </div>
-    <div id="p_notifList" class="notif-list"></div>
+    <div id="p_notifPageList" class="notif-list"></div>
   </div>
 
   <!-- PWA Install Banner -->
@@ -1486,6 +1418,9 @@ function p_fmtPhone(v) {
 function p_unmask(v) { return (v || '').replace(/\D/g, ''); }
 function p_safeName(v) { return (v && v !== 'undefined' && v !== 'null') ? v : 'Cliente'; }
 function p_safe(v, fb) { return (v !== undefined && v !== null && v !== '') ? v : (fb || '-'); }
+function p_findOS(id) { p_loadDB(); for (var i = 0; i < (p_db.os || []).length; i++) { if (String(p_db.os[i].id) === String(id)) return p_db.os[i]; } return null; }
+function p_openWA(msg) { window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank'); }
+function p_clientName() { return p_client ? p_safeName(p_client.nome) : 'Cliente'; }
 
 function p_toast(msg, type) {
   var c = document.getElementById('p_toasts');
@@ -1618,7 +1553,7 @@ window.p_recoverPin = function() {
   var cpfRaw = p_unmask(document.getElementById('p_cpfInput').value);
   if (cpfRaw.length !== 11) { p_toast('Informe seu CPF primeiro', 'error'); return; }
   var msg = 'Solicito recuperacao de PIN do Portal InfoCell.\nCPF: ' + p_fmtCPF(cpfRaw) + '\nData: ' + p_fmtDateTime(new Date().toISOString());
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  p_openWA(msg);
   p_toast('Solicite a recuperacao via WhatsApp', 'info');
 };
 
@@ -1691,7 +1626,7 @@ function p_navTo(page) {
   var titles = {
     home: 'InfoCell', os: 'Minhas OS', orcamento: 'Orcamentos',
     catalogo: 'Catalogo', perfil: 'Perfil', historico: 'Historico', agendar: 'Agendar',
-    loja: 'Nossa Loja', fidelidade: 'Fidelidade', recibo: 'Recibos', chat: 'Chat',
+    loja: 'Nossa Loja', fidelidade: 'Fidelidade', recibo: 'Recibos',
     equipamentos: 'Equipamentos', pagamentos: 'Pagamentos', garantias: 'Garantias',
     seguranca: 'Seguranca', notificacoes: 'Notificacoes'
   };
@@ -1705,7 +1640,6 @@ function p_navTo(page) {
   if (page === 'loja') p_renderLoja();
   if (page === 'fidelidade') p_renderFidelidade();
   if (page === 'recibo') p_renderRecibos();
-  if (page === 'chat') p_renderChat();
   if (page === 'equipamentos') p_renderEquipamentos();
   if (page === 'pagamentos') p_renderPagamentos();
   if (page === 'garantias') p_renderGarantiasPage();
@@ -1855,7 +1789,7 @@ function p_renderOSCard(o) {
     '<div class="os-device">' + p_escH(o.aparelho || 'Aparelho') + '</div>' +
     '<div class="os-desc">' + p_escH(o.defeito || o.descricao || 'Sem descricao') + '</div>' +
     '<div class="os-footer">' +
-      '<span class="badge ' + o.status + '"><span class="badge-dot"></span>' + (sl[o.status] || o.status) + '</span>' +
+      '<span class="badge ' + p_escH(o.status || '') + '"><span class="badge-dot"></span>' + p_safeName(sl[o.status] || o.status) + '</span>' +
       (o.valor ? '<span class="os-valor">' + p_fmt$(o.valor) + '</span>' : '') +
     '</div>' +
   '</div>';
@@ -1891,9 +1825,6 @@ function p_renderHome() {
   var pags = myOS.filter(function(o) { return o.status === 'pronto' || o.status === 'entregue'; }).length;
   var pagsPend = myOS.filter(function(o) { return o.valor && o.status !== 'cancelado' && !o.pagamentoConfirmado; }).length;
   document.getElementById('p_statPag').textContent = pagsPend;
-
-  var chatMsgs = p_getChatMessages().filter(function(m) { return m.role === 'support'; }).length;
-  document.getElementById('p_statMsg').textContent = chatMsgs;
 
   document.getElementById('p_statPontos').textContent = p_client.fidelidadePontos || 0;
   var coupons = JSON.parse(localStorage.getItem('ic_portal_coupons') || '[]');
@@ -1954,8 +1885,8 @@ function p_renderWarrantyAlerts() {
 }
 
 window.p_whatsappWarranty = function(osId, aparelho) {
-  var msg = 'Ola! Gostaria de informacoes sobre a garantia da OS #' + osId + ' (' + aparelho + ').\nCliente: ' + p_safeName(p_client && p_client.nome) + '\nVia Portal InfoCell';
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Ola! Gostaria de informacoes sobre a garantia da OS #' + osId + ' (' + aparelho + ').\nCliente: ' + p_clientName() + '\nVia Portal InfoCell';
+  p_openWA(msg);
 };
 
 /* ==================== OS LIST ==================== */
@@ -2023,11 +1954,7 @@ function p_renderOS() {
 
 /* ==================== OS DETAIL ==================== */
 window.p_showOSDetail = function(id) {
-  p_loadDB();
-  var os = null;
-  for (var i = 0; i < (p_db.os || []).length; i++) {
-    if (String(p_db.os[i].id) === String(id)) { os = p_db.os[i]; break; }
-  }
+  var os = p_findOS(id);
   if (!os) return;
 
   var currentIdx = STAGES.indexOf(os.status);
@@ -2077,7 +2004,7 @@ window.p_showOSDetail = function(id) {
       '<div class="card-header">' +
         '<div><div style="font-size:13px;color:var(--c1);font-weight:600;font-family:monospace">#' + p_escH(String(os.id)) + '</div>' +
         '<div style="font-size:18px;font-weight:700;margin-top:4px">' + p_escH(os.aparelho || 'Aparelho') + '</div></div>' +
-        '<span class="badge ' + os.status + '"><span class="badge-dot"></span>' + (STATUS_LABELS[os.status] || os.status) + '</span>' +
+        '<span class="badge ' + p_escH(os.status || '') + '"><span class="badge-dot"></span>' + p_safeName(STATUS_LABELS[os.status] || os.status) + '</span>' +
       '</div>' +
     '</div>' +
     '<div class="card">' +
@@ -2093,7 +2020,7 @@ window.p_showOSDetail = function(id) {
     '<div class="card">' +
       '<div class="card-title">ℹ️ Detalhes</div>' +
       '<div class="orc-info-row"><span>Defeito</span><span>' + p_escH(os.defeito || '-') + '</span></div>' +
-      '<div class="orc-info-row"><span>Telefone</span><span>' + p_escH(p_fmtPhone(os.telefone || p_client.telefone || '')) + '</span></div>' +
+      '<div class="orc-info-row"><span>Telefone</span><span>' + p_escH(p_fmtPhone(os.telefone || (p_client && p_client.telefone) || '')) + '</span></div>' +
       '<div class="orc-info-row"><span>Tecnico</span><span>' + p_escH(os.tecnico || 'A definir') + '</span></div>' +
       '<div class="orc-info-row"><span>Data de Entrada</span><span>' + p_fmtDate(os.data) + '</span></div>' +
       (os.dataPreferida ? '<div class="orc-info-row"><span>Data Preferida</span><span>' + p_fmtDate(os.dataPreferida) + (os.horaPreferida ? ' as ' + os.horaPreferida : '') + '</span></div>' : '') +
@@ -2105,7 +2032,8 @@ window.p_showOSDetail = function(id) {
     '</div>' +
     '<div style="display:flex;gap:10px;margin-top:4px">' +
       '<button class="btn btn-whatsapp" style="flex:1" onclick="p_openWhatsAppOS(\'' + p_escH(os.id) + '\',\'' + p_escH(os.aparelho || '') + '\')">💬 Status OS</button>' +
-      '<button class="btn btn-outline" style="flex:1" onclick="window.print()">🖨️ Imprimir</button>' +
+      '<button class="btn btn-outline" style="flex:1" onclick="p_printOS(\'' + p_escH(os.id) + '\')">🖨️ Imprimir</button>' +
+      '<button class="btn btn-outline" style="flex:1" onclick="p_downloadOSPDF(\'' + p_escH(os.id) + '\')">📄 PDF</button>' +
     '</div>' +
     '<div style="display:flex;gap:10px;margin-top:8px">' +
       '<button class="btn btn-whatsapp" style="flex:1;font-size:11px;padding:8px" onclick="p_shareOSLink(\'' + p_escH(os.id) + '\',\'whatsapp\')">📤 Enviar Link (WhatsApp)</button>' +
@@ -2118,8 +2046,8 @@ window.p_showOSDetail = function(id) {
       '<div class="card-title">💬 Comentarios</div>' +
       '<div id="p_osComments">' + p_renderOSComments(os) + '</div>' +
       '<div style="display:flex;gap:8px;margin-top:8px">' +
-        '<input type="text" id="p_commentInput" placeholder="Adicionar comentario..." style="flex:1;padding:10px 12px;border-radius:var(--r);border:1px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:13px" onkeydown="if(event.key===\'Enter\')p_addOSComment(\'' + p_escH(os.id) + '\')">' +
-        '<button class="btn btn-whatsapp" style="padding:10px 16px;font-size:13px" onclick="p_addOSComment(\'' + p_escH(os.id) + '\')">Adicionar</button>' +
+        '<input type="text" id="p_commentInput" placeholder="Adicionar comentario..." style="flex:1;padding:10px 12px;border-radius:var(--r);border:1px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:13px" data-os-id="' + p_escH(String(os.id)) + '" onkeydown="if(event.key===\'Enter\')window.p_addOSComment(this.dataset.osId)">' +
+        '<button class="btn btn-whatsapp" style="padding:10px 16px;font-size:13px" onclick="window.p_addOSComment(document.getElementById(\'p_commentInput\').dataset.osId)">Adicionar</button>' +
       '</div>' +
     '</div>' +
     '<div class="card" style="margin-top:12px">' +
@@ -2131,7 +2059,7 @@ window.p_showOSDetail = function(id) {
           for (var i = 0; i < 5; i++) stars += i < r.rating ? '&#9733;' : '&#9734;';
           return '<div style="text-align:center;padding:8px 0">' +
             '<div style="font-size:24px;color:var(--org)">' + stars + '</div>' +
-            '<div style="font-size:13px;color:var(--txt2);margin-top:4px">' + p_ratingLabels[r.rating] + '</div>' +
+            '<div style="font-size:13px;color:var(--txt2);margin-top:4px">' + (p_ratingLabels[r.rating] || p_safeName(String(r.rating))) + '</div>' +
             (r.comment ? '<div style="font-size:12px;color:var(--txt3);margin-top:4px;font-style:italic">"' + p_escH(r.comment) + '"</div>' : '') +
             '<div style="font-size:11px;color:var(--txt3);margin-top:4px">' + p_fmtDate(r.date) + '</div>' +
           '</div>';
@@ -2167,18 +2095,15 @@ function p_renderOSComments(os) {
 
 window.p_addOSComment = function(osId) {
   var input = document.getElementById('p_commentInput');
-  if (!input) return;
+  if (!input) { p_toast('Campo de comentario nao encontrado', 'error'); return; }
   var text = (input.value || '').trim();
   if (!text) { p_toast('Digite um comentario', 'error'); return; }
-  var os = null;
-  for (var i = 0; i < (p_db.os || []).length; i++) {
-    if (String(p_db.os[i].id) === String(osId)) { os = p_db.os[i]; break; }
-  }
-  if (!os) return;
+  var os = p_findOS(osId);
+  if (!os) { p_toast('OS nao encontrada', 'error'); return; }
   if (!os.comentarios) os.comentarios = [];
   os.comentarios.push({
     text: text,
-    author: p_safeName(p_client && p_client.nome),
+    author: p_clientName(),
     ts: new Date().toISOString()
   });
   p_saveDB();
@@ -2188,13 +2113,63 @@ window.p_addOSComment = function(osId) {
   p_toast('Comentario adicionado!', 'success');
 };
 
+/* ==================== PRINT & PDF ==================== */
+window.p_printOS = function(osId) {
+  var os = p_findOS(osId);
+  if (!os) { p_toast('OS nao encontrada', 'error'); return; }
+  var sl = STATUS_LABELS || {};
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>OS #' + p_escH(String(os.id)) + '</title>' +
+    '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;font-size:12px;padding:20px;color:#333}' +
+    'h1{font-size:18px;color:#14b8a6;border-bottom:2px solid #14b8a6;padding-bottom:8px;margin-bottom:12px}' +
+    '.row{display:flex;gap:16px;margin-bottom:8px}.row>div{flex:1}' +
+    '.label{font-weight:700;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:2px}' +
+    '.val{font-size:12px;border-bottom:1px solid #eee;padding-bottom:6px}' +
+    '.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;background:#e0f2fe;color:#0369a1}' +
+    '.footer{margin-top:24px;border-top:1px solid #ddd;padding-top:12px;text-align:center;font-size:10px;color:#888}' +
+    '</style></head><body>' +
+    '<h1>INFOCELL - OS #' + p_escH(String(os.id)) + '</h1>' +
+    '<div class="row"><div><div class="label">Cliente</div><div class="val">' + p_escH(os.cliente || os.clienteNome || '-') + '</div></div>' +
+    '<div><div class="label">Telefone</div><div class="val">' + p_escH(p_fmtPhone(os.telefone || (p_client && p_client.telefone) || '')) + '</div></div></div>' +
+    '<div class="row"><div><div class="label">Aparelho</div><div class="val">' + p_escH((os.aparelho || '') + ' ' + (os.marca || '') + ' ' + (os.modelo || '')) + '</div></div>' +
+    '<div><div class="label">Status</div><div class="val"><span class="badge">' + p_escH(sl[os.status] || os.status || '-') + '</span></div></div></div>' +
+    '<div class="row"><div><div class="label">Defeito</div><div class="val">' + p_escH(os.defeito || '-') + '</div></div></div>' +
+    '<div class="row"><div><div class="label">Tecnico</div><div class="val">' + p_escH(os.tecnico || 'A definir') + '</div></div>' +
+    '<div><div class="label">Data</div><div class="val">' + p_fmtDate(os.data) + '</div></div></div>' +
+    (os.valor ? '<div class="row"><div><div class="label">Valor</div><div class="val" style="font-size:16px;font-weight:700;color:#14b8a6">' + p_fmt$(os.valor) + '</div></div></div>' : '') +
+    '<div class="footer">InfoCell - Assistencia Tecnica | Av. Fagundes Varela, 380 - Loja 11 | (81) 98733-2162</div>' +
+    '</body></html>';
+  var w = window.open('', '_blank');
+  if (w) { w.document.write(html); w.document.close(); setTimeout(function() { w.print(); }, 300); }
+  else p_toast('Bloqueado pelo navegador. Permita pop-ups.', 'error');
+};
+
+window.p_downloadOSPDF = function(osId) {
+  var os = p_findOS(osId);
+  if (!os) { p_toast('OS nao encontrada', 'error'); return; }
+  if (typeof html2pdf === 'undefined') { p_printOS(osId); return; }
+  var sl = STATUS_LABELS || {};
+  var el = document.createElement('div');
+  el.style.cssText = 'font-family:Arial,sans-serif;font-size:12px;padding:20px;color:#333;background:#fff;width:210mm';
+  el.innerHTML = '<h1 style="font-size:18px;color:#14b8a6;border-bottom:2px solid #14b8a6;padding-bottom:8px;margin-bottom:12px">INFOCELL - OS #' + p_escH(String(os.id)) + '</h1>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">' +
+    '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Cliente</div><div>' + p_escH(os.cliente || os.clienteNome || '-') + '</div></div>' +
+    '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Telefone</div><div>' + p_escH(p_fmtPhone(os.telefone || (p_client && p_client.telefone) || '')) + '</div></div>' +
+    '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Aparelho</div><div>' + p_escH((os.aparelho || '') + ' ' + (os.marca || '')) + '</div></div>' +
+    '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Status</div><div style="display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;background:#e0f2fe;color:#0369a1">' + p_escH(sl[os.status] || os.status || '-') + '</div></div>' +
+    '<div style="grid-column:1/-1"><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Defeito</div><div>' + p_escH(os.defeito || '-') + '</div></div>' +
+    '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Tecnico</div><div>' + p_escH(os.tecnico || 'A definir') + '</div></div>' +
+    '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Data</div><div>' + p_fmtDate(os.data) + '</div></div>' +
+    (os.valor ? '<div><div style="font-weight:700;font-size:10px;color:#888;text-transform:uppercase">Valor</div><div style="font-size:16px;font-weight:700;color:#14b8a6">' + p_fmt$(os.valor) + '</div></div>' : '') +
+    '</div>' +
+    '<div style="margin-top:24px;border-top:1px solid #ddd;padding-top:12px;text-align:center;font-size:10px;color:#888">InfoCell - Assistencia Tecnica | Av. Fagundes Varela, 380 - Loja 11 | (81) 98733-2162</div>';
+  document.body.appendChild(el);
+  html2pdf().set({margin:10,filename:'OS-' + p_escH(String(os.id)) + '.pdf',html2canvas:{scale:2,backgroundColor:'#fff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(el).save().then(function(){document.body.removeChild(el);p_toast('PDF gerado!','success')}).catch(function(err){document.body.removeChild(el);p_toast('Erro ao gerar PDF','error')});
+};
+
 /* ==================== SHARE OS LINK ==================== */
 window.p_shareOSLink = function(osId, via) {
   var link = window.location.origin + window.location.pathname + '?os=' + encodeURIComponent(osId);
-  var os = null;
-  for (var i = 0; i < (p_db.os || []).length; i++) {
-    if (String(p_db.os[i].id) === String(osId)) { os = p_db.os[i]; break; }
-  }
+  var os = p_findOS(osId);
   var device = os ? (os.aparelho || 'aparelho') : 'aparelho';
   var status = os ? (STATUS_LABELS[os.status] || os.status) : '';
   var desc = os ? (os.defeito || '') : '';
@@ -2271,10 +2246,7 @@ function p_renderOrcamento() {
 }
 
 window.p_aprovarOS = function(id, approve) {
-  var os = null;
-  for (var i = 0; i < (p_db.os || []).length; i++) {
-    if (String(p_db.os[i].id) === String(id)) { os = p_db.os[i]; break; }
-  }
+  var os = p_findOS(id);
   if (!os) return;
 
   var noteEl = document.getElementById('orc-note-' + id);
@@ -2373,8 +2345,8 @@ window.p_filterCatalog = function() {
 };
 
 window.p_interesse = function(name, price) {
-  var msg = 'Ola! Tenho interesse no produto: *' + name + '* (' + price + ')\nVia Portal InfoCell - ' + p_safeName(p_client && p_client.nome);
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Ola! Tenho interesse no produto: *' + name + '* (' + price + ')\nVia Portal InfoCell - ' + p_clientName();
+  p_openWA(msg);
 };
 
 window.p_shareCatalog = function() {
@@ -2383,7 +2355,7 @@ window.p_shareCatalog = function() {
     navigator.share({ title: 'Catalogo InfoCell', text: 'Confira os produtos da InfoCell!', url: window.location.href }).catch(function() {});
   } else {
     var msg = 'Confira o catalogo da InfoCell! ' + window.location.href;
-    window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+    p_openWA(msg);
   }
 };
 
@@ -2405,14 +2377,14 @@ function p_renderProfileFields(editing) {
 
   if (!editing) {
     el.innerHTML =
-      '<div class="profile-field"><div class="icon">👤</div><div class="info"><div class="label">Nome Completo</div><div class="value">' + v(p_client.nome || '-') + '</div></div></div>' +
+      '<div class="profile-field"><div class="icon">👤</div><div class="info"><div class="label">Nome Completo</div><div class="value">' + v(p_safeName(p_client.nome)) + '</div></div></div>' +
       '<div class="profile-field"><div class="icon">📱</div><div class="info"><div class="label">Telefone</div><div class="value">' + v(p_fmtPhone(p_client.telefone || '')) + '</div></div></div>' +
       '<div class="profile-field"><div class="icon">📧</div><div class="info"><div class="label">Email</div><div class="value">' + v(p_client.email || '-') + '</div></div></div>' +
       '<div class="profile-field"><div class="icon">📍</div><div class="info"><div class="label">Endereco</div><div class="value">' + v(p_client.endereco || p_client.address || '-') + '</div></div></div>' +
       '<div class="profile-field"><div class="icon">🏠</div><div class="info"><div class="label">CEP</div><div class="value">' + v(p_client.cep || '-') + '</div></div></div>';
   } else {
     el.innerHTML =
-      '<div class="profile-field"><div class="icon">👤</div><div class="info"><div class="label">Nome Completo</div><input id="p_peNome" value="' + v(p_client.nome || '') + '"></div></div>' +
+      '<div class="profile-field"><div class="icon">👤</div><div class="info"><div class="label">Nome Completo</div><input id="p_peNome" value="' + v(p_safeName(p_client.nome) !== 'Cliente' ? p_client.nome : '') + '"></div></div>' +
       '<div class="profile-field"><div class="icon">📱</div><div class="info"><div class="label">Telefone</div><input id="p_peTel" value="' + v(p_client.telefone || '') + '" inputmode="numeric"></div></div>' +
       '<div class="profile-field"><div class="icon">📧</div><div class="info"><div class="label">Email</div><input id="p_peEmail" type="email" value="' + v(p_client.email || '') + '"></div></div>' +
       '<div class="profile-field"><div class="icon">📍</div><div class="info"><div class="label">Endereco</div><input id="p_peEnd" value="' + v(p_client.endereco || p_client.address || '') + '"></div></div>' +
@@ -2470,7 +2442,7 @@ window.p_saveProfile = function() {
   var endEl = document.getElementById('p_peEnd');
   var cepEl = document.getElementById('p_peCep');
 
-  if (nomeEl) p_db.clientes[idx].nome = nomeEl.value || p_client.nome;
+  if (nomeEl) p_db.clientes[idx].nome = p_safeName(nomeEl.value || p_client.nome);
   if (telEl) p_db.clientes[idx].telefone = telEl.value || p_client.telefone;
   if (emailEl) p_db.clientes[idx].email = emailEl.value || p_client.email;
   if (endEl) p_db.clientes[idx].endereco = endEl.value || p_client.endereco;
@@ -2500,7 +2472,7 @@ function p_renderHistorico() {
     return '<div class="hist-card" onclick="p_showOSDetail(\'' + p_escH(o.id) + '\')">' +
       '<div class="hist-header">' +
         '<div><span class="os-id">#' + p_escH(String(o.id)) + '</span> <span class="hist-device">' + p_escH(o.aparelho || '') + '</span></div>' +
-        '<span class="badge ' + o.status + '"><span class="badge-dot"></span>' + (STATUS_LABELS[o.status] || o.status) + '</span>' +
+        '<span class="badge ' + p_escH(o.status || '') + '"><span class="badge-dot"></span>' + p_safeName(STATUS_LABELS[o.status] || o.status) + '</span>' +
       '</div>' +
       '<div class="hist-details">' +
         '<span>📅 ' + p_fmtDate(o.data) + '</span>' +
@@ -2535,11 +2507,11 @@ window.p_agendar = function() {
   var now = new Date().toISOString();
   var newOS = {
     id: newId,
-    cliente: p_client.id || '',
-    clienteNome: p_client.nome || '',
-    clienteCpf: p_client.cpf || '',
-    cpf: p_client.cpf || '',
-    telefone: p_client.telefone || '',
+    cliente: p_client ? p_client.id || '' : '',
+    clienteNome: p_client ? p_client.nome || '' : '',
+    clienteCpf: p_client ? p_client.cpf || '' : '',
+    cpf: p_client ? p_client.cpf || '' : '',
+    telefone: p_client ? p_client.telefone || '' : '',
     aparelho: aparelho,
     defeito: desc,
     status: 'recebido',
@@ -2580,44 +2552,44 @@ window.p_agendar = function() {
 /* ==================== WHATSAPP ==================== */
 window.p_openWhatsApp = function() {
   p_toggleHamburger(false);
-  var nome = p_safeName(p_client && p_client.nome);
+  var nome = p_clientName();
   var cpf = p_client ? p_fmtCPF(p_unmask(p_client.cpf)) : '';
   var msg = 'Ola! Aqui e ' + nome + ', cliente InfoCell.\nCPF: ' + cpf;
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  p_openWA(msg);
 };
 
 window.p_openWhatsAppOS = function(osId, aparelho) {
   var msg = 'Ola! Gostaria de informacoes sobre minha OS #' + osId + ' (' + aparelho + ').\nVia Portal InfoCell';
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  p_openWA(msg);
 };
 
 window.p_openWhatsAppSOS = function() {
-  var nome = p_safeName(p_client && p_client.nome);
+  var nome = p_clientName();
   var msg = 'URGENTE! Preciso de assistencia urgente!\nCliente: ' + nome + '\nVia Portal InfoCell - Botao SOS';
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  p_openWA(msg);
   p_toast('Mensagem de emergencia enviada!', 'warning');
 };
 
 window.p_whatsappFidelidade = function() {
-  var nome = p_safeName(p_client && p_client.nome);
+  var nome = p_clientName();
   var cpf = p_client ? p_fmtCPF(p_unmask(p_client.cpf)) : '';
   var msg = 'Ola! Gostaria de consultar meus pontos de fidelidade.\nCliente: ' + nome + '\nCPF: ' + cpf;
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  p_openWA(msg);
 };
 
 window.p_whatsappRecibo = function(osId) {
-  var msg = 'Ola! Gostaria de receber o recibo/DAV da OS #' + osId + '.\nCliente: ' + p_safeName(p_client && p_client.nome);
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Ola! Gostaria de receber o recibo/DAV da OS #' + osId + '.\nCliente: ' + p_clientName();
+  p_openWA(msg);
 };
 
 window.p_whatsappAgendar = function() {
-  var msg = 'Ola! Gostaria de agendar um servico.\nCliente: ' + p_safeName(p_client && p_client.nome) + '\nCPF: ' + (p_client ? p_fmtCPF(p_unmask(p_client.cpf)) : '') + '\n\nPode me ajudar?';
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Ola! Gostaria de agendar um servico.\nCliente: ' + p_clientName() + '\nCPF: ' + (p_client ? p_fmtCPF(p_unmask(p_client.cpf)) : '') + '\n\nPode me ajudar?';
+  p_openWA(msg);
 };
 
 window.p_whatsappOrcamento = function(osId, aparelho) {
-  var msg = 'Ola! Tenho duvidas sobre o orcamento da OS #' + osId + ' (' + aparelho + ').\nCliente: ' + p_safeName(p_client && p_client.nome);
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Ola! Tenho duvidas sobre o orcamento da OS #' + osId + ' (' + aparelho + ').\nCliente: ' + p_clientName();
+  p_openWA(msg);
 };
 
 /* ==================== FIDELIDADE ==================== */
@@ -2680,7 +2652,7 @@ window.p_redeemReward = function(cost, name) {
     p_renderFidelidade();
     p_toast('Cupom ' + code + ' gerado com sucesso!', 'success');
     var msg = 'Olha! Resgatei uma recompensa no programa de fidelidade!\nRecompensa: ' + name + '\nCupom: ' + code + '\nPontos usados: ' + cost;
-    window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+    p_openWA(msg);
   });
 };
 
@@ -2833,13 +2805,10 @@ function p_getUploadHTML(osId) {
 window.p_sendFilesWhatsApp = function(osId) {
   var files = p_uploadedFiles[osId] || [];
   if (!files.length) { p_toast('Nenhum arquivo para enviar', 'error'); return; }
-  var os = null;
-  for (var i = 0; i < (p_db.os || []).length; i++) {
-    if (String(p_db.os[i].id) === String(osId)) { os = p_db.os[i]; break; }
-  }
+  var os = p_findOS(osId);
   var device = os ? (os.aparelho || 'aparelho') : 'aparelho';
-  var msg = 'Anexos da OS #' + osId + ' (' + device + '):\n' + files.length + ' arquivo(s) anexado(s)\nCliente: ' + p_safeName(p_client && p_client.nome);
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Anexos da OS #' + osId + ' (' + device + '):\n' + files.length + ' arquivo(s) anexado(s)\nCliente: ' + p_clientName();
+  p_openWA(msg);
   p_toast('Envie os arquivos pelo WhatsApp', 'info');
 };
 
@@ -3019,13 +2988,13 @@ window.p_pagPIX = function(osId, valor) {
   var msg = 'Pagamento PIX para OS #' + osId + '\nValor: ' + p_fmt$(valor) + '\nChave PIX: ' + pixCopy + '\n\nEnvie o comprovante via WhatsApp.';
   p_showConfirm('Pagamento PIX', 'Chave PIX: ' + pixCopy + '\nValor: ' + p_fmt$(valor) + '\n\nCopie a chave e envie o comprovante.', function(ok) {
     if (!ok) return;
-    window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+    p_openWA(msg);
   });
 };
 
 window.p_pagLink = function(osId, valor) {
-  var msg = 'Gostaria de gerar um link de pagamento para a OS #' + osId + ' no valor de ' + p_fmt$(valor) + '.\nCliente: ' + p_safeName(p_client && p_client.nome);
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg), '_blank');
+  var msg = 'Gostaria de gerar um link de pagamento para a OS #' + osId + ' no valor de ' + p_fmt$(valor) + '.\nCliente: ' + p_clientName();
+  p_openWA(msg);
   p_toast('Solicitacao enviada via WhatsApp', 'info');
 };
 
@@ -3082,7 +3051,7 @@ function p_renderRecibos() {
     return '<div class="card">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">' +
         '<div><span class="os-id">#' + p_escH(String(o.id)) + '</span> <span style="font-size:13px;color:var(--txt2)">' + p_fmtDate(o.data) + '</span></div>' +
-        '<span class="badge ' + o.status + '"><span class="badge-dot"></span>' + (STATUS_LABELS[o.status] || o.status) + '</span>' +
+        '<span class="badge ' + p_escH(o.status || '') + '"><span class="badge-dot"></span>' + p_safeName(STATUS_LABELS[o.status] || o.status) + '</span>' +
       '</div>' +
       '<div class="receipt-box">' +
         '<div style="text-align:center;margin-bottom:8px;font-weight:700;color:var(--c1)">INFOCELL - ASSISTENCIA TECNICA</div>' +
@@ -3099,7 +3068,7 @@ function p_renderRecibos() {
       '</div>' +
       '<div class="os-detail-actions" style="margin-top:12px">' +
         '<button class="wa-status-btn" onclick="p_whatsappRecibo(\'' + p_escH(o.id) + '\')">💬 Enviar via WhatsApp</button>' +
-        '<button class="btn btn-outline" onclick="window.print()">🖨️ Imprimir</button>' +
+        '<button class="btn btn-outline" onclick="p_printOS(\'' + p_escH(o.id) + '\')">🖨️ Imprimir</button>' +
       '</div>' +
     '</div>';
   }).join('');
@@ -3110,11 +3079,19 @@ function p_renderLoja() {
   var now = new Date();
   var day = now.getDay();
   var hours = now.getHours();
-  var mins = now.getMinutes();
   var isOpen = false;
   if (day >= 1 && day <= 4 && hours >= 8 && hours < 18) isOpen = true;
   else if (day === 5 && hours >= 8 && hours < 17) isOpen = true;
   else if (day === 6 && hours >= 8 && hours < 12) isOpen = true;
+  var el = document.getElementById('p_lojaInfo');
+  if (!el) return;
+  el.innerHTML = '<div style="text-align:center;padding:16px">' +
+    '<div style="font-size:28px;margin-bottom:8px">' + (isOpen ? '🟢' : '🔴') + '</div>' +
+    '<div style="font-size:16px;font-weight:700;color:var(--txt)">' + (isOpen ? 'Aberto Agora' : 'Fechado') + '</div>' +
+    '<div style="font-size:12px;color:var(--txt2);margin-top:4px">Seg-Qua: 8h-18h | Qui: 8h-17h | Sex: 8h-12h</div>' +
+    '<div style="font-size:12px;color:var(--txt2);margin-top:2px">Av. Fagundes Varela, 380 - Loja 11 - Jardim Atlantico - Olinda/PE</div>' +
+    '<div style="font-size:12px;color:var(--txt2);margin-top:2px">(81) 98733-2162</div>' +
+  '</div>';
 }
 
 /* ==================== PHOTO MODAL ==================== */
@@ -3191,10 +3168,7 @@ window.p_submitRating = function() {
   });
   localStorage.setItem('ic_portal_ratings', JSON.stringify(ratings));
 
-  var os = null;
-  for (var i = 0; i < (p_db.os || []).length; i++) {
-    if (String(p_db.os[i].id) === String(osId)) { os = p_db.os[i]; break; }
-  }
+  var os = p_findOS(osId);
   if (os) {
     os.avaliacao = p_currentRating;
     os.avaliacaoComentario = comment;
@@ -3206,7 +3180,7 @@ window.p_submitRating = function() {
   p_toast('Avaliacao enviada! Obrigado!', 'success');
 
   var waMsg = 'Avaliacao da OS #' + osId + ': ' + p_currentRating + '/5 estrelas' + (comment ? '\nComentario: ' + comment : '');
-  window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(waMsg), '_blank');
+  p_openWA(waMsg);
 };
 
 function p_renderRatings() {
@@ -3479,7 +3453,7 @@ function p_addNotif(title, body, icon) {
 
 function p_renderNotificacoes() {
   var notifs = p_getNotifs();
-  var el = document.getElementById('p_notifList');
+  var el = document.getElementById('p_notifPageList');
   if (!el) return;
   if (!notifs.length) {
     el.innerHTML = '<div class="empty-state"><div class="empty-icon">🔔</div><p>Nenhuma notificacao</p><p class="empty-sub">Notificacoes aparecerao aqui</p></div>';
