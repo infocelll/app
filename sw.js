@@ -1,105 +1,51 @@
-const CACHE_NAME = 'infocell-v8';
-const STATIC_ASSETS = [
+const CACHE = 'infocelll-v13';
+const URLS = [
   './',
-  './dashboard-v6.html',
-  './manifest.json',
-  './portal-cliente.html',
-  './manual-usuario-premium.html'
+  './dashboard.html',
+  './icon.svg'
 ];
 
-self.addEventListener('install', e => {
+self.addEventListener('install', function(e) {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(c => c.addAll(STATIC_ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then(function(cache) {
+      return cache.addAll(URLS);
+    }).then(function() {
+      return self.skipWaiting();
+    })
   );
 });
 
-self.addEventListener('activate', e => {
+self.addEventListener('activate', function(e) {
   e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
+    caches.keys().then(function(keys) {
+      return Promise.all(
+        keys.filter(function(k) { return k !== CACHE; }).map(function(k) { return caches.delete(k); })
+      );
+    }).then(function() {
+      return self.clients.claim();
+    })
   );
 });
 
-// Cache-first for static assets, network-first for API calls
-self.addEventListener('fetch', e => {
+self.addEventListener('fetch', function(e) {
   if (e.request.method !== 'GET') return;
-  const url = new URL(e.request.url);
-
-  // API calls: network-first
-  if (url.hostname !== location.hostname || url.pathname.includes('/api/')) {
-    e.respondWith(
-      fetch(e.request).then(r => {
-        if (r && r.status === 200) {
-          const clone = r.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-        }
-        return r;
-      }).catch(() => caches.match(e.request))
-    );
-    return;
-  }
-
-  // Static assets: cache-first
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) {
-        // Update cache in background
-        fetch(e.request).then(r => {
-          if (r && r.status === 200) {
-            const clone = r.clone();
-            caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          }
-        }).catch(() => {});
-        return cached;
-      }
-      return fetch(e.request).then(r => {
-        if (r && r.status === 200) {
-          const clone = r.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+    caches.match(e.request).then(function(resp) {
+      return resp || fetch(e.request).then(function(resp) {
+        if (resp && resp.status === 200 && resp.type === 'basic') {
+          var clone = resp.clone();
+          caches.open(CACHE).then(function(cache) { cache.put(e.request, clone); });
         }
-        return r;
+        return resp;
       });
+    }).catch(function() {
+      return caches.match('./dashboard.html');
     })
   );
 });
 
-self.addEventListener('message', e => {
-  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
-  // Sync trigger from client
-  if (e.data && e.data.type === 'SYNC_NOW') {
-    self.clients.matchAll().then(clients => {
-      clients.forEach(c => c.postMessage({ type: 'SYNC_STATUS', status: 'syncing' }));
-    });
-  }
-});
-
-self.addEventListener('push', e => {
-  const data = e.data ? e.data.json() : { title: 'InfoCell', body: 'Nova notificacao' };
-  e.waitUntil(
-    self.registration.showNotification(data.title, {
-      body: data.body,
-      icon: data.icon || './icon-192.png',
-      badge: data.badge || './icon-192.png',
-      data: data.url || './',
-      vibrate: [200, 100, 200]
-    })
-  );
-});
-
-self.addEventListener('notificationclick', e => {
-  e.notification.close();
-  e.waitUntil(clients.matchAll({ type: 'window' }).then(list => {
-    for (const c of list) { if (c.url.includes('dashboard') && 'focus' in c) return c.focus(); }
-    return clients.openWindow(e.notification.data || './');
-  }));
-});
-
-// Background sync support
-self.addEventListener('sync', e => {
-  if (e.tag === 'sync-pending') {
-    e.waitUntil(self.clients.matchAll().then(clients => {
-      clients.forEach(c => c.postMessage({ type: 'TRIGGER_SYNC' }));
-    }));
+self.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
   }
 });
