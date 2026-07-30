@@ -7522,7 +7522,8 @@ function renderOS(){
   if(!page.length){body.innerHTML='<tr><td colspan="9"><div class="empty-state">Nenhuma OS encontrada</div></td></tr>';updatePagination(0,0,0);return}
   const rows=[];
   page.forEach(o=>{
-    const initials=o.cliente.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    var clientName=o.cliente||o.clienteNome||'?';
+    const initials=clientName.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const hue=(o.id*67)%360;
     rows.push('<tr data-status="'+o.status+'">'+
       '<td><input type="checkbox" class="os-cb" data-id="'+o.id+'"></td>'+
@@ -7538,10 +7539,10 @@ function renderOS(){
       (o.budgetApproval==='approved'?'<span title="Orçamento Aprovado" style="color:var(--grn);margin-left:2px">&#10003;</span>':
       o.budgetApproval==='rejected'?'<span title="Orçamento Rejeitado" style="color:var(--red);margin-left:2px">&#10007;</span>':'')+
       '</td>'+
-      '<td><div class="client-cell"><div class="client-avatar" style="background:hsl('+hue+',60%,50%)">'+escH(initials)+'</div><div><div style="font-weight:600">'+escH(o.cliente)+'</div><div style="font-size:11px;color:var(--txt3)">'+escH(o.telefone)+'</div></div></div></td>'+
-      '<td>'+escH(o.aparelho)+'<div style="font-size:11px;color:var(--txt3)">'+escH(o.defeito)+'</div></td>'+
+      '<td><div class="client-cell"><div class="client-avatar" style="background:hsl('+hue+',60%,50%)">'+escH(initials)+'</div><div><div style="font-weight:600">'+escH(clientName)+'</div><div style="font-size:11px;color:var(--txt3)">'+escH(o.telefone||'')+'</div></div></div></td>'+
+      '<td>'+escH(o.aparelho||'')+'<div style="font-size:11px;color:var(--txt3)">'+escH(o.defeito||'')+'</div></td>'+
       '<td style="position:relative"><div class="os-status-cell" onclick="event.stopPropagation();toggleOSStatusMenu('+o.id+',this)" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px" title="Clique para alterar status"><span class="status-badge '+o.status+'"><span class="dot"></span>'+escH(STATUS_LABELS[o.status]||o.status)+'</span>'+ICONS.chevronDown.replace('width="14"','width="10"').replace('height="14"','height="10"').replace('stroke-width="2"','stroke-width="2.5"')+'</div></td>'+
-      '<td><span class="tech-badge">'+escH(o.tecnico)+'</span></td>'+
+      '<td><span class="tech-badge">'+escH(o.tecnico||'')+'</span></td>'+
       '<td style="font-size:12px;color:var(--txt3)">'+fmtDate(o.data)+'</td>'+
       '<td style="font-weight:700">'+fmt$(o.valor)+'</td>'+
       '<td><div class="action-btns" onclick="event.stopPropagation()">'+
@@ -16000,7 +16001,7 @@ var _syncAutoTimer=null;
 var _syncInProgress=false;
 var _syncRetryCount={};
 
-function openIDB(){return new Promise(function(resolve,reject){if(_idb){resolve(_idb);return}if(!window.indexedDB){reject(new Error('IndexedDB not available'));return}var req=indexedDB.open(IDB_NAME,IDB_VERSION);req.onupgradeneeded=function(e){var db=e.target.result;if(!db.objectStoreNames.contains(PHOTOS_STORE))db.createObjectStore(PHOTOS_STORE,{keyPath:'id'});if(!db.objectStoreNames.contains(SIGNATURES_STORE))db.createObjectStore(SIGNATURES_STORE,{keyPath:'osId'})};req.onsuccess=function(e){_idb=e.target.result;resolve(_idb)};req.onerror=function(e){reject(e)}})}
+function openIDB(){return new Promise(function(resolve,reject){if(_idb){resolve(_idb);return}if(!window.indexedDB){reject(new Error('IndexedDB not available'));return}var req=indexedDB.open(IDB_NAME,IDB_VERSION);req.onupgradeneeded=function(e){var db=e.target.result;if(!db.objectStoreNames.contains('idb_meta'))db.createObjectStore('idb_meta',{keyPath:'key'});if(!db.objectStoreNames.contains(PHOTOS_STORE))db.createObjectStore(PHOTOS_STORE,{keyPath:'id'});if(!db.objectStoreNames.contains(SIGNATURES_STORE))db.createObjectStore(SIGNATURES_STORE,{keyPath:'osId'})};req.onsuccess=function(e){_idb=e.target.result;resolve(_idb)};req.onerror=function(e){reject(e)}})}
 function idbPut(store,data){return openIDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction(store,'readwrite');tx.objectStore(store).put(data);tx.oncomplete=function(){res()};tx.onerror=function(e){rej(e)}})})}
 function idbGet(store,key){return openIDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction(store,'readonly');var req=tx.objectStore(store).get(key);req.onsuccess=function(){res(req.result)};req.onerror=function(e){rej(e)}})})}
 function idbGetAll(store){return openIDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction(store,'readonly');var req=tx.objectStore(store).getAll();req.onsuccess=function(){res(req.result)};req.onerror=function(e){rej(e)}})})}
@@ -16970,7 +16971,7 @@ function initMobileGestures(){
 function saveChat(){try{localStorage.setItem('ic_chat',JSON.stringify((JSON.parse(localStorage.getItem('ic_chat')||'[]')).slice(-200)))}catch(e){console.error(e)}}
 
 function initFullOffline(){
-  if('caches' in window){
+  if('caches' in window&&location.protocol!=='file:'){
     caches.open('infocelll-v14').then(function(cache){
       var urls=['./','./dashboard.html'];
       urls.forEach(function(url){cache.add(url).catch(function(e){console.error(e)})});
@@ -20570,7 +20571,7 @@ function saveAIConfigSettings(){
 
 // PWA Registration
 (function(){
-  if('serviceWorker'in navigator){
+  if('serviceWorker'in navigator&&location.protocol!=='file:'){
     navigator.serviceWorker.register('pwa/service-worker.js').then(function(reg){
       reg.addEventListener('updatefound',function(){
         var w=reg.installing;

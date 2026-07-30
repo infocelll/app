@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InfoCelll - Novidades e Guia Rápido</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,sans-serif;background:#0b1120;color:#e2e8f0;padding:40px 20px;display:flex;flex-direction:column;align-items:center}
+  .page{max-width:900px;width:100%}
+  .cover{text-align:center;padding:80px 20px 60px;border-bottom:2px solid rgba(6,182,212,.3);margin-bottom:40px}
+  .cover .logo{width:80px;height:80px;background:linear-gradient(135deg,#06b6d4,#0891b2);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:32px;font-weight:900;color:#0b1120}
+  .cover h1{font-size:36px;font-weight:900;background:linear-gradient(135deg,#06b6d4,#22c55e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .cover p{font-size:16px;color:#94a3b8;margin-top:12px}
+  .section{background:#1e293b;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;margin-bottom:32px}
+  .section h2{font-size:22px;font-weight:800;color:#06b6d4;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .section h2 .icon{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .section h3{font-size:16px;font-weight:700;color:#e2e8f0;margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .section p{font-size:14px;line-height:1.7;color:#cbd5e1;margin-bottom:12px}
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;padding:16px;background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.12);border-radius:12px}
+  .step-num{width:28px;height:28px;border-radius:50%;background:#06b6d4;color:#0b1120;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .step-content{flex:1}
+  .step-content strong{display:block;font-size:14px;color:#e2e8f0;margin-bottom:4px}
+  .step-content span{display:block;font-size:13px;color:#94a3b8;line-height:1.6}
+  .code{background:#0f172a;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#22c55e;overflow-x:auto;margin:12px 0;white-space:pre-wrap;word-break:break-all}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin:4px 4px 4px 0}
+  .tag.green{background:rgba(34,197,94,.15);color:#22c55e}
+  .tag.cyan{background:rgba(6,182,212,.15);color:#06b6d4}
+  .tag.orange{background:rgba(249,115,22,.15);color:#f97316}
+  .tag.purple{background:rgba(168,85,247,.15);color:#c084fc}
+  .tag.red{background:rgba(239,68,68,.15);color:#ef4444}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .card-feat{background:#0f172a;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px;text-align:center}
+  .card-feat .feat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px}
+  .card-feat h4{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+  .card-feat p{font-size:12px;color:#94a3b8;line-height:1.5;margin:0}
+  .hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin:24px 0}
+  .tip{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:14px 16px;font-size:13px;color:#fbbf24;margin:16px 0}
+  .tip strong{color:#f97316}
+  .warn{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:14px 16px;font-size:13px;color:#fca5a5;margin:16px 0}
+  a{color:#06b6d4;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .footer{text-align:center;padding:40px 20px;color:#475569;font-size:12px}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+  th{text-align:left;padding:10px 12px;background:rgba(6,182,212,.08);color:#06b6d4;font-weight:700;border-bottom:1px solid rgba(255,255,255,.06)}
+  td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:#cbd5e1}
+  tr:hover td{background:rgba(255,255,255,.02)}
+  @media print{body{background:#fff;color:#111;padding:0}.page{max-width:100%}.section{background:#fff;border:1px solid #ddd;page-break-inside:avoid}.cover{border-bottom-color:#ddd}.step{background:#f8fafc;border-color:#ddd}.code{background:#f1f5f9;color:#166534;border-color:#ddd}.card-feat{background:#f8fafc}.cover h1{-webkit-text-fill-color:#06b6d4;color:#06b6d4;background:none}.section h2{color:#06b6d4}.tag.green{background:#dcfce7;color:#166534}.tag.cyan{background:#cffafe;color:#0e7490}.tag.orange{background:#ffedd5;color:#9a3412}.tag.purple{background:#f3e8ff;color:#6d28d9}.warn{background:#fef2f2;color:#991b1b}.tip{background:#fff7ed;color:#92400e}th{background:#e0f2fe}td{color:#334155}table,th,td{border-color:#ddd}hr{border-color:#ddd}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="logo">IC</div>
+  <h1>InfoCelll &mdash; Novidades</h1>
+  <p>Guia rápido com as novas funcionalidades e configurações<br>Julho 2026</p>
+</div>
+
+<!-- 1. QR CODE NA OS ONLINE -->
+<div class="section">
+  <h2><span class="icon" style="background:rgba(6,182,212,.15)">&#128247;</span> QR Code no Link Gerado</h2>
+  <p>Ao gerar um link para o cliente na aba <strong>OS Online</strong>, um QR Code aparece automaticamente ao lado do PIN e botões de compartilhamento. O cliente pode escanear o QR Code para abrir o link no celular.</p>
+  
+  <div class="grid">
+    <div class="card-feat">
+      <div class="feat-icon" style="background:rgba(34,197,94,.1);color:#22c55e">&#128247;</div>
+      <h4>QR Automático</h4>
+      <p>Ao clicar em "Gerar Link", o QR Code é gerado instantaneamente usando a API qrserver.com (online) ou geração local (offline).</p>
+    </div>
+    <div class="card-feat">
+      <div class="feat-icon" style="background:rgba(168,85,247,.1);color:#c084fc">&#128230;</div>
+      <h4>Download do QR</h4>
+      <p>Nos detalhes da OS e na lista, há botão "Baixar QR Code" para salvar a imagem SVG.</p>
+    </div>
+  </div>
+
+  <h3>Onde encontrar</h3>
+  <p>
+    <span class="tag cyan">OS Online</span> 
+    <span class="tag cyan">Detalhes da OS</span> 
+    <span class="tag cyan">Visualização rápida</span>
+  </p>
+</div>
+
+<!-- 2. SINC -->
+<div class="section">
+  <h2><span class="icon" style="background:rgba(34,197,94,.15)">&#128260;</span> Sincronização com Servidor</h2>
+  <p>O dashboard agora pode sincronizar dados com um servidor remoto, permitindo usar o mesmo banco de dados em múltiplos dispositivos.</p>
+
+  <h3>Passo a passo</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Abra as Configurações</strong>
+      <span>No menu lateral, clique em <strong>Config</strong> (ícone de engrenagem).</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Localize "Sincronização Online (Servidor)"</strong>
+      <span>Role a página de configurações até a seção correspondente.</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Insira a URL do servidor</strong>
+      <span>Cole a URL do seu servidor Render (ou outro) no campo indicado:</span>
+      <div class="code">https://infocelll-api.onrender.com</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <strong>Salve e teste</strong>
+      <span>Clique em <strong>Salvar</strong> e depois em <strong>Testar Conexão</strong> para verificar se o servidor está acessível.</span>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>&#9888; Dica:</strong> A sincronização automática ocorre a cada 5 minutos. Você também pode clicar no botão <strong>Sincronizar Agora</strong> na aba Configurações para forçar uma sincronização imediata.
+  </div>
+
+  <h3>Configurar senha do servidor (primeira vez)</h3>
+  <p>Abra o Console do navegador (F12) e cole o comando abaixo, substituindo <code>suasenha123</code> pela senha desejada:</p>
+  <div class="code">fetch('https://infocelll-api.onrender.com/api/auth/password', {
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({password:'suasenha123'})
+}).then(r=&gt;r.text()).then(console.log)</div>
+  <p>Depois vá em <strong>Config &gt; Segurança</strong> e insira a mesma senha no campo <strong>"Senha do Servidor"</strong>.</p>
+</div>
+
+<!-- 3. FIXES -->
+<div class="section">
+  <h2><span class="icon" style="background:rgba(249,115,22,.15)">&#128295;</span> Correções Técnicas</h2>
+
+  <table>
+    <tr><th style="width:180px">Problema</th><th>Solução</th></tr>
+    <tr>
+      <td><span class="tag red">Erro</span> OS não renderizava quando campo "cliente" estava vazio</td>
+      <td>Código agora usa fallback <code>o.cliente||o.clienteNome||'?'</code> &mdash; não quebra mais a lista</td>
+    </tr>
+    <tr>
+      <td><span class="tag red">Erro</span> IndexedDB "idb_meta" não encontrado</td>
+      <td>Object store agora é criado na abertura inicial do banco</td>
+    </tr>
+    <tr>
+      <td><span class="tag red">Erro</span> Service Worker falhava em <code>file://</code></td>
+      <td>Registro do SW e Cache API agora pulam quando o protocolo é <code>file://</code></td>
+    </tr>
+    <tr>
+      <td><span class="tag red">Erro</span> Service Worker tentava precache de <code>sw.js</code> inexistente</td>
+      <td>Arquivo removido da lista de precache; versão do cache bumpada para v6</td>
+    </tr>
+    <tr>
+      <td><span class="tag green">Melhoria</span> QR Code não aparecia na OS Online</td>
+      <td>QR Code agora é exibido automaticamente ao lado do link gerado</td>
+    </tr>
+    <tr>
+      <td><span class="tag green">Melhoria</span> Botão "Gerar Link" desabilitado</td>
+      <td>Select de OS agora tem <code>onchange</code> para habilitar o botão</td>
+    </tr>
+  </table>
+
+  <div class="tip">
+    <strong>&#9888; Importante:</strong> Após essas correções, pressione <strong>Ctrl+F5</strong> para forçar o recarregamento completo dos arquivos (ignorando cache do navegador).
+  </div>
+</div>
+
+<!-- 4. ARQUITETURA -->
+<div class="section">
+  <h2><span class="icon" style="background:rgba(168,85,247,.15)">&#128736;</span> Arquitetura do Sistema</h2>
+
+  <table>
+    <tr><th>Componente</th><th>Descrição</th></tr>
+    <tr><td><code>dashboard.html</code></td><td>Frontend principal (SPA) &mdash; toda a interface do sistema</td></tr>
+    <tr><td><code>pwa/service-worker.js</code></td><td>Service Worker para cache offline e sincronização em segundo plano</td></tr>
+    <tr><td><code>pwa/manifest.json</code></td><td>Manifest PWA para instalação como aplicativo</td></tr>
+    <tr><td><code>pwa/js/sync-manager.js</code></td><td>Gerenciador de fila de sincronização local</td></tr>
+    <tr><td><code>infocelll-api</code> (Render)</td><td>Servidor backend Node.js para sincronização entre dispositivos</td></tr>
+    <tr><td><code>localStorage</code></td><td>Armazenamento principal dos dados no navegador (chave: <code>ic_dashboard</code>)</td></tr>
+    <tr><td><code>IndexedDB</code></td><td>Armazenamento secundário para fotos, assinaturas e metadados</td></tr>
+  </table>
+</div>
+
+<!-- 5. COMANDOS -->
+<div class="section">
+  <h2><span class="icon" style="background:rgba(234,179,8,.15)">&#128187;</span> Comandos Úteis (Console)</h2>
+  <p>Pressione <strong>F12 &gt; Console</strong> para usar estes comandos de diagnóstico:</p>
+
+  <div class="code">// Verificar se os dados existem
+localStorage.getItem('ic_dashboard')
+
+// Ver quantos registros de OS existem
+JSON.parse(localStorage.getItem('ic_dashboard')).os.length
+
+// Ver quantos clientes existem
+JSON.parse(localStorage.getItem('ic_dashboard')).clients.length
+
+// Configurar senha do servidor de sincronização
+fetch('https://infocelll-api.onrender.com/api/auth/password', {
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({password:'minhasenha'})
+}).then(r=>r.text()).then(console.log)</div>
+</div>
+
+<div class="footer">
+  InfoCelll Dashboard &mdash; Julho 2026<br>
+  Gerado automaticamente &mdash; Guia de Novidades
+</div>
+
+</div>
+</body>
+</html>
