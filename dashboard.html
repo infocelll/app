@@ -2278,6 +2278,8 @@ window.onerror=function(msg,src,line,col,err){
 };
 window.addEventListener('DOMContentLoaded',function(){
   setTimeout(function(){try{_waitForLucideAndInit()}catch(e){console.error(e)}},0);
+  var cd=document.getElementById('connStatusDot');
+  if(cd){cd.addEventListener('click',function(){openSyncQueueModal()})}
 });
 </script>
 
@@ -2388,7 +2390,7 @@ window.addEventListener('DOMContentLoaded',function(){
   </div>
   <div class="header-actions">
     <div class="save-indicator saved" id="saveIndicator" title="Status do salvamento"></div>
-    <span id="connStatusDot" onclick="openSyncQueueModal()" style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:600;transition:all .2s" class="conn-dot online" title="Online - Clique para ver fila">🟢 Online</span>
+    <span id="connStatusDot" style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:600;transition:all .2s" class="conn-dot online" title="Online - Clique para ver fila">🟢 Online</span>
     <div class="conn-status online" id="connStatus" title="Online" style="position:static;width:8px;height:8px;margin-right:4px"></div>
     <button class="header-btn header-lock" id="encLock" title="Criptografia" onclick="showSection('security')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
     <button class="header-btn" onclick="openTONCalc()" title="Calculadora TON (juros)"><i data-lucide="calculator" style="width:16px;height:16px"></i></button>
@@ -2558,7 +2560,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
     <div class="card" style="margin-bottom:12px"><div class="card-header"><span class="card-title"><i data-lucide="link" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i>Gerar Link para Cliente</span></div><div class="card-body" style="padding:12px">
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:end">
-        <div class="form-group" style="margin:0;flex:2;min-width:160px"><select class="input" id="osOnlineSelect" style="font-size:11px;padding:5px 8px"><option value="">OS...</option></select></div>
+        <div class="form-group" style="margin:0;flex:2;min-width:160px"><select class="input" id="osOnlineSelect" onchange="document.getElementById('btnGenLink').disabled=!this.value" style="font-size:11px;padding:5px 8px"><option value="">OS...</option></select></div>
         <div class="form-group" style="margin:0;flex:1;min-width:120px"><select class="input" id="osOnlineMode" style="font-size:11px;padding:5px 8px"><option value="simples">Simples (Status+Timeline)</option><option value="completo">Completo (+Comentários)</option></select></div>
         <label style="display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 8px;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:var(--rs);cursor:pointer;white-space:nowrap"><input type="checkbox" id="osOnlineUsePin" onchange="document.getElementById('osOnlinePinRow').style.display=this.checked?'block':'none'" style="accent-color:var(--org)"> <i data-lucide="lock" style="width:10px;height:10px;color:var(--org)"></i> PIN</label>
         <button class="btn btn-primary btn-sm" onclick="generateOnlineLink()" id="btnGenLink" disabled style="font-size:10px;padding:5px 10px"><i data-lucide="zap" style="width:12px;height:12px"></i> Gerar</button>
@@ -6706,6 +6708,7 @@ function renderOSOnline(){try{
   var sel=document.getElementById('osOnlineSelect');var os=DB.os||[];
   var closed=['entregue','cancelado'];
   sel.innerHTML='<option value="">Selecione uma OS...</option>'+os.filter(function(o){return closed.indexOf(o.status)===-1}).map(function(o){return '<option value="'+o.id+'">#'+String(o.id).padStart(4,'0')+' - '+escH(o.cliente||o.clienteNome||'s/n')+' ('+STATUS_LABELS[o.status]+')</option>'}).join('');
+  var btn=document.getElementById('btnGenLink');if(btn)btn.disabled=!sel.value;
   var pinCb=document.getElementById('osOnlineUsePin');
   if(pinCb)pinCb.onchange=function(){document.getElementById('osOnlinePinRow').style.display=this.checked?'block':'none'};
   renderOnlineLinks();
@@ -16946,7 +16949,7 @@ function saveChat(){try{localStorage.setItem('ic_chat',JSON.stringify((JSON.pars
 
 function initFullOffline(){
   if('caches' in window){
-    caches.open('infocelll-v13').then(function(cache){
+    caches.open('infocelll-v14').then(function(cache){
       var urls=['./','./dashboard.html'];
       urls.forEach(function(url){cache.add(url).catch(function(e){console.error(e)})});
     }).catch(function(e){console.error(e)});

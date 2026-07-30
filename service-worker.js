@@ -1,6 +1,6 @@
-const CACHE_NAME='infocelll-v4';
-const STATIC_CACHE='infocelll-static-v4';
-const DYNAMIC_CACHE='infocelll-dynamic-v4';
+const CACHE_NAME='infocelll-v5';
+const STATIC_CACHE='infocelll-static-v5';
+const DYNAMIC_CACHE='infocelll-dynamic-v5';
 const OFFLINE_URL='/offline.html';
 
 const PRECACHE_URLS=[
