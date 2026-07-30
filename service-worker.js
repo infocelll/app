@@ -1,11 +1,16 @@
-const CACHE_NAME='infocelll-v3';
-const STATIC_CACHE='infocelll-static-v3';
-const DYNAMIC_CACHE='infocelll-dynamic-v3';
+const CACHE_NAME='infocelll-v4';
+const STATIC_CACHE='infocelll-static-v4';
+const DYNAMIC_CACHE='infocelll-dynamic-v4';
 const OFFLINE_URL='/offline.html';
 
 const PRECACHE_URLS=[
+  '/',
   '/dashboard.html',
   '/offline.html',
+  '/icon.svg',
+  '/sw.js',
+  '/logo-infocelll.jpg',
+  '/manifest.json',
   '/pwa/manifest.json',
   '/pwa/icons/icon-72.png','/pwa/icons/icon-96.png','/pwa/icons/icon-128.png',
   '/pwa/icons/icon-144.png','/pwa/icons/icon-152.png','/pwa/icons/icon-192.png',
@@ -78,7 +83,7 @@ self.addEventListener('message',function(e){
   if(!e.data)return;
   if(e.data.type==='SKIP_WAITING'){self.skipWaiting()}
   if(e.data.type==='CLEAR_CACHE'){
-    caches.delete(CACHE_NAME);caches.delete(STATIC_CACHE);caches.delete(DYNAMIC_CACHE);
+    caches.keys().then(function(keys){keys.forEach(function(k){caches.delete(k)})});
     e.source.postMessage({type:'CACHE_CLEARED'});
   }
   if(e.data.type==='GET_CACHE_SIZE'){
