@@ -14540,17 +14540,25 @@ function generateOSQRCode(osId){
   var o=(DB.os||[]).find(function(x){return x.id===osId});
   if(!o)return;
   var osCode=o.osCode||'OS-'+String(o.id).padStart(4,'0');
-  var qrUrl=_qrGenerate(osCode);
+  var osLink=generateOSLink(osId);
+  var qrUrl=_qrGenerate(osLink);
   var html='<div style="text-align:center;padding:16px">'+
     '<div style="font-family:monospace;font-size:18px;font-weight:700;color:var(--cyan);margin-bottom:12px">'+osCode+'</div>'+
     '<img src="'+qrUrl+'" alt="QR Code '+osCode+'" style="width:250px;height:250px;border-radius:12px;border:2px solid var(--bdr)">'+
     '<div style="margin-top:12px;font-size:12px;color:var(--txt3)">'+escH(o.cliente||'')+' - '+escH(o.aparelho||'')+'</div>'+
-    '<div style="margin-top:8px"><button class="btn btn-primary" onclick="downloadOSQRCode(\''+osCode+'\')" style="font-size:11px;padding:6px 12px">Baixar QR Code</button></div>'+
+    '<div style="margin-top:4px;font-size:10px;color:var(--txt3);word-break:break-all">'+escH(osLink)+'</div>'+
+    '<div style="margin-top:8px;display:flex;gap:6px;justify-content:center">'+
+    '<button class="btn btn-primary" onclick="downloadOSQRCode(\''+osId+'\')" style="font-size:11px;padding:6px 12px">Baixar QR Code</button>'+
+    '<button class="btn btn-secondary" onclick="copyOnlineLinkById(\''+encodeURIComponent(osLink)+'\')" style="font-size:11px;padding:6px 12px">Copiar Link</button></div>'+
     '</div>';
   showModal('QR Code - '+osCode,html);
 }
-function downloadOSQRCode(osCode){
-  var qrUrl=_qrGenerate(osCode);
+function downloadOSQRCode(osId){
+  var o=(DB.os||[]).find(function(x){return x.id===osId});
+  if(!o)return;
+  var osLink=generateOSLink(osId);
+  var qrUrl=_qrGenerate(osLink);
+  var osCode=o.osCode||'OS-'+String(o.id).padStart(4,'0');
   var a=document.createElement('a');a.href=qrUrl;a.download='QR_'+osCode+'.svg';a.target='_blank';a.click();
 }
 function generateOSBarcode(osId){
