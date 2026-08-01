@@ -35,7 +35,7 @@ p{font-size:14px;color:#8b949e;max-width:320px;line-height:1.6;margin-bottom:24p
   <div class="info-card"><div class="num" id="pendingCount">0</div><div class="lbl">Pendentes</div></div>
   <div class="info-card"><div class="num" id="cacheSize">0MB</div><div class="lbl">Cache</div></div>
 </div>
-<a class="btn primary" href="/dashboard.html">&#8592; Voltar ao Sistema</a>
+<a class="btn primary" href="dashboard.html">&#8592; Voltar ao Sistema</a>
 <button class="btn" onclick="retryConnection()">&#8635; Tentar Reconectar</button>
 <div class="footer">InfoCelll AI Center &mdash; Dados salvos no dispositivo</div>
 <script>
@@ -55,7 +55,7 @@ if('serviceWorker' in navigator&&navigator.serviceWorker.controller){
   });
 }
 function retryConnection(){
-  if(navigator.onLine){location.href='/dashboard.html'}
+  if(navigator.onLine){location.href='dashboard.html'}
   else{
     var btn=event.target;btn.textContent='Ainda sem conexão...';btn.disabled=true;
     setTimeout(function(){btn.textContent='\u21b5 Tentar Reconectar';btn.disabled=false},3000);

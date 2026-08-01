@@ -1,6 +1,6 @@
-const CACHE_NAME='infocelll-v5';
-const STATIC_CACHE='infocelll-static-v5';
-const DYNAMIC_CACHE='infocelll-dynamic-v5';
+const CACHE_NAME='infocelll-v6';
+const STATIC_CACHE='infocelll-static-v6';
+const DYNAMIC_CACHE='infocelll-dynamic-v6';
 const OFFLINE_URL='/offline.html';
 
 const PRECACHE_URLS=[
@@ -8,7 +8,6 @@ const PRECACHE_URLS=[
   '/dashboard.html',
   '/offline.html',
   '/icon.svg',
-  '/sw.js',
   '/logo-infocelll.jpg',
   '/manifest.json',
   '/pwa/manifest.json',

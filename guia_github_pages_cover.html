@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Guia Completo - GitHub Pages InfoCelll v1.0</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:#161b22;--bdr:#30363d;--txt:#e6edf3;--txt2:#8b949e;--txt3:#6e7681;--cyan:#58a6ff;--grn:#3fb950;--purp:#d2a8ff;--org:#f0883e;--pink:#f778ba;--red:#f85149;--ylw:#d29922}
+body{font-family:'Inter',sans-serif;background:#0a0d14;color:var(--txt);padding:16px}
+.page{max-width:1080px;margin:0 auto 24px;background:linear-gradient(165deg,#0d1117,#151c2a,#1a2438,#0d1117);border-radius:24px;overflow:hidden;position:relative;border:1px solid rgba(48,54,61,0.5);box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+.page-inner{padding:clamp(20px,3.5vw,44px);position:relative;z-index:2}
+
+/* Cover specific */
+.cover .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(48,54,61,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(48,54,61,0.12) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse at 50% 0%,black 35%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 0%,black 35%,transparent 70%);pointer-events:none;z-index:1}
+.cover .glow-1{position:absolute;top:-120px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(88,166,255,0.07),transparent 70%);pointer-events:none;z-index:1}
+.cover .glow-2{position:absolute;bottom:-100px;left:-60px;width:350px;height:350px;background:radial-gradient(circle,rgba(46,160,67,0.05),transparent 70%);pointer-events:none;z-index:1}
+.cover .glow-3{position:absolute;top:40%;left:50%;width:500px;height:500px;background:radial-gradient(circle,rgba(210,168,255,0.03),transparent 60%);pointer-events:none;z-index:1}
+
+/* Header */
+.header{display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(16px,3vw,40px);margin-bottom:clamp(20px,3vw,32px);flex-wrap:wrap;position:relative;z-index:3}
+.header-left{flex:1;min-width:260px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);border-radius:20px;font-size:11px;font-weight:600;color:var(--cyan);margin-bottom:16px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.badge svg{width:13px;height:13px}
+.header-left h1{font-size:clamp(24px,4.5vw,44px);font-weight:900;line-height:1.08;letter-spacing:-1px;margin-bottom:6px}
+.header-left h1 .g1{background:linear-gradient(135deg,#58a6ff,#3fb950);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-left h1 .g2{background:linear-gradient(135deg,#d2a8ff,#f0883e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{font-size:clamp(13px,1.4vw,16px);color:var(--txt2);line-height:1.6;max-width:520px;font-weight:300;margin-bottom:14px}
+.meta{display:flex;gap:8px;flex-wrap:wrap}
+.meta-item{display:flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(48,54,61,0.35);border-radius:8px;font-size:11px;color:var(--txt2);font-weight:500}
+.meta-item svg{width:13px;height:13px;color:var(--cyan);flex-shrink:0}
+.visual{flex-shrink:0;width:clamp(140px,18vw,220px);height:clamp(120px,16vw,190px);position:relative}
+.shape{position:absolute;border-radius:20px;border:2px solid rgba(88,166,255,0.12);background:radial-gradient(circle at 30% 30%,rgba(88,166,255,0.05),transparent);width:80%;height:80%}
+.shape:nth-child(1){top:8px;right:4px;transform:rotate(6deg);border-color:rgba(88,166,255,0.12)}
+.shape:nth-child(2){top:2px;right:10px;transform:rotate(-4deg);border-color:rgba(46,160,67,0.1)}
+.shape:nth-child(3){top:16px;right:-4px;transform:rotate(14deg);border-color:rgba(210,168,255,0.08)}
+.visual-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.visual-center svg{width:clamp(32px,4vw,48px);height:clamp(32px,4vw,48px);color:var(--cyan)}
+.visual-center span{font-size:9px;color:var(--txt2);font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(160px,20vw,220px),1fr));gap:10px;margin-bottom:clamp(16px,2vw,24px);position:relative;z-index:3}
+.card{display:flex;align-items:center;gap:10px;padding:clamp(10px,1.2vw,14px) clamp(12px,1.5vw,16px);background:rgba(22,27,34,0.5);border-radius:12px;border:1px solid rgba(48,54,61,0.25)}
+.card-icon{width:clamp(30px,3vw,38px);height:clamp(30px,3vw,38px);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-icon.blue{background:rgba(88,166,255,0.1);color:var(--cyan)}
+.card-icon.green{background:rgba(46,160,67,0.1);color:var(--grn)}
+.card-icon.purple{background:rgba(210,168,255,0.1);color:var(--purp)}
+.card-icon.orange{background:rgba(240,136,62,0.1);color:var(--org)}
+.card-icon.pink{background:rgba(247,120,186,0.1);color:var(--pink)}
+.card-icon svg{width:16px;height:16px}
+.card-text{font-size:clamp(10px,1vw,12px);color:var(--txt2);line-height:1.3}
+.card-text strong{display:block;font-size:clamp(11px,1.1vw,13px);color:var(--txt);font-weight:600;margin-bottom:1px}
+.stats{display:flex;gap:clamp(12px,2vw,24px);flex-wrap:wrap;margin-bottom:clamp(14px,1.8vw,22px);position:relative;z-index:3;padding:clamp(10px,1.2vw,16px);background:rgba(22,27,34,0.3);border-radius:12px;border:1px solid rgba(48,54,61,0.15)}
+.stat{display:flex;align-items:center;gap:8px}
+.stat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.stat-icon.s1{background:rgba(88,166,255,0.1);color:var(--cyan)}
+.stat-icon.s2{background:rgba(46,160,67,0.1);color:var(--grn)}
+.stat-icon.s3{background:rgba(210,168,255,0.1);color:var(--purp)}
+.stat-icon.s4{background:rgba(240,136,62,0.1);color:var(--org)}
+.stat-text{font-size:10px;color:var(--txt2)}
+.stat-text strong{font-size:clamp(13px,1.3vw,16px);color:var(--txt);font-weight:700;display:block}
+.chapters{position:relative;z-index:3;margin-bottom:clamp(12px,1.5vw,20px)}
+.chapters-title{font-size:clamp(11px,1.1vw,13px);font-weight:700;color:var(--txt);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.chapters-title span{font-size:10px;color:var(--txt2);font-weight:400}
+.chapters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(140px,18vw,190px),1fr));gap:6px}
+.chapter-item{display:flex;align-items:center;gap:8px;padding:clamp(6px,.8vw,10px) clamp(8px,1vw,14px);background:rgba(48,54,61,0.15);border-radius:8px;border:1px solid rgba(48,54,61,0.15)}
+.chapter-num{width:clamp(18px,2vw,24px);height:clamp(18px,2vw,24px);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:clamp(9px,.9vw,11px);font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.chapter-num.c1{background:rgba(88,166,255,0.12);color:var(--cyan)}
+.chapter-num.c2{background:rgba(46,160,67,0.12);color:var(--grn)}
+.chapter-num.c3{background:rgba(210,168,255,0.12);color:var(--purp)}
+.chapter-num.c4{background:rgba(240,136,62,0.12);color:var(--org)}
+.chapter-num.c5{background:rgba(247,120,186,0.12);color:var(--pink)}
+.chapter-num.c6{background:rgba(88,166,255,0.08);color:var(--txt2)}
+.chapter-item span{font-size:clamp(10px,.9vw,12px);color:var(--txt);font-weight:500}
+.chapter-item small{font-size:clamp(8px,.7vw,10px);color:var(--txt2);font-weight:400;display:block;margin-top:1px}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:clamp(10px,1.2vw,16px);border-top:1px solid rgba(48,54,61,0.35);position:relative;z-index:3}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1}
+.footer-pill{padding:3px 10px;background:rgba(48,54,61,0.2);border-radius:10px;font-size:9px;color:var(--txt2);font-weight:500;border:1px solid rgba(48,54,61,0.15)}
+.footer-pill.active{background:rgba(88,166,255,0.08);color:var(--cyan);border-color:rgba(88,166,255,0.15)}
+.footer-right{display:flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(46,160,67,0.06);border:1px solid rgba(46,160,67,0.12);border-radius:10px;flex-shrink:0}
+.footer-right svg{width:14px;height:14px;color:var(--grn)}
+.footer-right div{font-size:11px;font-weight:700;color:var(--grn)}
+.footer-right small{font-size:9px;color:var(--txt2);font-weight:400}
+.progress-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#58a6ff,#3fb950,#d2a8ff,#f0883e,#f778ba);background-size:400% 100%;animation:moveGrad 5s ease infinite;border-radius:0 0 24px 24px;z-index:3}
+@keyframes moveGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Chapter Pages */
+.ch-page{padding:clamp(20px,3.5vw,44px);position:relative;z-index:2}
+.ch-page .ch-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(48,54,61,0.3)}
+.ch-page .ch-number{width:clamp(32px,3vw,40px);height:clamp(32px,3vw,40px);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:clamp(14px,1.5vw,18px);font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.ch-page .ch-title{font-size:clamp(16px,2vw,22px);font-weight:700}
+.ch-page .ch-sub{font-size:clamp(10px,1vw,12px);color:var(--txt2);font-weight:400}
+.ch-body{font-size:clamp(13px,1.1vw,14.5px);line-height:1.7;color:var(--txt2)}
+.ch-body p{margin-bottom:10px}
+.ch-body strong{color:var(--txt);font-weight:600}
+.ch-body ul{list-style:none;padding:0;margin:8px 0 12px}
+.ch-body ul li{padding:4px 0 4px 20px;position:relative}
+.ch-body ul li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-weight:700}
+.ch-body .code-box{background:rgba(22,27,34,0.6);border:1px solid rgba(48,54,61,0.3);border-radius:10px;padding:clamp(10px,1.2vw,16px);margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:clamp(11px,.9vw,13px);line-height:1.6;overflow-x:auto}
+.ch-body .code-box .comment{color:var(--txt3)}
+.ch-body .code-box .cmd{color:var(--cyan)}
+.ch-body .code-box .val{color:var(--org)}
+.ch-body .code-box .ok{color:var(--grn)}
+.ch-body .hl{background:rgba(88,166,255,0.06);border-left:3px solid var(--cyan);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:clamp(12px,1vw,13.5px)}
+.ch-body .hl.warn{border-left-color:var(--ylw);background:rgba(210,146,34,0.06)}
+.ch-body .hl.err{border-left-color:var(--red);background:rgba(248,81,73,0.06)}
+.ch-body .hl strong{display:block;margin-bottom:2px;font-size:clamp(11px,.9vw,12px);text-transform:uppercase;letter-spacing:.5px}
+.ch-body .hl .hl-cyan{color:var(--cyan)}
+.ch-body .hl .hl-grn{color:var(--grn)}
+.ch-body .hl .hl-org{color:var(--org)}
+.ch-body .hl .hl-red{color:var(--red)}
+.ch-body .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.ch-body .info-card{padding:12px 14px;background:rgba(22,27,34,0.4);border-radius:10px;border:1px solid rgba(48,54,61,0.2)}
+.ch-body .info-card .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);margin-bottom:4px}
+.ch-body .info-card .value{font-size:clamp(12px,1vw,14px);color:var(--txt);font-weight:600;font-family:'JetBrains Mono',monospace}
+.ch-body .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;margin:1px}
+.ch-body .tag.grn{background:rgba(46,160,67,0.12);color:var(--grn)}
+.ch-body .tag.cyan{background:rgba(88,166,255,0.12);color:var(--cyan)}
+.ch-body .tag.ylw{background:rgba(210,146,34,0.12);color:var(--ylw)}
+.ch-body .tag.red{background:rgba(248,81,73,0.12);color:var(--red)}
+.ch-body .tag.purp{background:rgba(210,168,255,0.12);color:var(--purp)}
+.ch-body table{width:100%;border-collapse:collapse;margin:10px 0;font-size:clamp(11px,.9vw,13px)}
+.ch-body table th{padding:8px 12px;text-align:left;background:rgba(48,54,61,0.25);color:var(--txt);font-weight:600;font-size:clamp(10px,.8vw,12px);text-transform:uppercase;letter-spacing:.5px}
+.ch-body table td{padding:8px 12px;border-bottom:1px solid rgba(48,54,61,0.15)}
+.ch-body table tr:hover td{background:rgba(48,54,61,0.08)}
+.ch-body table .mono{font-family:'JetBrains Mono',monospace;font-size:clamp(10px,.85vw,12px);color:var(--cyan)}
+.ch-body .checklist-item{display:flex;align-items:center;gap:10px;padding:6px 0}
+.ch-body .checklist-item .box{width:18px;height:18px;border-radius:4px;border:2px solid var(--txt3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--grn)}
+.ch-body .checklist-item .box.done{border-color:var(--grn);background:rgba(46,160,67,0.1)}
+.ch-body .checklist-item .box.empty{border-color:var(--txt3)}
+
+/* Checklist grid */
+.check-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
+.check-cat{padding:12px 14px;background:rgba(22,27,34,0.4);border-radius:12px;border:1px solid rgba(48,54,61,0.2)}
+.check-cat .cat-title{font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(48,54,61,0.15)}
+.check-cat .cat-title .count{color:var(--txt3);font-weight:400}
+
+/* Nav */
+.page-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid rgba(48,54,61,0.2)}
+.page-nav .back{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--txt2);text-decoration:none;cursor:pointer;padding:6px 12px;border-radius:8px;background:rgba(48,54,61,0.15);border:1px solid rgba(48,54,61,0.15);transition:all .15s}
+.page-nav .back:active{background:rgba(48,54,61,0.3)}
+.page-nav .back svg{width:12px;height:12px}
+.page-nav .pnum{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace}
+
+/* TOC */
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin:12px 0}
+.toc-item{display:flex;align-items:center;gap:10px;padding:clamp(8px,1vw,12px) clamp(10px,1.2vw,14px);background:rgba(22,27,34,0.4);border-radius:10px;border:1px solid rgba(48,54,61,0.15);cursor:pointer;text-decoration:none;color:inherit;transition:all .15s}
+.toc-item:active{background:rgba(48,54,61,0.3);border-color:rgba(88,166,255,0.3)}
+.toc-item .toc-num{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:12px;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toc-item .toc-text{font-size:clamp(11px,.95vw,13px);font-weight:500;color:var(--txt)}
+.toc-item .toc-text small{display:block;font-size:clamp(9px,.75vw,10px);color:var(--txt2);font-weight:400;margin-top:1px}
+
+@media print{body{background:#fff!important;padding:0}.page{box-shadow:none;border:1px solid #ddd;page-break-after:always;border-radius:0}.cover{border-radius:0}.progress-bar,.glow-1,.glow-2,.glow-3,.grid-overlay{display:none}.page-nav{display:none}}
+@media(max-width:480px){.header h1 br{display:none}.chapter-item small{display:none}.stats{gap:8px}.stat:nth-child(n+3){flex:1;min-width:calc(50% - 8px)}}
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="page cover">
+  <div class="grid-overlay"></div>
+  <div class="glow-1"></div><div class="glow-2"></div><div class="glow-3"></div>
+  <div class="page-inner">
+    <div class="header">
+      <div class="header-left">
+        <div class="badge"><span class="badge-dot"></span>GitHub Pages</div>
+        <h1>Guia Completo<br><span class="g1">GitHub Pages</span><br><span class="g2">InfoCelll</span></h1>
+        <p class="subtitle">Configure, publique e gerencie seu site estático com domínio personalizado, SSL Automático e boas práticas de deploy.</p>
+        <div class="meta">
+          <div class="meta-item">📅 v1.0</div>
+          <div class="meta-item">📖 16 Capítulos</div>
+          <div class="meta-item">🛡️ Guia Definitivo</div>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+        <div class="visual-center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <span>infocelll.github.io</span>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-icon s1">16</div><div class="stat-text"><strong>Capítulos</strong>Conteúdo completo</div></div>
+      <div class="stat"><div class="stat-icon s2">04</div><div class="stat-text"><strong>Métodos</strong>Formas de publicar</div></div>
+      <div class="stat"><div class="stat-icon s3">07</div><div class="stat-text"><strong>Passos</strong>Configuração DNS</div></div>
+      <div class="stat"><div class="stat-icon s4">12</div><div class="stat-text"><strong>Verificações</strong>Checklist completo</div></div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="card-icon blue">⚙️</div><div class="card-text"><strong>Configuração</strong>Ativação do Pages, branch, domínio e DNS</div></div>
+      <div class="card"><div class="card-icon green">🚀</div><div class="card-text"><strong>Publicação</strong>Upload, commits, Actions e deploy automático</div></div>
+      <div class="card"><div class="card-icon purple">🔍</div><div class="card-text"><strong>Diagnóstico</strong>Erro 404, SSL, propagação e troubleshooting</div></div>
+      <div class="card"><div class="card-icon orange">📝</div><div class="card-text"><strong>Boas Práticas</strong>Estrutura, CNAME, organização e SEO</div></div>
+      <div class="card"><div class="card-icon pink">✅</div><div class="card-text"><strong>Checklist</strong>Verificação completa de deploy e domínio</div></div>
+    </div>
+    <div class="chapters">
+      <div class="chapters-title">📋 Capítulos <span>• Guia completo em 16 etapas</span></div>
+      <div class="chapters-grid">
+        <div class="chapter-item" onclick="document.getElementById('ch1').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c1">01</div><div>Objetivo<small>Propósito do guia</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch2').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c2">02</div><div>Links Importantes<small>Repositórios e configurações</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch3').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c3">03</div><div>Ativar o Pages<small>Settings → Pages → Save</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch4').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c4">04</div><div>Endereço do Site<small>URL com e sem domínio</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch5').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c5">05</div><div>Domínio Personalizado<small>Custom domain + HTTPS</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch6').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c2">06</div><div>Configuração DNS<small>CNAME e Registros A</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch7').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c1">07</div><div>Verificar DNS<small>Propagação e validação</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch8').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c5">08</div><div>Estrutura do Projeto<small>Pastas e arquivos</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch9').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c6">09</div><div>Publicação<small>4 métodos de upload</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch10').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c3">10</div><div>Como Saber se Publicou<small>Status live</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch11').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c4">11</div><div>GitHub Actions<small>Deploy Pages status</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch12').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c1">12</div><div>Erro 404<small>Causas e soluções</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch13').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c5">13</div><div>Arquivo CNAME<small>Configuração na raiz</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch14').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c2">14</div><div>Checklist<small>Verificação completa</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch15').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c3">15</div><div>Boas Práticas<small>Organização e SEO</small></div></div>
+        <div class="chapter-item" onclick="document.getElementById('ch16').scrollIntoView({behavior:'smooth'})" style="cursor:pointer"><div class="chapter-num c4">16</div><div>Observação Final<small>Resolução de problemas</small></div></div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-left">
+        <span class="footer-pill">🌐 infocelll.github.io/infocelll</span>
+        <span class="footer-pill active">✦ www.infocelll.com.br</span>
+        <span class="footer-pill">📁 Repositório público</span>
+      </div>
+      <div class="footer-right">📌 v1.0 <small>• Julho 2026</small></div>
+    </div>
+  </div>
+  <div class="progress-bar"></div>
+</div>
+
+<!-- ==================== CHAPTER 1: OBJETIVO ==================== -->
+<div class="page" id="ch1">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(88,166,255,0.12);color:var(--cyan)">01</div>
+      <div><div class="ch-title">Objetivo</div><div class="ch-sub">Propósito deste guia</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 1/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Este guia reúne <strong>todas as informações necessárias</strong> para configurar, publicar e manter um site no <strong>GitHub Pages</strong> — desde a ativação inicial até a configuração de domínio personalizado e diagnóstico de erros.</p>
+      <div class="hl"><strong>🎯 Público-alvo</strong>Desenvolvedores, designers e qualquer pessoa que deseje hospedar sites estáticos gratuitamente com GitHub Pages.</div>
+      <p><strong>O que você vai aprender:</strong></p>
+      <ul>
+        <li>Configurar o GitHub Pages do zero</li>
+        <li>Publicar um site HTML estático</li>
+        <li>Configurar domínio personalizado</li>
+        <li>Configurar DNS (CNAME e Registros A)</li>
+        <li>Resolver erros de publicação (404, SSL, etc.)</li>
+        <li>Diagnosticar problemas de acesso</li>
+        <li>Atualizar o site corretamente</li>
+      </ul>
+      <p>Todo o conteúdo é baseado na <strong>experiência prática</strong> com o projeto <strong>InfoCelll</strong> e seu site hospedado em <code class="tag cyan">infocelll.github.io/infocelll</code>.</p>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch16').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 2</span>
+      <a class="back" onclick="document.getElementById('ch2').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 2: LINKS IMPORTANTES ==================== -->
+<div class="page" id="ch2">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(46,160,67,0.12);color:var(--grn)">02</div>
+      <div><div class="ch-title">Links Importantes</div><div class="ch-sub">Acessos rápidos para configuração</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 2/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Abaixo estão os links essenciais para gerenciar seu repositório e o GitHub Pages:</p>
+      <div class="grid-2">
+        <div class="info-card"><div class="label">📦 Repositório</div><div class="value"><a href="https://github.com/infocelll/infocelll" target="_blank" style="color:var(--cyan);text-decoration:none">github.com/infocelll/infocelll</a></div></div>
+        <div class="info-card"><div class="label">⚙️ GitHub Pages</div><div class="value"><a href="https://github.com/infocelll/infocelll/settings/pages" target="_blank" style="color:var(--cyan);text-decoration:none">Settings → Pages</a></div></div>
+        <div class="info-card"><div class="label">💾 Espaço utilizado</div><div class="value"><a href="https://github.com/settings/repositories" target="_blank" style="color:var(--cyan);text-decoration:none">github.com/settings/repositories</a></div></div>
+        <div class="info-card"><div class="label">🆕 Novo repositório</div><div class="value"><a href="https://github.com/new" target="_blank" style="color:var(--cyan);text-decoration:none">github.com/new</a></div></div>
+      </div>
+      <div class="hl warn"><strong>💡 Dica</strong>Salve esses links nos favoritos do navegador para acesso rápido durante a configuração.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch1').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 3</span>
+      <a class="back" onclick="document.getElementById('ch3').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 3: ATIVAR O GITHUB PAGES ==================== -->
+<div class="page" id="ch3">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(210,168,255,0.12);color:var(--purp)">03</div>
+      <div><div class="ch-title">Ativar o GitHub Pages</div><div class="ch-sub">Primeiros passos para publicar</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 3/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Siga os passos abaixo para ativar o GitHub Pages no seu repositório:</p>
+      <div class="code-box">
+1. Acesse o repositório no GitHub<br>
+2. Clique em <span class="cmd">Settings</span><br>
+3. Clique em <span class="cmd">Pages</span> no menu lateral<br>
+4. Em <span class="cmd">Source</span>, selecione <span class="val">Deploy from a branch</span><br>
+5. Em <span class="cmd">Branch</span>, selecione <span class="val">main</span><br>
+6. Em <span class="cmd">Folder</span>, selecione <span class="val">/ (root)</span><br>
+7. Clique em <span class="cmd">Save</span><br>
+8. Aguarde <span class="val">1 a 5 minutos</span> para o deploy<br>
+9. O GitHub fará o deploy <span class="ok">automaticamente</span>
+      </div>
+      <div class="hl"><strong>✅ Resultado esperado</strong>Após o deploy, o GitHub exibirá a mensagem: <span class="hl-grn">"Your site is live at https://infocelll.github.io/infocelll/"</span></div>
+      <div class="hl warn"><strong>⏱️ Tempo de propagação</strong>O primeiro deploy pode levar até 5 minutos. Atualize a página de Settings > Pages para ver o status.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch2').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 4</span>
+      <a class="back" onclick="document.getElementById('ch4').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 4: ENDEREÇO DO SITE ==================== -->
+<div class="page" id="ch4">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(240,136,62,0.12);color:var(--org)">04</div>
+      <div><div class="ch-title">Endereço do Site</div><div class="ch-sub">URLs com e sem domínio personalizado</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 4/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Após ativar o GitHub Pages, seu site estará disponível nos seguintes endereços:</p>
+      <div class="grid-2">
+        <div class="info-card"><div class="label">🌐 Sem domínio personalizado</div><div class="value" style="font-size:clamp(11px,.9vw,13px)">https://infocelll.github.io/infocelll/</div></div>
+        <div class="info-card"><div class="label">🔗 Com domínio personalizado</div><div class="value" style="font-size:clamp(11px,.9vw,13px)">https://www.infocelll.com.br</div></div>
+      </div>
+      <p><strong>Entendendo a URL padrão:</strong></p>
+      <div class="code-box">
+<span class="comment">// Formato padrão do GitHub Pages</span>
+https://<span class="cmd">{usuário}</span>.github.io/<span class="cmd">{repositório}</span>/
+
+<span class="comment">// Exemplo com InfoCelll</span>
+https://<span class="val">infocelll</span>.github.io/<span class="val">infocelll</span>/
+      </div>
+      <div class="hl"><strong>📌 Importante</strong>A URL padrão <code class="tag cyan">github.io/{repositório}</code> funciona imediatamente após o deploy. O domínio personalizado é opcional, mas <strong>recomendado</strong> para uma presença profissional.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch3').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 5</span>
+      <a class="back" onclick="document.getElementById('ch5').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 5: DOMÍNIO PERSONALIZADO ==================== -->
+<div class="page" id="ch5">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(247,120,186,0.12);color:var(--pink)">05</div>
+      <div><div class="ch-title">Domínio Personalizado</div><div class="ch-sub">Configurar custom domain + HTTPS</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 5/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Para usar seu próprio domínio (ex: <strong>www.infocelll.com.br</strong>):</p>
+      <div class="code-box">
+1. Acesse: <span class="cmd">Settings</span> → <span class="cmd">Pages</span><br>
+2. No campo <span class="cmd">Custom domain</span>, informe:<br>
+   &nbsp;&nbsp;<span class="val">www.infocelll.com.br</span><br>
+3. Clique em <span class="cmd">Save</span><br>
+4. Habilite a opção <span class="ok">Enforce HTTPS</span><br>
+5. O GitHub emitirá o <span class="ok">certificado SSL automaticamente</span>
+      </div>
+      <div class="hl"><strong>🔒 HTTPS Automático</strong>O GitHub emite certificados SSL/TLS via Let's Encrypt. A emissão pode levar de <strong>1 a 30 minutos</strong>. O site continuará funcionando via HTTP enquanto o certificado não é emitido.</div>
+      <div class="hl warn"><strong>⚠️ Importante</strong>Não desabilite o <strong>Enforce HTTPS</strong> após ativá-lo. Isso pode expor seu site a riscos de segurança.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch4').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 6</span>
+      <a class="back" onclick="document.getElementById('ch6').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 6: CONFIGURAÇÃO DNS ==================== -->
+<div class="page" id="ch6">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(46,160,67,0.12);color:var(--grn)">06</div>
+      <div><div class="ch-title">Configuração DNS</div><div class="ch-sub">CNAME e Registros A no seu provedor de DNS</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 6/16</div>
+    </div>
+    <div class="ch-body">
+      <p>No painel DNS do seu provedor de domínio, configure os seguintes registros:</p>
+      <p><strong>📌 Registro CNAME (obrigatório)</strong></p>
+      <table>
+        <tr><th>Host</th><th>Tipo</th><th>Destino</th></tr>
+        <tr><td class="mono">www</td><td><span class="tag cyan">CNAME</span></td><td class="mono">infocelll.github.io</td></tr>
+      </table>
+      <p><strong>📌 Registros A (recomendado para domínio raiz)</strong></p>
+      <table>
+        <tr><th>IP</th><th>Provedor</th></tr>
+        <tr><td class="mono">185.199.108.153</td><td>GitHub Pages</td></tr>
+        <tr><td class="mono">185.199.109.153</td><td>GitHub Pages</td></tr>
+        <tr><td class="mono">185.199.110.153</td><td>GitHub Pages</td></tr>
+        <tr><td class="mono">185.199.111.153</td><td>GitHub Pages</td></tr>
+      </table>
+      <div class="hl"><strong>🌍 Propagação DNS</strong>A propagação pode levar de <strong>minutos a 48 horas</strong>. Use ferramentas como <code class="tag cyan">whatsmydns.net</code> para verificar o status global.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch5').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 7</span>
+      <a class="back" onclick="document.getElementById('ch7').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 7: VERIFICAR DNS ==================== -->
+<div class="page" id="ch7">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(88,166,255,0.12);color:var(--cyan)">07</div>
+      <div><div class="ch-title">Verificar DNS</div><div class="ch-sub">Confirmar propagação e configuração</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 7/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Após configurar os registros DNS, confirme os seguintes pontos:</p>
+      <div class="hl"><strong>✅ Check DNS</strong>
+<span class="hl-grn">✓</span> O registro CNAME <strong>www</strong> aponta para <code class="tag cyan">infocelll.github.io</code><br>
+<span class="hl-grn">✓</span> O domínio principal aponta para os <strong>4 IPs do GitHub</strong><br>
+<span class="hl-grn">✓</span> A propagação DNS foi concluída (use <code class="tag cyan">dig www.infocelll.com.br</code>)<br>
+<span class="hl-grn">✓</span> O GitHub reconhece o domínio em <strong>Settings → Pages</strong></div>
+      <p><strong>Ferramentas úteis:</strong></p>
+      <ul>
+        <li><strong>whatsmydns.net</strong> — Verificar propagação global</li>
+        <li><strong>dnschecker.org</strong> — Checar registros DNS em múltiplas localidades</li>
+        <li><strong>Terminal:</strong> <code class="tag cyan">nslookup www.infocelll.com.br</code></li>
+        <li><strong>Terminal:</strong> <code class="tag cyan">dig www.infocelll.com.br CNAME</code></li>
+      </ul>
+      <div class="hl warn"><strong>⏳ Atenção</strong>A propagação DNS pode levar até <strong>48 horas</strong>. Se o site não funcionar imediatamente, aguarde e verifique novamente.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch6').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 8</span>
+      <a class="back" onclick="document.getElementById('ch8').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 8: ESTRUTURA DO PROJETO ==================== -->
+<div class="page" id="ch8">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(247,120,186,0.12);color:var(--pink)">08</div>
+      <div><div class="ch-title">Estrutura do Projeto</div><div class="ch-sub">Organização de arquivos recomendada</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 8/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Mantenha seu repositório organizado com a seguinte estrutura:</p>
+      <div class="code-box">
+<span class="cmd">/</span> (raiz)<br>
+├── <span class="val">index.html</span>          <span class="comment">← Página principal (OBRIGATÓRIO)</span><br>
+├── <span class="val">robots.txt</span>         <span class="comment">← Instruções para motores de busca</span><br>
+├── <span class="val">sitemap.xml</span>        <span class="comment">← Mapa do site para SEO</span><br>
+├── <span class="val">manifest.json</span>      <span class="comment">← Manifesto para PWA</span><br>
+├── <span class="val">favicon.ico</span>        <span class="comment">← Ícone do site</span><br>
+├── <span class="val">css/</span>               <span class="comment">← Folhas de estilo</span><br>
+├── <span class="val">js/</span>                <span class="comment">← Scripts JavaScript</span><br>
+├── <span class="val">img/</span>               <span class="comment">← Imagens e ícones</span><br>
+├── <span class="val">icons/</span>             <span class="comment">← Ícones para PWA</span><br>
+├── <span class="val">assets/</span>            <span class="comment">← Arquivos estáticos</span><br>
+└── <span class="val">fonts/</span>              <span class="comment">← Fontes customizadas</span>
+      </div>
+      <div class="hl"><strong>📂 Organização</strong>Manter arquivos em pastas separadas (css/, js/, img/) facilita a manutenção e o versionamento.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch7').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 9</span>
+      <a class="back" onclick="document.getElementById('ch9').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 9: PUBLICAÇÃO DOS ARQUIVOS ==================== -->
+<div class="page" id="ch9">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(88,166,255,0.08);color:var(--txt2)">09</div>
+      <div><div class="ch-title">Publicação dos Arquivos</div><div class="ch-sub">4 métodos para enviar seus arquivos</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 9/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Escolha o método mais adequado para publicar seus arquivos:</p>
+      <p><strong>📁 Opção 1 — Upload de múltiplos arquivos (recomendado)</strong></p>
+      <div class="code-box">
+1. No repositório, clique em <span class="cmd">Add file → Upload files</span><br>
+2. Arraste ou selecione os arquivos:<br>
+   &nbsp;&nbsp;<span class="val">index.html</span>, <span class="val">css/</span>, <span class="val">js/</span>, <span class="val">img/</span>, etc.<br>
+3. Marque <span class="cmd">Commit directly to main</span><br>
+4. Clique em <span class="ok">Commit changes</span>
+      </div>
+      <p><strong>✏️ Opção 2 — Editar arquivo individual</strong></p>
+      <div class="code-box">
+1. Abra o arquivo (ex: <span class="val">index.html</span>)<br>
+2. Clique no ícone ✏️ <span class="cmd">Edit</span><br>
+3. Faça as alterações<br>
+4. Role até o final e clique em <span class="ok">Commit changes</span>
+      </div>
+      <p><strong>🔄 Opção 3 — Substituir vários arquivos</strong></p>
+      <div class="code-box">
+1. Clique em <span class="cmd">Add file → Upload files</span><br>
+2. Envie novamente os arquivos com as alterações<br>
+3. Eles <span class="ok">substituirão automaticamente</span> os existentes<br>
+4. Commit changes
+      </div>
+      <p><strong>🚀 Opção 4 — Novo repositório (infocelll.github.io)</strong></p>
+      <div class="code-box">
+1. Crie novo repositório com nome: <span class="val">infocelll.github.io</span><br>
+2. Marque como <span class="cmd">Public</span><br>
+3. Clique em <span class="ok">Create Repository</span><br>
+4. Faça upload dos arquivos<br>
+5. Configure Pages normalmente
+      </div>
+      <div class="hl warn"><strong>💡 Dica</strong>A Opção 4 (repositório nomeado como <code class="tag cyan">{usuário}.github.io</code>) faz o site ficar disponível na raiz <code class="tag cyan">https://infocelll.github.io/</code> sem o nome do repositório na URL.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch8').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 10</span>
+      <a class="back" onclick="document.getElementById('ch10').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 10: COMO SABER SE PUBLICOU ==================== -->
+<div class="page" id="ch10">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(210,168,255,0.12);color:var(--purp)">10</div>
+      <div><div class="ch-title">Como Saber se Publicou</div><div class="ch-sub">Verificar se o deploy foi concluído</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 10/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Após o commit, verifique se o site foi publicado com sucesso:</p>
+      <div class="code-box">
+1. Acesse: <span class="cmd">Settings → Pages</span><br>
+2. Procure pela mensagem:<br>
+   &nbsp;&nbsp;<span class="ok">"Your site is live at https://..."</span><br>
+3. Se aparecer <span class="ok">verde</span>, o deploy foi concluído ✅<br>
+4. Se aparecer <span class="val">amarelo</span>, o deploy ainda está em andamento ⏳<br>
+5. Se aparecer <span class="cmd">vermelho</span>, houve um erro ❌
+      </div>
+      <div class="hl"><strong>🔗 Acesse diretamente</strong>Abra <code class="tag cyan">https://infocelll.github.io/infocelll/</code> no navegador. Se o conteúdo aparecer, o deploy foi concluído.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch9').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 11</span>
+      <a class="back" onclick="document.getElementById('ch11').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 11: GITHUB ACTIONS ==================== -->
+<div class="page" id="ch11">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(240,136,62,0.12);color:var(--org)">11</div>
+      <div><div class="ch-title">GitHub Actions</div><div class="ch-sub">Acompanhar o status do deploy</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 11/16</div>
+    </div>
+    <div class="ch-body">
+      <p>O GitHub Actions executa automaticamente o deploy do Pages após cada commit.</p>
+      <div class="code-box">
+1. Acesse a aba <span class="cmd">Actions</span> do repositório<br>
+2. Procure pelo workflow <span class="val">"Deploy Pages"</span><br>
+3. Verifique o status:<br>
+   &nbsp;&nbsp;<span class="ok">🟢 Verde</span> = Deploy concluído com sucesso ✅<br>
+   &nbsp;&nbsp;<span class="cmd">🟡 Amarelo</span> = Deploy em andamento ⏳<br>
+   &nbsp;&nbsp;<span class="val">🔴 Vermelho</span> = Erro no deploy — clique para analisar ❌
+      </div>
+      <div class="hl"><strong>📋 Logs de erro</strong>Se o deploy falhar, clique no workflow <strong>vermelho</strong> e depois em <strong>"Build"</strong> para ver os logs detalhados do erro.</div>
+      <div class="hl warn"><strong>⚡ Dica</strong>Workflows com duração maior que <strong>5 minutos</strong> geralmente indicam algum problema. Verifique os logs para identificar a causa.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch10').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 12</span>
+      <a class="back" onclick="document.getElementById('ch12').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 12: ERRO 404 ==================== -->
+<div class="page" id="ch12">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(88,166,255,0.12);color:var(--cyan)">12</div>
+      <div><div class="ch-title">Erro 404</div><div class="ch-sub">Causas e soluções para página não encontrada</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 12/16</div>
+    </div>
+    <div class="ch-body">
+      <p><strong>Cenário comum:</strong></p>
+      <div class="code-box">
+<span class="ok">✅ Funciona:</span>  https://www.infocelll.com.br/<span class="cmd">index.html</span><br>
+<span class="cmd">❌ Não funciona:</span> https://www.infocelll.com.br/
+      </div>
+      <p><strong>Possíveis causas do erro 404:</strong></p>
+      <div class="grid-2">
+        <div class="info-card"><div class="label">🔴 Pages desativado</div><div class="value">Verificar Settings → Pages</div></div>
+        <div class="info-card"><div class="label">🟡 Deploy incompleto</div><div class="value">Aguardar Actions finalizar</div></div>
+        <div class="info-card"><div class="label">🟠 DNS propagando</div><div class="value">Aguardar até 48 horas</div></div>
+        <div class="info-card"><div class="label">🔵 HTTPS emitindo</div><div class="value">Certificado SSL em emissão</div></div>
+        <div class="info-card"><div class="label">⚪ CNAME incorreto</div><div class="value">Verificar arquivo na raiz</div></div>
+        <div class="info-card"><div class="label">⚫ index.html fora da raiz</div><div class="value">Mover para a pasta raiz</div></div>
+        <div class="info-card"><div class="label">🔴 Domínio incorreto</div><div class="value">Revisar Custom Domain</div></div>
+      </div>
+      <div class="hl err"><strong>🚨 Diagnóstico rápido</strong>Se <code class="tag cyan">/index.html</code> funciona mas a raiz não, o problema está em uma destas configurações: <strong>Pages, Custom Domain, CNAME, DNS, HTTPS ou deploy</strong>.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch11').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 13</span>
+      <a class="back" onclick="document.getElementById('ch13').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 13: ARQUIVO CNAME ==================== -->
+<div class="page" id="ch13">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(247,120,186,0.12);color:var(--pink)">13</div>
+      <div><div class="ch-title">Arquivo CNAME</div><div class="ch-sub">Configuração do domínio personalizado na raiz</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 13/16</div>
+    </div>
+    <div class="ch-body">
+      <p>O arquivo <strong>CNAME</strong> deve ser criado na <strong>raiz do repositório</strong> e conter apenas o domínio personalizado.</p>
+      <div class="code-box">
+<span class="comment">// Arquivo: CNAME (sem extensão)</span>
+<span class="comment">// Conteúdo (apenas esta linha):</span>
+<span class="val">www.infocelll.com.br</span>
+      </div>
+      <p><strong>Regras importantes:</strong></p>
+      <ul>
+        <li>O nome do arquivo deve ser <strong>CNAME</strong> (sem extensão)</li>
+        <li>O conteúdo deve ser <strong>exatamente igual</strong> ao domínio configurado em Settings → Pages → Custom Domain</li>
+        <li>O arquivo deve ficar na <strong>raiz</strong> do repositório</li>
+        <li>Sem espaços extras ou linhas em branco</li>
+      </ul>
+      <div class="hl warn"><strong>⚠️ Atenção</strong>Se o conteúdo do CNAME <strong>não corresponder</strong> ao domínio configurado no Settings, o GitHub Pages pode ignorar o domínio personalizado ou exibir erro 404.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch12').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 14</span>
+      <a class="back" onclick="document.getElementById('ch14').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 14: CHECKLIST ==================== -->
+<div class="page" id="ch14">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(46,160,67,0.12);color:var(--grn)">14</div>
+      <div><div class="ch-title">Checklist</div><div class="ch-sub">Verificação completa para deploy bem-sucedido</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 14/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Marque os itens abaixo conforme forem verificados:</p>
+      <div class="check-grid">
+        <div class="check-cat">
+          <div class="cat-title">📦 Repositório <span class="count">(3)</span></div>
+          <div class="checklist-item"><div class="box done">✓</div>Repositório público</div>
+          <div class="checklist-item"><div class="box"></div>Branch main criada</div>
+          <div class="checklist-item"><div class="box"></div>Commit realizado</div>
+        </div>
+        <div class="check-cat">
+          <div class="cat-title">⚙️ GitHub Pages <span class="count">(5)</span></div>
+          <div class="checklist-item"><div class="box"></div>Deploy from branch</div>
+          <div class="checklist-item"><div class="box"></div>Branch main selecionada</div>
+          <div class="checklist-item"><div class="box"></div>Root (/) selecionado</div>
+          <div class="checklist-item"><div class="box"></div>Save clicado</div>
+          <div class="checklist-item"><div class="box"></div>Status "Published"</div>
+        </div>
+        <div class="check-cat">
+          <div class="cat-title">📄 Arquivos <span class="count">(8)</span></div>
+          <div class="checklist-item"><div class="box"></div>index.html na raiz</div>
+          <div class="checklist-item"><div class="box"></div>CSS importado</div>
+          <div class="checklist-item"><div class="box"></div>JavaScript funcional</div>
+          <div class="checklist-item"><div class="box"></div>Imagens carregando</div>
+          <div class="checklist-item"><div class="box"></div>favicon.ico presente</div>
+          <div class="checklist-item"><div class="box"></div>robots.txt configurado</div>
+          <div class="checklist-item"><div class="box"></div>sitemap.xml gerado</div>
+          <div class="checklist-item"><div class="box"></div>manifest.json e service-worker.js</div>
+        </div>
+        <div class="check-cat">
+          <div class="cat-title">🌐 Domínio <span class="count">(3)</span></div>
+          <div class="checklist-item"><div class="box"></div>Custom Domain configurado</div>
+          <div class="checklist-item"><div class="box"></div>HTTPS habilitado (Enforce HTTPS)</div>
+          <div class="checklist-item"><div class="box"></div>Certificado SSL emitido</div>
+        </div>
+        <div class="check-cat">
+          <div class="cat-title">🔗 DNS <span class="count">(3)</span></div>
+          <div class="checklist-item"><div class="box"></div>Registro CNAME www → infocelll.github.io</div>
+          <div class="checklist-item"><div class="box"></div>4 Registros A configurados</div>
+          <div class="checklist-item"><div class="box"></div>Propagação DNS concluída</div>
+        </div>
+        <div class="check-cat">
+          <div class="cat-title">✅ Testes <span class="count">(4)</span></div>
+          <div class="checklist-item"><div class="box"></div>GitHub Pages funcionando</div>
+          <div class="checklist-item"><div class="box"></div>Domínio personalizado funcionando</div>
+          <div class="checklist-item"><div class="box"></div>HTTPS funcionando (cadeado verde)</div>
+          <div class="checklist-item"><div class="box"></div>Sem erro 404</div>
+        </div>
+      </div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch13').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 15</span>
+      <a class="back" onclick="document.getElementById('ch15').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 15: BOAS PRÁTICAS ==================== -->
+<div class="page" id="ch15">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(210,168,255,0.12);color:var(--purp)">15</div>
+      <div><div class="ch-title">Boas Práticas</div><div class="ch-sub">Recomendações para manutenção do site</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 15/16</div>
+    </div>
+    <div class="ch-body">
+      <p>Siga estas boas práticas para manter seu site GitHub Pages saudável:</p>
+      <div class="grid-2">
+        <div class="info-card"><div class="label">📝 Nomenclatura</div>• Letras minúsculas<br>• Sem espaços<br>• Sem acentos<br>• Sem caracteres especiais</div>
+        <div class="info-card"><div class="label">📂 Organização</div>• index.html na raiz<br>• CSS, JS e imagens em pastas<br>• Estrutura consistente</div>
+        <div class="info-card"><div class="label">🔄 Versionamento</div>• Commits frequentes<br>• Mensagens descritivas<br>• .gitignore configurado</div>
+        <div class="info-card"><div class="label">🔍 SEO</div>• robots.txt atualizado<br>• sitemap.xml gerado<br>• Meta tags configuradas</div>
+        <div class="info-card"><div class="label">⚡ Performance</div>• Imagens otimizadas<br>• CSS/JS minificados<br>• Cache configurado</div>
+        <div class="info-card"><div class="label">🔒 Segurança</div>• HTTPS sempre ativo<br>• Dependências atualizadas<br>• Sem dados sensíveis no código</div>
+      </div>
+      <div class="hl"><strong>📌 Lembre-se</strong>Sempre verifique o <strong>GitHub Actions</strong> após um commit para confirmar que o deploy foi bem-sucedido. Mantenha <code class="tag cyan">robots.txt</code>, <code class="tag cyan">sitemap.xml</code>, <code class="tag cyan">manifest.json</code> e <code class="tag cyan">favicon</code> atualizados.</div>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch14').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 16</span>
+      <a class="back" onclick="document.getElementById('ch16').scrollIntoView({behavior:'smooth'})">Próximo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 16: OBSERVAÇÃO FINAL ==================== -->
+<div class="page" id="ch16">
+  <div class="ch-page">
+    <div class="ch-header">
+      <div class="ch-number" style="background:rgba(240,136,62,0.12);color:var(--org)">16</div>
+      <div><div class="ch-title">Observação Final</div><div class="ch-sub">Resolução de problemas persistentes</div></div>
+      <div style="flex:1"></div>
+      <div style="font-size:9px;color:var(--txt3);background:rgba(48,54,61,0.2);padding:3px 10px;border-radius:6px">Capítulo 16/16</div>
+    </div>
+    <div class="ch-body">
+      <p><strong>Cenário típico:</strong></p>
+      <div class="code-box">
+<span class="ok">✅ Funciona:</span>  https://www.infocelll.com.br/<span class="cmd">index.html</span><br>
+<span class="cmd">❌ Não funciona:</span> https://www.infocelll.com.br/
+      </div>
+      <p>Se <code class="tag cyan">/index.html</code> funciona mas a raiz não, o problema <strong>normalmente</strong> está em uma destas configurações:</p>
+      <ul>
+        <li><strong>GitHub Pages</strong> — Verificar se está ativo e publicado</li>
+        <li><strong>Custom Domain</strong> — Confirmar se o domínio foi salvo corretamente</li>
+        <li><strong>Arquivo CNAME</strong> — Verificar se o conteúdo corresponde ao domínio</li>
+        <li><strong>DNS</strong> — Confirmar propagação dos registros</li>
+        <li><strong>Certificado HTTPS</strong> — Aguardar emissão do SSL</li>
+        <li><strong>Deploy</strong> — Confirmar que o Actions concluiu sem erros</li>
+      </ul>
+      <div class="hl"><strong>🔑 Antes de alterar qualquer configuração, confirme:</strong>
+<span class="hl-grn">✓</span> O domínio no GitHub Pages corresponde ao conteúdo do CNAME<br>
+<span class="hl-grn">✓</span> O DNS está propagado (use <code class="tag cyan">whatsmydns.net</code>)<br>
+<span class="hl-grn">✓</span> O deploy foi concluído com sucesso (Actions verde)<br>
+<span class="hl-grn">✓</span> O arquivo index.html está na raiz publicada</div>
+      <p>Na maioria dos casos, <strong>alinhar essas quatro configurações</strong> resolve o problema.</p>
+    </div>
+    <div class="page-nav">
+      <a class="back" onclick="document.getElementById('ch15').scrollIntoView({behavior:'smooth'})">← Anterior</a>
+      <span class="pnum">Página 17 — Fim</span>
+      <a class="back" onclick="document.getElementById('ch1').scrollIntoView({behavior:'smooth'})">↑ Início</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Smooth scroll for all chapter links
+document.querySelectorAll('[onclick*="scrollIntoView"]').forEach(function(el){
+  el.style.cursor = 'pointer'
+})
+</script>
+</body>
+</html>

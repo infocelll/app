@@ -3,39 +3,104 @@ var OFFLINE_MANAGER={
   dbName:'InfoCelllOffline',
   dbVersion:2,
   db:null,
+  _idbReady:false,
 
   init:function(){
     this.openDB().then(function(){
-      this.loadQueue();
-      this.listenConnection();
-      window.addEventListener('online',this.onOnline.bind(this));
-      window.addEventListener('offline',this.onOffline.bind(this));
-      this.updateUI();
+      this.loadQueue().then(function(){
+        this.listenConnection();
+        window.addEventListener('online',this.onOnline.bind(this));
+        window.addEventListener('offline',this.onOffline.bind(this));
+        this.listenSW();
+        this.updateUI();
+      }.bind(this));
     }.bind(this));
   },
 
   openDB:function(){
     return new Promise(function(resolve){
-      var req=indexedDB.open(this.dbName,this.dbVersion);
-      req.onupgradeneeded=function(e){
-        var db=e.target.result;
-        if(!db.objectStoreNames.contains('queue'))db.createObjectStore('queue',{keyPath:'id'});
-        if(!db.objectStoreNames.contains('queue_meta'))db.createObjectStore('queue_meta',{keyPath:'key'});
-      };
-      req.onsuccess=function(e){this.db=e.target.result;resolve()}.bind(this);
-      req.onerror=function(){resolve()};
+      try{
+        var req=indexedDB.open(this.dbName,this.dbVersion);
+        req.onupgradeneeded=function(e){
+          var db=e.target.result;
+          if(!db.objectStoreNames.contains('queue'))db.createObjectStore('queue',{keyPath:'id'});
+          if(!db.objectStoreNames.contains('queue_meta'))db.createObjectStore('queue_meta',{keyPath:'key'});
+        };
+        req.onsuccess=function(e){
+          this.db=e.target.result;
+          this._idbReady=true;
+          resolve();
+        }.bind(this);
+        req.onerror=function(){resolve()};
+      }catch(e){resolve()}
+    }.bind(this));
+  },
+
+  idbAll:function(store){
+    return new Promise(function(resolve){
+      if(!this.db){resolve([]);return}
+      try{
+        var tx=this.db.transaction(store,'readonly');
+        var req=tx.objectStore(store).getAll();
+        req.onsuccess=function(){resolve(req.result||[])};
+        req.onerror=function(){resolve([])};
+      }catch(e){resolve([])}
+    }.bind(this));
+  },
+
+  idbClear:function(store){
+    if(!this.db)return;
+    try{
+      var tx=this.db.transaction(store,'readwrite');
+      tx.objectStore(store).clear();
+    }catch(e){}
+  },
+
+  idbPutAll:function(store,items){
+    return new Promise(function(resolve){
+      if(!this.db){resolve();return}
+      try{
+        var tx=this.db.transaction(store,'readwrite');
+        var st=tx.objectStore(store);
+        items.forEach(function(item){st.put(item)});
+        tx.oncomplete=function(){resolve()};
+        tx.onerror=function(){resolve()};
+      }catch(e){resolve()}
     }.bind(this));
   },
 
   loadQueue:function(){
-    try{
-      var q=localStorage.getItem('ic_offline_queue');
-      if(q)this.queue=JSON.parse(q);
-    }catch(e){}
+    return new Promise(function(resolve){
+      this.queue=[];
+      this.idbAll('queue').then(function(items){
+        if(items&&items.length){
+          this.queue=items;
+          this.mirrorQueue();
+          this.updateUI();
+          resolve();
+          return;
+        }
+        try{
+          var q=localStorage.getItem('ic_offline_queue');
+          if(q){
+            this.queue=JSON.parse(q);
+            this.saveQueue();
+          }
+        }catch(e){}
+        resolve();
+      }.bind(this));
+    }.bind(this));
   },
 
   saveQueue:function(){
     try{localStorage.setItem('ic_offline_queue',JSON.stringify(this.queue))}catch(e){}
+    this.mirrorQueue();
+  },
+
+  mirrorQueue:function(){
+    if(!this._idbReady)return;
+    this.idbClear('queue');
+    if(this.queue.length)this.idbPutAll('queue',this.queue);
   },
 
   addToQueue:function(action,data){
@@ -68,38 +133,51 @@ var OFFLINE_MANAGER={
     try{db=JSON.parse(localStorage.getItem('ic_dashboard')||'{}')}catch(e){}
     if(!db)return this.failItem(item);
     try{
-      if(item.action==='os'||item.action==='create_os'){
-        if(!db.os)db.os=[];
-        var idx=db.os.findIndex(function(o){return o.id===item.data.id});
-        if(idx>=0)db.os[idx]=item.data;
-        else db.os.push(item.data);
-      }else if(item.action==='client'||item.action==='save_client'){
-        if(!db.clients)db.clients=[];
-        var idx=db.clients.findIndex(function(c){return c.id===item.data.id});
-        if(idx>=0)db.clients[idx]=item.data;
-        else db.clients.push(item.data);
-      }else if(item.action==='product'||item.action==='save_product'){
-        if(!db.products)db.products=[];
-        var idx=db.products.findIndex(function(p){return p.id===item.data.id});
-        if(idx>=0)db.products[idx]=item.data;
-        else db.products.push(item.data);
-      }else if(item.action==='service'||item.action==='save_service'){
-        if(!db.services)db.services=[];
-        var idx=db.services.findIndex(function(s){return s.id===item.data.id});
-        if(idx>=0)db.services[idx]=item.data;
-        else db.services.push(item.data);
-      }else if(item.action==='checklist'){
-        if(!db.checklists)db.checklists=[];
-        db.checklists.push(item.data);
+      var collMap={os:'os',client:'clients',product:'products',service:'services',checklist:'checklists'};
+      var key=collMap[item.action]||(item.action==='create_os'?'os':item.action==='save_client'?'clients':item.action==='save_product'?'products':item.action==='save_service'?'services':null);
+      if(key){
+        if(!db[key])db[key]=[];
+        var idx=-1;
+        for(var i=0;i<db[key].length;i++){
+          if(db[key][i]&&item.data&&db[key][i].id===item.data.id){idx=i;break}
+        }
+        if(idx>=0)db[key][idx]=item.data;
+        else db[key].push(item.data);
       }else if(item.action==='config'){
         db.config=item.data;
+      }else{
+        return this.failItem(item);
       }
       localStorage.setItem('ic_dashboard',JSON.stringify(db));
+      this.mergeMemory(item);
       this.removeFromQueue(item.id);
+      this.pushToServer();
       this.updateUI();
     }catch(e){
       this.failItem(item);
     }
+  },
+
+  mergeMemory:function(item){
+    try{
+      if(typeof window.DB==='undefined'||!window.DB)return;
+      var key=item.action==='create_os'?'os':item.action==='save_client'?'clients':item.action==='save_product'?'products':item.action==='save_service'?'services':item.action==='client'?'clients':item.action==='product'?'products':item.action==='service'?'services':item.action==='os'?'os':null;
+      if(!key||!item.data)return;
+      if(!window.DB[key])window.DB[key]=[];
+      var idx=-1;
+      for(var i=0;i<window.DB[key].length;i++){
+        if(window.DB[key][i]&&window.DB[key][i].id===item.data.id){idx=i;break}
+      }
+      if(idx>=0)window.DB[key][idx]=item.data;
+      else window.DB[key].push(item.data);
+    }catch(e){}
+  },
+
+  pushToServer:function(){
+    try{
+      if(typeof window.saveNow==='function')window.saveNow();
+      else if(typeof window.syncSave==='function')window.syncSave();
+    }catch(e){}
   },
 
   failItem:function(item){
@@ -135,6 +213,30 @@ var OFFLINE_MANAGER={
     document.addEventListener('visibilitychange',function(){
       if(!document.hidden&&navigator.onLine){
         if(this.queue.length)this.processQueue();
+      }
+    }.bind(this));
+  },
+
+  listenSW:function(){
+    if(!navigator.serviceWorker)return;
+    navigator.serviceWorker.addEventListener('message',function(e){
+      if(!e.data)return;
+      if(e.data.type==='SYNC_COMPLETED'){
+        if(this.queue.length){
+          this.queue=[];
+          this.saveQueue();
+        }
+        try{localStorage.removeItem('ic_offline_queue')}catch(err){}
+        this.setConnStatus('online');
+        if(typeof updateSyncUI==='function')updateSyncUI();
+      }
+      if(e.data.type==='SYNC_ERROR'){
+        if(typeof toast==='function')toast('Falha ao sincronizar no servidor. Tente novamente.','error');
+      }
+      if(e.data.type==='OFFLINE_QUEUE_CLEARED'){
+        this.queue=[];
+        this.saveQueue();
+        this.updateUI();
       }
     }.bind(this));
   },

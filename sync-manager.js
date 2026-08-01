@@ -76,9 +76,33 @@ var SYNC_MANAGER={
           resolve();
         }
         localStorage.setItem('ic_dashboard',JSON.stringify(db));
+        this.mergeMemory(item);
+        this.pushToServer();
         resolve();
       }catch(e){reject(e)}
     });
+  },
+
+  mergeMemory:function(item){
+    try{
+      if(typeof window.DB==='undefined'||!window.DB||!item.data)return;
+      var key=item.type==='os'?'os':item.type==='client'?'clients':item.type==='product'?'products':item.type==='checklist'?'checklists':null;
+      if(!key)return;
+      if(!window.DB[key])window.DB[key]=[];
+      var idx=-1;
+      for(var i=0;i<window.DB[key].length;i++){
+        if(window.DB[key][i]&&window.DB[key][i].id===item.data.id){idx=i;break}
+      }
+      if(idx>=0)window.DB[key][idx]=item.data;
+      else window.DB[key].push(item.data);
+    }catch(e){}
+  },
+
+  pushToServer:function(){
+    try{
+      if(typeof window.saveNow==='function')window.saveNow();
+      else if(typeof window.syncSave==='function')window.syncSave();
+    }catch(e){}
   },
 
   remove:function(id){

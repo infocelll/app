@@ -15,8 +15,8 @@ function openSyncQueueModal(){
   }else{
     html+='<div style="max-height:400px;overflow-y:auto">';
     [].concat(
-      queue.map(function(i){return{...i,src:'SYNC'}}),
-      offlineQueue.map(function(i){return{...i,src:'OFFLINE'}})
+      queue.map(function(i){var c={};for(var k in i)c[k]=i[k];c.src='SYNC';return c}),
+      offlineQueue.map(function(i){var c={};for(var k in i)c[k]=i[k];c.src='OFFLINE';return c})
     ).sort(function(a,b){return a.created>b.created?-1:1}).forEach(function(item){
       var icon=item.type==='os'?'&#128196;':item.type==='client'?'&#128100;':item.type==='photo'?'&#128247;':'&#128203;';
       var label=item.type||item.action||'sync';
