@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0f1a" id="metaTheme">
+<title>Central de IA - InfoCelll</title>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/central-ia.css">
+</head>
+<body>
+<div id="app">
+  <aside class="cia-sb" id="ciaSidebar">
+    <div class="cia-brand">
+      <div class="cia-brand-logo"><img src="assets/icon.svg" alt="Central de IA"></div>
+      <div class="cia-brand-text">Central<span>de&nbsp;IA</span></div>
+    </div>
+    <nav class="cia-nav" id="ciaNav">
+      <button class="cia-nav-item active" data-view="dashboard"><span class="cia-ico">&#127968;</span><span class="cia-label">Dashboard</span></button>
+      <div class="cia-nav-group-label">Ferramentas</div>
+      <button class="cia-nav-item" data-view="atendimento"><span class="cia-ico">&#128172;</span><span class="cia-label">Atendimento</span></button>
+      <button class="cia-nav-item" data-view="os"><span class="cia-ico">&#128203;</span><span class="cia-label">Ordem de Serviço</span></button>
+      <button class="cia-nav-item" data-view="orcamento"><span class="cia-ico">&#128179;</span><span class="cia-label">Orçamento</span></button>
+      <button class="cia-nav-item" data-view="garantia"><span class="cia-ico">&#128331;</span><span class="cia-label">Garantia</span></button>
+      <button class="cia-nav-item" data-view="marketing"><span class="cia-ico">&#128353;</span><span class="cia-label">Marketing</span></button>
+      <button class="cia-nav-item" data-view="programacao"><span class="cia-ico">&#128187;</span><span class="cia-label">Programação</span></button>
+      <button class="cia-nav-item" data-view="diagnostico"><span class="cia-ico">&#128300;</span><span class="cia-label">Diagnóstico Técnico</span></button>
+      <button class="cia-nav-item" data-view="documentos"><span class="cia-ico">&#128196;</span><span class="cia-label">Documentos</span></button>
+      <div class="cia-nav-group-label">Biblioteca</div>
+      <button class="cia-nav-item" data-view="prompts"><span class="cia-ico">&#128221;</span><span class="cia-label">Biblioteca de Prompts</span></button>
+      <button class="cia-nav-item" data-view="favoritas"><span class="cia-ico">&#11088;</span><span class="cia-label">Favoritas</span></button>
+      <button class="cia-nav-item" data-view="historico"><span class="cia-ico">&#128337;</span><span class="cia-label">Histórico</span></button>
+      <div class="cia-nav-group-label">Sistema</div>
+      <button class="cia-nav-item" data-view="config"><span class="cia-ico">&#9881;</span><span class="cia-label">Configurações</span></button>
+    </nav>
+    <div class="cia-sb-footer">
+      <button class="cia-theme-toggle" id="ciaThemeToggle" title="Alternar tema">&#9789;</button>
+    </div>
+  </aside>
+
+  <div class="cia-main">
+    <header class="cia-header">
+      <div class="cia-search">
+        <span class="cia-search-ico">&#128269;</span>
+        <input type="text" id="ciaGlobalSearch" placeholder="Pesquisar qualquer ferramenta ou prompt..." autocomplete="off">
+        <div id="ciaSearchResults" class="cia-search-results"></div>
+      </div>
+      <div class="cia-header-actions">
+        <span class="cia-status" id="ciaProviderBadge">Modo Offline</span>
+      </div>
+    </header>
+
+    <div class="cia-content">
+      <div class="cia-view active" id="view-dashboard"></div>
+      <div class="cia-view" id="view-atendimento"></div>
+      <div class="cia-view" id="view-os"></div>
+      <div class="cia-view" id="view-orcamento"></div>
+      <div class="cia-view" id="view-garantia"></div>
+      <div class="cia-view" id="view-marketing"></div>
+      <div class="cia-view" id="view-programacao"></div>
+      <div class="cia-view" id="view-diagnostico"></div>
+      <div class="cia-view" id="view-documentos"></div>
+      <div class="cia-view" id="view-prompts"></div>
+      <div class="cia-view" id="view-favoritas"></div>
+      <div class="cia-view" id="view-historico"></div>
+      <div class="cia-view" id="view-config"></div>
+    </div>
+  </div>
+</div>
+
+<div class="cia-modal-overlay" id="ciaModalOverlay">
+  <div class="cia-modal" id="ciaModal">
+    <div class="cia-modal-header">
+      <span class="cia-modal-title" id="ciaModalTitle">Ferramenta</span>
+      <button class="cia-modal-close" onclick="CentralAI.closeModal()">&times;</button>
+    </div>
+    <div class="cia-modal-body" id="ciaModalBody"></div>
+  </div>
+</div>
+
+<div id="ciaToasts"></div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

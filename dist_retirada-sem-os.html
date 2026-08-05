@@ -53,13 +53,13 @@
       <div class="card-header">
         <div>
           <div class="card-title">Busca Global</div>
-          <div class="card-sub">Localize por número da OS, CPF, nome, telefone, WhatsApp, IMEI, série, patrimônio ou código — a OS vinculada ao equipamento é localizada automaticamente</div>
+          <div class="card-sub">Localize por número da OS, CPF, nome, telefone, WhatsApp, IMEI, número de série, código interno ou patrimônio</div>
         </div>
       </div>
       <div class="search-section">
         <div class="search-bar">
-          <input type="text" class="form-control" id="searchInput" placeholder="OS, CPF, nome, telefone, WhatsApp, IMEI, série, patrimônio, código..." onkeydown="if(event.key==='Enter')searchOS(true)" oninput="debounceSearch()" autofocus>
-          <button class="btn btn-primary" onclick="searchOS(true)">
+          <input type="text" class="form-control" id="searchInput" placeholder="OS, CPF, nome, telefone, WhatsApp, IMEI, série, patrimônio, código..." onkeydown="if(event.key==='Enter')searchOS()" oninput="debounceSearch()" autofocus>
+          <button class="btn btn-primary" onclick="searchOS()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             Buscar
           </button>
@@ -408,6 +408,23 @@
           </label>
         </div>
       </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">Assinatura</div>
+          <div class="card-sub">Assinatura digital do cliente (ou do terceiro responsável)</div>
+          <div class="sig-area" id="sigArea">
+            <canvas id="sigCanvas" width="900" height="240"></canvas>
+          </div>
+          <div class="sig-actions">
+            <button class="btn btn-sm btn-secondary" onclick="clearSig()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Limpar
+            </button>
+            <span class="form-hint" id="sigStatus">Assine acima com o dedo ou mouse</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="grid-2" style="margin-top:16px">
@@ -559,6 +576,12 @@
         <div style="margin-top:12px">
           <div style="font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:6px">FOTOS</div>
           <div id="previewPhotos"></div>
+        </div>
+        <div style="margin-top:12px">
+          <div style="font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:6px">ASSINATURA</div>
+          <div class="sig-preview" id="previewSigWrap" style="display:none">
+            <img id="previewSig" src="" alt="Assinatura do cliente">
+          </div>
         </div>
       </div>
       <div>

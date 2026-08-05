@@ -220,17 +220,6 @@ tr:hover td{background:var(--hover)}
 #osModal .modal{display:flex;flex-direction:column;overflow:hidden}
 #osModal .modal-body{overflow-y:auto;flex:1;max-height:none}
 #osModal .modal-header{padding:10px 14px}
-#printMenuModal .modal{display:flex;flex-direction:column;overflow:hidden;max-height:92vh;max-height:92dvh}
-#printMenuModal .modal-body{overflow-y:auto;flex:1 1 auto;min-height:0;max-height:none;padding:14px 16px}
-#printMenuModal .modal-header{flex-shrink:0;padding:11px 16px}
-#printMenuModal .modal-header .modal-title{font-size:14px}
-#printMenuModal .pm-info{padding:10px 12px;margin-bottom:10px}
-#printMenuModal .pm-info .pm-grid2{gap:4px 10px}
-#printMenuModal .pm-sec{margin:10px 0 5px;font-size:9.5px}
-#printMenuModal .pm-item{min-height:54px;padding:10px 12px;font-size:12.5px}
-#printMenuModal .pm-item .pm-ic{width:32px;height:32px;border-radius:9px}
-#printMenuModal .pm-item small{font-size:9.5px}
-@media(max-width:1100px){#printMenuModal .pm-grid{grid-template-columns:1fr 1fr}}
 #osModal .modal-header .modal-title{font-size:14px}
 #osModal .modal-body{padding:12px 14px}
 #osModal .form-group{gap:3px;min-width:0}
@@ -336,10 +325,9 @@ tr:hover td{background:var(--hover)}
   .header-search{max-width:260px}
 }
 @media(max-width:768px){
-  .menu-toggle{display:flex!important;align-items:center;justify-content:center;position:relative;z-index:1001}
+  .menu-toggle{display:flex!important;align-items:center;justify-content:center}
   .sidebar{position:fixed;top:0;left:0;height:100vh;height:100dvh;transform:translateX(-100%);transition:transform .3s ease}
   .sidebar.open{transform:translateX(0)}
-  .sidebar.open~.header{z-index:1001}
   .header{padding:0 12px;gap:8px;height:52px;position:fixed;padding-top:env(safe-area-inset-top)}
   .header-title{font-size:15px;font-weight:700;overflow:hidden;text-overflow:ellipsis;max-width:32vw}
   .breadcrumb{display:none!important}
@@ -953,7 +941,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 /* ====== OS ONLINE - PUBLIC VIEW ====== */
 .os-online-overlay{position:fixed;inset:0;z-index:20000;background:var(--bg);overflow-y:auto;display:none}
 .os-online-overlay.visible{display:block}
-.os-online-overlay.visible .os-online-close{display:flex!important}
 .os-online-container{max-width:680px;margin:0 auto;padding:10px 10px}
 .os-online-brand{text-align:center;margin-bottom:12px}
 .os-online-brand .logo-icon{width:40px;height:40px;font-size:17px;margin:0 auto 6px;border-radius:12px;background:var(--cd);border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;color:var(--cg);font-weight:800;animation:loginPulse 3s ease-in-out infinite alternate}
@@ -2529,7 +2516,6 @@ window.addEventListener('DOMContentLoaded',function(){
         <button class="nav-item" data-s="Usurios" onclick="showSection('Usurios')"><i data-lucide="user-cog"></i>Usuários</button>
         <button class="nav-item" data-s="Histricos" onclick="showSection('Histricos')"><i data-lucide="history"></i>Históricos</button>
         <button class="nav-item" data-s="lgpd" onclick="showSection('lgpd')"><i data-lucide="shield"></i>LGPD</button>
-        <button class="nav-item" onclick="zerarTudo()" title="Apagar dados por grupos com confirmação detalhada e senha"><i data-lucide="trash-2" style="color:var(--red)"></i>Limpeza de Dados</button>
         <button class="nav-item" data-s="ai-monitor" onclick="showSection('ai-monitor')"><i data-lucide="bot"></i>IA Monitor</button>
         <button class="nav-item" data-s="ai-config" onclick="showSection('ai-config')"><i data-lucide="cpu"></i>Config. IA</button>
         <button class="nav-item" data-s="Personalizao" onclick="showSection('Personalizao')"><i data-lucide="sliders-horizontal"></i>Personalização</button>
@@ -2542,7 +2528,7 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="nav-group">
       <button class="nav-group-toggle" onclick="toggleNavGroup(this)">Ajuda <span class="arrow">&#9654;</span></button>
       <div class="nav-group-items">
-        <button class="nav-item" onclick="openCentralIAMod()" title="Central de IA - hub de ferramentas e prompts"><i data-lucide="brain"></i>Central de IA <span class="nav-badge" id="centralIaBadge" style="background:var(--grn)">IA</span></button>
+        <button class="nav-item" data-s="ia" onclick="showSection('ia')"><i data-lucide="brain"></i>Central de IA</button>
         <button class="nav-item" data-s="os-online" onclick="showSection('os-online')"><i data-lucide="external-link"></i>OS Online</button>
         <button class="nav-item" data-s="manual" onclick="showSection('manual')"><i data-lucide="book-open"></i>Manual do Usuário</button>
         <button class="nav-item" data-s="novidades" onclick="showSection('novidades')"><i data-lucide="sparkles"></i>Novidades <span class="nav-badge" id="novidadesBadge" style="display:none">NEW</span></button>
@@ -2573,13 +2559,9 @@ window.addEventListener('DOMContentLoaded',function(){
     <button class="header-btn" onclick="cycleTheme()" title="Alternar tema"><i data-lucide="palette" style="width:16px;height:16px"></i></button>
     <span class="header-sep"></span>
     <button class="header-btn" onclick="toggleNotifPanel()" title="Notificações" style="position:relative"><i data-lucide="bell" style="width:16px;height:16px"></i><span id="notifBadge" style="display:none;position:absolute;top:2px;right:2px;min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:700;align-items:center;justify-content:center;padding:0 4px;line-height:1">0</span></button>
-    <button class="header-btn" onclick="toggleAlertFlyout()" title="Alertas ativos" style="position:relative"><i data-lucide="alert-octagon" style="width:16px;height:16px"></i><span id="alertHeadBadge" style="display:none;position:absolute;top:2px;right:2px;min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:700;align-items:center;justify-content:center;padding:0 4px;line-height:1">0</span></button>
     <button class="header-btn" onclick="location.reload()" title="Atualizar Página"><i data-lucide="refresh-cw" style="width:16px;height:16px"></i></button>
   </div>
 </header>
-
-<!-- ALERT FLYOUT -->
-<div id="alertFlyout" style="display:none;position:fixed;top:52px;right:12px;width:360px;max-height:70vh;overflow-y:auto;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);box-shadow:0 12px 40px rgba(0,0,0,.45);z-index:30001;padding:12px"></div>
 
 <!-- MAIN -->
 <main class="main" id="mainContent">
@@ -2960,7 +2942,7 @@ window.addEventListener('DOMContentLoaded',function(){
   <!-- PRODUTOS -->
   <div class="section" id="sec-produtos">
     <div class="section-header"><div><h2 class="section-title">Produtos / Estoque</h2><p class="section-sub" id="pSub">0 produtos cadastrados</p></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportProductsTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importProductsInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importProductsInput" accept=".txt" style="display:none" onchange="importProductsTXT(this.files[0])"><button class="btn btn-primary" onclick="openPrdModal()">+ Novo</button></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-secondary" onclick="openPriceSearch()">&#128269; Pesquisar Preços</button><button class="btn btn-sm btn-secondary" onclick="exportProductsTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importProductsInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importProductsInput" accept=".txt" style="display:none" onchange="importProductsTXT(this.files[0])"><button class="btn btn-primary" onclick="openPrdModal()">+ Novo</button></div>
     </div>
     <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
       <div class="stat-card cyan"><div class="stat-value" id="pTotal">0</div><div class="stat-label">Cadastrados</div></div>
@@ -2970,13 +2952,25 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
     <div class="card">
       <div class="table-toolbar"><div class="filter-group">
-        <input class="input" id="prdSearchInput" placeholder="Buscar nome, codigo ou preço..." oninput="filterPrdTable()" style="max-width:220px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <button class="filter-btn active" onclick="filterPrd('todos',this)">Todos</button>
+        <input class="input" id="prdSearchInput" placeholder="Buscar nome, codigo..." oninput="filterPrdTable()" style="max-width:170px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <input class="input" id="prdPriceMin" type="number" min="0" step="0.01" placeholder="Preco min" oninput="filterPrdTable()" title="Preco de venda minimo" style="max-width:88px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <input class="input" id="prdPriceMax" type="number" min="0" step="0.01" placeholder="Preco max" oninput="filterPrdTable()" title="Preco de venda maximo" style="max-width:88px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <button class="filter-btn" onclick="filterPrd('baixo',this)">Estoque Baixo</button>
+        <button class="filter-btn" onclick="filterPrd('acessorio',this)">Acessorios</button>
+        <button class="filter-btn" onclick="filterPrd('peca',this)">Peças</button>
+        <button class="filter-btn" onclick="filterPrd('capa',this)">Capas</button>
+        <button class="filter-btn" onclick="filterPrd('pelicula',this)">Películas</button>
+        <button class="filter-btn" onclick="filterPrd('tela',this)">Telas</button>
+        <button class="filter-btn" onclick="filterPrd('bateria',this)">Baterias</button>
+        <button class="filter-btn" onclick="filterPrd('cabo',this)">Cabos</button>
+        <button class="filter-btn" onclick="filterPrd('carregador',this)">Carregadores</button>
+        <button class="filter-btn" onclick="filterPrd('com-foto',this)">Com Foto</button>
       </div>
 
       <div class="table-wrap"><table><thead><tr><th style="width:50px"></th><th>Produto</th><th>Código</th><th>Categoria</th><th>Custo</th><th>Venda</th><th>Margem</th><th>Estoque</th><th>Acoes</th></tr></thead><tbody id="prdBody"></tbody></table></div>
     </div>
   </div>
-</div>
 
   <!-- FORNECEDORES -->
   <div class="section" id="sec-fornecedores">
@@ -3200,7 +3194,7 @@ window.addEventListener('DOMContentLoaded',function(){
       <div class="stat-card yellow"><div class="stat-value" id="alertSLA">0</div><div class="stat-label">SLA Prximo</div></div>
       <div class="stat-card cyan"><div class="stat-value" id="alertPendentes">0</div><div class="stat-label">Pendencias</div></div>
     </div>
-    <div class="card"><div class="card-header"><span class="card-title">Alertas Ativos</span><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="font-size:10px;font-weight:700;color:var(--txt3)">FILTRAR:</span><label style="font-size:11px;display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="alertFiltroEstoqueUI" onchange="Personalizao.alertFiltroEstoque=this.checked;savePersonalizaoToStorage();renderAlertas()"> Estoque</label><label style="font-size:11px;display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="alertFiltroSLAUI" onchange="Personalizao.alertFiltroSLA=this.checked;savePersonalizaoToStorage();renderAlertas()"> SLA</label><label style="font-size:11px;display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="alertFiltroUrgenteUI" onchange="Personalizao.alertFiltroUrgente=this.checked;savePersonalizaoToStorage();renderAlertas()"> Urgente</label></div></div><div class="card-body" id="alertList"></div></div>
+    <div class="card"><div class="card-header"><span class="card-title">Alertas Ativos</span></div><div class="card-body" id="alertList"></div></div>
   </div>
 
   <!-- CONFIG -->
@@ -3261,6 +3255,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <button class="btn btn-secondary" onclick="exportCSV()">Exportar CSV</button>
         <button class="btn btn-secondary" onclick="openImportMenu()">Importar Clientes/Produtos</button>
         
+        <button class="btn btn-danger" onclick="zerarTudo()" title="Limpeza avancada: escolha quais grupos de dados apagar" style="border-color:rgba(239,68,68,.6)">&#9888; Limpeza Avan&#231;ada</button>
       </div>
       <div style="padding-top:12px;border-top:1px solid var(--bdr)">
         <div style="font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--txt3);text-transform:uppercase;margin-bottom:8px">Backup Automático</div>
@@ -3375,7 +3370,7 @@ window.addEventListener('DOMContentLoaded',function(){
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="btn btn-sm" style="background:#22c55e;color:#fff;padding:6px 12px;border:none;border-radius:var(--rs);cursor:pointer;font-size:11px" onclick="quickPrintA4()">Imprimir A4</button>
-            <button class="btn btn-sm" style="background:#f59e0b;color:#fff;padding:6px 10px;border:none;border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="quickPrintOrcamento()">Or&#231;amento R&#225;pido</button>
+            <button class="btn btn-sm" style="background:#f59e0b;color:#fff;padding:6px 10px;border:none;border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="quickPrintOrcamento()">Orcamento Rapido</button>
             <button class="btn btn-sm" style="background:var(--blu);color:#fff;padding:6px 10px;border:none;border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="quickPrintPDF()">Exportar PDF</button>
             <button class="btn btn-sm" style="background:var(--input);color:var(--txt);padding:6px 10px;border:1px solid var(--bdr);border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="openPrintPreview()">Visualizar</button>
           </div>
@@ -3393,7 +3388,7 @@ window.addEventListener('DOMContentLoaded',function(){
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="btn btn-sm" style="background:#a855f7;color:#fff;padding:6px 12px;border:none;border-radius:var(--rs);cursor:pointer;font-size:11px" onclick="quickPrintLaser()">Imprimir Laser</button>
-            <button class="btn btn-sm" style="background:var(--input);color:#f59e0b;padding:6px 10px;border:1px solid #f59e0b;border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="quickPrintOrcamento()">Or&#231;amento R&#225;pido</button>
+            <button class="btn btn-sm" style="background:var(--input);color:#f59e0b;padding:6px 10px;border:1px solid #f59e0b;border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="quickPrintOrcamento()">Orcamento Rapido</button>
             <button class="btn btn-sm" style="background:var(--input);color:var(--txt);padding:6px 10px;border:1px solid var(--bdr);border-radius:var(--rs);cursor:pointer;font-size:10px" onclick="previewPrint('laser')">Visualizar</button>
           </div>
         </div>
@@ -4240,7 +4235,6 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <!-- ====== OS ONLINE - PUBLIC VIEW ====== -->
 <div class="os-online-overlay" id="osOnlineOverlay">
-  <button id="osOnlineCloseBtn" class="os-online-close" onclick="closeOSOnline()" title="Voltar ao painel" style="position:fixed;top:14px;right:14px;z-index:20001;width:38px;height:38px;border-radius:50%;border:1px solid var(--bdr);background:var(--bg2);color:var(--txt);font-size:20px;line-height:1;cursor:pointer">&times;</button>
   <div class="os-online-container" id="osOnlineContainer"></div>
   <div class="os-notification-bar" id="osNotifBar"><span class="notif-text" id="osNotifText"></span><button class="btn btn-sm btn-primary" onclick="document.getElementById('osNotifBar').classList.remove('visible')">OK</button></div>
 </div>
@@ -4334,20 +4328,18 @@ window.addEventListener('DOMContentLoaded',function(){
   </div></div>
   <div class="os-form-card"><div class="form-grid">
     <div class="os-sec"><i data-lucide="package" style="width:13px;height:13px"></i> Peças Utilizadas</div>
-    <div class="form-group full"><div id="osPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div><div style="display:flex;gap:6px;flex-wrap:wrap"><input type="text" id="osPecaSearch" placeholder="Buscar peça por nome/código..." oninput="searchOsPeca(this.value)" style="flex:1;min-width:120px"><button type="button" class="btn btn-sm btn-primary" onclick="addOsPecaManual()">+ Manual</button></div><div id="osPecaAC" class="ac-list" style="position:relative"></div></div>
+    <div class="form-group full"><div id="osPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div><div style="display:flex;gap:6px;flex-wrap:wrap"><input type="text" id="osPecaSearch" placeholder="Buscar peça por nome/c?digo..." oninput="searchOsPeca(this.value)" style="flex:1;min-width:120px"><button type="button" class="btn btn-sm btn-primary" onclick="addOsPecaManual()">+ Manual</button></div><div id="osPecaAC" class="ac-list" style="position:relative"></div></div>
   </div></div>
   <div class="os-form-card" style="grid-column:1/-1"><div class="form-grid">
     <div class="os-sec"><i data-lucide="file-text" style="width:13px;height:13px"></i> Observações</div>
     <div class="form-group"><label>Observações</label><textarea id="osObs" rows="2"></textarea></div>
-    <div class="form-group"><label>Laudo Técnico</label><textarea id="osLaudo" rows="2" placeholder="Laudo técnico detalhado do serviço realizado..."></textarea></div>
+    <div class="form-group"><label>Laudo Técnico</label><textarea id="osLaudo" rows="2" placeholder="Laudo t?cnico detalhado do servi?o realizado..."></textarea></div>
   </div></div>
 </div><div class="os-totalbar" style="margin-top:14px;padding:12px 14px;background:var(--input);border-radius:8px"><div><label style="font-size:11px;color:var(--txt3)">Desconto (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="osDesconto" oninput="calcTotal()" placeholder="0,00"></div><div><label style="font-size:11px;color:var(--txt3)">Desconto (%)</label><input type="number" min="0" max="100" step="0.5" id="osDescPct" value="0" oninput="calcTotal()" title="Percentual de desconto sobre o total" placeholder="0"></div><div class="os-totalbox"><div style="display:flex;justify-content:flex-end;align-items:center;gap:8px"><span style="font-size:13px;color:var(--txt2)">Total:</span><span style="font-size:20px;font-weight:800;color:var(--grn)" id="osTotalDisp">R$ 0,00</span></div><div id="osPecasTotal" style="display:none;font-size:11px;color:var(--txt3);margin-top:4px;text-align:right"></div><div id="osDescontoDisp" style="display:none;font-size:11px;color:var(--red);margin-top:2px;text-align:right"></div></div></div></div><div class="modal-footer"><div id="osQuickActions" style="display:none;gap:6px;flex-wrap:wrap;margin-right:auto;align-items:center"></div><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('osModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveOS()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
 <div class="modal-overlay" id="retiradaModal"><div class="modal" style="max-width:98vw;width:1200px;height:95vh"><div class="modal-header"><span class="modal-title">Retirada sem OS</span><button class="modal-close" onclick="closeRetiradaModal()">&times;</button></div><div class="modal-body" style="padding:0;height:calc(95vh - 60px);overflow:hidden"><iframe id="retiradaFrame" src="about:blank" style="width:100%;height:100%;border:none;border-radius:0"></iframe></div></div></div>
 
-<div class="modal-overlay" id="centralIAModal"><div class="modal" style="max-width:100vw;width:98vw;height:98vh"><div class="modal-header"><span class="modal-title"><i data-lucide="brain" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Central de IA</span><button class="modal-close" onclick="closeCentralIAMod()">&times;</button></div><div class="modal-body" style="padding:0;height:calc(98vh - 60px);overflow:hidden"><iframe id="centralIAFrame" src="about:blank" style="width:100%;height:100%;border:none;border-radius:0"></iframe></div></div></div>
-
-<div class="modal-overlay" id="scannerModal" style="display:none"><div class="modal" style="max-width:420px"><div class="modal-header"><span class="modal-title"><i data-lucide="scan-line" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Scanner de Produtos</span><button class="modal-close" onclick="closeProductScanner()">&times;</button></div><div class="modal-body" style="padding:12px"><input type="text" id="scannerInput" placeholder="Escaneie ou digite o código..." onkeydown="scannerKeyNav(event)" oninput="scannerInputCheck(this.value)" autocomplete="off" style="width:100%;padding:10px 12px;font-size:15px;font-family:JetBrains Mono,monospace;text-align:center;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);color:var(--txt,#e6edf3)"><div id="scannerStatus" style="font-size:11px;color:var(--txt3,#8b949e);margin-top:6px;text-align:center">Pronto → escaneie um código de barras ou digite e pressione Enter</div><div id="scannerResult" style="margin-top:12px"></div></div></div></div>
+<div class="modal-overlay" id="scannerModal" style="display:none"><div class="modal" style="max-width:420px"><div class="modal-header"><span class="modal-title"><i data-lucide="scan-line" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Scanner de Produtos</span><button class="modal-close" onclick="closeProductScanner()">&times;</button></div><div class="modal-body" style="padding:12px"><input type="text" id="scannerInput" placeholder="Escaneie ou digite o c?digo..." onkeydown="scannerKeyNav(event)" oninput="scannerInputCheck(this.value)" autocomplete="off" style="width:100%;padding:10px 12px;font-size:15px;font-family:JetBrains Mono,monospace;text-align:center;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);color:var(--txt,#e6edf3)"><div id="scannerStatus" style="font-size:11px;color:var(--txt3,#8b949e);margin-top:6px;text-align:center">Pronto → escaneie um código de barras ou digite e pressione Enter</div><div id="scannerResult" style="margin-top:12px"></div></div></div></div>
 <div class="modal-overlay" id="detailModal"><div class="modal" style="max-width:640px"><div class="modal-header"><span class="modal-title" id="detTitle">Detalhes</span><button class="modal-close" onclick="closeModal('detailModal')">&times;</button></div><div class="modal-body" id="detBody"></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('detailModal')" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" id="detEditBtn" title="Editar" style="padding:6px 8px"><i data-lucide="pencil" style="width:14px;height:14px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 10px" onclick="if(detCurrentOS)openComCenter(detCurrentOS)" title="Central de Comunicação"><i data-lucide="send" style="width:14px;height:14px"></i></button><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 10px" onclick="if(detCurrentOS)openPrintMenu(detCurrentOS)" title="Imprimir OS"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button><button class="btn btn-sm" style="background:var(--cyan);color:#000;font-size:16px;line-height:1;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');generateOSQRCode(detCurrentOS)}" title="QR Code da OS"><i data-lucide="scan" style="width:16px;height:16px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');generateOSBarcode(detCurrentOS)}" title="Codigo de Barras"><svg width="16" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="2" height="14"/><rect x="6" y="5" width="1" height="14"/><rect x="8" y="5" width="3" height="14"/><rect x="12" y="5" width="1" height="14"/><rect x="14" y="5" width="2" height="14"/><rect x="17" y="5" width="1" height="14"/><rect x="19" y="5" width="3" height="14"/></svg></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="closeModal('detailModal');openShareModal(detCurrentOS)" title="Compartilhar OS Online"><i data-lucide="share-2" style="width:16px;height:16px"></i></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');sendOSPdfWhatsApp(detCurrentOS)}" title="Enviar Resumo OS WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');autoWhatsAppReminder(detCurrentOS)}" title="WhatsApp"><i data-lucide="message-circle" style="width:16px;height:16px"></i></button><a class="whatsapp-btn" id="detWhatsApp" href="javascript:void(0)" target="_blank" style="display:inline-flex;align-items:center;gap:4px"><i data-lucide="external-link" style="width:14px;height:14px"></i></a><button class="btn btn-sm" style="background:var(--cyan);color:#000;padding:6px 10px;font-weight:700" onclick="if(detCurrentOS){var _id=detCurrentOS;closeModal('detailModal');openComCenter(_id)}" title="Central de Comunicação - WhatsApp, E-mail, PDF, modelos e histórico"><i data-lucide="message-circle" style="width:14px;height:14px"></i> Comunicar</button></div></div></div>
 
 <div class="modal-overlay" id="svcModal"><div class="modal"><div class="modal-header"><span class="modal-title" id="svcTitle">Novo Serviço</span><button class="modal-close" onclick="closeModal('svcModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
@@ -4377,70 +4369,42 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="form-group full" id="prdPriceHistorySection" style="display:none"><label>Histórico de Preços</label><div id="prdPriceHistory" style="max-height:120px;overflow-y:auto;font-size:12px;color:var(--txt2)"></div></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('prdModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveProduct()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
-<div class="modal-overlay" id="orcModal"><div class="modal" style="max-width:820px;max-height:92vh;overflow-y:auto"><div class="modal-header"><span class="modal-title">Or&#231;amento R&#225;pido</span><button class="modal-close" onclick="closeModal('orcModal')">&times;</button></div><div class="modal-body" style="padding:10px">
-  <div class="form-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 8px;align-items:start">
-  <div class="form-group" style="grid-column:span 2"><label>Cliente</label><div style="display:flex;gap:4px"><input type="text" id="qoCliente" list="qoClienteList" placeholder="Nome do cliente" oninput="qoClienteSync(this.value)"><datalist id="qoClienteList"></datalist><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:4px 6px;border:none;border-radius:var(--rs,8px);cursor:pointer;font-size:10px;white-space:nowrap" onclick="qoQuickClient()" title="Cadastro rápido de cliente">+ Rápido</button></div></div>
-  <div class="form-group"><label>Telefone</label><input type="tel" id="qoTelefone" placeholder="(00) 00000-0000" maxlength="14" inputmode="numeric" oninput="this.value=fmtPhone(this.value)"></div>
-  <div class="form-group"><label>CPF/CNPJ</label><input type="text" id="qoCPF" placeholder="000.000.000-00" maxlength="18" inputmode="numeric" oninput="this.value=fmtCPFOrCNPJ(this.value)"></div>
+<div class="modal-overlay" id="orcModal"><div class="modal" style="max-width:700px;max-height:92vh;overflow-y:auto"><div class="modal-header"><span class="modal-title">Orcamento Rapido</span><button class="modal-close" onclick="closeModal('orcModal')">&times;</button></div><div class="modal-body" style="padding:10px">
+  <div class="form-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px;align-items:start">
+  <div class="form-group" style="grid-column:span 2"><label>Cliente</label><div style="display:flex;gap:4px"><input type="text" id="qoCliente" list="qoClienteList" placeholder="Nome do cliente" oninput="qoClienteSync(this.value)"><datalist id="qoClienteList"></datalist><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:5px 8px;border:none;border-radius:var(--rs,8px);cursor:pointer;font-size:11px;white-space:nowrap" onclick="qoQuickClient()" title="Cadastro rápido de cliente">+ Rápido</button></div></div>
+  <div class="form-group"><label>Telefone</label><input type="tel" id="qoTelefone" placeholder="(00) 00000-0000"></div>
+  <div class="form-group"><label>CPF/CNPJ</label><input type="text" id="qoCPF" placeholder="000.000.000-00"></div>
   <div class="form-group"><label>Data / Hora</label><input type="text" id="qoData" readonly style="color:var(--txt2,#c9d1d9);cursor:default"></div>
   <div class="form-group"><label>Validade</label><select id="qoValidade"><option value="3">3 dias</option><option value="5">5 dias</option><option value="7">7 dias</option><option value="10">10 dias</option><option value="15">15 dias</option></select></div>
-  <div class="form-group"><label>Tipos de Aparelhos</label><input type="text" id="qoAparelho" list="qoAparelhoList" placeholder="ex: iPhone 12" oninput="qoAparelhoSync(this.value)"><datalist id="qoAparelhoList"></datalist></div>
+  <div class="form-group"><label>Aparelho</label><input type="text" id="qoAparelho" list="qoAparelhoList" placeholder="ex: iPhone 12" oninput="qoAparelhoSync(this.value)"><datalist id="qoAparelhoList"></datalist></div>
   <div class="form-group"><label>Marca</label><input type="text" id="qoMarca" list="qoMarcaList" placeholder="ex: Apple" oninput="qoMarcaChanged(this.value)"><datalist id="qoMarcaList"></datalist></div>
   <div class="form-group"><label>Modelo</label><input type="text" id="qoModelo" list="qoModeloList" placeholder="ex: A2403"><datalist id="qoModeloList"></datalist></div>
   <div class="form-group full"><label>Defeito Relatado</label><input type="text" id="qoDefeito" placeholder="Ex.: tela trincada, não liga, bateria viciada..."></div>
-  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Serviços <button type="button" class="btn btn-sm" style="padding:2px 6px;font-size:9px" onclick="qoAddSvcManual()" title="Adicionar serviço manualmente">+ Manual</button></label>
-    <input type="text" id="qoSvcSearch" placeholder="Buscar serviço (banco de dados)..." oninput="qoSearchSvc(this.value)" onkeydown="qoSearchSvcKey(event)" style="width:100%">
-    <div id="qoSvcAC" style="position:relative;max-height:100px;overflow-y:auto"></div>
-    <div id="qoSvcTags" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px"></div>
+  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:8px;margin-top:2px"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Serviços <button type="button" class="btn btn-sm" style="padding:3px 8px;font-size:10px" onclick="qoAddSvcManual()" title="Adicionar servi?o manualmente">+ Manual</button></label>
+    <input type="text" id="qoSvcSearch" placeholder="Buscar servi?o (banco de dados)..." oninput="qoSearchSvc(this.value)" onkeydown="qoSearchSvcKey(event)" style="width:100%">
+    <div id="qoSvcAC" style="position:relative;max-height:120px;overflow-y:auto"></div>
+    <div id="qoSvcTags" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px"></div>
   </div>
-  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Produtos / Peças <button type="button" class="btn btn-sm" style="padding:2px 6px;font-size:9px" onclick="qoAddPecaManual()" title="Adicionar produto manualmente">+ Manual</button></label>
-    <input type="text" id="qoPecaSearch" placeholder="Buscar produto por nome/código..." oninput="qoSearchPeca(this.value)" onkeydown="qoSearchPecaKey(event)" style="width:100%">
-    <div id="qoPecaAC" style="position:relative;max-height:100px;overflow-y:auto"></div>
-    <div id="qoPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px"></div>
+  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:8px;margin-top:2px"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Produtos / Peças <button type="button" class="btn btn-sm" style="padding:3px 8px;font-size:10px" onclick="qoAddPecaManual()" title="Adicionar produto manualmente">+ Manual</button></label>
+    <input type="text" id="qoPecaSearch" placeholder="Buscar produto por nome/c?digo..." oninput="qoSearchPeca(this.value)" onkeydown="qoSearchPecaKey(event)" style="width:100%">
+    <div id="qoPecaAC" style="position:relative;max-height:120px;overflow-y:auto"></div>
+    <div id="qoPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px"></div>
   </div>
-  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label>Deslocamento (R$)</label><input type="text" class="currency-input" id="qoDesloc" oninput="qoCalcTotal()">
-    <label style="display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:6px">Forma de Pagamento</label>
-    <div class="pdv-pay-group" style="margin-top:2px">
-      <button type="button" class="pdv-pay-btn active" data-qpg="pix" onclick="qoSetPag('pix')"><i data-lucide="qr-code" style="width:14px;height:14px"></i><span>PIX</span></button>
-      <button type="button" class="pdv-pay-btn" data-qpg="dinheiro" onclick="qoSetPag('dinheiro')"><i data-lucide="banknote" style="width:14px;height:14px"></i><span>Dinheiro</span></button>
-      <button type="button" class="pdv-pay-btn" data-qpg="cartao" onclick="qoSetPag('cartao')"><i data-lucide="credit-card" style="width:14px;height:14px"></i><span>Cartão</span></button>
+  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:8px;margin-top:2px"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Simulador de Pagamento <span style="font-size:9px;color:var(--txt3,#8b949e);font-weight:400">PIX → Cartão → Cartão com juros</span></label>
+    <div style="display:grid;grid-template-columns:1fr 90px 90px 110px;gap:6px;align-items:start">
+      <div class="form-group" style="margin:0"><label style="font-size:10px">Deslocamento (R$)</label><input type="text" class="currency-input" id="qoDesloc" oninput="qoCalcTotal()"></div>
+      <div class="form-group" style="margin:0"><label style="font-size:10px">Forma</label><select id="qoPagamento" onchange="qoPagSim()"><option value="pix">PIX</option><option value="cartao">Cartão</option><option value="juros">Cartão c/ juros</option></select></div>
+      <div class="form-group" style="margin:0"><label style="font-size:10px">Parcelas</label><select id="qoParcelas" onchange="qoPagSim()"><option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="9">9x</option><option value="12">12x</option></select></div>
+      <div class="form-group" style="margin:0"><label style="font-size:10px">Taxa %/mês</label><input type="number" id="qoTaxa" value="3.99" step="0.01" min="0" oninput="qoPagSim()" style="display:none"></div>
     </div>
-    <select id="qoPagamento" style="display:none" onchange="qoPagSim()"><option value="pix">PIX</option><option value="dinheiro">Dinheiro</option><option value="cartao">Cartão</option><option value="juros">Cartão c/ juros</option></select>
-    <div id="qoParcelasRow" style="display:none;margin-top:6px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-        <div class="form-group" style="margin:0"><label style="font-size:10px">Parcelas</label><select id="qoParcelas" onchange="qoPagSim()"><option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="9">9x</option><option value="12">12x</option></select></div>
-        <div class="form-group" style="margin:0"><label style="font-size:10px">Taxa %/mês</label><input type="number" id="qoTaxa" value="3.99" step="0.01" min="0" oninput="qoPagSim()"></div>
-      </div>
-      <label class="pdv-toggle-label" style="margin-top:4px"><input type="checkbox" id="qoComJuros" onchange="qoPagSim()"> Cobrar juros no cartão</label>
-    </div>
-    <div id="qoDinheiroRow" style="display:none;margin-top:6px">
-      <div class="form-group" style="margin-bottom:4px"><label style="font-size:10px">Valor Recebido (R$)</label><input type="text" class="currency-input" id="qoRecebido" oninput="qoPagSim()"></div>
-      <div style="display:flex;justify-content:space-between;padding:7px 10px;background:rgba(250,204,21,.08);border-radius:6px"><span style="color:var(--ylw);font-weight:600;font-size:12px">Troco</span><span id="qoTroco" style="font-weight:800;font-size:14px;color:var(--ylw)">R$ 0,00</span></div>
-      <div id="qoTrocoAlert" style="display:none;margin-top:4px;font-size:11px;color:var(--red);font-weight:600"></div>
-    </div>
-    <div id="qoPagDisp" style="margin-top:6px;font-size:11px;font-weight:700;color:var(--cyan,#22d3ee)">PIX à vista</div>
-    <button type="button" class="btn btn-sm btn-primary" onclick="qoConfirmarPagamento()" style="width:100%;margin-top:8px;padding:6px 10px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px"><i data-lucide="check" style="width:13px;height:13px"></i> Confirmar Pagamento</button>
+    <div id="qoPagDisp" style="margin-top:6px;font-size:12px;font-weight:700;color:var(--cyan,#22d3ee)">PIX à vista</div>
   </div>
-  <div class="form-group full" style="display:flex;align-items:center;justify-content:space-between;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);padding:6px 10px;margin-top:0">
-    <div><div style="font-size:9px;color:var(--txt3,#8b949e);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Valor Total</div><div style="font-size:9px;color:var(--txt3,#8b949e)" id="qoTotalDetail">Sem itens</div></div>
-    <div style="font-size:17px;font-weight:800;color:var(--grn,#3fb950)" id="qoTotalDisp">R$ 0,00</div>
+  <div class="form-group full" style="display:flex;align-items:center;justify-content:space-between;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);padding:8px 12px;margin-top:2px">
+    <div><div style="font-size:10px;color:var(--txt3,#8b949e);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Valor Total</div><div style="font-size:10px;color:var(--txt3,#8b949e)" id="qoTotalDetail">Sem itens</div></div>
+    <div style="font-size:20px;font-weight:800;color:var(--grn,#3fb950)" id="qoTotalDisp">R$ 0,00</div>
   </div>
   </div>
-</div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red,#f85149);color:#fff;padding:5px 8px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoCloseOrc()" title="Cancelar"><i data-lucide="x" style="width:13px;height:13px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 12px;font-size:11px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoOpenShare()" title="Central de compartilhamento"><i data-lucide="share-2" style="width:13px;height:13px"></i> Compartilhar</button><button class="btn btn-sm btn-primary" onclick="qoGerarPDF()" title="Gerar orçamento em PDF/impressão" style="padding:6px 12px;font-size:11px">Gerar PDF do Orçamento</button></div></div></div>
-
-<div class="modal-overlay" id="qoShareModal"><div class="modal" style="max-width:500px"><div class="modal-header"><span class="modal-title">Central de Compartilhamento</span><button class="modal-close" onclick="closeModal('qoShareModal')">&times;</button></div><div class="modal-body">
-  <p style="font-size:12px;color:var(--txt3,#8b949e);margin-bottom:10px">Compartilhe este orçamento com o cliente por WhatsApp, e-mail ou SMS.</p>
-  <div style="background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);padding:10px 12px;margin-bottom:12px;max-height:140px;overflow-y:auto;font-size:12px;white-space:pre-wrap" id="qoSharePreview"></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <button class="btn btn-sm" style="background:#25d366;color:#fff;flex:1;min-width:110px" onclick="qoShareViaWhatsApp()"><i data-lucide="message-circle" style="width:14px;height:14px"></i> WhatsApp</button>
-    <button class="btn btn-sm btn-secondary" style="flex:1;min-width:110px" onclick="qoShareViaEmail()"><i data-lucide="mail" style="width:14px;height:14px"></i> E-mail</button>
-    <button class="btn btn-sm btn-secondary" style="flex:1;min-width:110px" onclick="qoShareViaSMS()"><i data-lucide="message-square" style="width:14px;height:14px"></i> SMS</button>
-  </div>
-  <div style="display:flex;gap:8px;margin-top:10px">
-    <button class="btn btn-sm btn-secondary" style="flex:1" onclick="qoCopyShareText()"><i data-lucide="copy" style="width:14px;height:14px"></i> Copiar texto</button>
-    <button class="btn btn-sm btn-secondary" style="flex:1" onclick="qoSharePrint()"><i data-lucide="printer" style="width:14px;height:14px"></i> Imprimir</button>
-  </div>
-</div><div class="modal-footer"><button class="btn btn-sm btn-secondary" onclick="closeModal('qoShareModal')">Fechar</button></div></div></div>
+</div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red,#f85149);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoCloseOrc()" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="qoGerarPDF()" title="Gerar orçamento em PDF/impressão" style="padding:8px 14px;font-size:12px">Gerar PDF do Orçamento</button></div></div></div>
 
 <div class="modal-overlay" id="clienteModal"><div class="modal" style="max-width:600px"><div class="modal-header"><span class="modal-title" id="cliTitle">Novo Cliente</span><div style="display:flex;gap:6px;align-items:center"><button class="modal-close" style="position:static" onclick="printClienteFicha()" title="Imprimir ficha do cliente"><i data-lucide="printer" style="width:14px;height:14px"></i></button><button class="modal-close" onclick="closeModal('clienteModal')">&times;</button></div></div><div class="modal-body" style="padding:14px"><div class="form-grid" style="gap:10px">
   <div class="form-group full"><label>Nome</label><input type="text" id="cliNome"></div>
@@ -4464,7 +4428,6 @@ window.addEventListener('DOMContentLoaded',function(){
 <div class="modal-overlay" id="pdvModal"><div class="modal" style="max-width:960px"><div class="modal-header"><span class="modal-title"><i data-lucide="shopping-bag" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Nova Venda <span id="pdvItemCountBadge" style="font-size:11px;font-weight:400;color:var(--txt3);margin-left:4px"></span></span><button class="modal-close" onclick="closeModal('pdvModal')">&times;</button></div><div class="modal-body" style="padding:14px 16px"><div class="pdv-cols" style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start"><div style="display:flex;flex-direction:column;gap:8px">
   <div class="form-group" style="margin-bottom:0"><label>Cliente (opcional)</label><div style="display:flex;gap:6px"><input type="text" id="pdvCliente" list="pdvClienteList" placeholder="Nome do cliente" oninput="pdvClientAutoFill()" autocomplete="off" style="flex:1"><button type="button" class="btn btn-sm btn-primary" onclick="pdvQuickClient()" title="Cadastro rapido">+</button></div><datalist id="pdvClienteList"></datalist></div>
   <div class="form-group ac-wrap" style="margin-bottom:0"><label>Buscar Produto</label><input type="text" id="pdvSearch" placeholder="Codigo, nome ou escaneie..." oninput="debouncedPDVAutocomplete(this.value);pdvAutoScan(this.value)" onkeydown="pdvACKey(event)" onfocus="pdvAutocomplete(this.value)" autocomplete="off"><div class="ac-list" id="pdvACList"></div></div>
-  <div id="pdvFastGrid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px"></div>
   <div id="pdvItems" style="margin-bottom:2px"></div>
   <button type="button" class="pdv-add-btn" onclick="addPDVItem()" style="margin:0 0 2px"><i data-lucide="plus" style="width:14px;height:14px"></i> Item Manual</button>
 </div><div style="display:flex;flex-direction:column;gap:8px">
@@ -4473,21 +4436,11 @@ window.addEventListener('DOMContentLoaded',function(){
     <div id="pdvDescDisp" style="display:none;justify-content:space-between;align-items:center;font-size:11px;color:var(--red);margin:-4px 0 8px"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><div class="form-group" style="margin-bottom:0"><label>Desconto (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="pdvDescRS" oninput="updPDVTotal()" placeholder="0,00"></div>
     <div class="form-group" style="margin-bottom:0"><label>Desconto (%)</label><input type="number" min="0" max="100" step="0.5" id="pdvDesc" value="0" oninput="updPDVTotal()" title="Informe o percentual de desconto (ex.: 10 = 10%)"></div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><div class="form-group" style="margin-bottom:0"><label>Acréscimo (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="pdvAcresc" oninput="updPDVTotal()" placeholder="0,00" title="Ex.: frete, taxa extra"></div>
-    <div class="form-group" style="margin-bottom:0"><label>Obs. da venda</label><input type="text" id="pdvObs" placeholder="Opcional..." maxlength="120" style="font-size:11px"></div></div>
     <div class="form-group" style="margin-bottom:0"><label>Forma de Pagamento</label><div class="pdv-pay-group">
       <button type="button" class="pdv-pay-btn active" data-pg="dinheiro" onclick="setPdvPag('dinheiro')"><i data-lucide="banknote" style="width:16px;height:16px"></i><span>Dinheiro</span></button>
       <button type="button" class="pdv-pay-btn" data-pg="pix" onclick="setPdvPag('pix')"><i data-lucide="qr-code" style="width:16px;height:16px"></i><span>Pix</span></button>
       <button type="button" class="pdv-pay-btn" data-pg="cartao" onclick="setPdvPag('cartao')"><i data-lucide="credit-card" style="width:16px;height:16px"></i><span>Cartão</span></button>
-      <button type="button" class="pdv-pay-btn" data-pg="split" onclick="setPdvPag('split')"><i data-lucide="split" style="width:16px;height:16px"></i><span>Dividido</span></button>
     </div><select id="pdvPagamento" style="display:none" onchange="pdvPagChange()"><option value="dinheiro">Dinheiro</option><option value="pix">Pix</option><option value="cartao">Carto (Maquininha)</option><option value="cartao_sj">Carto (sem juros)</option></select></div>
-    <div style="margin-top:8px"><label class="pdv-toggle-label" style="margin:0"><input type="checkbox" id="pdvSplitToggle" onchange="pdvSplitMode(this.checked)"> Pagamento dividido (2+ formas)</label>
-    <div id="pdvSplitArea" style="display:none;margin-top:8px;padding:10px;background:var(--input);border:1px solid var(--bdr);border-radius:var(--rs)">
-      <div style="font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Dividir valor total</div>
-      <div id="pdvSplitList"></div>
-      <button type="button" class="btn btn-sm btn-secondary" onclick="pdvSplitAdd()" style="margin-top:6px;font-size:10px"><i data-lucide="plus" style="width:12px;height:12px"></i> Adicionar forma</button>
-      <div id="pdvSplitTotal" style="margin-top:8px;font-size:11px;font-weight:700;color:var(--grn)"></div>
-    </div></div>
     <div id="pdvCartaoArea" style="display:none;margin-top:4px;padding:12px;background:var(--input);border:1px solid var(--bdr);border-radius:var(--rs)">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
         <div class="form-group"><label>Bandeira</label><select id="pdvBandeira"><option value="visa">Visa</option><option value="mastercard">Mastercard</option><option value="elo">Elo</option><option value="amex">Amex</option><option value="hipercard">Hipercard</option><option value="outros">Outros</option></select></div>
@@ -4513,7 +4466,7 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:10px 14px;background:var(--gd);border-radius:var(--rs)"><span style="font-size:13px;font-weight:700;color:var(--txt2);display:flex;align-items:center;gap:6px"><i data-lucide="wallet" style="width:16px;height:16px"></i>TOTAL</span><span style="font-size:24px;font-weight:800;color:var(--grn)" id="pdvTotal">R$ 0,00</span></div>
-</div></div></div><div class="modal-footer"><label class="pdv-toggle-label" style="margin-right:auto;font-size:11px"><input type="checkbox" id="pdvPrintAfter" checked> Imprimir cupom ao finalizar</label><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:8px 16px;border:none;border-radius:var(--rs);cursor:pointer;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px" onclick="closeModal('pdvModal')"><i data-lucide="x" style="width:14px;height:14px"></i>Cancelar</button><button class="btn btn-sm btn-primary" onclick="savePDV()" style="padding:8px 16px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px"><i data-lucide="check" style="width:14px;height:14px"></i>Finalizar Venda</button></div></div></div>
+</div></div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:8px 16px;border:none;border-radius:var(--rs);cursor:pointer;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px" onclick="closeModal('pdvModal')"><i data-lucide="x" style="width:14px;height:14px"></i>Cancelar</button><button class="btn btn-sm btn-primary" onclick="savePDV()" style="padding:8px 16px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px"><i data-lucide="check" style="width:14px;height:14px"></i>Finalizar Venda</button></div></div></div>
 
 <div class="modal-overlay" id="finModal"><div class="modal"><div class="modal-header"><span class="modal-title">Nova Transação</span><button class="modal-close" onclick="closeModal('finModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
   <div class="form-group"><label>Tipo</label><select id="finTipo"><option value="entrada">Entrada</option><option value="saida">Sada/option></select></div>
@@ -4555,11 +4508,11 @@ window.addEventListener('DOMContentLoaded',function(){
   <div style="font-size:12px;color:var(--txt3)" id="cfmSub">Esta Ao no pode ser desfeita.</div>
 </div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('confirmModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-danger" id="cfmBtn" title="Confirmar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
-<div class="modal-overlay" id="zerarModal"><div class="modal" style="max-width:720px"><div class="modal-header"><span class="modal-title" style="color:var(--red)">&#9888; Limpeza Avançada - Confirmação de Segurança</span><button class="modal-close" onclick="closeModal('zerarModal')">&times;</button></div><div class="modal-body">
+<div class="modal-overlay" id="zerarModal"><div class="modal" style="max-width:560px"><div class="modal-header"><span class="modal-title" style="color:var(--red)">&#9888; Limpeza Avançada - Confirmação de Segurança</span><button class="modal-close" onclick="closeModal('zerarModal')">&times;</button></div><div class="modal-body">
   <p style="font-size:12px;color:var(--txt2);margin:0 0 10px">Selecione <b>apenas</b> os grupos de dados que deseja apagar. Marque os checkboxes e confirme abaixo:</p>
   <div style="border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:12px">
     <div style="background:var(--bg1);padding:6px 10px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt3);display:flex;justify-content:space-between;border-bottom:1px solid var(--bdr)"><span>Grupo de dados</span><span style="display:flex;gap:8px"><button class="btn btn-sm" onclick="_zrToggleAll(true)" style="font-size:10px;padding:2px 8px">Marcar Todos</button><button class="btn btn-sm" onclick="_zrToggleAll(false)" style="font-size:10px;padding:2px 8px">Desmarcar</button></span></div>
-    <div id="zrList" style="max-height:320px;overflow-y:auto"></div>
+    <div id="zrList" style="max-height:230px;overflow-y:auto"></div>
   </div>
   <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;cursor:pointer;margin-bottom:8px"><input type="checkbox" id="zrAck" onchange="_zerarState()" style="margin-top:2px"> <span><b>Entendo</b> que esta ação é <b style="color:var(--red)">irreversível</b> e os dados apagados <b>não podem ser recuperados</b>.</span></label>
   <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;cursor:pointer;margin-bottom:12px"><input type="checkbox" id="zrCfg" onchange="_zerarState()" style="margin-top:2px"> <span>Apagar <b>também as configurações</b> (loja, políticas, preços e usuários). <small style="color:var(--txt3)">Desmarcado = mantém as configurações atuais.</small></span></label>
@@ -6796,7 +6749,7 @@ function showModal(title,bodyHtml,modalId,force,footerHtml){
    var existing=document.getElementById(modalId||'_dynamicModal');
    if(existing)existing.remove();
    const div=document.createElement('div');div.className='modal-overlay visible';div.id=modalId||'_dynamicModal';
-   var _mw=modalId==='osPreviewModal'?'860px':(modalId==='printMenuModal'?'940px':'440px');
+   var _mw=modalId==='osPreviewModal'?'860px':(modalId==='printMenuModal'?'780px':'440px');
    if(!force)div.onclick=function(e){if(e.target===div){div.remove()}};
    div.innerHTML='<div class="modal" style="max-width:'+_mw+'"><div class="modal-header"><span class="modal-title">'+title+'</span>'+(force?'':'<button class="modal-close" onclick="var p=this.closest(\'.modal-overlay\');if(p)p.remove()">&times;</button>')+'</div><div class="modal-body">'+bodyHtml+'</div>'+(footerHtml?'<div class="modal-footer">'+footerHtml+'</div>':'')+'</div>';
    document.body.appendChild(div);
@@ -6815,7 +6768,6 @@ function cycleTheme(){
 }
 
 function showSection(name){
-  if(name==='security'){name='lgpd';}
   var sb=document.getElementById('sidebar');
   var wasMini=sb&&sb.classList.contains('mini');
   if(wasMini)sb.classList.add('keep-open');
@@ -6874,19 +6826,6 @@ function renderSection(name){try{
 
 // ==================== NOVIDADES E ATUALIZAÇÕES ====================
 var CHANGELOG = [
-      {ver:'2.12.0',date:'04/08/2026',title:'Central de IA - hub completo de ferramentas e prompts',items:[
-    'Novo: modulo independente modules/central-ia/ com 38 ferramentas em 8 categorias (Atendimento, Ordem de Servico, Orcamento, Garantia, Marketing, Programacao, Diagnostico Tecnico e Documentos)',
-    'Novo: menu Central de IA abre o hub em tela cheia (modal fullscreen com iframe)',
-    'Novo: dashboard do hub com ferramentas favoritas, ultimos prompts e contadores',
-    'Novo: pesquisa global instantanea que localiza qualquer ferramenta ou prompt salvo',
-    'Novo: biblioteca de prompts com criar, editar, excluir, duplicar, favoritar e categorias',
-    'Novo: historico dos ultimos 100 prompts com limpeza; area de favoritas dedicada',
-    'Novo: provedores de IA Groq, Google Gemini, OpenAI-compativel e Modo Offline (sem chave, gera prompt pronto para copiar)',
-    'Novo: tema claro/escuro e interface 100% responsiva (desktop, tablet, celular)',
-    'Novo: CSS e JS proprios do modulo (classes cia-*), sem dependencias externas',
-    'Novo: dados salvos localmente (localStorage) - funciona offline na PWA',
-    'PWA: arquivos do modulo adicionados ao precache dos service-workers (main, dist e pwa)'
-  ]},
       {ver:'2.11.38',date:'02/08/2026',title:"Correcao erro console 'Unsafe attempt to load URL...dashboard.html#'",items:["Correcao: botao WhatsApp do detalhe da OS ficava com href=\"#\" quando a OS nao tinha telefone - o clique navegava para dashboard.html# e o Chrome (origem unica file://) bloqueava com o erro de console 'Unsafe attempt to load URL'","Correcao: adicionada rede de seguranca global que bloqueia qualquer clique em link com href=\"#\" (preventDefault) - elimina o erro em qualquer tela e em futuros templates"]}, {ver:'2.11.37',date:'02/08/2026',title:'Correcao: erro Unsafe attempt to load URL ...# no console',items:[
     'Correcao: o iframe do Termo de Retirada tinha src vazio, que resolvia para a propria URL do dashboard (file:///...dashboard.html#) e o Chrome bloqueava o carregamento em frame com o erro "Unsafe attempt to load URL"; agora usa about:blank por padrao',
   ]},  {ver:'2.11.36',date:'02/08/2026',title:'Orcamento rapido: botao Confirmar, base de aparelhos corrigida e menu de impressao mais compacto',items:[
@@ -8958,42 +8897,14 @@ function openPDV(){
   var cl=document.getElementById('pdvCliente');if(cl)cl.value='';
   var desc=document.getElementById('pdvDesc');if(desc){desc.value='0'}
   var descRS=document.getElementById('pdvDescRS');if(descRS){descRS.value='';descRS.dataset.rawValue='0'}
-  var acresc=document.getElementById('pdvAcresc');if(acresc){acresc.value='';acresc.dataset.rawValue='0'}
-  var obs=document.getElementById('pdvObs');if(obs)obs.value='';
   var dd=document.getElementById('pdvDescDisp');if(dd)dd.style.display='none';
   var rec=document.getElementById('pdvRecebido');if(rec){rec.value='';rec.dataset.rawValue='0'}
   var trocoA=document.getElementById('pdvTrocoArea');if(trocoA)trocoA.style.display='none';
   var trocoAl=document.getElementById('pdvTrocoAlert');if(trocoAl)trocoAl.style.display='none';
   var cartaoA=document.getElementById('pdvCartaoArea');if(cartaoA)cartaoA.style.display='none';
-  pdvSplit=[];
-  var spT=document.getElementById('pdvSplitToggle');if(spT)spT.checked=false;
-  var spA=document.getElementById('pdvSplitArea');if(spA)spA.style.display='none';
-  var spL=document.getElementById('pdvSplitList');if(spL)spL.innerHTML='';
-  var spTot=document.getElementById('pdvSplitTotal');if(spTot)spTot.textContent='';
   pdvPopulateClientList();
-  renderPDVFastGrid();
   renderPDVItems();
   openModal('pdvModal');
-  setTimeout(function(){var s=document.getElementById('pdvSearch');if(s)s.focus()},80);
-}
-function renderPDVFastGrid(){
-  var el=document.getElementById('pdvFastGrid');if(!el)return;
-  var emEstoque=(DB.products||[]).filter(function(p){return p.estoque>0}).sort(function(a,b){return b.estoque-a.estoque});
-  var top=emEstoque.slice(0,8);
-  if(!top.length){el.style.display='none';return}
-  el.style.display='block';
-  el.innerHTML=top.map(function(p){
-    var foto=p.photo||(p.photos&&p.photos[0]);
-    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--bdr);border-radius:8px;cursor:pointer;background:var(--input);transition:background .15s" onmouseover="this.style.background=\'var(--cd)\'" onmouseout="this.style.background=\'\'" title="'+escH(p.nome)+' - '+fmt$(p.venda)+'" onclick="pdvProdAdd('+p.id+')">'+(foto?'<img src="'+foto+'" alt="" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<span style="width:26px;height:26px;border-radius:6px;background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:11px">&#128230;</span>')+'<span style="flex:1;min-width:0;font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escH(p.nome)+'</span><span style="font-size:10px;font-weight:700;color:var(--grn)">'+fmt$(p.venda)+'</span></div>';
-  }).join('');
-}
-function pdvProdAdd(id){
-  var p=(DB.products||[]).find(function(x){return x.id==id});if(!p)return;
-  var ex=pdvItems.find(function(i){return i.produto==id});
-  if(ex){ex.qty++}else{pdvItems.push({produto:p.id,qty:1,Preo:p.venda})}
-  renderPDVItems();
-  updPDVTotal();
-  toast(p.nome+' adicionado','success');
 }
 function pdvPopulateClientList(){
   var dl=document.getElementById('pdvClienteList');if(!dl)return;dl.innerHTML='';
@@ -9031,27 +8942,22 @@ function renderPDVItems(){try{
     var isSvc=item.servico||item.nome;
     if(isSvc){
       var svcLabel=item.nome||'Serviço';
-      var svcTotal=(Number(item.Preo||0)*Number(item.qty||0));
-      rows.push('<div class="pdv-item prod" style="display:grid;grid-template-columns:38px minmax(0,1fr) 64px 90px 74px 24px;gap:6px;align-items:center">'+
-        '<div style="width:38px;height:38px;border-radius:8px;background:var(--cd);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+li('wrench',18)+'</div>'+
-        '<div style="min-width:0"><div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escH(svcLabel)+'</div><span class="pdv-svc-chip">Serviço</span></div>'+
-        '<div><div style="font-size:9px;color:var(--txt3);font-weight:600;margin-bottom:2px">QTD</div><input type="number" value="'+item.qty+'" min="1" style="width:100%" onchange="pdvItems['+idx+'].qty=Number(this.value)||1;updPDVTotal()"></div>'+
-        '<div><div style="font-size:9px;color:var(--txt3);font-weight:600;margin-bottom:2px">UNIT</div><input type="text" class="currency-input" value="'+fmt$(item.Preo)+'" data-raw-value="'+item.Preo+'" onchange="pdvItems['+idx+'].Preo=getCurrencyVal(this.id);updPDVTotal()" id="pdvItemPrice_'+idx+'" style="width:100%"></div>'+
-        '<div style="text-align:right"><div style="font-size:9px;color:var(--txt3);font-weight:600;margin-bottom:2px">TOTAL</div><div style="font-size:12px;font-weight:800;color:var(--grn)">'+fmt$(svcTotal)+'</div></div>'+
+      rows.push('<div class="pdv-item prod">'+
+        '<div><span class="pdv-svc-chip">'+li('wrench',13)+escH(svcLabel)+'</span></div>'+
+        '<div class="form-group"><label>Qtd</label><input type="number" value="'+item.qty+'" min="1" onchange="pdvItems['+idx+'].qty=Number(this.value)||1;updPDVTotal()"></div>'+
+        '<div class="form-group"><label>Preço</label><input type="text" class="currency-input" value="'+fmt$(item.Preo)+'" data-raw-value="'+item.Preo+'" onchange="pdvItems['+idx+'].Preo=getCurrencyVal(this.id);updPDVTotal()" id="pdvItemPrice_'+idx+'"></div>'+
         rmBtn+'</div>');
     }else{
-      var opts=(DB.products||[]).map(function(p){return '<option value="'+p.id+'"'+(item.produto==p.id?' selected':'')+'>'+escH(p.nome)+'</option>'}).join('');
+      var opts=(DB.products||[]).map(function(p){return '<option value="'+p.id+'"'+(item.produto==p.id?' selected':'')+'>'+escH(p.nome)+' ('+fmt$(p.venda)+')</option>'}).join('');
       var pSel=item.produto?DB.products.find(function(x){return x.id==item.produto}):null;
-      var pFoto=pSel&&(pSel.photo||(pSel.photos&&pSel.photos[0]));
-      var lineTotal=(Number(item.Preo||0)*Number(item.qty||0));
-      rows.push('<div class="pdv-item prod" style="display:grid;grid-template-columns:38px minmax(0,1fr) 64px 90px 74px 24px;gap:6px;align-items:center">'+
-        '<div style="width:38px;height:38px;border-radius:8px;overflow:hidden;background:var(--cd);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(pFoto?'<img src="'+pFoto+'" alt="" style="width:100%;height:100%;object-fit:cover">':'<span style="font-size:16px">&#128230;</span>')+'</div>'+
-        '<div style="min-width:0"><div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escH(pSel?pSel.nome:'Produto')+'</div><div style="margin-top:4px"><select onchange="pdvItems['+idx+'].produto=this.value;pdvItemChange('+idx+')" style="width:100%;font-size:10px;padding:3px 6px"><option value="">Selecione...</option>'+opts+'</select></div>'+
-        (pSel?'<div style="display:flex;gap:4px;margin-top:4px">'+(pSel&&pSel.desc?'<button class="action-btn" onclick="previewProduct('+pSel.id+')" title="Ver foto e descrição" style="flex-shrink:0;padding:2px">'+ICONS.eye+'</button>':'')+'</div>':'')+
+      rows.push('<div class="pdv-item prod">'+
+        '<div class="form-group"><label>Produto</label><div style="display:flex;gap:4px;align-items:center">'+
+        '<select onchange="pdvItems['+idx+'].produto=this.value;pdvItemChange('+idx+')" style="flex:1"><option value="">Selecione...</option>'+opts+'</select>'+
+        (pSel?'<button class="action-btn" onclick="previewProduct('+pSel.id+')" title="Ver foto e descrição" style="flex-shrink:0">'+ICONS.eye+'</button>':'')+
+        '</div>'+(pSel&&pSel.desc?'<div style="font-size:10px;color:var(--txt3);margin-top:2px">'+escH(pSel.desc)+'</div>':'')+
         '</div>'+
-        '<div><div style="font-size:9px;color:var(--txt3);font-weight:600;margin-bottom:2px">QTD</div><input type="number" value="'+item.qty+'" min="1" style="width:100%" onchange="pdvItems['+idx+'].qty=Number(this.value)||1;updPDVTotal()"></div>'+
-        '<div><div style="font-size:9px;color:var(--txt3);font-weight:600;margin-bottom:2px">UNIT</div><input type="text" class="currency-input" value="'+fmt$(item.Preo)+'" data-raw-value="'+item.Preo+'" onchange="pdvItems['+idx+'].Preo=getCurrencyVal(this.id);updPDVTotal()" id="pdvItemPrice_'+idx+'" style="width:100%"></div>'+
-        '<div style="text-align:right"><div style="font-size:9px;color:var(--txt3);font-weight:600;margin-bottom:2px">TOTAL</div><div style="font-size:12px;font-weight:800;color:var(--grn)">'+fmt$(lineTotal)+'</div></div>'+
+        '<div class="form-group"><label>Qtd</label><input type="number" value="'+item.qty+'" min="1" onchange="pdvItems['+idx+'].qty=Number(this.value)||1;updPDVTotal()"></div>'+
+        '<div class="form-group"><label>Preço</label><input type="text" class="currency-input" value="'+fmt$(item.Preo)+'" data-raw-value="'+item.Preo+'" onchange="pdvItems['+idx+'].Preo=getCurrencyVal(this.id);updPDVTotal()" id="pdvItemPrice_'+idx+'"></div>'+
         rmBtn+'</div>');
     }
   });
@@ -9070,8 +8976,7 @@ function updPDVTotal(){
   var descRs=getCurrencyVal('pdvDescRS');
   var descPct=parseFloat(document.getElementById('pdvDesc').value)||0;
   var desc=Math.round(sub*descPct)/100+descRs;
-  var acresc=getCurrencyVal('pdvAcresc');
-  var total=Math.max(0,sub-desc+acresc);
+  var total=Math.max(0,sub-desc);
   document.getElementById('pdvSubtotal').textContent=fmt$(sub);
   var dd=document.getElementById('pdvDescDisp');
   if(dd){if(desc>0){dd.style.display='flex';dd.innerHTML='<span>Desconto</span><span>-'+fmt$(desc)+'</span>'}else{dd.style.display='none'}}
@@ -9102,7 +9007,7 @@ function updPDVTotal(){
   }else{
     document.getElementById('pdvTotal').textContent=fmt$(total);
   }
-  document.getElementById('pdvTrocoArea').style.display=(pg==='dinheiro'||pg==='split')?'block':'none';
+  document.getElementById('pdvTrocoArea').style.display=pg==='dinheiro'?'block':'none';
   var trocoAlert=document.getElementById('pdvTrocoAlert');
   if(pg==='dinheiro'){
     var recebido=getCurrencyVal('pdvRecebido');
@@ -9118,9 +9023,6 @@ function updPDVTotal(){
       document.getElementById('pdvTroco').style.color='var(--ylw)';
       if(trocoAlert)trocoAlert.style.display='none';
     }
-  }else if(pg==='split'){
-    document.getElementById('pdvTrocoArea').style.display='none';
-    pdvSplitCheckStatus(total);
   }
 }
 function pdvPagChange(){
@@ -9128,10 +9030,6 @@ function pdvPagChange(){
   document.getElementById('pdvTrocoArea').style.display=pg==='dinheiro'?'block':'none';
   document.getElementById('pdvCartaoArea').style.display=pg==='cartao'||pg==='cartao_sj'?'block':'none';
   if(pg==='cartao'||pg==='cartao_sj'){pdvCardTipoChange();updPDVTotal()}
-  var spT=document.getElementById('pdvSplitToggle');
-  var spA=document.getElementById('pdvSplitArea');
-  if(pg==='split'){if(spT)spT.checked=true;if(spA){spA.style.display='block';if(!pdvSplit.length)pdvSplit=[{tipo:'dinheiro',valor:0}];renderPdvSplit()}}
-  else{if(spT)spT.checked=false;if(spA)spA.style.display='none'}
   updPDVTotal();
 }
 function setPdvPag(val){
@@ -9144,55 +9042,6 @@ function setPdvPag(val){
 function pdvRepasseChange(){
   document.getElementById('pdvPagamento').value=document.getElementById('pdvRepasse').checked?'cartao':'cartao_sj';
   pdvPagChange();
-}
-var pdvSplit=[];
-function pdvSplitMode(on){
-  var area=document.getElementById('pdvSplitArea');
-  if(area){area.style.display=on?'block':'none'}
-  if(on&&!pdvSplit.length){pdvSplit=[{tipo:'dinheiro',valor:0}];renderPdvSplit()}
-  document.getElementById('pdvPagamento').value=on?'split':'dinheiro';
-  document.querySelectorAll('.pdv-pay-btn').forEach(function(b){b.classList.toggle('active',b.dataset.pg===(on?'split':document.getElementById('pdvPagamento').value))});
-  pdvPagChange();
-  updPDVTotal();
-}
-function pdvSplitAdd(){
-  pdvSplit.push({tipo:'dinheiro',valor:0});renderPdvSplit();
-}
-function pdvSplitRemove(i){
-  pdvSplit.splice(i,1);renderPdvSplit();
-}
-function pdvSplitTipo(i,val){
-  pdvSplit[i].tipo=val;updPDVTotal();
-}
-function pdvSplitValor(i,id){
-  pdvSplit[i].valor=getCurrencyVal(id);updPDVTotal();
-}
-function renderPdvSplit(){
-  var list=document.getElementById('pdvSplitList');if(!list)return;
-  var tipos=['dinheiro','pix','cartao'];
-  if(!pdvSplit.length){list.innerHTML='';return}
-  list.innerHTML=pdvSplit.map(function(s,i){
-    return '<div style="display:grid;grid-template-columns:110px 1fr 26px;gap:6px;align-items:center;margin-bottom:6px">'+
-      '<select style="font-size:11px" onchange="pdvSplitTipo('+i+',this.value)">'+tipos.map(function(t){return '<option value="'+t+'"'+(s.tipo===t?' selected':'')+'>'+t.charAt(0).toUpperCase()+t.slice(1)+'</option>'}).join('')+'</select>'+
-      '<input type="text" class="currency-input" inputmode="decimal" value="'+fmt$(s.valor)+'" data-raw-value="'+s.valor+'" id="pdvSplitVal_'+i+'" onchange="pdvSplitValor('+i+',this.id)" placeholder="0,00">'+
-      '<button type="button" class="pdv-rm" onclick="pdvSplitRemove('+i+')">&#10005;</button></div>';
-  }).join('');
-  initAllCurrencyMasks();
-}
-function pdvSplitTotalCalc(){
-  var total=getCurrencyVal('pdvTotal');
-  return pdvSplit.reduce(function(s,x){return s+Number(x.valor||0)},0);
-}
-function pdvSplitCheckStatus(total){
-  var soma=pdvSplit.reduce(function(s,x){return s+Number(x.valor||0)},0);
-  var el=document.getElementById('pdvSplitTotal');
-  if(!el)return;
-  total=Number(total)||0;
-  if(pdvSplit.length&&soma>0){
-    var diff=Math.round((soma-total)*100)/100;
-    el.style.color=diff>=-0.005?'var(--grn)':'var(--red)';
-    el.textContent=(diff>=-0.005?'Pago '+fmt$(soma)+' / Total '+fmt$(total)+(diff>0.005?' | Troco '+fmt$(diff):''):'Falta '+fmt$(-diff)+' (Total '+fmt$(total)+')');
-  }else{el.textContent=''}
 }
 function pdvCardTipoChange(){
   var tipo=document.getElementById('pdvCardTipo').value;
@@ -9220,8 +9069,7 @@ function savePDV(){
   var descRs=getCurrencyVal('pdvDescRS');
   var descPct=parseFloat(document.getElementById('pdvDesc').value)||0;
   var pdvDesc=Math.round(sub*descPct)/100+descRs;
-  var acresc=getCurrencyVal('pdvAcresc');
-  var total=Math.max(0,sub-pdvDesc+acresc);
+  var total=Math.max(0,sub-pdvDesc);
   if(total<=0){toast('Total inválido','error');return}
   if(descPct>100){toast('Desconto não pode ser maior que 100%','error');return}
   if(total>PDV_POL.sangria.maxSemAprovao&&!checkPDVPolicy('venda')){return}
@@ -9231,26 +9079,11 @@ function savePDV(){
     if(recebido<=0){toast('Informe o valor recebido','error');return}
     if(recebido<total){toast('Valor recebido menor que o total! Faltam '+fmt$(total-recebido),'error');return}
   }
-  if(pg==='split'){
-    var splitSum=pdvSplit.reduce(function(s,x){return s+Number(x.valor||0)},0);
-    var splitFiltered=pdvSplit.filter(function(x){return Number(x.valor||0)>0});
-    if(!splitFiltered.length){toast('Informe os valores do pagamento dividido','error');return}
-    if(splitSum<total-0.005){toast('Valores divididos somam menos que o total! Faltam '+fmt$(Math.round((total-splitSum)*100)/100),'error');return}
-  }
   var cliente=document.getElementById('pdvCliente')?(document.getElementById('pdvCliente').value||'').trim():'';
   var now=new Date();
   var recebVal=total, trocoVal=0;
   if(pg==='dinheiro'){recebVal=getCurrencyVal('pdvRecebido');trocoVal=Math.max(0,recebVal-total)}
-  if(pg==='split'){
-    recebVal=splitSum;
-    var dinPho=(pdvSplit.find(function(x){return x.tipo==='dinheiro'})||{}).valor||0;
-    trocoVal=Math.max(0,dinPho-total);
-  }
-  var vendaBase={id:genId(DB.pdv),data:today(),hora:now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),cliente:cliente,items:JSON.parse(JSON.stringify(pdvItems)),pagamento:pg,desconto:pdvDesc,descontoPct:descPct,acrescimo:acresc,obs:(document.getElementById('pdvObs')?(document.getElementById('pdvObs').value||'').trim():''),total:total,recebido:recebVal,troco:trocoVal,createdAt:now.toISOString()};
-  if(pg==='split'){
-    vendaBase.split=pdvSplit.filter(function(x){return Number(x.valor||0)>0}).map(function(x){return{tipo:x.tipo,valor:Number(x.valor||0)}});
-    vendaBase.pagamento='split ('+vendaBase.split.length+'x)';
-  }
+  var vendaBase={id:genId(DB.pdv),data:today(),hora:now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),cliente:cliente,items:JSON.parse(JSON.stringify(pdvItems)),pagamento:pg,desconto:pdvDesc,descontoPct:descPct,total:total,recebido:recebVal,troco:trocoVal,createdAt:now.toISOString()};
   if(pg==='cartao'||pg==='cartao_sj'){
     var parcelas=parseInt(document.getElementById('pdvParcelas').value);
     var cardTipo=document.getElementById('pdvCardTipo').value;
@@ -9280,8 +9113,7 @@ function savePDV(){
   DB.finance.push({id:genId(DB.finance),data:today(),tipo:'entrada',Descrio:'Venda #'+vendaBase.id+(cliente?' - '+cliente:''),valor:total,pagamento:vendaBase.pagamento});
   save();closeModal('pdvModal');renderPDV();renderDashboard();renderProducts();
   toast('Venda #'+vendaBase.id+' finalizada! '+fmt$(total),'success');addAudit('Venda #'+vendaBase.id+' - '+fmt$(total));launchConfetti();
-  var printEl=document.getElementById('pdvPrintAfter');
-  if(!printEl||printEl.checked)printPDVReceipt(vendaBase.id);
+  printPDVReceipt(vendaBase.id);
 }
 function renderPDV(){
   try{
@@ -9321,7 +9153,6 @@ function renderPDV(){
     const qtdItens=(v.items||[]).reduce((s,i)=>s+i.qty,0);
     const pgIcons={'pix':'<span style="color:#00bfa5">PIX</span>','cartao':'<span style="color:var(--ylw)">CARTAO</span>','cartao_sj':'<span style="color:var(--cyan)">CARTO SJ</span>','dinheiro':'<span style="color:var(--grn)">DINHEIRO</span>','credito':'<span style="color:var(--pur)">CREDITO</span>','debito':'<span style="color:var(--cyan)">DEBITO</span>'};
     var pgLabel=pgIcons[v.pagamento]||escH(v.pagamento);
-    if(v.split&&v.split.length){pgLabel='<span style="color:var(--pur)">DIVIDIDO</span><br><span style="font-size:9px;color:var(--txt3)">'+v.split.map(function(s){return s.tipo+' '+fmt$(s.valor)}).join(' + ')+'</span>'}
     if(v.pagamento==='cartao'||v.pagamento==='cartao_sj'){var cardInfo=v.parcelas?(v.bandeira?escH(v.bandeira).toUpperCase()+' ':'')+(v.cardTipo==='debito'?'DBITO':'')+v.parcelas+'x':'CARTAO';pgLabel+='<br><span style="font-size:9px;color:var(--txt3)">'+cardInfo+'</span>'}
     rows.push('<tr><td style="font-size:11px">'+fmtDate(v.data)+(hora?' <span style="color:var(--txt3)">'+hora+'</span>':'')+'</td><td style="font-size:11px">'+escH(cliente)+'</td><td style="font-size:11px;max-width:200px;overflow:hidden;text-overflow:ellipsis" title="'+escH(itLabels)+'">'+escH(itLabels)+'<br><span style="color:var(--txt3)">'+qtdItens+(qtdItens===1?' item':' itens')+'</span> '+desc+'</td><td>'+pgLabel+'</td><td style="font-weight:700;color:var(--grn)">'+fmt$(v.total)+'</td><td><div class="action-btns"><button class="action-btn" onclick="viewPDVSale('+v.id+')" title="Ver detalhes">'+ICONS.eye+'</button><button class="action-btn" onclick="printPDVReceipt('+v.id+')" title="PDF / Imprimir">'+ICONS.pdf+'</button><button class="action-btn" onclick="sendPDVWhatsApp('+v.id+')" title="WhatsApp">'+ICONS.wa+'</button><button class="action-btn danger" onclick="deletePDV('+v.id+')" title="Excluir">'+ICONS.trash+'</button></div></td></tr>');
   });
@@ -9352,13 +9183,12 @@ function pdvAddBySearch(){
 function pdvAutocomplete(q){
   const list=document.getElementById('pdvACList');if(!list)return;
   q=(q||'').trim().toLowerCase();if(!q){list.classList.remove('open');return}
-  var prds=DB.products.filter(p=>(p.nome||'').toLowerCase().includes(q)||(p.codigo||'').toLowerCase().includes(q)||(p.barcode||'').toLowerCase().includes(q)).map(function(p){return{type:'produto',id:p.id,label:p.nome,sub:(p.marca||'')+' | '+(p.categoria||''),price:p.venda,badge:'Est: '+p.estoque,badgeColor:'var(--cyan)',icon:(p.codigo||'?').slice(0,3),photo:p.photo||(p.photos&&p.photos[0])}});
+  var prds=DB.products.filter(p=>(p.nome||'').toLowerCase().includes(q)||(p.codigo||'').toLowerCase().includes(q)||(p.barcode||'').toLowerCase().includes(q)).map(function(p){return{type:'produto',id:p.id,label:p.nome,sub:(p.marca||'')+' | '+(p.categoria||''),price:p.venda,badge:'Est: '+p.estoque,badgeColor:'var(--cyan)',icon:(p.codigo||'?').slice(0,3)}});
   var svcs=DB.services.filter(function(s){return(s.nome||'').toLowerCase().includes(q)}).map(function(s){return{type:'servico',id:s.id,label:s.nome,sub:s.categoria||'',price:s.Preo,badge:'Serviço',badgeColor:'var(--pur)',icon:'S'}});
   var matches=prds.concat(svcs).slice(0,10);
   if(!matches.length){list.innerHTML='<div class="ac-empty">Nenhum resultado encontrado</div>';list.classList.add('open');pdvACIdx=-1;return}
   list.innerHTML=matches.map(function(m,i){
-    var iconHtml=m.photo?'<img src="'+m.photo+'" alt="" style="width:30px;height:30px;border-radius:6px;object-fit:cover">':('<div class="ac-icon" style="background:'+(m.type==='servico'?'var(--cd)':'var(--gd)')+';color:'+(m.type==='servico'?'var(--pur)':'var(--grn)')+'">'+escH(m.icon)+'</div>');
-    return '<div class="ac-item'+(i===pdvACIdx?' active':'')+'" onmousedown="pdvACSelect(\''+m.type+'\','+m.id+')" ontouchstart="pdvACSelect(\''+m.type+'\','+m.id+')">'+iconHtml+'<div class="ac-text"><div class="ac-name">'+escH(m.label)+'</div><div class="ac-sub">'+escH(m.sub)+(m.type==='servico'?' | '+escH((DB.services||[]).find(function(s){return s.id===m.id})&&(DB.services||[]).find(function(s){return s.id===m.id}).desc||''):'')+'</div></div><div class="ac-badge" style="background:var(--gd);color:var(--grn)">'+fmt$(m.price)+'</div><div class="ac-badge" style="background:'+(m.type==='servico'?'var(--cd)':'var(--cd)')+';color:'+m.badgeColor+'">'+m.badge+'</div></div>';
+    return '<div class="ac-item'+(i===pdvACIdx?' active':'')+'" onmousedown="pdvACSelect(\''+m.type+'\','+m.id+')" ontouchstart="pdvACSelect(\''+m.type+'\','+m.id+')"><div class="ac-icon" style="background:'+(m.type==='servico'?'var(--cd)':'var(--gd)')+';color:'+(m.type==='servico'?'var(--pur)':'var(--grn)')+'">'+escH(m.icon)+'</div><div class="ac-text"><div class="ac-name">'+escH(m.label)+'</div><div class="ac-sub">'+escH(m.sub)+(m.type==='servico'?' | '+escH((DB.services||[]).find(function(s){return s.id===m.id})&&(DB.services||[]).find(function(s){return s.id===m.id}).desc||''):'')+'</div></div><div class="ac-badge" style="background:var(--gd);color:var(--grn)">'+fmt$(m.price)+'</div><div class="ac-badge" style="background:'+(m.type==='servico'?'var(--cd)':'var(--cd)')+';color:'+m.badgeColor+'">'+m.badge+'</div></div>';
   }).join('');
   list.classList.add('open');pdvACIdx=-1;
 }
@@ -9726,17 +9556,10 @@ function renderProducts(){try{
   if(prdFilter==='baixo')list=list.filter(p=>p.estoque<=p.estMin);
   else if(prdFilter!=='todos'&&prdFilter!=='com-foto')list=list.filter(p=>p.categoria===prdFilter);
   else if(prdFilter==='com-foto')list=list.filter(p=>p.photo||(p.photos&&p.photos.length));
-  if(q){
-    const qn=parseFloat(q.replace(',','.'));
-    const hasNum=!isNaN(qn)&&qn>0;
-    list=list.filter(p=>{
-      const hay=(p.nome+' '+p.codigo+' '+p.codigoBarras+' '+p.sku+' '+p.marca+' '+p.modelo+' '+p.forn).toLowerCase();
-      if(hay.includes(q))return true;
-      if(hasNum){const v=Number(p.venda)||0,c=Number(p.custo)||0;if(v===qn||c===qn)return true;if(String(v).includes(String(qn))||String(c).includes(String(qn)))return true;}
-      return false;
-    });
-  }
-
+  if(q)list=list.filter(p=>(p.nome+' '+p.codigo+' '+p.codigoBarras+' '+p.sku+' '+p.marca+' '+p.modelo+' '+p.forn).toLowerCase().includes(q));
+  const pmin=parseFloat(document.getElementById('prdPriceMin')?document.getElementById('prdPriceMin').value:'')||0;
+  const pmax=parseFloat(document.getElementById('prdPriceMax')?document.getElementById('prdPriceMax').value:'')||0;
+  if(pmin>0||pmax>0)list=list.filter(p=>{const pv=Number(p.venda)||0;if(pmin>0&&pv<pmin)return false;if(pmax>0&&pv>pmax)return false;return true});
   if(!list.length){body.innerHTML='<tr><td colspan="9"><div class="empty-state">'+(q?'Nenhum resultado para "'+escH(q)+'"':'Nenhum produto cadastrado')+'</div></td></tr>';return}
   const catLabels={acessorio:'Acessorio',peca:'Peca',produto:'Produto',insumo:'Insumo',capa:'Capa','pelicula':'Pelicula',carregador:'Carregador',cabo:'Cabo',tela:'Tela',bateria:'Bateria',conector:'Conector',ferramenta:'Ferramenta',embalagem:'Embalagem',outro:'Outro'};
   const rows=[];
@@ -11549,15 +11372,7 @@ var COM_TEMPLATES_SEED=[
   {key:'entregue',nome:'Equipamento Entregue',msg:'Ol? {cliente}! Equipamento ({equipamento}) da OS #{os} entregue em {data}. Obrigado pela preferência! {empresa} - {telefone_empresa}'},
   {key:'garantia',nome:'Garantia',msg:'Ol? {cliente}! Seu equipamento ({equipamento}) da OS #{os} está na garantia de {garantia} dias. Para acionar, responda esta mensagem. {empresa} - {telefone_empresa}'},
   {key:'satisfacao',nome:'Pesquisa de Satisfação',msg:'Ol? {cliente}! Como foi sua experiência com a {empresa} na OS #{os}? Sua opinião é muito importante para nós. Avalie de 1 a 5! {telefone_empresa}'},
-  {key:'google',nome:'Avaliação no Google',msg:'Olá {cliente}! Obrigado por confiar na {empresa}. Sua opinião é muito importante. Se puder, deixe sua avaliação no Google: {link_google} Muito obrigado!'},
-  {key:'lembrete',nome:'Lembrete de Retirada',msg:'Olá {cliente}! Só passando para lembrar que seu equipamento ({equipamento}) da OS {os} está prontinho para retirada. Aguardamos você! {empresa} - {telefone_empresa}'},
-  {key:'cobranca',nome:'Cobrança do Serviço',msg:'Olá {cliente}! O serviço realizado na OS {os} foi concluído e o valor é {valor}. Qual a forma de pagamento fica melhor para você? {empresa} - {telefone_empresa}'},
-  {key:'aprovado',nome:'Orçamento Aprovado',msg:'Olá {cliente}! Você aprovou o orçamento da OS {os} ({equipamento}) no valor de {valor}. Previsão de conclusão: {previsao}. Te avisamos assim que terminar! {empresa}'},
-  {key:'agendar',nome:'Agendamento de Retirada',msg:'Olá {cliente}! Seu equipamento ({equipamento}) da OS {os} já está pronto. Qual dia e horário seriam melhores para retirar? {empresa} - {telefone_empresa}'},
-  {key:'preco',nome:'Confirmação de Preço',msg:'Olá {cliente}! Confirmando o valor do serviço da OS {os}: {valor}, com garantia de {garantia} dias. Pode confirmar para seguirmos? {empresa}'},
-  {key:'ativo',nome:'Boas-vindas / Novo Cliente',msg:'Olá {cliente}! Seja bem-vindo(a) à {empresa}. Sua OS {os} foi registrada com o equipamento {equipamento}. Qualquer dúvida, estamos à disposição: {telefone_empresa}'},
-  {key:'pos',nome:'Pós-serviço',msg:'Olá {cliente}! Passando para saber como está o equipamento ({equipamento}) que consertamos na OS {os}. Qualquer coisa, é só chamar a gente! {empresa}'},
-  {key:'cancelado',nome:'Cancelamento da OS',msg:'Olá {cliente}! Informamos que a OS {os} foi cancelada. Se no futuro precisar novamente, estaremos à disposição. {empresa} - {telefone_empresa}'}
+  {key:'google',nome:'Avaliação no Google',msg:'Ol? {cliente}! Obrigado por confiar na {empresa}. Sua opinião é muito importante. Se puder, deixe sua avaliação no Google: {link_google} Muito obrigado!'}
 ];
 function initComTemplates(){
   if(!DB.comTemplates){DB.comTemplates=[]}
@@ -11611,9 +11426,8 @@ function comLog(canal,osId,dest,msg){
   }catch(e){console.error('[COM] log:',e.message)}
 }
 function comPhone(os){
-  var num=os&&(os.whatsapp||os.telefone||'');
-  var d=String(num||'').replace(/\D/g,'');
-  return comNormalizePhone(d)||'';
+  var num=os&&(os.telefone||'');
+  return String(num||'').replace(/\D/g,'');
 }
 function openComCenter(osId,presetKey){
   var os=(DB.os||[]).find(function(o){return o.id===osId});
@@ -11644,15 +11458,8 @@ function openComCenter(osId,presetKey){
     '<select id="comTplSelect" onchange="comTplChange()" style="flex:1;min-width:160px">'+tplOpts+'</select>'+
     '<button class="btn btn-sm btn-secondary" onclick="comRestoreTemplate()" title="Restaurar modelo original" style="font-size:10px">Restaurar</button>'+
     '</div>'+
-    '<textarea id="comMsgText" rows="5" oninput="comRenderPreview()" onkeyup="comRenderPreview()" style="width:100%;font-size:12px;line-height:1.5">'+escH(msg)+'</textarea>'+
-    '<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--txt3);line-height:1.6">'+
-    '<span>Variáveis: {cliente} {os} {equipamento} {marca} {modelo} {status} {valor} {previsao} {garantia} {tecnico} {empresa} {telefone_empresa} {whatsapp_empresa} {site} {data} {hora} {link_google}</span>'+
-    '<span id="comCharCount" style="font-weight:700;white-space:nowrap">0</span></div>'+
-    '<div style="background:var(--input);border:1px solid var(--bdr);border-radius:var(--rs);padding:8px 10px">'+
-    '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--txt3);margin-bottom:6px">Prévia &#10003; WhatsApp</div>'+
-    '<div style="display:flex;align-items:flex-end;justify-content:flex-start;gap:8px">'+
-    '<div style="background:#dcf8c6;color:#111;border-radius:10px;border-bottom-left-radius:2px;padding:8px 10px;font-size:12px;line-height:1.5;max-width:100%;word-break:break-word;white-space:pre-wrap;box-shadow:0 1px 2px rgba(0,0,0,.08)"><span id="comPreview"></span><span style="display:block;font-size:9px;color:#667;text-align:right;margin-top:2px" id="comPreviewTime"></span></div>'+
-    '</div></div>'+
+    '<textarea id="comMsgText" rows="5" style="width:100%;font-size:12px;line-height:1.5">'+escH(msg)+'</textarea>'+
+    '<div style="font-size:10px;color:var(--txt3);line-height:1.6">Variáveis: {cliente} {os} {equipamento} {marca} {modelo} {status} {valor} {previsao} {garantia} {tecnico} {empresa} {telefone_empresa} {whatsapp_empresa} {site} {data} {hora} {link_google}</div>'+
     '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
     '<button class="btn btn-sm" style="background:#25d366;color:#fff;border:none;border-radius:var(--rs);padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer" onclick="comSendWhatsApp('+osId+')"><i data-lucide="message-circle" style="width:13px;height:13px"></i> WhatsApp</button>'+
     '<button class="btn btn-sm" style="background:#3b82f6;color:#fff;border:none;border-radius:var(--rs);padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer" onclick="comSendEmail('+osId+')"><i data-lucide="mail" style="width:13px;height:13px"></i> E-mail</button>'+
@@ -11660,7 +11467,6 @@ function openComCenter(osId,presetKey){
     '<button class="btn btn-sm btn-secondary" onclick="comCopyMsg()" title="Copiar mensagem" style="font-size:10px">Copiar</button>'+
     '<button class="btn btn-sm btn-secondary" onclick="comOSPDF('+osId+')" title="Gerar PDF da OS" style="font-size:10px">Gerar PDF</button>'+
     '<button class="btn btn-sm btn-secondary" onclick="comOSLink('+osId+')" title="Copiar link de acompanhamento" style="font-size:10px">Link</button>'+
-    '<button class="btn btn-sm btn-secondary" onclick="openWhatsAppWeb()" title="Abrir WhatsApp Web" style="font-size:10px"><i data-lucide="monitor" style="width:12px;height:12px"></i> WhatsApp Web</button>'+
     '</div>'+
     '<div style="border-top:1px dashed var(--bdr);padding-top:10px">'+
     '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);margin-bottom:6px">Histórico de Comunicações</div>'+
@@ -11668,22 +11474,7 @@ function openComCenter(osId,presetKey){
     '</div>'+
     '</div>';
   showModal('Central de Comunicação - OS #'+String(osId).padStart(4,'0'),body,'comCenterModal');
-  _comPreviewOsId=osId;
   _lucideInit(document.getElementById('comCenterModal'));
-  comRenderPreview();
-}
-var _comPreviewOsId=null;
-function comRenderPreview(){
-  var tv=document.getElementById('comMsgText');
-  var pv=document.getElementById('comPreview');
-  if(!tv)return;
-  var cc=document.getElementById('comCharCount');
-  if(cc)cc.textContent=tv.value.length+' caractere(s)';
-  if(!pv)return;
-  var os=(DB.os||[]).find(function(o){return o.id===_comPreviewOsId});
-  pv.textContent=comApplyVars(tv.value,os||null);
-  var et=document.getElementById('comPreviewTime');
-  if(et)et.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 }
 function comHistoryHTML(osId){
   var list=(DB.messages||[]).filter(function(m){return m.osId===osId}).slice(0,15);
@@ -11703,14 +11494,12 @@ function comTplChange(){
   var key=sel?sel.value:'';
   var t=comTemplateByKey(key);
   if(t&&document.getElementById('comMsgText'))document.getElementById('comMsgText').value=t.msg;
-  comRenderPreview();
 }
 function comRestoreTemplate(){
   var sel=document.getElementById('comTplSelect');
   var key=sel?sel.value:'';
   var t=comTemplateByKey(key);
   if(t&&document.getElementById('comMsgText'))document.getElementById('comMsgText').value=t.msg;
-  comRenderPreview();
   toast('Modelo restaurado','info');
 }
 function comMsgValue(){var el=document.getElementById('comMsgText');return el?el.value:''}
@@ -11856,31 +11645,9 @@ function comAllRender(){
       '<div style="width:26px;height:26px;border-radius:8px;background:var(--cd);color:'+(color[c]||'var(--txt2)')+';display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(ic[c]||'&#128172;')+'</div>'+
       '<div style="min-width:0;flex:1"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span style="font-size:10px;color:var(--txt3)">'+escH(m.data||'')+' &middot; '+(m.user||'')+' &middot; '+escH(c||'')+'</span>'+
       (m.osId?'<button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:9px" onclick="openComCenter('+m.osId+')">Ver OS #'+String(m.osId).padStart(4,'0')+(os&&os.osCode?' '+escH(os.osCode):'')+'</button>':'')+'</div>'+
-      '<div style="font-size:11px;line-height:1.5;word-break:break-word;margin-top:2px">'+escH(String(m.msg||'').substring(0,300))+'</div>'+
-      '<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">'+
-      (m.canal==='whatsapp'&&os?'<button class="btn btn-sm" style="background:#25d366;color:#fff;border:none;border-radius:6px;padding:3px 8px;font-size:9px;font-weight:700;cursor:pointer" onclick="comResendWhatsApp('+m.osId+')">Enviar novamente via WhatsApp</button>':'')+
-      '<button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:9px" onclick="comCopyText(\''+escJs(m.msg||'')+'\')">Copiar</button>'+
-      '</div></div></div>';
+      '<div style="font-size:11px;line-height:1.5;word-break:break-word;margin-top:2px">'+escH(String(m.msg||'').substring(0,300))+'</div></div></div>';
   }).join('');
   _lucideInit(document.getElementById('comAllList'));
-}
-function comCopyText(txt){
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt);toast('Mensagem copiada!','success')}
-  else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Mensagem copiada!','success')}
-}
-function escJs(s){return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,'\\\'').replace(/\n/g,'\\n').replace(/\r/g,'').replace(/"/g,'\\"')}
-function comResendWhatsApp(osId){
-  var os=(DB.os||[]).find(function(o){return o.id===osId});
-  if(!os)return;
-  var hist=(DB.messages||[]).filter(function(m){return m.osId===osId&&m.canal==='whatsapp'}).slice(0,1);
-  var last=hist.length?hist[0].msg:'';
-  var t=comTemplateByKey('criada');
-  var msg=last||(t?t.msg:'');
-  var num=comPhone(os);
-  if(!num){toast('OS sem telefone cadastrado','error');return}
-  sendWhatsAppMessage(num,comApplyVars(msg,os));
-  comLog('whatsapp',osId,os.cliente||'',msg);
-  toast('WhatsApp aberto com a última mensagem','success');
 }
 
 // --- Portal do Cliente ---
@@ -12551,10 +12318,9 @@ function renderOSOnlinePublic(osId){
       return;
     }
     window._osOnlineRetry=0;
-    document.getElementById('osOnlineContainer').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:64px;margin-bottom:16px">&#128269;</div><h2 style="color:var(--txt1)">OS não encontrada</h2><p style="color:var(--txt3);margin-top:8px">A OS #'+String(osId).padStart(4,'0')+' não existe ou foi removida.</p><div style="margin-top:20px"><button class="btn btn-primary" onclick="closeOSOnline()" style="font-size:13px;padding:8px 20px">Voltar ao Painel</button></div></div>';
+    document.getElementById('osOnlineContainer').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:64px;margin-bottom:16px">&#128269;</div><h2 style="color:var(--txt1)">OS não encontrada</h2><p style="color:var(--txt3);margin-top:8px">A OS #'+String(osId).padStart(4,'0')+' não existe ou foi removida.</p></div>';
     document.getElementById('osOnlineOverlay').classList.add('visible');
     document.body.style.overflow='hidden';
-    setTimeout(function(){try{closeOSOnline()}catch(e){console.error(e)}},6000);
     return;
   }
   if(window._osOnlineRetry)window._osOnlineRetry=0;
@@ -13818,54 +13584,29 @@ function openQuickOrcamento(){
    _qoPag={m:'pix',par:1,tax:3.99};
    var pm=document.getElementById('qoPagamento');if(pm)pm.value='pix';
    var pp=document.getElementById('qoParcelas');if(pp)pp.value='1';
-   var tx=document.getElementById('qoTaxa');if(tx){tx.value='3.99';tx.style.display=''}
+   var tx=document.getElementById('qoTaxa');if(tx){tx.value='3.99';tx.style.display='none'}
    var pd=document.getElementById('qoPagDisp');if(pd)pd.textContent='PIX à vista';
-   var cj=document.getElementById('qoComJuros');if(cj)cj.checked=false;
-   var rec=document.getElementById('qoRecebido');if(rec){rec.value='';rec.dataset.rawValue='0'}
-   var tr=document.getElementById('qoTroco');if(tr){tr.textContent='R$ 0,00';tr.style.color='var(--ylw)'}
-   var ta=document.getElementById('qoTrocoAlert');if(ta)ta.style.display='none';
-   var pr=document.getElementById('qoParcelasRow');if(pr)pr.style.display='none';
-   var dr=document.getElementById('qoDinheiroRow');if(dr)dr.style.display='none';
-   document.querySelectorAll('[data-qpg]').forEach(function(b){b.classList.toggle('active',b.dataset.qpg==='pix')});
  }
-function qoAparelhoList(){
+ function qoAparelhoList(){
    var dl=document.getElementById('qoAparelhoList');if(!dl)return;
    var set={};dl.innerHTML='';
-   var defs=(typeof OS_PREFIXES!=='undefined'?OS_PREFIXES:[]);
-   defs.forEach(function(p){if(p.label&&!set[p.label.toLowerCase()]){set[p.label.toLowerCase()]=1;var op=document.createElement('option');op.value=p.label;dl.appendChild(op)}});
    (DB.os||[]).forEach(function(o){
-     var k=qoDeviceLabel(o);
+     var k=String((o.marca?o.marca+' ':'')+(o.aparelho||'')).trim();
      if(k&&!set[k.toLowerCase()]){set[k.toLowerCase()]=1;var op=document.createElement('option');op.value=k;dl.appendChild(op)}
    });
-   (DB.products||[]).forEach(function(p){if(p.marca&&p.modelo){var k=qoDeviceLabel(p);if(k&&!set[k.toLowerCase()]){set[k.toLowerCase()]=1;var op=document.createElement('option');op.value=k;dl.appendChild(op)}}});
- }
- function qoDeviceLabel(o){
-   var b=String(o.marca||'').trim();
-   var a=String((o.aparelho||o.modelo||o.nome)||'').trim();
-   if(!a)return '';
-   if(b&&a.toLowerCase().indexOf(b.toLowerCase())<0)return (b+' '+a).trim();
-   return a.trim();
- }
- function qoAparelhoMatch(v){
-   var target=(v||'').trim().toLowerCase();if(target.length<3)return null;
-   var all=(DB.os||[]).concat(DB.products||[]);
-   var i,o;
-   for(i=0;i<all.length;i++){o=all[i];
-     var label=qoDeviceLabel(o).toLowerCase();
-     var raw=String(o.aparelho||o.nome||'').toLowerCase();
-     if(!o.marca&&raw&&o.aparelho&&o.aparelho.toLowerCase()===target)return o;
-     if(raw===target||label===target)return o;
-     if(o.marca&&o.modelo&&(o.marca+' '+o.modelo).toLowerCase()===target)return o;
-     if(o.marca&&o.aparelho&&(o.marca+' '+o.aparelho).toLowerCase()===target)return o;
+   (DB.products||[]).forEach(function(p){if(p.marca&&p.modelo){var k=(p.marca+' '+p.modelo).trim();if(k&&!set[k.toLowerCase()]){set[k.toLowerCase()]=1;var op=document.createElement('option');op.value=k;dl.appendChild(op)}}});
+ } function qoAparelhoSync(v){
+   v=(v||'').trim().toLowerCase();if(v.length<3)return;
+   var ap=null;
+   (DB.os||[]).forEach(function(o){
+     if(!ap&&o.aparelho&&String(o.aparelho).toLowerCase()===v)ap=o;
+     if(!ap&&o.marca&&o.aparelho&&(o.marca+' '+o.aparelho).toLowerCase()===v)ap=o;
+   });
+   (DB.os||[]).forEach(function(o){if(!ap&&o.marca&&o.modelo&&(o.marca+' '+o.modelo).toLowerCase()===v)ap=o});
+   (DB.products||[]).forEach(function(p){if(!ap&&p.marca&&p.modelo&&(p.marca+' '+p.modelo).toLowerCase()===v)ap=p});
+   if(!ap){
+     (DB.os||[]).forEach(function(o){if(!ap&&o.marca&&o.aparelho&&(o.marca+' '+o.aparelho).toLowerCase().indexOf(v)>=0)ap=o});
    }
-   for(i=0;i<all.length;i++){o=all[i];
-     var lbl=qoDeviceLabel(o).toLowerCase();
-     if(lbl&&lbl.indexOf(target)>=0)return o;
-   }
-   return null;
- }
- function qoAparelhoSync(v){
-   var ap=qoAparelhoMatch(v);
    if(ap){
      var ma=document.getElementById('qoMarca');if(ma&&!ma.value)ma.value=ap.marca||'';
      var mo=document.getElementById('qoModelo');if(mo&&!mo.value)mo.value=ap.modelo||'';
@@ -13904,24 +13645,11 @@ function qoAparelhoList(){
    var par=parseInt((document.getElementById('qoParcelas')||{}).value)||1;
    var tax=parseFloat((document.getElementById('qoTaxa')||{}).value);
    if(isNaN(tax))tax=0;
-   var cj=document.getElementById('qoComJuros');
-   if(cj&&m==='cartao'&&cj.checked)m='juros';
    var txEl=document.getElementById('qoTaxa');
-   if(txEl)txEl.style.display='';
-   _qoPag={m:m,par:par,tax:tax};
+   if(txEl)txEl.style.display=(m==='juros')?'':'none';
    var pd=document.getElementById('qoPagDisp');
+   _qoPag={m:m,par:par,tax:tax};
    if(!pd)return;
-   var trocoEl=document.getElementById('qoTroco');
-   var trocoAlert=document.getElementById('qoTrocoAlert');
-   if(m==='dinheiro'){
-     var rec=getCurrencyVal('qoRecebido');
-     var troco=rec>0?rec-t:0;
-     pd.textContent='DINHEIRO à vista → '+fmt$(t);
-     if(trocoEl){trocoEl.textContent=fmt$(Math.max(0,troco));trocoEl.style.color=troco>=0?'var(--grn)':'var(--red)'}
-     if(trocoAlert){if(rec>0&&troco<0){trocoAlert.style.display='block';trocoAlert.textContent='Valor insuficiente! Faltam '+fmt$(Math.abs(troco))}else{trocoAlert.style.display='none'}}
-     return;
-   }
-   if(trocoAlert)trocoAlert.style.display='none';
    if(m==='pix'){pd.textContent='PIX à vista → '+fmt$(t)}
    else if(m==='cartao'){var v=par>1?t/par:t;pd.textContent=par>1?par+'x de '+fmt$(v)+' → total '+fmt$(t)+' (sem juros)':fmt$(t)+' à vista'}
    else{
@@ -13965,7 +13693,7 @@ function qoNorm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u030
 function qoSearchSvc(q){
   var el=document.getElementById('qoSvcAC');
   if(!el){return}
-  if(!q||!q.trim()){el.innerHTML='';return}
+  if(!q||q.length<2){el.innerHTML='';return}
   var nq=qoNorm(q);
   var all=(DB.services||[]).map(function(s){return {s:s,score:0}});
   all.forEach(function(o){
@@ -14006,24 +13734,11 @@ function qoAddSvcManual(){
    var par=parseInt((document.getElementById('qoParcelas')||{}).value)||1;
    var tax=parseFloat((document.getElementById('qoTaxa')||{}).value);
    if(isNaN(tax))tax=0;
-   var cj=document.getElementById('qoComJuros');
-   if(cj&&m==='cartao'&&cj.checked)m='juros';
    var txEl=document.getElementById('qoTaxa');
-   if(txEl)txEl.style.display='';
-   _qoPag={m:m,par:par,tax:tax};
+   if(txEl)txEl.style.display=(m==='juros')?'':'none';
    var pd=document.getElementById('qoPagDisp');
+   _qoPag={m:m,par:par,tax:tax};
    if(!pd)return;
-   var trocoEl=document.getElementById('qoTroco');
-   var trocoAlert=document.getElementById('qoTrocoAlert');
-   if(m==='dinheiro'){
-     var rec=getCurrencyVal('qoRecebido');
-     var troco=rec>0?rec-t:0;
-     pd.textContent='DINHEIRO à vista → '+fmt$(t);
-     if(trocoEl){trocoEl.textContent=fmt$(Math.max(0,troco));trocoEl.style.color=troco>=0?'var(--grn)':'var(--red)'}
-     if(trocoAlert){if(rec>0&&troco<0){trocoAlert.style.display='block';trocoAlert.textContent='Valor insuficiente! Faltam '+fmt$(Math.abs(troco))}else{trocoAlert.style.display='none'}}
-     return;
-   }
-   if(trocoAlert)trocoAlert.style.display='none';
    if(m==='pix'){pd.textContent='PIX à vista → '+fmt$(t)}
    else if(m==='cartao'){var v=par>1?t/par:t;pd.textContent=par>1?par+'x de '+fmt$(v)+' → total '+fmt$(t)+' (sem juros)':fmt$(t)+' à vista'}
    else{
@@ -14066,7 +13781,7 @@ function qoQuickClient(){
 function qoSearchSvc(q){
   var el=document.getElementById('qoSvcAC');
   if(!el){return}
-  if(!q||!q.trim()){el.innerHTML='';return}
+  if(!q||q.length<2){el.innerHTML='';return}
   var nq=qoNorm(q);
   var all=(DB.services||[]).map(function(s){return {s:s,score:0}});
   all.forEach(function(o){
@@ -14100,7 +13815,7 @@ function qoRemoveSvc(i){_qo.servicos.splice(i,1);_qoRenderSvcs();qoCalcTotal()}
 function qoSearchPeca(q){
   var el=document.getElementById('qoPecaAC');
   if(!el)return;
-  if(!q||!q.trim()){el.innerHTML='';return}
+  if(!q||q.length<2){el.innerHTML='';return}
   var nq=qoNorm(q);
   var all=(DB.products||[]).map(function(p){return {p:p,score:0}});
   all.forEach(function(o){
@@ -14112,9 +13827,8 @@ function qoSearchPeca(q){
   });
   var results=all.filter(function(o){return o.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,10).map(function(o){return o.p});
   if(!results.length){el.innerHTML='<div style="padding:8px;font-size:11px;color:var(--txt3)">Nenhum produto encontrado - use "+ Manual" para cadastrar</div>';return}
-el.innerHTML=results.map(function(p){
-    var pf=p.photo||(p.photos&&p.photos[0]);
-    return '<div style="display:flex;align-items:center;gap:8px;padding:8px;cursor:pointer;border-bottom:1px solid var(--bdr);transition:background .15s" onmouseover="this.style.background=\'var(--cd)\'" onmouseout="this.style.background=\'\'" onclick="qoAddPeca('+p.id+')">'+(pf?'<img src="'+pf+'" alt="'+escH(p.nome)+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover">':'<span style="width:28px;height:28px;border-radius:6px;background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:12px">&#128230;</span>')+'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">'+escH(p.nome)+'</div><div style="font-size:10px;color:var(--txt3)">'+escH(p.codigo||'')+' | '+escH(p.marca||'')+' | Est: '+p.estoque+'</div></div><div style="text-align:right"><div style="font-size:11px;font-weight:600;color:var(--grn)">'+fmt$(p.venda)+'</div></div></div>';
+  el.innerHTML=results.map(function(p){
+    return '<div style="display:flex;align-items:center;gap:8px;padding:8px;cursor:pointer;border-bottom:1px solid var(--bdr);transition:background .15s" onmouseover="this.style.background=\'var(--cd)\'" onmouseout="this.style.background=\'\'" onclick="qoAddPeca('+p.id+')">'+(p.photo?'<img src="'+p.photo+'" alt="'+escH(p.nome)+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover">':'<span style="width:28px;height:28px;border-radius:6px;background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:12px">&#128230;</span>')+'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">'+escH(p.nome)+'</div><div style="font-size:10px;color:var(--txt3)">'+escH(p.codigo||'')+' | '+escH(p.marca||'')+' | Est: '+p.estoque+'</div></div><div style="text-align:right"><div style="font-size:11px;font-weight:600;color:var(--grn)">'+fmt$(p.venda)+'</div></div></div>';
   }).join('');
 }
 function qoSearchPecaKey(e){
@@ -14139,7 +13853,7 @@ function qoConfirmar(){
   _qo.pecas.forEach(function(p){itens.push({tipo:'produto',nome:p.nome,Preo:p.Preo,qty:p.qty})});
   var ap=(document.getElementById('qoAparelho').value||'').trim();
   var defeito=(document.getElementById('qoDefeito').value||'').trim();
-  DB.Orcamentos.push({id:genId(DB.Orcamentos),cliente:nome,osId:null,desc:'Or&#231;amento r&#225;pido'+(ap?' - '+ap:'')+(defeito?' | '+defeito:''),valor:total,itens:itens,status:'pendente',data:today(),hora:new Date().toTimeString().slice(0,5),origem:'rapido'});
+  DB.Orcamentos.push({id:genId(DB.Orcamentos),cliente:nome,osId:null,desc:'Orcamento rapido'+(ap?' - '+ap:'')+(defeito?' | '+defeito:''),valor:total,itens:itens,status:'pendente',data:today(),hora:new Date().toTimeString().slice(0,5),origem:'rapido'});
   save();addAudit('Orcamento rapido confirmado - '+nome);
   toast('Orcamento confirmado!','success');
   closeModal('_qoExitDynamic');closeModal('orcModal');
@@ -14156,24 +13870,11 @@ function qoConfirmar(){
    var par=parseInt((document.getElementById('qoParcelas')||{}).value)||1;
    var tax=parseFloat((document.getElementById('qoTaxa')||{}).value);
    if(isNaN(tax))tax=0;
-   var cj=document.getElementById('qoComJuros');
-   if(cj&&m==='cartao'&&cj.checked)m='juros';
    var txEl=document.getElementById('qoTaxa');
-   if(txEl)txEl.style.display='';
-   _qoPag={m:m,par:par,tax:tax};
+   if(txEl)txEl.style.display=(m==='juros')?'':'none';
    var pd=document.getElementById('qoPagDisp');
+   _qoPag={m:m,par:par,tax:tax};
    if(!pd)return;
-   var trocoEl=document.getElementById('qoTroco');
-   var trocoAlert=document.getElementById('qoTrocoAlert');
-   if(m==='dinheiro'){
-     var rec=getCurrencyVal('qoRecebido');
-     var troco=rec>0?rec-t:0;
-     pd.textContent='DINHEIRO à vista → '+fmt$(t);
-     if(trocoEl){trocoEl.textContent=fmt$(Math.max(0,troco));trocoEl.style.color=troco>=0?'var(--grn)':'var(--red)'}
-     if(trocoAlert){if(rec>0&&troco<0){trocoAlert.style.display='block';trocoAlert.textContent='Valor insuficiente! Faltam '+fmt$(Math.abs(troco))}else{trocoAlert.style.display='none'}}
-     return;
-   }
-   if(trocoAlert)trocoAlert.style.display='none';
    if(m==='pix'){pd.textContent='PIX à vista → '+fmt$(t)}
    else if(m==='cartao'){var v=par>1?t/par:t;pd.textContent=par>1?par+'x de '+fmt$(v)+' → total '+fmt$(t)+' (sem juros)':fmt$(t)+' à vista'}
    else{
@@ -14217,7 +13918,7 @@ function qoNorm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u030
 function qoSearchSvc(q){
   var el=document.getElementById('qoSvcAC');
   if(!el){return}
-  if(!q||!q.trim()){el.innerHTML='';return}
+  if(!q||q.length<2){el.innerHTML='';return}
   var nq=qoNorm(q);
   var all=(DB.services||[]).map(function(s){return {s:s,score:0}});
   all.forEach(function(o){
@@ -14258,24 +13959,11 @@ function qoAddSvcManual(){
    var par=parseInt((document.getElementById('qoParcelas')||{}).value)||1;
    var tax=parseFloat((document.getElementById('qoTaxa')||{}).value);
    if(isNaN(tax))tax=0;
-   var cj=document.getElementById('qoComJuros');
-   if(cj&&m==='cartao'&&cj.checked)m='juros';
    var txEl=document.getElementById('qoTaxa');
-   if(txEl)txEl.style.display='';
-   _qoPag={m:m,par:par,tax:tax};
+   if(txEl)txEl.style.display=(m==='juros')?'':'none';
    var pd=document.getElementById('qoPagDisp');
+   _qoPag={m:m,par:par,tax:tax};
    if(!pd)return;
-   var trocoEl=document.getElementById('qoTroco');
-   var trocoAlert=document.getElementById('qoTrocoAlert');
-   if(m==='dinheiro'){
-     var rec=getCurrencyVal('qoRecebido');
-     var troco=rec>0?rec-t:0;
-     pd.textContent='DINHEIRO à vista → '+fmt$(t);
-     if(trocoEl){trocoEl.textContent=fmt$(Math.max(0,troco));trocoEl.style.color=troco>=0?'var(--grn)':'var(--red)'}
-     if(trocoAlert){if(rec>0&&troco<0){trocoAlert.style.display='block';trocoAlert.textContent='Valor insuficiente! Faltam '+fmt$(Math.abs(troco))}else{trocoAlert.style.display='none'}}
-     return;
-   }
-   if(trocoAlert)trocoAlert.style.display='none';
    if(m==='pix'){pd.textContent='PIX à vista → '+fmt$(t)}
    else if(m==='cartao'){var v=par>1?t/par:t;pd.textContent=par>1?par+'x de '+fmt$(v)+' → total '+fmt$(t)+' (sem juros)':fmt$(t)+' à vista'}
    else{
@@ -14318,7 +14006,7 @@ function qoQuickClient(){
 function qoSearchSvc(q){
   var el=document.getElementById('qoSvcAC');
   if(!el){return}
-  if(!q||!q.trim()){el.innerHTML='';return}
+  if(!q||q.length<2){el.innerHTML='';return}
   var nq=qoNorm(q);
   var all=(DB.services||[]).map(function(s){return {s:s,score:0}});
   all.forEach(function(o){
@@ -14352,7 +14040,7 @@ function qoRemoveSvc(i){_qo.servicos.splice(i,1);_qoRenderSvcs();qoCalcTotal()}
 function qoSearchPeca(q){
   var el=document.getElementById('qoPecaAC');
   if(!el)return;
-  if(!q||!q.trim()){el.innerHTML='';return}
+  if(!q||q.length<2){el.innerHTML='';return}
   var nq=qoNorm(q);
   var all=(DB.products||[]).map(function(p){return {p:p,score:0}});
   all.forEach(function(o){
@@ -14364,9 +14052,8 @@ function qoSearchPeca(q){
   });
   var results=all.filter(function(o){return o.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,10).map(function(o){return o.p});
   if(!results.length){el.innerHTML='<div style="padding:8px;font-size:11px;color:var(--txt3)">Nenhum produto encontrado - use "+ Manual" para cadastrar</div>';return}
-el.innerHTML=results.map(function(p){
-    var pf=p.photo||(p.photos&&p.photos[0]);
-    return '<div style="display:flex;align-items:center;gap:8px;padding:8px;cursor:pointer;border-bottom:1px solid var(--bdr);transition:background .15s" onmouseover="this.style.background=\'var(--cd)\'" onmouseout="this.style.background=\'\'" onclick="qoAddPeca('+p.id+')">'+(pf?'<img src="'+pf+'" alt="'+escH(p.nome)+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover">':'<span style="width:28px;height:28px;border-radius:6px;background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:12px">&#128230;</span>')+'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">'+escH(p.nome)+'</div><div style="font-size:10px;color:var(--txt3)">'+escH(p.codigo||'')+' | '+escH(p.marca||'')+' | Est: '+p.estoque+'</div></div><div style="text-align:right"><div style="font-size:11px;font-weight:600;color:var(--grn)">'+fmt$(p.venda)+'</div></div></div>';
+  el.innerHTML=results.map(function(p){
+    return '<div style="display:flex;align-items:center;gap:8px;padding:8px;cursor:pointer;border-bottom:1px solid var(--bdr);transition:background .15s" onmouseover="this.style.background=\'var(--cd)\'" onmouseout="this.style.background=\'\'" onclick="qoAddPeca('+p.id+')">'+(p.photo?'<img src="'+p.photo+'" alt="'+escH(p.nome)+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover">':'<span style="width:28px;height:28px;border-radius:6px;background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:12px">&#128230;</span>')+'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">'+escH(p.nome)+'</div><div style="font-size:10px;color:var(--txt3)">'+escH(p.codigo||'')+' | '+escH(p.marca||'')+' | Est: '+p.estoque+'</div></div><div style="text-align:right"><div style="font-size:11px;font-weight:600;color:var(--grn)">'+fmt$(p.venda)+'</div></div></div>';
   }).join('');
 }
 function qoAddPeca(id){
@@ -14387,101 +14074,11 @@ function _qoRenderPecas(){
 }
 function qoRemovePeca(i){_qo.pecas.splice(i,1);_qoRenderPecas();qoCalcTotal()}
 function qoRawTotal(){
-   var svc=0;_qo.servicos.forEach(function(s){svc+=Number(s.Preo||0)});
-   var pec=0;_qo.pecas.forEach(function(p){pec+=Number(p.Preo||0)*Number(p.qty||1)});
-   var des=getCurrencyVal('qoDesloc');
-   if(isNaN(des))des=0;
-   _qo.desloc=des;
-   return svc+pec+des;
-}
-function qoSetPag(m){
-  var sel=document.getElementById('qoPagamento');if(sel)sel.value=m;
-  document.querySelectorAll('[data-qpg]').forEach(function(b){b.classList.toggle('active',b.dataset.qpg===(m==='juros'?'cartao':m))});
-  var pr=document.getElementById('qoParcelasRow');
-  if(pr)pr.style.display=(m==='cartao')?'block':'none';
-  var dr=document.getElementById('qoDinheiroRow');
-  if(dr)dr.style.display=(m==='dinheiro')?'block':'none';
-  qoPagSim();
-}
-function qoConfirmarPagamento(){
-  var total=qoCalcTotal();
-  if(!_qo.servicos.length&&!_qo.pecas.length&&!total){toast('Adicione itens ao orçamento','error');return}
-  var m=(document.getElementById('qoPagamento')||{}).value||'pix';
-  var sel=document.getElementById('qoPagamento');
-  var cj=document.getElementById('qoComJuros');
-  if(cj&&m==='cartao'&&cj.checked)m='juros';
-  if(sel)sel.value=m;
-  if(m==='dinheiro'){
-    var rec=getCurrencyVal('qoRecebido');
-    if(rec<=0){toast('Informe o valor recebido','error');return}
-    if(rec<total){toast('Valor recebido menor que o total! Faltam '+fmt$(total-rec),'error');return}
-  }
-  if(total<=0){toast('Total inválido','error');return}
-  var nome=(document.getElementById('qoCliente').value||'').trim()||'Nao informado';
-  var html=qoBuildHTML();
-  _pdfRenderOrPrint(html,'Orcamento_Rapido_'+new Date().getTime()+'.pdf');
-  addAudit('Pagamento confirmado + orçamento - '+nome);
-  var f=document.getElementById('qoRecebido');if(f)f.value='';
-  closeModal('orcModal');
-  toast('Pagamento confirmado! '+fmt$(total),'success');
-}
-function qoShareText(){
-  var nome=(document.getElementById('qoCliente').value||'').trim()||'Nao informado';
-  var ap=(document.getElementById('qoAparelho').value||'').trim();
-  var ma=(document.getElementById('qoMarca').value||'').trim();
-  var mo=(document.getElementById('qoModelo').value||'').trim();
-  var df=(document.getElementById('qoDefeito').value||'').trim();
-  var total=qoCalcTotal();
-  var svc='',pc='';
-  _qo.servicos.forEach(function(s){svc+='   - '+s.nome+': '+fmt$(s.Preo)+'\n'});
-  _qo.pecas.forEach(function(p){pc+='   - '+p.nome+' x'+p.qty+': '+fmt$(Number(p.Preo)*Number(p.qty))+'\n'});
-  var txt='Seu Orçamento InfoCelll';
-  if(ap)txt+='\nAparelho: '+[ap,ma,mo].filter(Boolean).join(' ');
-  if(svc)txt+='\n\nServiços:\n'+svc;
-  if(pc)txt+='\nProdutos/Peças:\n'+pc;
-  if(df)txt+='\nDefeito relatado: '+df;
-  txt+='\n\nTOTAL: '+fmt$(total);
-  return txt;
-}
-function qoSharePreview(){
-  var pre=document.getElementById('qoSharePreview');
-  if(!pre)return;
-  var txt=qoShareText();
-  pre.textContent=txt+'';
-  return txt;
-}
-function qoOpenShare(){
-  var total=qoCalcTotal();
-  if(!_qo.servicos.length&&!_qo.pecas.length&&!total){toast('Adicione itens ao orçamento','error');return}
-  qoSharePreview();
-  openModal('qoShareModal');
-}
-function qoShareViaWhatsApp(){
-  var txt=qoShareText();
-  var tel=(document.getElementById('qoTelefone').value||'').replace(/\D/g,'');
-  var url='https://wa.me/'+(tel?'55'+tel:'')+'?text='+encodeURIComponent(txt);
-  window.open(url,'_blank');
-}
-function qoShareViaEmail(){
-  var txt=qoShareText();
-  var nome=(document.getElementById('qoCliente').value||'').trim()||'Cliente';
-  window.location='mailto:?subject='+encodeURIComponent('Orçamento InfoCelll - '+nome)+'&body='+encodeURIComponent(txt);
-}
-function qoShareViaSMS(){
-  var txt=qoShareText();
-  window.open('sms:?body='+encodeURIComponent(txt),'_blank');
-}
-function qoCopyShareText(){
-  var txt=qoShareText();
-  if(navigator.clipboard){try{navigator.clipboard.writeText(txt);toast('Texto copiado!','success');return}catch(e){}}
-  prompt('Copie manualmente:',txt);
-}
-function qoSharePrint(){
-  var total=qoCalcTotal();
-  var nome=(document.getElementById('qoCliente').value||'').trim()||'Nao informado';
-  var html=qoBuildHTML();
-  _pdfRenderOrPrint(html,'Orcamento_Rapido_'+new Date().getTime()+'.pdf');
-  closeModal('qoShareModal');
+  var svc=0;_qo.servicos.forEach(function(s){svc+=Number(s.Preo||0)});
+  var pec=0;_qo.pecas.forEach(function(p){pec+=Number(p.Preo||0)*Number(p.qty||1)});
+  var des=parseFloat((document.getElementById('qoDesloc')||{}).value)||0;
+  _qo.desloc=des;
+  return svc+pec+des;
 }
 function qoCalcTotal(){
   var total=qoRawTotal();
@@ -14528,8 +14125,7 @@ function qoBuildHTML(){
    html+='<div class="total-box"><div style="font-size:11px;color:#666;margin-bottom:4px">Servi\u00e7os: '+fmt$(_qo.servicos.reduce(function(a,s){return a+Number(s.Preo||0)},0))+( _qo.pecas.length?' | Produtos: '+fmt$(_qo.pecas.reduce(function(a,p){return a+Number(p.Preo||0)*Number(p.qty||1)},0)):'')+(_qo.desloc?' | Deslocamento: '+fmt$(_qo.desloc):'')+'</div><div class="val">TOTAL: '+fmt$(total)+'</div></div>';
    var _pg=_qoPag||{m:'pix',par:1,tax:0};
    var _pgLabel='PIX \u00e0 vista';
-   if(_pg.m==='dinheiro'){_pgLabel='Dinheiro \u00e0 vista'}
-   else if(_pg.m==='cartao'){_pgLabel=_pg.par>1?_pg.par+'x de '+fmt$(total/_pg.par)+' (sem juros)':fmt$(total)+' \u00e0 vista no cart\u00e3o'}
+   if(_pg.m==='cartao'){_pgLabel=_pg.par>1?_pg.par+'x de '+fmt$(total/_pg.par)+' (sem juros)':fmt$(total)+' \u00e0 vista no cart\u00e3o'}
    else if(_pg.m==='juros'){var _tj=total*Math.pow(1+Number(_pg.tax||0)/100,_pg.par);_pgLabel='Cart\u00e3o '+_pg.par+'x de '+fmt$(_tj/_pg.par)+' \u2014 total com juros '+fmt$(_tj)}
    html+='<div class="field" style="border:none;margin-top:6px"><span><b>Forma de pagamento:</b> '+_pgLabel+'</span></div>';
   html+='<div class="approve-box"><div style="text-align:center;font-size:12px;font-weight:800;color:#b45309;margin-bottom:10px">RESULTADO DA APROVA\u00c7\u00c3O</div>';
@@ -15398,8 +14994,8 @@ function printOSA4(osId){
   var os=(DB.os||[]).find(function(o){return o.id===osId});
   if(!os){_pdfBusy=0;toast('OS não encontrada','error');return}
   var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>OS #'+String(os.id).padStart(4,'0')+' - A4</title>';
-  html+=_pdfStyles('body{padding:12px;line-height:1.35}.pdf-grid .lb{font-size:9px}.pdf-grid .vl{font-size:10.5px}h2{font-size:12px;margin:10px 0 5px;padding-bottom:2px}th{font-size:9px;padding:3px 6px}td{font-size:9px;padding:3px 6px}.sig-area{margin-top:16px}.sig-line{margin-top:24px}');
-  html+='</head><body class="file-body">';
+  html+=_pdfStyles();
+  html+='</head><body>';
   html+=_pdfHeader('OS #'+String(os.id).padStart(4,'0'),'Ordem de Serviço',_pdfOSBadge(os));
   html+='<h2>'+_ICO.client+' Dados do Cliente</h2>';
   html+='<div class="pdf-grid">';
@@ -15431,10 +15027,10 @@ function printOSA4(osId){
   if(os.checklist&&os.checklist.length){html+='<h2>'+_ICO.check+' Checklist de Recebimento</h2><table><tr><th>Item</th><th>Status</th></tr>';os.checklist.forEach(function(c){html+='<tr><td>'+escH(c.item||c)+'</td><td>'+(c.ok?'<span style="color:#22c55e">'+_ICO.check+'</span>':'<span style="color:#ef4444">'+_ICO.cross+'</span>')+'</td></tr>'});html+='</table>'}
   var osLink=generateOSLink(os.id);
   var qrImg=_qrDataURI(osLink);
-  html+='<div style="text-align:center;margin:10px 0">';
-  html+='<img src="'+qrImg+'" style="width:90px;height:90px" alt="QR Code">';
-  html+='<div style="font-size:9px;color:#64748b;margin-top:2px">'+_ICO.qr+' Escaneie para acompanhar a OS online</div>';
-  html+='<div style="font-size:7px;color:#94a3b8;word-break:break-all">'+escH(osLink)+'</div>';
+  html+='<div style="text-align:center;margin:16px 0">';
+  html+='<img src="'+qrImg+'" style="width:120px;height:120px" alt="QR Code">';
+  html+='<div style="font-size:10px;color:#64748b;margin-top:4px">'+_ICO.qr+' Escaneie para acompanhar a OS online</div>';
+  html+='<div style="font-size:8px;color:#94a3b8;word-break:break-all">'+escH(osLink)+'</div>';
   html+='</div>';
   html+=_pdfSignatureArea();
   html+=_pdfFooter();
@@ -16352,23 +15948,14 @@ function initRequiredMarkers(){
 }
 
 // ==================== WHATSAPP INTEGRATION ====================
-function comNormalizePhone(phone){
-  var p=String(phone||'').replace(/\D/g,'');
-  if(p.length<10)return '';
-  if(p.length===10||p.length===11){p='55'+p}
-  else if(p.length===12||p.length===13){if(p.slice(0,2)!=='55')p='55'+p}
-  else p=p.replace(/^55/,'');
-  return p;
-}
 function sendWhatsAppMessage(phone,msg){
-  phone=comNormalizePhone(phone);
-  if(!phone){toast('Telefone inválido','error');return}
+  phone=(phone||'').replace(/\D/g,'');
+  if(phone.length<10){toast('Telefone inválido','error');return}
+  if(phone.length===11)phone='55'+phone;
+  else if(phone.length===10)phone='55'+phone;
+  else if(!phone.startsWith('55'))phone='55'+phone;
   var url='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);
   window.open(url,'_blank');
-}
-function openWhatsAppWeb(){
-  window.open('https://web.whatsapp.com','_blank');
-  toast('WhatsApp Web aberto em nova aba','success');
 }
 function openWhatsAppMenu(){
   var html='<div class="form-grid">';
@@ -17399,10 +16986,6 @@ function renderPrevChart(data){try{
 // ====== ALERTAS ======
 function renderAlertas(){try{
   var alerts=[];
-  if(!Personalizao)Personalizao={};
-  ['alertFiltroEstoque','alertFiltroSLA','alertFiltroUrgente'].forEach(function(k){if(Personalizao[k]===undefined)Personalizao[k]=true});
-  var fEls={alertFiltroEstoque:'alertFiltroEstoqueUI',alertFiltroSLA:'alertFiltroSLAUI',alertFiltroUrgente:'alertFiltroUrgenteUI'};
-  Object.keys(fEls).forEach(function(k){var ui=document.getElementById(fEls[k]);if(ui)ui.checked=Personalizao[k]!==false});
   var prods=DB.products||[];
   var estoqueBaixo=prods.filter(function(p){return p.estoque<=p.estMin});
   document.getElementById('alertEstoque').textContent=estoqueBaixo.length;
@@ -17423,118 +17006,12 @@ function renderAlertas(){try{
     alerts.push({tipo:'urgente',icon:'&#128308;',cor:'var(--red)',msg:'OS URGENTE: #'+String(o.id).padStart(4,'0')+' - '+escH(o.cliente),Ao:'showSection("ordens")'});
   });
   var el=document.getElementById('alertList');
-  var filtered=alerts.filter(alertFilterOk);
-  el.innerHTML=filtered.length?filtered.map(function(a){
+  el.innerHTML=alerts.length?alerts.map(function(a){
     return '<div style="padding:12px;margin-bottom:8px;background:var(--input);border-radius:var(--rs);display:flex;align-items:center;gap:12px;border-left:3px solid '+a.cor+'"><div style="font-size:18px">'+a.icon+'</div><div style="flex:1;font-size:13px">'+a.msg+'</div><button class="btn btn-sm btn-secondary" onclick="'+a.Ao+'">Ver</button></div>';
   }).join(''):'<div class="empty-state">Nenhum alerta ativo</div>';
-  updateAlertBadge(alerts);
 }catch(e){console.error("[RENDER] renderAlertas :",e.message)}}
-var _alertLastCount=-1;
-var _alertLastSeen={estoque:0,sla:0,urgente:0};
-var _alertDesktopSeen={estoque:0,sla:0,urgente:0};
-function _alertTipoFreq(t){return t==='estoque'?520:(t==='sla'?720:980)}
-function updateAlertBadge(alerts){
-  var bad=document.getElementById('alertHeadBadge');
-  var n=alerts.length;
-  if(bad){bad.style.display=n?'flex':'none';bad.textContent=n}
-  var fly=document.getElementById('alertFlyout');
-  if(fly&&fly.classList.contains('open')){
-    fly.innerHTML=alertFlyoutHTML(alerts);
-  }
-  if(!Personalizao)Personalizao={notifSound:true,notifDesktop:false,somEstoque:true,somSLA:true,somUrgente:true,alertFiltroEstoque:true,alertFiltroSLA:true,alertFiltroUrgente:true};
-  var countByType={estoque:0,sla:0,urgente:0};
-  alerts.forEach(function(a){countByType[a.tipo]++});
-  if(Personalizao.notifSound){
-    ['estoque','sla','urgente'].forEach(function(t){
-      var key='som'+t.charAt(0).toUpperCase()+t.slice(1);
-      if(Personalizao[key]!==false&&countByType[t]>_alertLastSeen[t]&&_alertLastSeen[t]>=0){_alertBeep(_alertTipoFreq(t))}
-      _alertLastSeen[t]=countByType[t];
-    });
-  }
-  if(Personalizao.notifDesktop&&'Notification' in window&&Notification.permission==='granted'){
-    ['estoque','sla','urgente'].forEach(function(t){
-      if(countByType[t]>_alertDesktopSeen[t]&&_alertDesktopSeen[t]>=0){
-        var first=null;alerts.forEach(function(a){if(!first&&a.tipo===t)first=a});
-        if(first){try{new Notification('InfoCell - '+(t==='estoque'?'Estoque baixo':(t==='sla'?'SLA vencido':'OS urgente')),{body:first.msg.replace(/<[^>]+>/g,'')})}catch(e){}}
-      }
-      _alertDesktopSeen[t]=countByType[t];
-    });
-  }
-  if(n>_alertLastCount&&_alertLastCount>=0&&Personalizao&&Personalizao.notifSound){_alertBeep(n<3?880:520)}
-  _alertLastCount=n;
-}
-function alertFilterOk(a){
-  if(!Personalizao)return true;
-  var key='alertFiltro'+a.tipo.charAt(0).toUpperCase()+a.tipo.slice(1);
-  return Personalizao[key]!==false;
-}
-function toggleAlertFilter(tipo,on){
-  if(!Personalizao)Personalizao={};
-  Personalizao['alertFiltro'+tipo.charAt(0).toUpperCase()+tipo.slice(1)]=on;
-  savePersonalizaoToStorage();
-  refreshAlertFlyout();
-  renderAlertas();
-}
-function requestNotifPermission(){
-  if(!('Notification' in window)){toast('Este navegador no suporta notificaes','error');return}
-  Notification.requestPermission().then(function(p){toast(p==='granted'?'Notificaes ativadas!':'Permisso negada','info')});
-}
-function _alertBeep(freq){
-  try{
-    var AC=window.AudioContext||window.webkitAudioContext;
-    if(!AC)return;
-    var ctx=new AC();
-    var o=ctx.createOscillator();var g=ctx.createGain();
-    o.type='sine';o.frequency.value=freq||620;
-    g.gain.setValueAtTime(0.06,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.35);
-    o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.4);
-  }catch(e){}
-}
-function toggleAlertFlyout(){
-  var fly=document.getElementById('alertFlyout');
-  if(!fly)return;
-  if(fly.classList.contains('open')){fly.classList.remove('open');fly.style.display='none';return}
-  refreshAlertFlyout();
-  fly.classList.add('open');fly.style.display='block';
-}
-function refreshAlertFlyout(){
-  var fly=document.getElementById('alertFlyout');
-  if(!fly)return;
-  var alerts=[];
-  (DB.products||[]).forEach(function(p){if(p.estoque<=p.estMin)alerts.push({tipo:'estoque',icon:'&#9888;',cor:'var(--red)',msg:'Estoque baixo: '+p.nome+' ('+p.estoque+'/'+p.estMin+')',Ao:'showSection("produtos")'})});
-  (DB.os||[]).forEach(function(o){
-    if(o.status!=='concluido'&&o.status!=='entregue'&&o.status!=='cancelado'&&o.sla&&o.sla.prazo&&o.sla.prazo<=today())alerts.push({tipo:'sla',icon:'&#9200;',cor:'var(--ylw)',msg:'SLA vencido: OS #'+String(o.id).padStart(4,'0')+' - '+escH(o.cliente),Ao:'showSection("ordens")'});
-  });
-  (DB.os||[]).forEach(function(o){if(o.prioridade==='urgente'&&o.status!=='concluido'&&o.status!=='entregue')alerts.push({tipo:'urgente',icon:'&#128308;',cor:'var(--red)',msg:'OS URGENTE: #'+String(o.id).padStart(4,'0')+' - '+escH(o.cliente),Ao:'showSection("ordens")'})});
-  fly.innerHTML=alertFlyoutHTML(alerts);
-}
-function alertFlyoutHTML(alerts){
-  if(!Personalizao)Personalizao={alertFiltroEstoque:true,alertFiltroSLA:true,alertFiltroUrgente:true};
-  var filtros='<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--bdr);flex-wrap:wrap">'+
-    '<span style="font-size:10px;font-weight:700;color:var(--txt3)">FILTRAR:</span>'+
-    '<label style="font-size:10px;display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" '+(Personalizao.alertFiltroEstoque!==false?'checked':'')+' onchange="toggleAlertFilter(\'estoque\',this.checked)"> Estoque</label>'+
-    '<label style="font-size:10px;display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" '+(Personalizao.alertFiltroSLA!==false?'checked':'')+' onchange="toggleAlertFilter(\'sla\',this.checked)"> SLA</label>'+
-    '<label style="font-size:10px;display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" '+(Personalizao.alertFiltroUrgente!==false?'checked':'')+' onchange="toggleAlertFilter(\'urgente\',this.checked)"> Urgente</label></div>';
-  var filtered=alerts.filter(alertFilterOk);
-  if(!filtered.length)return filtros+'<div style="font-size:11px;color:var(--txt3);padding:8px">Nenhum alerta ativo</div>';
-  var rows=filtered.map(function(a){
-    return '<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--bdr);border-radius:8px;margin-bottom:6px;background:var(--input);border-left:3px solid '+a.cor+'"><span style="font-size:15px">'+a.icon+'</span><span style="flex:1;font-size:11px;line-height:1.4">'+a.msg+'</span><button class="btn btn-sm btn-secondary" style="padding:3px 8px;font-size:9px" onclick="'+a.Ao+';toggleAlertFlyout()">Ver</button></div>';
-  }).join('');
-  return filtros+'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--bdr)"><span style="font-size:12px;font-weight:700">Alertas ('+filtered.length+')</span><button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:9px" onclick="showSection(\'alertas\');toggleAlertFlyout()">Abrir painel</button></div>'+rows;
-}
 function openAlertConfig(){
-  if(!Personalizao)Personalizao={};
-  ['somEstoque','somSLA','somUrgente'].forEach(function(k){if(Personalizao[k]===undefined)Personalizao[k]=true});
-  var P=Personalizao;
-  var perm='desconhecida';if('Notification' in window)perm=Notification.permission==='granted'?'Ativada':'Pendente';
-  var html=
-    '<div class="form-group"><label>Som do alerta de Estoque Baixo</label><label class="p-switch"><input type="checkbox" id="critSomEstq" '+(P.somEstoque!==false?'checked':'')+' onchange="Personalizao.somEstoque=this.checked;savePersonalizaoToStorage()"><span class="p-slider"></span></label></div>'+
-    '<div class="form-group"><label>Som do alerta de SLA Vencido</label><label class="p-switch"><input type="checkbox" id="critSomSLA" '+(P.somSLA!==false?'checked':'')+' onchange="Personalizao.somSLA=this.checked;savePersonalizaoToStorage()"><span class="p-slider"></span></label></div>'+
-    '<div class="form-group"><label>Som do alerta de OS Urgente</label><label class="p-switch"><input type="checkbox" id="critSomUrg" '+(P.somUrgente!==false?'checked':'')+' onchange="Personalizao.somUrgente=this.checked;savePersonalizaoToStorage()"><span class="p-slider"></span></label></div>'+
-    '<div class="form-group"><label>Notificações do Desktop (sistema)</label><label class="p-switch"><input type="checkbox" id="critDesk" '+(P.notifDesktop?'checked':'')+' onchange="Personalizao.notifDesktop=this.checked;savePersonalizaoToStorage();if(this.checked)requestNotifPermission()"><span class="p-slider"></span></label></div>'+
-    '<div style="font-size:11px;color:var(--txt3);margin-top:6px;padding:8px;background:var(--input);border-radius:var(--rs)">Status da permissão do computador: <b>'+perm+'</b><br><button class="btn btn-sm btn-secondary" style="margin-top:6px;font-size:10px" onclick="requestNotifPermission()">Pedir permissão agora</button></div>'+
-    '<div style="margin-top:16px"><button class="btn btn-sm btn-primary" onclick="document.getElementById(\'alertCfgModal\').remove();toast(\'Alertas configurados\',\'success\')" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div>';
+  var html='<div class="form-group"><label><input type="checkbox" id="alertEstoqueAtivo" checked> Alerta de Estoque Baixo</label></div><div class="form-group"><label><input type="checkbox" id="alertSLAAtivo" checked> Alerta de SLA Vencido</label></div><div class="form-group"><label><input type="checkbox" id="alertUrgenteAtivo" checked> Alerta de OS Urgente</label></div><div class="form-group"><label>Notificar via</label><select id="alertVia"><option value="sistema">Sistema</option><option value="email">Email</option><option value="whatsapp">WhatsApp</option></select></div><div style="margin-top:16px"><button class="btn btn-sm btn-primary" onclick="document.getElementById(\'alertCfgModal\').remove();toast(\'Alertas configurados\',\'success\')" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div>';
   showModal('Configuração de Alertas',html,'alertCfgModal');
 }
 
@@ -18035,8 +17512,6 @@ function renderSearchResults(results){try{var dd=document.getElementById('search
 // P-035: Export dashboard PDF
 function openRetiradaModal(){document.getElementById('retiradaFrame').src='retirada-sem-os.html';openModal('retiradaModal')}
 function closeRetiradaModal(){var _rf=document.getElementById('retiradaFrame');if(_rf&&_rf.src!=='about:blank')_rf.src='about:blank';closeModal('retiradaModal')}
-function openCentralIAMod(){document.getElementById('centralIAFrame').src='modules/central-ia/index.html';openModal('centralIAModal')}
-function closeCentralIAMod(){var _cf=document.getElementById('centralIAFrame');if(_cf&&_cf.src!=='about:blank')_cf.src='about:blank';closeModal('centralIAModal')}
 
 function exportDashboardPDF(){
   toast('Preparando PDF do painel...','info');
@@ -18236,7 +17711,7 @@ function generatePDVReceipt(venda){var e=_pdfEmp();var lines=[];lines.push('====
 // V-007: PDV WhatsApp receipt
 function sendPDVWhatsApp(vendaId){var v=(DB.pdv||[]).find(function(x){return x.id===vendaId});if(!v)return;var msg=generatePDVReceipt(v);window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank')}
 // V-008: PDV print receipt
-function printPDVReceipt(vendaId){var v=(DB.pdv||[]).find(function(x){return x.id===vendaId});if(!v)return;var e=_pdfEmp();var html=_pdfReceiptShell('Venda #'+v.id);html+=_pdfReceiptBrand(e);html+='<div class="c b" style="font-size:11px">Venda #'+v.id+' | '+e.datetime+'</div>';html+='<div class="sep"></div>';(v.items||[]).forEach(function(item){var name='Manual';if(item.servico)name=item.nome||'Servico';else{var p=(DB.products||[]).find(function(x){return x.id==item.produto});if(p)name=p.nome}html+='<div><span>'+escH(name)+'</span> <span class="c">x'+item.qty+'</span> <span style="float:right">'+fmt$(item.Preo*item.qty)+'</span></div>'});if(v.desconto)html+='<div style="text-align:right;font-size:10px">Desc: -'+fmt$(v.desconto)+'</div>';if(v.acrescimo>0)html+='<div style="text-align:right;font-size:10px">Acréscimo: +'+fmt$(v.acrescimo)+'</div>';html+='<div class="sep"></div>';html+='<div class="total">'+fmt$(v.total)+'</div>';if(v.split&&v.split.length){html+='<div style="font-size:10px">Pagamento dividido:</div>';v.split.forEach(function(s){html+='<div style="font-size:10px">- '+s.tipo.charAt(0).toUpperCase()+s.tipo.slice(1)+': '+fmt$(s.valor)+'</div>'})}else{html+='<div>Pagamento: '+(v.pagamento==='cartao'||v.pagamento==='cartao_sj'?'CARTAO '+(v.bandeira?escH(v.bandeira).toUpperCase()+' ':'')+v.parcelas+'x':v.pagamento.toUpperCase())+'</div>'}if(v.obs)html+='<div style="font-size:10px;font-style:italic">Obs: '+escH(v.obs)+'</div>';if(v.recebido>0&&v.troco>0)html+='<div style="font-size:10px">Dinheiro: '+fmt$(v.recebido)+' | Troco: '+fmt$(v.troco)+'</div>';html+='<div class="sep"></div>';html+=_pdfReceiptFoot(e);html+='</body></html>';_printHTML(html)}
+function printPDVReceipt(vendaId){var v=(DB.pdv||[]).find(function(x){return x.id===vendaId});if(!v)return;var e=_pdfEmp();var html=_pdfReceiptShell('Venda #'+v.id);html+=_pdfReceiptBrand(e);html+='<div class="c b" style="font-size:11px">Venda #'+v.id+' | '+e.datetime+'</div>';html+='<div class="sep"></div>';(v.items||[]).forEach(function(item){var name='Manual';if(item.servico)name=item.nome||'Servico';else{var p=(DB.products||[]).find(function(x){return x.id==item.produto});if(p)name=p.nome}html+='<div><span>'+escH(name)+'</span> <span class="c">x'+item.qty+'</span> <span style="float:right">'+fmt$(item.Preo*item.qty)+'</span></div>'});if(v.desconto)html+='<div style="text-align:right;font-size:10px">Desc: -'+fmt$(v.desconto)+'</div>';html+='<div class="sep"></div>';html+='<div class="total">'+fmt$(v.total)+'</div>';html+='<div>Pagamento: '+(v.pagamento==='cartao'||v.pagamento==='cartao_sj'?'CARTAO '+(v.bandeira?escH(v.bandeira).toUpperCase()+' ':'')+v.parcelas+'x':v.pagamento.toUpperCase())+'</div>';html+='<div class="sep"></div>';html+=_pdfReceiptFoot(e);html+='</body></html>';_printHTML(html)}
 // V-009: PDV history search
 function searchPDVHistory(q){q=q.toLowerCase().trim();if(!q)return(DB.pdv||[]).reverse().slice(0,30);return(DB.pdv||[]).filter(function(v){var items=(v.items||[]).map(function(i){var p=(DB.products||[]).find(function(x){return x.id==i.produto});return p?p.nome:''}).join(' ');return(items+' '+v.pagamento+' '+v.data).toLowerCase().includes(q)}).reverse().slice(0,30)}
 // V-010: PDV void sale
@@ -22390,12 +21865,12 @@ function _autoOSSecIcon(n,sz){
 }
 function renderAutoOSHeader(){try{
   return '<div style="flex-shrink:0;background:linear-gradient(120deg,rgba(88,166,255,.14),rgba(0,0,0,0) 45%),linear-gradient(135deg,var(--cd),var(--card,#161b22));border-bottom:1px solid rgba(88,166,255,.22);padding:10px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(0,0,0,.25)">'+
+    '<button onclick="closeAutoOS()" style="background:rgba(255,255,255,.04);border:1px solid var(--bdr,#30363d);color:var(--txt,#e6edf3);cursor:pointer;font-size:18px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:all .15s" title="Fechar (Esc)" onmouseover="this.style.background=\'rgba(248,81,73,.15)\';this.style.borderColor=\'rgba(248,81,73,.4)\'" onmouseout="this.style.background=\'rgba(255,255,255,.04)\';this.style.borderColor=\'var(--bdr,#30363d)\'">&times;</button>'+
     '<img src="'+_logoDataURI()+'" alt="InfoCelll" style="width:34px;height:34px;border-radius:9px;object-fit:contain;background:#fff;border:1px solid var(--bdr,#30363d);box-shadow:0 2px 10px rgba(0,0,0,.3)">'+
     '<div style="display:flex;align-items:center;gap:6px;padding:4px 12px;background:linear-gradient(135deg,rgba(88,166,255,.2),rgba(59,130,246,.08));border:1px solid rgba(88,166,255,.35);border-radius:20px;box-shadow:0 0 14px rgba(88,166,255,.18)">'+li('zap',13)+'<span style="font-weight:800;font-size:11px;letter-spacing:.6px;color:var(--cyan,#58a6ff)">AUTO OS</span></div>'+
     '<div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:13px;font-weight:800;color:var(--txt,#e6edf3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px">Nova Ordem de Serviço Rápida</span><span style="font-size:9px;color:var(--txt3,#8b949e);white-space:nowrap">Preenchimento guiado em etapas</span></div>'+
     '<div style="flex:1"></div>'+
     '<span style="font-size:10px;color:var(--txt2,#c9d1d9);padding:4px 10px;background:rgba(255,255,255,.05);border:1px solid var(--bdr,#30363d);border-radius:8px;white-space:nowrap;font-weight:600">'+li('calendar',10)+' '+fmtDate(today())+'</span>'+
-    '<button onclick="closeAutoOS()" style="background:rgba(255,255,255,.04);border:1px solid var(--bdr,#30363d);color:var(--txt,#e6edf3);cursor:pointer;font-size:18px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:all .15s" title="Fechar (Esc)" onmouseover="this.style.background=\'rgba(248,81,73,.15)\';this.style.borderColor=\'rgba(248,81,73,.4)\'" onmouseout="this.style.background=\'rgba(255,255,255,.04)\';this.style.borderColor=\'var(--bdr,#30363d)\'">&times;</button>'+
     '<div id="autoOSSaveStatus" style="font-size:10px;color:var(--grn,#3fb950);padding:4px 10px;background:rgba(63,185,80,.12);border:1px solid rgba(63,185,80,.3);border-radius:8px;display:none;white-space:nowrap;font-weight:600">'+li('check',10)+' Salvo</div>'+
     '</div>';
 }catch(e){console.error("[RENDER] renderAutoOSHeader :",e.message)}}
@@ -22419,11 +21894,11 @@ function renderAutoOSStep1(){try{
     '<div class="form-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px">'+
     '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">CEP</label><input id="autoOSCadastroCEP" placeholder="00000-000" value="'+escH(d.cep||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="this.value=fmtCEP(this.value);_autoOS.data.cep=this.value" onblur="autoOSLookupCEP()" type="text"></div>'+
     '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">Logradouro</label><input id="autoOSCadastroLogradouro" placeholder="Rua / Avenida" value="'+escH(d.logradouro||d.Endereco||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.logradouro=this.value" type="text"></div>'+
-    '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">Número</label><input id="autoOSCadastroNumero" placeholder="Nº" maxlength="5" value="'+escH(d.numero||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.numero=this.value" type="number"></div>'+
+    '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">Número</label><input id="autoOSCadastroNumero" placeholder="Nº" value="'+escH(d.numero||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.numero=this.value" type="number"></div>'+
     '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">Complemento</label><input id="autoOSCadastroComplemento" placeholder="Loja / Apto" value="'+escH(d.complemento||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.complemento=this.value" type="text"></div>'+
     '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">Bairro</label><input id="autoOSCadastroBairro" placeholder="Bairro" value="'+escH(d.bairro||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.bairro=this.value" type="text"></div>'+
     '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">Cidade</label><input id="autoOSCadastroCidade" placeholder="Cidade" value="'+escH(d.cidade||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.cidade=this.value" type="text"></div>'+
-    '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">UF</label><input id="autoOSCadastroUF" placeholder="PE" maxlength="2" value="'+escH(d.uf||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="this.value=this.value.toUpperCase().replace(/[^A-Za-z]/g,\'\');_autoOS.data.uf=this.value" type="text"></div>'+
+    '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">UF</label><input id="autoOSCadastroUF" placeholder="PE" value="'+escH(d.uf||'')+'" style="width:100%;padding:7px 10px;font-size:13px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:6px;color:var(--txt,#e6edf3)" oninput="_autoOS.data.uf=this.value" type="text"></div>'+
     '</div></div></div>'+
     renderAutoOSDeviceSection()+
     renderAutoOSDefeito()+
@@ -22475,7 +21950,7 @@ function renderAutoOSClientForm(){try{
     '<div class="form-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px">'+
     inp('autoOSCadastroNome','Nome completo *','Nome completo',d.cliente,'text','','oninput="_autoOS.data.cliente=this.value"')+
     '<div><label style="font-size:11px;color:var(--txt3,#8b949e)">CPF</label><input id="autoOSCadastroCPF" placeholder="000.000.000-00" value="'+escH(d.cpf||'')+'" style="width:100%;padding:6px 10px;font-size:12px;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);color:var(--txt,#e6edf3)" oninput="this.value=fmtCPFOrCNPJ(this.value)" onblur="autoOSValidateCPF()" type="text"><small id="autoOSCPFFeedback" style="font-size:10px;margin-top:2px;display:block"></small></div>'+
-    inp('autoOSCadastroTelefone','Telefone','(81) 9XXXX-XXXX',d.telefone,'tel','','maxlength="14" oninput="this.value=fmtPhone(this.value)"')+
+    inp('autoOSCadastroTelefone','Telefone','(81) 9XXXX-XXXX',d.telefone,'tel','','oninput="this.value=fmtPhone(this.value)"')+
     inp('autoOSCadastroEmail','E-mail','email@exemplo.com',d.email,'email','','oninput="_autoOS.data.email=this.value"')+
     '</div></div>';
 }catch(e){console.error("[RENDER] renderAutoOSClientForm :",e.message)}}

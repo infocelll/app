@@ -1,10 +1,11 @@
 var RET_KEY='ic_retirada_sem_os';
 var DASH_KEY='ic_dashboard';
 var retDB={retiradas:[],config:{proximoNumero:1}};
-var currentOS=null,currentRet=null,photos=[],fotosCliente=[],fotosDoc=[],fotosEntrega=[];
+var currentOS=null,currentRet=null,photos=[],fotosCliente=[],fotosDoc=[],fotosEntrega=[],signatureData=null;
 var currentStep='search',editingId=null;
+var sigCanvas=null,sigCtx=null,sigDrawing=false;
 var _secUUID='',_secProtocolo='',_secIP='—',_secGeo='';
-var CHECKLIST_PREMIUM=['Documento original apresentado','Documento conferido','CPF validado','Cliente localizado no sistema','Proprietário confirmado','Terceiro autorizado','OS localizada','Pagamento confirmado','Garantia conferida','IMEI conferido','Número de série conferido','Equipamento conferido','Acessórios conferidos','Fotos registradas','Entrega autorizada'];
+var CHECKLIST_PREMIUM=['Documento original apresentado','Documento conferido','CPF validado','Cliente localizado no sistema','Proprietário confirmado','Terceiro autorizado','OS localizada','Pagamento confirmado','Garantia conferida','IMEI conferido','Número de série conferido','Equipamento conferido','Acessórios conferidos','Fotos registradas','Assinatura realizada','Entrega autorizada'];
 
 function buildTerm(cliente,equip,motivo,osCode){
   var d=new Date();var dataTxt=d.toLocaleDateString('pt-BR');
@@ -75,7 +76,7 @@ function initRetirada(){
   document.getElementById('termoProtocolo').textContent=_secProtocolo;
   document.getElementById('termoUsuario').textContent=escH(getCurrentUser());
   document.getElementById('termoDataHora').textContent=hoje()+' '+hora();
-  setupPhotoCapture();buildChecklistPremium();renderHistory();getClientIP();goToStep('search');
+  setupSignaturePad();setupPhotoCapture();buildChecklistPremium();renderHistory();getClientIP();goToStep('search');
 }
 
 function buildChecklistPremium(){
@@ -92,76 +93,25 @@ function searchScore(text,query){
   var words=query.split(/\s+/);var matchCount=0;words.forEach(function(w){if(w.length>1&&text.indexOf(w)!==-1)matchCount++})
   return matchCount*20}
 
-function osCodeOf(o){return o&&(o.osCode||'OS-'+String(o.id).padStart(4,'0'))}
-function osStatusLabel(s){var m={'recebida':'Recebida','em-diagnostico':'Diagnóstico','aguardando-Aprovação':'Aguarda Aprovação','aguardando-aprovacao':'Aguarda Aprovação','aguardando-Aprovao':'Aguarda Aprovação','em-reparo':'Em Reparo','em-andamento':'Em andamento','em-analise':'Em análise','teste':'Teste','pronta':'Pronta','entregue':'Entregue','cancelado':'Cancelado'};return m[s]||s||'—'}
-function stColorOf(s){var m={'recebida':'#f97316','em-diagnostico':'#3b82f6','aguardando-Aprovação':'#eab308','aguardando-aprovacao':'#eab308','aguardando-Aprovao':'#eab308','em-reparo':'#06b6d4','em-andamento':'#06b6d4','em-analise':'#06b6d4','teste':'#a855f7','pronta':'#22c55e','entregue':'#22c55e','cancelado':'#ef4444'};return m[s]||'#06b6d4'}
-function skipBtnHTML(){return '<div style="margin-top:10px;text-align:center"><button class="btn btn-secondary" onclick="skipSearch()">Prossiga sem vínculo</button></div>'}
-function proceedNoLink(){document.getElementById('searchQuery').textContent='Sem vínculo de OS';goToStep('form')}
-function matchOSByClient(c){
-  var qName=String(c.nome||'').toLowerCase().trim()
-  var qTel=String(c.telefone||c.whatsapp||'').replace(/\D/g,'')
-  var qCpf=String(c.cpf||'').replace(/\D/g,'')
-  return (loadDashDB().os||[]).filter(function(o){
-    var cn=String(o.cliente||'').toLowerCase()
-    if(qName&&(cn.indexOf(qName)>-1||qName.indexOf(cn)>-1))return true
-    if(qTel&&qTel.length>=8&&(String(o.telefone||'').replace(/\D/g,'').indexOf(qTel)>-1||String(o.whatsapp||'').replace(/\D/g,'').indexOf(qTel)>-1))return true
-    if(qCpf&&qCpf.length>=8&&String(o.cpf||'').replace(/\D/g,'')===qCpf)return true
-    return false
-  })
-}
-function matchOSByProduct(p){
-  var names=[p.nome,p.modelo,p.marca].filter(Boolean).map(function(s){return String(s).toLowerCase().trim()})
-  return (loadDashDB().os||[]).filter(function(o){
-    var ap=String(o.aparelho||o.equipamento||'').toLowerCase().trim()
-    var mo=String(o.modelo||'').toLowerCase().trim()
-    var ma=String(o.marca||'').toLowerCase().trim()
-    if(!ap&&!mo&&!ma)return false
-    return names.some(function(n){
-      if(!n)return false
-      return (ap&&(ap.indexOf(n)>-1||n.indexOf(ap)>-1))||(mo&&n.indexOf(mo)>-1)||(ma&&n.indexOf(ma)>-1)
-    })
-  })
-}
-function renderLinkedOS(list,title,emptyMsg){
-  var ctn=document.getElementById('searchResults')
-  if(!list.length){
-    ctn.innerHTML='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><h3>'+emptyMsg+'</h3><p>Você pode prosseguir preenchendo os dados manualmente</p></div>'+skipBtnHTML()
-    return
-  }
-  ctn.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:11px;color:var(--txt3)">'+title+' ('+list.length+')</span><button class="btn btn-secondary btn-sm" onclick="proceedNoLink()" style="margin-left:auto;padding:4px 10px;font-size:10px">Prossiga sem vínculo</button></div>'+
-    '<div style="display:flex;flex-direction:column;gap:6px">'+list.map(function(o){
-    var stc=stColorOf(o.status)
-    return '<div class="card result-card" style="cursor:pointer;padding:12px" onclick="selectResult(\'os\','+o.id+')">'+
-      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap">'+
-      '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">'+
-      '<span style="font-size:16px;flex-shrink:0">🔧</span>'+
-      '<div style="min-width:0"><strong style="color:var(--cyan);font-size:14px">'+escH(osCodeOf(o))+'</strong>'+
-      '<div style="font-size:11px;color:var(--txt3);margin-top:1px;word-wrap:break-word">'+escH(o.cliente||'')+' – '+escH(o.aparelho||o.equipamento||'—')+'</div></div></div>'+
-      '<div style="text-align:right;flex-shrink:0"><span class="badge" style="background:'+stc+'20;color:'+stc+';font-size:9px">'+osStatusLabel(o.status)+'</span></div></div></div>'
-  }).join('')+'</div>'+skipBtnHTML()
-}
-
-function searchOS(autoSelect){
+function searchOS(){
   var query=document.getElementById('searchInput').value.trim();if(!query){toast('Digite um termo para buscar','warning');return}
   var db=loadDashDB();var results=[];var q=query.toLowerCase();var qNum=q.replace(/\D/g,'')
   var osList=db.os||[]
   osList.forEach(function(o){
-    var score=0;var linkTag=''
-    var osCode=osCodeOf(o)
-    var osText=[o.cliente,o.aparelho,o.equipamento,o.marca,o.modelo,o.imei,o.imei2,o.serie||o.serial,o.patrimonio,o.cpf,o.telefone,o.whatsapp,o.osCode,o.defeito,o.Endereco||o.Endereço].filter(Boolean).join(' ')
-    var fields=['cliente','aparelho','equipamento','telefone','whatsapp','defeito','marca','modelo','cor','senha','cpf','obs','rg','codigoInterno','codigo','patrimonio','serie']
-    fields.forEach(function(f){var v=o[f]||'';score=Math.max(score,searchScore(v,q)*2)})
-    score=Math.max(score,searchScore(osText,q)*1.5)
-    if(String(o.id)===q||String(osCode).toLowerCase()===q)score=Math.max(score,250)
-    if(qNum.length>=5){
-      [o.imei,o.imei2,o.serie||o.serial,o.patrimonio].forEach(function(im){
-        if(String(im||'').replace(/\D/g,'').indexOf(qNum)>-1){score=Math.max(score,200);linkTag='Equipamento (IMEI/Série)'}
-      })
-      if((o.cpf||'').replace(/\D/g,'')===qNum){score=Math.max(score,120);linkTag=linkTag||'CPF'}
-    }
-    if(qNum.length&&(o.telefone||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,70)
-    if(qNum.length&&(o.whatsapp||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,70)
-    if(score>0)results.push({type:'os',data:o,score:score,label:osCode,sub:o.cliente+' – '+(o.aparelho||o.equipamento||'—'),linkTag:linkTag})
+    var score=0
+    var fields=['cliente','aparelho','equipamento','telefone','whatsapp','defeito','marca','modelo','imei','imei2','serie','patrimonio','codigoInterno','codigo','cor','senha','cpf','obs','Endereco','Endereo']
+    fields.forEach(function(f){
+      var v=o[f]||o[String(f).replace('Endereco','Endereço')]||''
+      score=Math.max(score,searchScore(v,q)*2)
+    })
+    var osCode=o.osCode||'OS-'+String(o.id).padStart(4,'0')
+    score=Math.max(score,searchScore(osCode,q)*2)
+    if(String(o.id)===q||String(osCode).toLowerCase()===q)score=Math.max(score,200)
+    if((o.telefone||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,70)
+    if((o.whatsapp||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,70)
+    if((o.imei||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,90)
+    if((o.imei2||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,90)
+    if(score>0)results.push({type:'os',data:o,score:score,label:osCode,sub:o.cliente+' – '+(o.aparelho||o.equipamento||'')})
   })
   var clientes=db.clients||db.clientes||[]
   clientes.forEach(function(c){
@@ -172,8 +122,8 @@ function searchOS(autoSelect){
     score=Math.max(score,searchScore(c.email,q))
     score=Math.max(score,searchScore(c.cpf,q))
     score=Math.max(score,searchScore(c.rg,q))
-    if(qNum.length&&(c.telefone||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,70)
-    if(qNum.length&&(c.cpf||'').replace(/\D/g,'')===qNum)score=Math.max(score,120)
+    if((c.telefone||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,70)
+    if((c.cpf||'').replace(/\D/g,'').indexOf(qNum)!==-1)score=Math.max(score,90)
     if(score>0)results.push({type:'cli',data:c,score:score,label:c.nome,sub:(c.telefone||'')+(c.email?' | '+c.email:'')})
   })
   var products=db.products||db.produtos||[]
@@ -195,95 +145,35 @@ function searchOS(autoSelect){
   })
   results.sort(function(a,b){return b.score-a.score})
   results=results.slice(0,30)
-  if(autoSelect&&results.length){
-    var top=results[0]
-    if(top.type==='os'&&top.score>=200){selectResult('os',top.data.id);return}
-    if(results.length===1&&top.type==='os'&&top.score>=90){selectResult('os',top.data.id);return}
-    if(results.length===1&&top.type==='cli'&&top.score>=120){selectResult('cli',top.data.id);return}
-  }
   renderSearchResults(results)}
 
 function renderSearchResults(results){
   var ctn=document.getElementById('searchResults')
-  var notFound='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>Nenhum resultado encontrado</h3><p>Tente alterar o termo de busca ou prossiga sem vínculo</p></div>'
-  if(!results.length){ctn.innerHTML=notFound+skipBtnHTML();return}
+  var notFound='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>Nenhum resultado encontrado</h3><p>Tente alterar o termo de busca</p></div>'
+  if(!results.length){ctn.innerHTML=notFound;return}
   var typeColors={os:'var(--cyan)',cli:'var(--grn)',prd:'var(--ylw)',svc:'var(--pur)'}
   var typeLabels={os:'OS',cli:'Cliente',prd:'Produto',svc:'Serviço'}
   var typeIcons={os:'🔧',cli:'👤',prd:'📦',svc:'🛠️'}
-  ctn.innerHTML='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">'+
-    '<span style="font-size:11px;color:var(--txt3)">'+results.length+' resultado(s)</span>'+
-    '<button class="btn btn-secondary btn-sm" onclick="skipSearch()" style="margin-left:auto;padding:4px 10px;font-size:10px">Prossiga sem vínculo</button></div>'+
-    '<div style="display:flex;flex-direction:column;gap:6px">'+results.map(function(r,i){
+  ctn.innerHTML='<div style="display:flex;flex-direction:column;gap:6px">'+results.map(function(r,i){
     var tc=typeColors[r.type]||'var(--txt3)'
     var tl=typeLabels[r.type]||r.type
     var ic=typeIcons[r.type]||'•'
-    var extra=''
-    if(r.type==='os'){
-      var stc=stColorOf(r.data.status)
-      extra='<div style="text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:2px">'+
-        '<span class="badge" style="background:'+stc+'20;color:'+stc+';font-size:9px">'+osStatusLabel(r.data.status)+'</span>'+
-        (r.linkTag?'<span class="badge" style="background:rgba(250,204,21,.15);color:#facc15;font-size:8px">🔗 '+escH(r.linkTag)+'</span>':'')+
-        '</div>'
-    }else{
-      extra='<div style="text-align:right;flex-shrink:0"><span class="badge" style="background:'+tc+'20;color:'+tc+';font-size:9px">'+tl+'</span></div>'
-    }
     return'<div class="card result-card" style="cursor:pointer;padding:12px;animation-delay:'+(i*30)+'ms" onclick="selectResult(\''+r.type+'\','+r.data.id+')">'+
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap">'+
       '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">'+
       '<span style="font-size:16px;flex-shrink:0">'+ic+'</span>'+
       '<div style="min-width:0"><strong style="color:'+tc+';font-size:14px">'+escH(r.label)+'</strong>'+
       '<div style="font-size:11px;color:var(--txt3);margin-top:1px;word-wrap:break-word">'+escH(r.sub||'')+'</div></div></div>'+
-      '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">'+extra+
-      '<button class="btn btn-sm btn-success" onclick="event.stopPropagation();addPendingItem(\''+r.type+'\','+r.data.id+')" style="padding:3px 10px;font-size:10px">+ Adicionar</button></div>'+
-      '</div></div>'
-  }).join('')+'</div>'+pendingBarRender()+'</div>'+skipBtnHTML()}
-
-var pendingItems=[]
-function addPendingItem(type,id){
-  var db=loadDashDB()
-  var item=null
-  if(type==='os'){var o=(db.os||[]).find(function(x){return String(x.id)===String(id)});if(!o){toast('OS não encontrada','error');return}item={type:'os',id:o.id,label:osCodeOf(o),sub:o.cliente+' – '+(o.aparelho||o.equipamento||'—'),data:o}}
-  else if(type==='cli'){var c=(db.clients||db.clientes||[]).find(function(x){return String(x.id)===String(id)});if(!c){toast('Cliente não encontrado','error');return}item={type:'cli',id:c.id,label:c.nome,sub:c.telefone||'',data:c}}
-  else if(type==='prd'){var p=(db.products||db.produtos||[]).find(function(x){return String(x.id)===String(id)});if(!p){toast('Produto não encontrado','error');return}item={type:'prd',id:p.id,label:p.nome,sub:(p.marca||'')+(p.modelo?' '+p.modelo:''),data:p}}
-  else if(type==='svc'){var sv=(db.servicos||db.services||db.Serviços||[]).find(function(x){return String(x.id)===String(id)});if(!sv){toast('Serviço não encontrado','error');return}item={type:'svc',id:sv.id,label:sv.nome,sub:sv.desc||'',data:sv}}
-  if(!item)return
-  if(pendingItems.some(function(x){return x.type===type&&String(x.id)===String(id)})){toast('Item já adicionado','info');return}
-  pendingItems.push(item)
-  toast('"'+item.label+'" adicionado','success')
-  pendingBarRender()
-  searchOS()
-}
-function pendingBarRender(){
-  var bar=document.getElementById('pendingBar')
-  if(!bar)return
-  if(!pendingItems.length){bar.style.display='none';bar.innerHTML='';return}
-  bar.style.display='block'
-  bar.innerHTML='<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11px">'+
-    '<strong style="color:var(--grn)">'+pendingItems.length+' adicionado(s):</strong>'+
-    pendingItems.map(function(x,i){return'<span style="background:var(--input);border:1px solid var(--bdr);border-radius:12px;padding:2px 8px;color:var(--txt2)">'+escH(x.label)+' <button onclick="removePendingItem('+i+')" style="border:none;background:none;color:var(--red);cursor:pointer;font-size:12px">&times;</button></span>'}).join('')+
-    '<button class="btn btn-sm btn-primary" onclick="applyPendingItems()" style="margin-left:auto;padding:4px 12px;font-size:10px">Ir para Retirada ('+pendingItems.length+')</button>'+
-    '</div>'
-}
-function removePendingItem(i){pendingItems.splice(i,1);pendingBarRender()}
-function applyPendingItems(){
-  if(!pendingItems.length){toast('Nenhum item adicionado','warning');return}
-  var os=pendingItems.filter(function(x){return x.type==='os'})[0]
-  var cli=pendingItems.filter(function(x){return x.type==='cli'})[0]
-  var prd=pendingItems.filter(function(x){return x.type==='prd'})[0]
-  var svc=pendingItems.filter(function(x){return x.type==='svc'})[0]
-  if(os){selectResult('os',os.id);return}
-  if(cli){selectResult('cli',cli.id);return}
-  if(prd){selectResult('prd',prd.id);return}
-  if(svc){selectResult('svc',svc.id);return}
-}
-function clearPending(){pendingItems=[];pendingBarRender()}
+      '<div style="text-align:right;flex-shrink:0"><span class="badge" style="background:'+tc+'20;color:'+tc+';font-size:9px">'+tl+'</span>'+
+      '</div></div></div>'
+  }).join('')+'</div>'}
 
 function selectResult(type,id){
   var db=loadDashDB()
   if(type==='os'){
     var o=(db.os||[]).find(function(x){return String(x.id)===String(id)})
     if(!o){toast('OS não encontrada','error');return}
-    currentOS=o;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];resetForm()
+    currentOS=o;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];signatureData=null;resetForm()
     toast('OS '+escH(o.osCode||'OS-'+String(o.id).padStart(4,'0'))+' selecionada','success')
     document.getElementById('searchQuery').textContent=(o.osCode||'OS-'+String(o.id).padStart(4,'0'))+' – '+escH(o.cliente||'')
     document.getElementById('osId').value=o.id||''
@@ -292,7 +182,7 @@ function selectResult(type,id){
   }else if(type==='cli'){
     var c=(db.clients||db.clientes||[]).find(function(x){return String(x.id)===String(id)})
     if(!c){toast('Cliente não encontrado','error');return}
-    currentOS=null;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];resetForm()
+    currentOS=null;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];signatureData=null;resetForm()
     toast('Cliente '+escH(c.nome)+' selecionado','success')
     document.getElementById('searchQuery').textContent='Cliente: '+escH(c.nome)
     document.getElementById('clienteNome').value=c.nome||''
@@ -301,21 +191,16 @@ function selectResult(type,id){
     document.getElementById('clienteCpf').value=c.cpf||''
     document.getElementById('clienteEmail').value=c.email||''
     document.getElementById('clienteEndereco').value=c.Endereco||c.Endereço||c.endereco||''
-    var linked=matchOSByClient(c)
-    if(linked.length===1){toast('OS '+osCodeOf(linked[0])+' vinculada automaticamente','success');selectResult('os',linked[0].id);return}
-    renderLinkedOS(linked,'OS deste cliente','Nenhuma OS vinculada a este cliente')
+    goToStep('form')
   }else if(type==='prd'){
     var p=(db.products||db.produtos||[]).find(function(x){return String(x.id)===String(id)})
     if(!p){toast('Produto não encontrado','error');return}
-    currentOS=null;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];resetForm()
-    toast('Equipamento '+escH(p.nome)+' selecionado','success')
-    document.getElementById('searchQuery').textContent='Equipamento: '+escH(p.nome)
+    toast('Produto '+escH(p.nome)+' selecionado','success')
+    document.getElementById('searchQuery').textContent='Produto: '+escH(p.nome)
     document.getElementById('equipamento').value=p.nome||''
     document.getElementById('marca').value=p.marca||''
     document.getElementById('modelo').value=p.modelo||''
-    var linked=matchOSByProduct(p)
-    if(linked.length===1){toast('OS '+osCodeOf(linked[0])+' vinculada ao equipamento','success');selectResult('os',linked[0].id);return}
-    renderLinkedOS(linked,'OS vinculadas ao equipamento','Nenhuma OS vinculada a este equipamento')
+    goToStep('form')
   }else if(type==='svc'){
     var sv=(db.servicos||db.services||db.Serviços||[]).find(function(x){return String(x.id)===String(id)})
     if(!sv){toast('Serviço não encontrado','error');return}
@@ -376,9 +261,10 @@ function resetForm(){
   document.getElementById('entregaConfirmada').checked=false;document.getElementById('entregaConfirmWrapper').classList.remove('checked')
   setTerceiro(false)
   photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];renderPhotos()
+  clearSig()
 }
 
-function skipSearch(){currentOS=null;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];resetForm();
+function skipSearch(){currentOS=null;currentRet=null;editingId=null;photos=[];fotosCliente=[];fotosDoc=[];fotosEntrega=[];signatureData=null;resetForm();
   document.getElementById('searchQuery').textContent='Sem vínculo (retirada avulsa)';
   goToStep('form')}
 
@@ -452,6 +338,30 @@ function renderCategPhotos(){
     ctn.innerHTML=m.arr.map(function(p,i){return'<div class="photo-item"><img src="'+p+'" alt="Foto '+(i+1)+'"><button class="photo-del" onclick="removeCategPhoto(\''+k+'\','+i+')" title="Remover foto">&times;</button></div>'}).join('')+
       '<div class="photo-add" onclick="document.getElementById(\''+m.input+'\').click()"><div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Adicionar</div></div>'
   })
+}
+
+function setupSignaturePad(){
+  var c=document.getElementById('sigCanvas');if(!c)return;
+  sigCanvas=c;sigCtx=c.getContext('2d');sigCtx.lineWidth=2.5;sigCtx.lineCap='round';sigCtx.lineJoin='round';sigCtx.strokeStyle='#1e293b';
+  function pos(e){
+    var r=c.getBoundingClientRect();
+    var scaleX=c.width/r.width,scaleY=c.height/r.height;
+    var pt=e.touches&&e.touches.length?e.touches[0]:e;
+    return{x:(pt.clientX-r.left)*scaleX,y:(pt.clientY-r.top)*scaleY};
+  }
+  function down(e){e.preventDefault();sigDrawing=true;sigCtx.beginPath();var p=pos(e);sigCtx.moveTo(p.x,p.y)}
+  function move(e){if(!sigDrawing)return;e.preventDefault();var p=pos(e);sigCtx.lineTo(p.x,p.y);sigCtx.stroke();document.getElementById('sigStatus').textContent='Assinando...'}
+  function up(){if(sigDrawing){sigDrawing=false;signatureData=c.toDataURL('image/png');document.getElementById('sigStatus').textContent='Assinatura registrada';setCategCheck('Assinatura realizada')}}
+  c.addEventListener('pointerdown',down);c.addEventListener('pointermove',move);c.addEventListener('pointerup',up);c.addEventListener('pointerleave',up);
+  c.addEventListener('touchstart',down,{passive:false});c.addEventListener('touchmove',move,{passive:false});c.addEventListener('touchend',up);
+}
+function clearSig(){
+  if(sigCanvas&&sigCtx){sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height);signatureData=null;var st=document.getElementById('sigStatus');if(st)st.textContent='Assine acima com o dedo ou mouse'}
+}
+function setCategCheck(label){
+  var grid=document.getElementById('checklistPremiumGrid');if(!grid)return
+  var items=grid.querySelectorAll('.checklist-item')
+  items.forEach(function(el){var sp=el.querySelector('span:last-child');if(sp&&sp.textContent.trim()===label){el.classList.add('checked');var cb=el.querySelector('input[type="checkbox"]');if(cb)cb.checked=true}})
 }
 
 function getClientIP(){
@@ -542,6 +452,7 @@ function confirmRetirada(){
     checklistPremium:getPremiumChecked(),
     checklistFisico:getFisicoChecked(),
     fotos:photos,fotosCliente:fotosCliente,fotosDoc:fotosDoc,fotosEntrega:fotosEntrega,
+    assinatura:signatureData,
     dataRetirada:hoje(),horaRetirada:hora()}
 
   var pend=[]
@@ -624,6 +535,7 @@ function finalizeRetirada(){
     checklistPremium:getPremiumChecked(),
     checklistFisico:getFisicoChecked(),
     fotos:photos,fotosCliente:fotosCliente,fotosDoc:fotosDoc,fotosEntrega:fotosEntrega,
+    assinatura:signatureData,
     dataRetirada:hoje(),horaRetirada:hora()}
   var num=editingId?editingId:nextNum();var now=new Date().toISOString();
   var ret={id:num,numero:'RET-'+String(num).padStart(4,'0'),uuid:_secUUID,protocolo:_secProtocolo,ip:_secIP,geo:_secGeo,usuario:getCurrentUser(),
@@ -638,6 +550,7 @@ function finalizeRetirada(){
     autorizacaoVia:data.autorizacaoVia,autorizacaoProtocolo:data.autorizacaoProtocolo,
     checklistPremium:data.checklistPremium,checklistFisico:data.checklistFisico,checklistObs:data.checklistObs,
     fotos:data.fotos,fotosCliente:data.fotosCliente,fotosDoc:data.fotosDoc,fotosEntrega:data.fotosEntrega,
+    assinatura:data.assinatura,
     dataRetirada:data.dataRetirada,horaRetirada:data.horaRetirada,createdAt:now,updatedAt:now,status:'concluida',
     auditoria:[{data:data.dataRetirada,hora:data.horaRetirada,usuario:data.tecnico||getCurrentUser(),acao:'Termo criado e entrega finalizada'}]}
   if(editingId){
@@ -692,6 +605,8 @@ function renderPreview(){var r=currentRet;if(!r)return
   var pc=document.getElementById('previewPhotos');
   var all=(r.fotos||[]).concat(r.fotosCliente||[]).concat(r.fotosDoc||[]).concat(r.fotosEntrega||[])
   if(all.length){pc.innerHTML='<div style="display:flex;gap:6px;flex-wrap:wrap">'+all.map(function(f){return'<img src="'+f+'" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--bdr)">'}).join('')+'</div>';pc.style.display='block'}else pc.style.display='none'
+  var sigWrap=document.getElementById('previewSigWrap');
+  if(r.assinatura){document.getElementById('previewSig').src=r.assinatura;sigWrap.style.display='flex'}else sigWrap.style.display='none'
   var qrData='RETIRADA SEM OS | Termo: '+(r.numero||'')+' | Protocolo: '+(r.protocolo||'')+' | Cliente: '+r.cliente+' | Equip: '+r.equipamento+' | Data: '+r.dataRetirada
   document.getElementById('previewQR').src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(qrData)
   generateBarcode((r.numero||'RET-'+String(r.id).padStart(4,'0')))
@@ -766,7 +681,7 @@ function viewRetirada(id){var r=retDB.retiradas.find(function(x){return x.id===i
   showModal('Retirada '+(r.numero||'RET-'+String(r.id).padStart(4,'0')),html,footer,'640px')}
 
 function editRetirada(id){var r=retDB.retiradas.find(function(x){return x.id===id});if(!r){  toast('Retirada não encontrada','error');return}
-  editingId=id;currentRet=r;photos=r.fotos||[];fotosCliente=r.fotosCliente||[];fotosDoc=r.fotosDoc||[];fotosEntrega=r.fotosEntrega||[];
+  editingId=id;currentRet=r;photos=r.fotos||[];fotosCliente=r.fotosCliente||[];fotosDoc=r.fotosDoc||[];fotosEntrega=r.fotosEntrega||[];signatureData=r.assinatura||null;
   document.getElementById('osId').value=r.osId||'';
   document.getElementById('numeroOS').value=r.osCode||'';
   document.getElementById('osCodeDisplay').value=r.osCode||'';
@@ -808,6 +723,7 @@ function editRetirada(id){var r=retDB.retiradas.find(function(x){return x.id===i
   setTerceiro(r.terceiro);if(r.terceiro){document.getElementById('terceiroNome').value=r.terceiroNome||'';document.getElementById('terceiroDoc').value=r.terceiroDoc||'';document.getElementById('terceiroTel').value=r.terceiroTel||'';document.getElementById('terceiroRelacao').value=r.terceiroRelacao||'';document.getElementById('autorizacaoVia').value=r.autorizacaoVia||'';document.getElementById('autorizacaoProtocolo').value=r.autorizacaoProtocolo||''}
   document.getElementById('termCheck').checked=true;document.getElementById('termCheckWrapper').classList.add('checked')
   document.getElementById('entregaConfirmada').checked=true;document.getElementById('entregaConfirmWrapper').classList.add('checked')
+  if(signatureData){try{var img=new Image();img.onload=function(){sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height);sigCtx.drawImage(img,0,0,sigCanvas.width,sigCanvas.height);document.getElementById('sigStatus').textContent='Assinatura carregada'};img.src=signatureData}catch(e){}}
   renderPhotos();
   document.getElementById('searchQuery').textContent='Editando: '+(r.numero||'RET-'+String(r.id).padStart(4,'0'));
   goToStep('form')}
@@ -875,6 +791,7 @@ function generatePDF(id){var r=id?retDB.retiradas.find(function(x){return x.id==
     y+=3;heading('8. ASSINATURAS');
     y+=14;doc.setDrawColor(120);doc.setLineWidth(0.3);doc.line(margin,y,pageW-margin-70,y);doc.line(margin+100,y,pageW-margin,y);
     doc.setFontSize(8);doc.setFont('helvetica','normal');doc.setTextColor(100);doc.text('Cliente / Responsável',margin+5,y+4);doc.text('InfoCelll',pageW-margin-85,y+4);
+    if(r.assinatura){try{doc.addImage(r.assinatura,'PNG',margin,y-22,60,18)}catch(e){}}
     y+=16;
     if(r.fotos&&r.fotos.length){
       chkPage(40);heading('9. FOTOS DO EQUIPAMENTO');
