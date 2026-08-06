@@ -1562,7 +1562,7 @@ for(var dy=-2;dy<=2;dy++)for(var dx=-2;dx<=2;dx++){
 modules[y+dy][x+dx]=Math.max(Math.abs(dx),Math.abs(dy))!==1;isFunction[y+dy][x+dx]=true}}
 
 function drawFormatBits(modules,isFunction,ecl,mask,s){
-var data=ecl*3|mask;var rem=data;
+var data=[1,0,3,2][ecl]<<3|mask;var rem=data;
 for(var i=0;i<10;i++)rem=(rem<<1)^((rem>>>9)*0x537);
 var bits=(data<<10|rem)^0x5412;
 for(var i=0;i<=5;i++){modules[8][i]=getBit(bits,i);isFunction[8][i]=true}
@@ -1600,8 +1600,8 @@ var pad=[0xEC,0x11],pi=0;while(dataBits.length<dataCap){appendBits(pad[pi],8,dat
 var dataCW=[];for(var i=0;i<dataBits.length;i+=8){var b=0;for(var j=0;j<8;j++)b=(b<<1)|dataBits[i+j];dataCW.push(b)}
 return{version:version,dataCW:dataCW,eccl:eccl}}
 
-function generate(text){
-var enc=encode(text,0);if(!enc)return null;
+function generate(text,ecl){
+var enc=encode(text,ecl===undefined?1:ecl);if(!enc)return null;
 var ver=enc.version,eccl=enc.eccl,dataCW=enc.dataCW;
 var s=ver*4+17;
 var modules=[];var isF=[];var row=[];
@@ -2839,7 +2839,7 @@ window.p_printOS = function(osId) {
   try {
     var qr = QRGen.generate('OS:' + d.id + '|INFOCELLL|(81)98733-2162');
     if (qr && y < H - 100) {
-      var ms = 2.0, qs = qr.size * ms;
+      var ms = 2.5, qs = qr.size * ms;
       var qx = (W - qs) / 2;
       doc.setFillColor(255,255,255); doc.rect(qx - 8, y - 4, qs + 16, qs + 20, 'F');
       doc.setDrawColor(220,220,220); doc.rect(qx - 8, y - 4, qs + 16, qs + 20, 'S');
@@ -3158,15 +3158,15 @@ window.p_pagPIX = function(osId, valor) {
   try {
     var qr = QRGen.generate(payload);
     var cnv = document.getElementById('p_pixCanvas');
-    cnv.width = 220; cnv.height = 220;
+    cnv.width = 256; cnv.height = 256;
     var ctx = cnv.getContext('2d');
-    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, 220, 220);
-    var cells = qr.size;
-    var cell = 220 / cells;
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, 256, 256);
+    var cells = qr.size, b = 4, total = cells + 2 * b;
+    var cell = 256 / total;
     for (var r = 0; r < cells; r++) {
       for (var c = 0; c < cells; c++) {
         ctx.fillStyle = qr.matrix[r][c] ? '#000000' : '#ffffff';
-        ctx.fillRect(c * cell, r * cell, Math.ceil(cell), Math.ceil(cell));
+        ctx.fillRect(Math.floor((c + b) * cell), Math.floor((r + b) * cell), Math.ceil(cell), Math.ceil(cell));
       }
     }
   } catch(e) {}
