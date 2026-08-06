@@ -2621,7 +2621,6 @@ window.addEventListener('DOMContentLoaded',function(){
     <button class="header-btn" onclick="openTONCalc()" title="Calculadora TON (juros)"><i data-lucide="calculator" style="width:16px;height:16px"></i></button>
     <button class="header-btn" onclick="cycleTheme()" title="Alternar tema"><i data-lucide="palette" style="width:16px;height:16px"></i></button>
     <span class="header-sep"></span>
-    <button class="header-btn" onclick="toggleNotifPanel()" title="Notificações" style="position:relative"><i data-lucide="bell" style="width:16px;height:16px"></i><span id="notifBadge" style="display:none;position:absolute;top:2px;right:2px;min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:700;align-items:center;justify-content:center;padding:0 4px;line-height:1">0</span></button>
     <button class="header-btn" onclick="toggleAlertFlyout()" title="Alertas ativos" style="position:relative"><i data-lucide="alert-octagon" style="width:16px;height:16px"></i><span id="alertHeadBadge" style="display:none;position:absolute;top:2px;right:2px;min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:700;align-items:center;justify-content:center;padding:0 4px;line-height:1">0</span></button>
     <button class="header-btn" onclick="location.reload()" title="Atualizar Página"><i data-lucide="refresh-cw" style="width:16px;height:16px"></i></button>
   </div>
@@ -8666,7 +8665,6 @@ function saveOS(){
     obj.horaAbertura=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     obj.statusLog=[{from:'',to:status,date:now.toISOString().slice(0,10),time:now.toLocaleTimeString('pt-BR')}];
     obj.trackingLink=generateOSLink(obj.id);
-    obj.qrCode=_qrGenerate(obj.trackingLink);
     if(_osPecas&&_osPecas.length){_osPecas.forEach(function(p){var prod=(DB.products||[]).find(function(x){return x.id==p.produtoId});if(prod){prod.estoque=Math.max(0,prod.estoque-p.qty)}})}
     DB.os.push(obj);
     toast((obj.osCode||'OS #'+String(obj.id).padStart(4,'0'))+' criada','success');
@@ -12627,25 +12625,11 @@ function generateQRCode(){
 }
 
 function generateSimpleQR(text,size){
-  var hash=0;
-  for(var i=0;i<text.length;i++){hash=((hash<<5)-hash)+text.charCodeAt(i);hash|=0}
-  var cells=21;var cellSize=size/cells;
-  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">';
-  svg+='<rect width="'+size+'" height="'+size+'" fill="#fff"/>';
-  var seed=Math.abs(hash);
-  function nextRand(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff}
-  for(var r=0;r<cells;r++){
-    for(var c=0;c<cells;c++){
-      var filled=false;
-      if((r<7&&c<7)||(r<7&&c>=cells-7)||(r>=cells-7&&c<7)){
-        if(r===0||r===6||c===0||c===6||(r>=2&&r<=4&&c>=2&&c<=4))filled=true;
-        else if(r>=1&&r<=5&&c>=1&&c<=5)filled=(r+c)%2===0;
-      }else if(r===6||c===6)filled=(r===6&&c>=7&&c<=cells-8)||(c===6&&r>=7&&r<=cells-8);
-      else{filled=nextRand()>0.5}
-      if(filled){svg+='<rect x="'+(c*cellSize)+'" y="'+(r*cellSize)+'" width="'+cellSize+'" height="'+cellSize+'" fill="#000" rx="1"/>'}
-    }
-  }
-  svg+='</svg>';return svg;
+  try{
+    var qr=QRGen.generate(text,1);
+    if(!qr)return '';
+    return QRGen.toSVG(qr,Math.max(2,Math.floor((size||160)/(qr.size+8))),4);
+  }catch(e){console.error('[QR] generateSimpleQR:',e.message);return ''}
 }
 
 // ====== OS ONLINE - PUBLIC VIEW ======
@@ -13242,88 +13226,224 @@ function _compressImage(dataUrl, maxW, maxH, quality){
 }
 
 // Minimal QR Code SVG generator (Version 2-M, 25x25)
-function _qrGenerate(text){
-  try{
-    if(navigator.onLine)return 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(text);
-  }catch(e){}
-  return _qrDataURI(text);
-}
-// QR embutido (data URI) — sempre renderiza, sem depender de internet (usado em PDF/impressão)
-function _qrDataURI(text){
-  var n=25,ecLen=18,total=n*n;
-  var bits=[];for(var i=0;i<total;i++)bits[i]=0;
-  var reserved={};function setRes(r,c){reserved[r+','+c]=1}
-  // Finder patterns
-  function setFinder(r,c){
-    for(var dr=0;dr<7;dr++)for(var dc=0;dc<7;dc++){
-      var v=(dr===0||dr===6||dc===0||dc===6||(dr>=2&&dr<=4&&dc>=2&&dc<=4))?1:0;
-      bits[(r+dr)*n+(c+dc)]=v;setRes(r+dr,c+dc);
+// ====== QR CODE REAL - ISO/IEC 18004 (Nayuki-style port, correção de erro padrão M) ======
+var QRGen=(function(){
+  function appendBits(val,len,bb){for(var i=len-1;i>=0;i--)bb.push((val>>>i)&1)}
+  function getBit(x,i){return((x>>>i)&1)!==0}
+  function reedSolomonComputeDivisor(degree){
+    var result=[];for(var i=0;i<degree-1;i++)result.push(0);result.push(1);
+    var root=1;for(var i=0;i<degree;i++){for(var j=0;j<result.length;j++){result[j]=reedSolomonMultiply(result[j],root);if(j+1<result.length)result[j]^=result[j+1]}root=reedSolomonMultiply(root,2)}return result;
+  }
+  function reedSolomonComputeRemainder(data,divisor){
+    var result=divisor.map(function(){return 0});for(var b=0;b<data.length;b++){var factor=data[b]^result.shift();result.push(0);for(var j=0;j<divisor.length;j++)result[j]^=reedSolomonMultiply(divisor[j],factor)}return result;
+  }
+  function reedSolomonMultiply(x,y){var z=0;for(var i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z}
+  var ECC_CODEWORDS_PER_BLOCK=[
+    [-1,7,10,15,20,26,18,20,24,30,18,20,24,26,30,22,24,28,30,28,28,28,28,30,30,26,28,30,30,30,30,30,30,30,30,30,30,30,30,30,30],
+    [-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+    [-1,13,22,18,26,18,24,18,22,20,24,28,26,24,20,30,24,28,28,26,30,28,30,30,30,30,28,30,30,30,30,30,30,30,30,30,30,30,30,30,30],
+    [-1,17,28,22,16,22,28,26,26,24,28,24,28,22,24,24,30,28,28,26,28,30,24,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30]];
+  var NUM_EC_BLOCKS=[
+    [-1,1,1,1,1,1,2,2,2,2,4,4,4,4,4,6,6,6,6,7,8,8,9,9,10,12,12,12,13,14,15,16,17,18,19,19,20,21,22,24,25],
+    [-1,1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16,17,17,18,20,21,23,25,26,28,29,31,33,35,37,38,40,43,45,47,49],
+    [-1,1,1,2,2,4,4,6,6,8,8,8,10,12,16,12,17,16,18,21,20,23,23,25,27,29,34,34,35,38,40,43,45,48,51,53,56,59,62,65,68],
+    [-1,1,1,2,4,4,4,5,6,8,8,11,11,16,16,18,16,19,21,25,25,25,34,30,32,35,37,40,42,45,48,51,54,57,60,63,66,70,74,77,81]];
+  var FORMAT_BITS=[1,0,3,2]; // L=01, M=00, Q=11, H=10
+  function getNumRawDataModules(ver){var result=(16*ver+128)*ver+64;if(ver>=2){var na=Math.floor(ver/7)+2;result-=(25*na-10)*na-55;if(ver>=7)result-=36}return result}
+  function getNumDataCodewords(ver,ecl){return Math.floor(getNumRawDataModules(ver)/8)-ECC_CODEWORDS_PER_BLOCK[ecl][ver]*NUM_EC_BLOCKS[ecl][ver]}
+  function getAlignmentPositions(ver){if(ver===1)return[];var n=Math.floor(ver/7)+2;var step=Math.floor((ver*8+n*3+5)/(n*4-4))*2;var r=[6];for(var pos=17+4*ver-7;r.length<n;pos-=step)r.splice(1,0,pos);return r}
+  function drawFinderPattern(modules,isFunction,x,y,s){
+    for(var dy=-4;dy<=4;dy++)for(var dx=-4;dx<=4;dx++){
+      var dist=Math.max(Math.abs(dx),Math.abs(dy));var xx=x+dx,yy=y+dy;
+      if(xx>=0&&xx<s&&yy>=0&&yy<s){modules[yy][xx]=dist!==2&&dist!==4;isFunction[yy][xx]=true}
     }
   }
-  setFinder(0,0);setFinder(0,n-7);setFinder(n-7,0);
-  // Timing patterns
-  for(var i=8;i<n-8;i++){bits[6*n+i]=i%2;bits[i*n+6]=i%2;setRes(6,i);setRes(i,6)}
-  // Alignment pattern
-  var ap=n-9;
-  for(var dr=-2;dr<=2;dr++)for(var dc=-2;dc<=2;dc++){
-    var v=(Math.abs(dr)===2||Math.abs(dc)===2||(dr===0&&dc===0))?1:0;
-    bits[(ap+dr)*n+(ap+dc)]=v;setRes(ap+dr,ap+dc);
+  function drawAlignmentPattern(modules,isFunction,x,y){
+    for(var dy=-2;dy<=2;dy++)for(var dx=-2;dx<=2;dx++){
+      modules[y+dy][x+dx]=Math.max(Math.abs(dx),Math.abs(dy))!==1;isFunction[y+dy][x+dx]=true;
+    }
   }
-  // Dark module
-  bits[(n-8)*n+8]=1;setRes(n-8,8);
-  // Reserve format areas
-  for(var i=0;i<15;i++){if(i<6){setRes(8,i);setRes(n-1-i,8)}else if(i<8){setRes(8,i+1);setRes(n-1-i-1,8)}else{setRes(8,i+1);setRes(n-1-(i<14?i+1:i+2),8)}}
-  for(var i=0;i<15;i++){if(i<8){setRes(i,8)}else{setRes(i+1,8)}}
-  // Encode text (byte mode)
-  var data=[];
-  data.push(0b0100); // Byte mode indicator
-  var bytes=[];for(var i=0;i<text.length;i++)bytes.push(text.charCodeAt(i)&0xFF);
-  data.push(bytes.length);
-  for(var b=0;b<bytes.length;b++){var v=bytes[b];for(var bit=7;bit>=0;bit--)data.push((v>>bit)&1)}
-  // Add terminator
-  for(var i=0;i<4&&data.length<(total-31);i++)data.push(0);
-  // Pad to byte boundary
-  while(data.length%8)data.push(0);
-  // Pad bytes
-  var padBytes=[0xEC,0x11];var pi=0;
-  while(data.length<total-31){data.push((padBytes[pi%2]>>7)&1);data.push((padBytes[pi%2]>>6)&1);data.push((padBytes[pi%2]>>5)&1);data.push((padBytes[pi%2]>>4)&1);data.push((padBytes[pi%2]>>3)&1);data.push((padBytes[pi%2]>>2)&1);data.push((padBytes[pi%2]>>1)&1);data.push(padBytes[pi%2]&1);pi++}
-  // Place data
-  var di=0;var right=n-1;
-  for(var col=n-1;col>=0;col-=2){if(col===6)col--;
-    for(var up=0;up<n;up++){
-      var row=up%2===0?n-1-up:up;
-      for(var dc=0;dc<2;dc++){
-        var c=right-dc;if(c<0||c>=n)continue;
-        var r=row;if(reserved[r+','+c])continue;
-        bits[r*n+c]=di<data.length?data[di]:0;di++;
+  function drawFormatBits(modules,isFunction,ecl,mask,s){
+    var data=FORMAT_BITS[ecl]<<3|mask;var rem=data;
+    for(var i=0;i<10;i++)rem=(rem<<1)^((rem>>>9)*0x537);
+    var bits=(data<<10|rem)^0x5412;
+    for(var i=0;i<=5;i++){modules[8][i]=getBit(bits,i);isFunction[8][i]=true}
+    modules[8][7]=getBit(bits,6);isFunction[8][7]=true;
+    modules[8][8]=getBit(bits,7);isFunction[8][8]=true;
+    modules[7][8]=getBit(bits,8);isFunction[7][8]=true;
+    for(var i=9;i<15;i++){modules[14-i][8]=getBit(bits,i);isFunction[14-i][8]=true}
+    for(var i=0;i<8;i++){modules[s-1-i][8]=getBit(bits,i);isFunction[s-1-i][8]=true}
+    for(var i=8;i<15;i++){modules[8][s-15+i]=getBit(bits,i);isFunction[8][s-15+i]=true}
+    modules[8][s-8]=true;isFunction[8][s-8]=true;
+  }
+  function drawVersion(modules,isFunction,ver,s){
+    if(ver<7)return;var rem=ver;
+    for(var i=0;i<12;i++)rem=(rem<<1)^((rem>>>11)*0x1F25);
+    var bits=ver<<12|rem;
+    for(var i=0;i<18;i++){var color=getBit(bits,i);var a=s-11+i%3,b=Math.floor(i/3);
+      modules[b][a]=color;modules[a][b]=color;isFunction[b][a]=true;isFunction[a][b]=true}
+  }
+  function finderPenaltyAddHistory(runHistory,currentRunLength){
+    if(runHistory[0]===0)currentRunLength+=runHistory[1];
+    runHistory[6]=runHistory[5];runHistory[5]=runHistory[4];runHistory[4]=runHistory[3];
+    runHistory[3]=runHistory[2];runHistory[2]=runHistory[1];runHistory[1]=runHistory[0];runHistory[0]=currentRunLength;
+  }
+  function finderPenaltyCountPatterns(runHistory){
+    var n=runHistory[1];
+    var core=n>0&&runHistory[2]===n&&runHistory[3]===n*3&&runHistory[4]===n&&runHistory[5]===n;
+    return((core&&runHistory[0]>=n*4&&runHistory[6]>=n)||(core&&runHistory[6]>=n*4&&runHistory[0]>=n))?1:0;
+  }
+  function finderPenaltyTerminateAndCount(qrSize,currentRunColor,currentRunLength,runHistory){
+    if(currentRunColor){finderPenaltyAddHistory(runHistory,currentRunLength);currentRunLength=0}
+    currentRunLength+=qrSize;
+    finderPenaltyAddHistory(runHistory,currentRunLength);
+    return finderPenaltyCountPatterns(runHistory);
+  }
+  function getPenaltyScore(m){
+    var s=m.length,result=0;
+    for(var y=0;y<s;y++){
+      var runColor=false,runX=0,runHistory=[0,0,0,0,0,0,0];
+      for(var x=0;x<s;x++){
+        if(m[y][x]===runColor){runX++;if(runX===5)result+=3;else if(runX>5)result++}
+        else{finderPenaltyAddHistory(runHistory,runX);if(!runColor)result+=finderPenaltyCountPatterns(runHistory)*40;
+          runColor=m[y][x];runX=1}
+      }
+      result+=finderPenaltyTerminateAndCount(s,runColor,runX,runHistory)*40;
+    }
+    for(var x=0;x<s;x++){
+      var runColor=false,runY=0,runHistory=[0,0,0,0,0,0,0];
+      for(var y=0;y<s;y++){
+        if(m[y][x]===runColor){runY++;if(runY===5)result+=3;else if(runY>5)result++}
+        else{finderPenaltyAddHistory(runHistory,runY);if(!runColor)result+=finderPenaltyCountPatterns(runHistory)*40;
+          runColor=m[y][x];runY=1}
+      }
+      result+=finderPenaltyTerminateAndCount(s,runColor,runY,runHistory)*40;
+    }
+    for(var y=0;y<s-1;y++)for(var x=0;x<s-1;x++){
+      var c=m[y][x];
+      if(c===m[y][x+1]&&c===m[y+1][x]&&c===m[y+1][x+1])result+=3;
+    }
+    var dark=0;
+    for(var y=0;y<s;y++)for(var x=0;x<s;x++){if(m[y][x])dark++}
+    var total=s*s;
+    var k=Math.ceil(Math.abs(dark*20-total*10)/total)-1;
+    result+=k*10;
+    return result;
+  }
+  function encode(text,ecl){
+    if(text.length===0)return null;
+    var bb=[];appendBits(4,4,bb);appendBits(text.length,8,bb);
+    for(var i=0;i<text.length;i++)appendBits(text.charCodeAt(i)&0xFF,8,bb);
+    var dataBits=bb.slice();
+    var version,eccl=ecl;
+    for(version=1;version<=40;version++){
+      var dc=getNumDataCodewords(version,eccl)*8;
+      if(dataBits.length+12<=dc)break;
+    }
+    if(version>40)return null;
+    var dataCap=getNumDataCodewords(version,eccl)*8;
+    appendBits(0,Math.min(4,dataCap-dataBits.length),dataBits);
+    while(dataBits.length%8)dataBits.push(0);
+    var pad=[0xEC,0x11],pi=0;while(dataBits.length<dataCap){appendBits(pad[pi],8,dataBits);pi^=1}
+    var dataCW=[];for(var i=0;i<dataBits.length;i+=8){var b=0;for(var j=0;j<8;j++)b=(b<<1)|dataBits[i+j];dataCW.push(b)}
+    return{version:version,dataCW:dataCW,eccl:eccl};
+  }
+  function generate(text,ecl){
+    var enc=encode(text,ecl===undefined?1:ecl);if(!enc)return null;
+    var ver=enc.version,eccl=enc.eccl,dataCW=enc.dataCW;
+    var s=ver*4+17;
+    var modules=[];var isF=[];var row=[];
+    for(var i=0;i<s;i++){row.push(false)}for(var i=0;i<s;i++){modules.push(row.slice());isF.push(row.slice())}
+    for(var i=0;i<s;i++){modules[6][i]=i%2===0;isF[6][i]=true;modules[i][6]=i%2===0;isF[i][6]=true}
+    drawFinderPattern(modules,isF,3,3,s);drawFinderPattern(modules,isF,s-4,3,s);drawFinderPattern(modules,isF,3,s-4,s);
+    var ap=getAlignmentPositions(ver);for(var i=0;i<ap.length;i++)for(var j=0;j<ap.length;j++){
+      if((i===0&&j===0)||(i===0&&j===ap.length-1)||(i===ap.length-1&&j===0))continue;
+      drawAlignmentPattern(modules,isF,ap[i],ap[j]);
+    }
+    drawVersion(modules,isF,ver,s);
+    drawFormatBits(modules,isF,eccl,0,s);
+    var numBlocks=NUM_EC_BLOCKS[eccl][ver];
+    var blockEccLen=ECC_CODEWORDS_PER_BLOCK[eccl][ver];
+    var rawCW=Math.floor(getNumRawDataModules(ver)/8);
+    var shortBlocks=numBlocks-rawCW%numBlocks;
+    var shortLen=Math.floor(rawCW/numBlocks);
+    var rsDiv=reedSolomonComputeDivisor(blockEccLen);
+    var blocks=[];var k=0;
+    for(var i=0;i<numBlocks;i++){
+      var dLen=shortLen-blockEccLen+(i<shortBlocks?0:1);
+      var dat=dataCW.slice(k,k+dLen);k+=dat.length;
+      var ecc=reedSolomonComputeRemainder(dat,rsDiv);
+      if(i<shortBlocks)dat.push(0);
+      blocks.push(dat.concat(ecc));
+    }
+    var allCW=[];for(var i=0;i<blocks[0].length;i++)for(var j=0;j<blocks.length;j++){
+      if(i!==shortLen-blockEccLen||j>=shortBlocks)allCW.push(blocks[j][i]);
+    }
+    var bi=0;
+    for(var right=s-1;right>=1;right-=2){if(right===6)right=5;
+      for(var vert=0;vert<s;vert++)for(var j=0;j<2;j++){
+        var x=right-j;var upward=((right+1)&2)===0;var y=upward?s-1-vert:vert;
+        if(!isF[y][x]&&bi<allCW.length*8){modules[y][x]=getBit(allCW[bi>>>3],7-(bi&7));bi++}
       }
     }
-    right-=2;
+    var bestMask=0,bestPenalty=Infinity;
+    for(var mask=0;mask<8;mask++){
+      var testM=[];var testF=[];
+      for(var i=0;i<s;i++){testM.push(modules[i].slice());testF.push(isF[i].slice())}
+      for(var y=0;y<s;y++)for(var x=0;x<s;x++){if(testF[y][x])continue;var inv=false;
+        switch(mask){case 0:inv=(x+y)%2===0;break;case 1:inv=y%2===0;break;case 2:inv=x%3===0;break;
+        case 3:inv=(x+y)%3===0;break;case 4:inv=(Math.floor(x/3)+Math.floor(y/2))%2===0;break;
+        case 5:inv=x*y%2+x*y%3===0;break;case 6:inv=(x*y%2+x*y%3)%2===0;break;
+        case 7:inv=((x+y)%2+x*y%3)%2===0;break}if(inv)testM[y][x]=!testM[y][x]}
+      drawFormatBits(testM,testF,eccl,mask,s);
+      var pen=getPenaltyScore(testM);
+      if(pen<bestPenalty){bestPenalty=pen;bestMask=mask}
+    }
+    for(var y=0;y<s;y++)for(var x=0;x<s;x++){if(isF[y][x])continue;var inv=false;
+      switch(bestMask){case 0:inv=(x+y)%2===0;break;case 1:inv=y%2===0;break;case 2:inv=x%3===0;break;
+      case 3:inv=(x+y)%3===0;break;case 4:inv=(Math.floor(x/3)+Math.floor(y/2))%2===0;break;
+      case 5:inv=x*y%2+x*y%3===0;break;case 6:inv=(x*y%2+x*y%3)%2===0;break;
+      case 7:inv=((x+y)%2+x*y%3)%2===0;break}if(inv)modules[y][x]=!modules[y][x]}
+    drawFormatBits(modules,isF,eccl,bestMask,s);
+    return{matrix:modules,size:s,version:ver};
   }
-  // Simple XOR mask 010
-  for(var r=0;r<n;r++)for(var c=0;c<n;c++){
-    if(!reserved[r+','+c]){if((r+c)%2===0)bits[r*n+c]^=1}
+  function toSVG(qr,modSize,border){
+    var b=border===undefined?4:border,s=qr.size,ms=modSize||2,total=(s+2*b)*ms;
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+total+'" height="'+total+'" viewBox="0 0 '+total+' '+total+'" shape-rendering="crispEdges">';
+    svg+='<rect width="'+total+'" height="'+total+'" fill="#fff"/>';
+    for(var y=0;y<s;y++)for(var x=0;x<s;x++){
+      if(qr.matrix[y][x])svg+='<rect x="'+((x+b)*ms)+'" y="'+((y+b)*ms)+'" width="'+ms+'" height="'+ms+'"/>';
+    }
+    svg+='</svg>';return svg;
   }
-  // Generate PNG via canvas (html2canvas/rc.5 nao renderiza SVG embutido em <img>)
-  var size=150,cell=size/n;
-  try{
-    var cv=document.createElement('canvas');cv.width=size;cv.height=size;
+  function toDataURI(qr,px,border){
+    var b=border===undefined?4:border,s=qr.size,total=s+2*b;
+    var target=px||512;var cell=Math.max(1,Math.round(target/total));var dim=cell*total;
+    var cv=document.createElement('canvas');cv.width=dim;cv.height=dim;
     var ctx=cv.getContext('2d');
-    ctx.fillStyle='#fff';ctx.fillRect(0,0,size,size);
-    ctx.fillStyle='#000';
-    for(var r=0;r<n;r++)for(var c=0;c<n;c++){
-      if(bits[r*n+c])ctx.fillRect(c*cell,r*cell,Math.ceil(cell),Math.ceil(cell));
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,dim,dim);
+    ctx.fillStyle='#000000';
+    for(var y=0;y<s;y++)for(var x=0;x<s;x++){
+      if(qr.matrix[y][x])ctx.fillRect((x+b)*cell,(y+b)*cell,cell,cell);
     }
     return cv.toDataURL('image/png');
-  }catch(e){
-    var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+size+' '+size+'" shape-rendering="crispEdges">';
-    svg+='<rect width="'+size+'" height="'+size+'" fill="#fff"/>';
-    for(var r=0;r<n;r++)for(var c=0;c<n;c++){
-      if(bits[r*n+c])svg+='<rect x="'+(c*cell)+'" y="'+(r*cell)+'" width="'+(cell+0.5)+'" height="'+(cell+0.5)+'" fill="#000"/>';
-    }
-    svg+='</svg>';
-    return 'data:image/svg+xml;base64,'+btoa(svg);
   }
+  return{generate:generate,toSVG:toSVG,toDataURI:toDataURI};
+})();
+var _qrUriCache={};
+// QR Code real em alta resolução (512px+, quiet zone 4 módulos, nível M) — sempre local, sem API externa
+function _qrDataURI(text){
+  try{
+    if(_qrUriCache[text])return _qrUriCache[text];
+    var qr=QRGen.generate(text,1);
+    if(!qr)return '';
+    var uri=QRGen.toDataURI(qr,512,4);
+    _qrUriCache[text]=uri;
+    return uri;
+  }catch(e){console.error('[QR] Erro ao gerar QR:',e.message);return ''}
+}
+function _qrGenerate(text){
+  try{return _qrDataURI(text)}catch(e){return ''}
 }
 function _qrSrc(q,link){
   if(q&&/^data:/i.test(q))return q;
@@ -13593,11 +13713,11 @@ var printManager={
       return'<div style="'+style+'"></div>';
     }
     if(el.type==='qrcode'){
-      var qrContent=data&&(data.osCode||'OS-'+data.id)||'documento';
+      var qrText=(data&&(data.id!==undefined&&data.id!==null))?generateOSLink(data.id):((data&&data.osCode)||'documento');
+      var qr=QRGen.generate(qrText,1);
       style+='display:flex;align-items:center;justify-content:center;overflow:hidden';
-      return'<div style="'+style+'"><svg viewBox="0 0 100 100" style="width:100%;height:100%"><rect width="100" height="100" fill="#fff"/><g fill="#000">'+
-        Array.from({length:400},function(_,i){var r=Math.floor(i/20),c=i%20;return r>=0&&r<20&&c>=0&&c<20&&((r===0||r===19||c===0||c===19||(r>=4&&r<=6&&c>=4&&c<=6)||(r>=14&&r<=16&&c>=14&&c<=16)||(r>=8&&r<=12&&c>=8&&c<=12)))?'<rect x="'+(c*5)+'" y="'+(r*5)+'" width="5" height="5"/>':''}).join('')+
-        '</g></svg></div>';
+      if(qr)return'<div style="'+style+'">'+QRGen.toSVG(qr,2,4)+'</div>';
+      return'<div style="'+style+'">[QR]</div>';
     }
     if(el.type==='barcode'){
       style+='display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:monospace';
@@ -13673,7 +13793,7 @@ var printManager={
     var ov=document.createElement('div');ov.className='print-preview-overlay';ov.onclick=function(e){if(e.target===ov){ov.remove()}};
     var box=document.createElement('div');box.className='print-preview-box';
     box.innerHTML='<div style="padding:8px;display:flex;gap:8px;justify-content:flex-end;background:#f5f5f5;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:1"><button onclick="this.closest(\'.print-preview-overlay\').querySelector(\'iframe\').contentWindow.print()" style="background:var(--blu);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" title="Imprimir"><i data-lucide="printer" style="width:14px;height:14px"></i></button><button onclick="this.closest(\'.print-preview-overlay\').remove()" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button></div>';
-    box.innerHTML+='<iframe style="width:100%;height:85vh;border:none"></iframe>';
+    box.innerHTML+='<iframe src="about:blank" style="width:100%;height:85vh;border:none"></iframe>';
     ov.appendChild(box);document.body.appendChild(ov);
     setTimeout(function(){var ifr=box.querySelector('iframe');if(ifr){var id=ifr.contentDocument||ifr.contentWindow.document;id.open();id.write(html);id.close()}},100);
   },
@@ -15329,7 +15449,7 @@ function printOSA4(osId){
   var osLink=generateOSLink(os.id);
   var qrImg=_qrDataURI(osLink);
   html+='<div style="text-align:center;margin:10px 0">';
-  html+='<img src="'+qrImg+'" style="width:90px;height:90px" alt="QR Code">';
+  html+='<img src="'+qrImg+'" style="width:110px;height:110px" alt="QR Code">';
   html+='<div style="font-size:9px;color:#64748b;margin-top:2px">'+_ICO.qr+' Escaneie para acompanhar a OS online</div>';
   html+='<div style="font-size:7px;color:#94a3b8;word-break:break-all">'+escH(osLink)+'</div>';
   html+='</div>';
@@ -15377,7 +15497,7 @@ function printOSTermica(osId){
   html+='<div class="total">TOTAL: '+fmt$(os.valor)+'</div>';
   html+='<div class="sep"></div>';
   var osLink=generateOSLink(os.id);
-  html+='<div class="c"><img src="'+_qrDataURI(osLink)+'" alt="QR Code OS" style="width:64px;height:64px"><br><span style="font-size:7px">'+escH(osLink)+'</span><br><span style="font-size:8px">Acompanhe sua OS pelo QR Code</span></div>';
+  html+='<div class="c"><img src="'+_qrDataURI(osLink)+'" alt="QR Code OS" style="width:96px;height:96px"><br><span style="font-size:7px">'+escH(osLink)+'</span><br><span style="font-size:8px">Acompanhe sua OS pelo QR Code</span></div>';
   html+='<div class="sep"></div>';
   html+='<div class="c" style="font-size:8px">Obrigado pela preferencia!<br>'+e.datetime+'</div>';
   html+='</body></html>';
@@ -15807,6 +15927,7 @@ function _pdfSignatureArea(){
 var _pdfBusy=0;
 function _printHTML(html){
   var ifr=document.createElement('iframe');
+  ifr.src='about:blank';
   ifr.style.cssText='position:fixed;left:0;top:0;width:100%;height:100%;border:none;z-index:999999';
   document.body.appendChild(ifr);
   var ifrDoc=ifr.contentDocument||ifr.contentWindow.document;
@@ -15827,17 +15948,28 @@ function _pdfRenderOrPrint(fullHtml,filename){
     if(typeof html2pdf!=='undefined'){
       try{
         var ifr=document.createElement('iframe');
+        ifr.src='about:blank';
         ifr.style.cssText='position:fixed;left:0;top:0;width:794px;height:6000px;border:none;opacity:0;pointer-events:none;z-index:-1';
         document.body.appendChild(ifr);
         var ifrDoc=ifr.contentDocument||ifr.contentWindow.document;
         ifrDoc.open();ifrDoc.write(fullHtml);ifrDoc.close();
         setTimeout(function(){
           try{
-            if(ifrDoc.body&&ifrDoc.body.innerHTML.trim()){
-              html2pdf().set({margin:[8,8,8,8],filename:filename||'documento.pdf',image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:794,height:Math.max(ifrDoc.body.scrollHeight,100),backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait',compress:true},pagebreak:{mode:['css','legacy']},timeout:90000}).from(ifrDoc.body).save().then(function(){try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(1)}).catch(function(){try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(0,'Erro ao gerar PDF')});
-            }else{try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(0,'Erro ao renderizar')}
+            var imgs=ifrDoc.images||[];var n=imgs.length,done=0,fired=false;
+            var finish=function(){
+              if(fired)return;fired=true;
+              try{
+                if(ifrDoc.body&&ifrDoc.body.innerHTML.trim()){
+                  html2pdf().set({margin:[8,8,8,8],filename:filename||'documento.pdf',image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:794,height:Math.max(ifrDoc.body.scrollHeight,100),backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait',compress:true},pagebreak:{mode:['css','legacy']},timeout:90000}).from(ifrDoc.body).save().then(function(){try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(1)}).catch(function(){try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(0,'Erro ao gerar PDF')});
+                }else{try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(0,'Erro ao renderizar')}
+              }catch(e){try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(0,'Erro ao gerar PDF')}
+            };
+            var tick=function(){done++;if(done>=n)finish()};
+            for(var i=0;i<n;i++){if(imgs[i].complete)tick();else{imgs[i].onload=tick;imgs[i].onerror=tick}}
+            if(n===0)finish();
+            setTimeout(finish,8000);
           }catch(e){try{if(ifr.parentNode)ifr.parentNode.removeChild(ifr)}catch(e){};_done(0,'Erro ao gerar PDF')}
-        },500);
+        },300);
       }catch(e){_done(0,'Erro ao gerar PDF')}
     }else{_done(0,'Pop-up bloqueado. Permita pop-ups.')}
     return;
@@ -17694,9 +17826,9 @@ function downloadOSQRCode(osId){
     var o=(DB.os||[]).find(function(x){return x.id===osId});
     if(!o){toast('OS não encontrada','error');return}
     var osLink=generateOSLink(osId);
-    var qrUrl=_qrGenerate(osLink);
+    var qrUrl=_qrDataURI(osLink);
     var osCode=o.osCode||'OS-'+String(o.id).padStart(4,'0');
-    var a=document.createElement('a');a.href=qrUrl;a.download='QR_'+osCode+'.svg';a.target='_blank';a.click();
+    var a=document.createElement('a');a.href=qrUrl;a.download='QR_'+osCode+'.png';a.click();
   }catch(e){toast('Erro ao baixar QR Code: '+e.message,'error')}
 }
 function generateOSBarcode(osId){
@@ -23238,7 +23370,6 @@ function autoOSSave(){
   obj.dataInput=data.dataInput||today();
   obj.data=data.dataInput||today();
   obj.trackingLink=generateOSLink(_autoOS.osId);
-  obj.qrCode=_qrGenerate(obj.trackingLink);
   if(existingIdx>=0){
     obj.id=_autoOS.osId;
     DB.os[existingIdx]={...DB.os[existingIdx],...obj};
@@ -23915,7 +24046,7 @@ function saveAIConfigSettings(){
 // PWA Registration
 (function(){
   if('serviceWorker'in navigator&&location.protocol!=='file:'){
-    navigator.serviceWorker.register('service-worker.js',{scope:'../'}).then(function(reg){
+    navigator.serviceWorker.register('service-worker.js',{scope:'.'}).then(function(reg){
       reg.addEventListener('updatefound',function(){
         var w=reg.installing;
         w.addEventListener('statechange',function(){
