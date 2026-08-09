@@ -12678,11 +12678,12 @@ function _supaUpsertOS(osId){
     var o=(DB.os||[]).find(function(x){return x.id===osId});
     if(!o)return Promise.resolve(false);
     var svcs=(o.servicos||[]).map(function(sid){var s=DB.services.find(function(x){return String(x.id)===String(sid)});return s?(s.nome||String(s.id)):''}).filter(Boolean);
+    // A tabela pública recebe somente dados necessários para acompanhar o status.
+    // Nunca enviar cliente, telefone, IMEI, valores, defeito ou decisões de orçamento.
     var pub={
-      id:o.id,cliente:o.cliente||'',telefone:o.telefone||'',aparelho:o.aparelho||'',marca:o.marca||'',
-      imei:o.imei||'',defeito:o.defeito||'',status:o.status||'recebida',valor:Number(o.valor||0),desloc:Number(o.desloc||0),
+      id:o.id,aparelho:o.aparelho||'',marca:o.marca||'',status:o.status||'recebida',
       history:(o.history||[]).map(function(h){return{status:h.status,data:h.data}}).slice(0,50),
-      svcs:svcs,budgetApproval:o.budgetApproval||'',rejectionReason:o.rejectionReason||''
+      svcs:svcs
     };
     var s=_supaCfg();
     return fetch(s.url+'/rest/v1/os_public',{method:'POST',headers:_supaHeaders(),body:JSON.stringify({id:o.id,data:pub,updated_at:new Date().toISOString()})})
@@ -12769,11 +12770,11 @@ function _osPayloadFor(osId){
     var o=(DB.os||[]).find(function(x){return x.id===osId});
     if(!o)return '';
     var svcs=(o.servicos||[]).map(function(sid){var s=DB.services.find(function(x){return x.id===sid});return s?(s.nome||s.id||''):''}).filter(Boolean);
+    // O QR sem servidor é um link público: somente informações mínimas de acompanhamento.
     var d={
-      id:o.id,cliente:o.cliente||'',telefone:o.telefone||'',aparelho:o.aparelho||'',marca:o.marca||'',
-      imei:o.imei||'',defeito:o.defeito||'',status:o.status||'recebida',valor:o.valor||0,desloc:o.desloc||0,
+      id:o.id,aparelho:o.aparelho||'',marca:o.marca||'',status:o.status||'recebida',
       history:(o.history||[]).map(function(h){return{status:h.status,data:h.data}}).slice(0,20),
-      svcs:svcs,budgetApproval:o.budgetApproval||'',rejectionReason:o.rejectionReason||''
+      svcs:svcs
     };
     var b=unescape(encodeURIComponent(JSON.stringify(d)));
     return btoa(b).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');

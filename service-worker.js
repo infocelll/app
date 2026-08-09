@@ -1,6 +1,6 @@
-var CACHE_NAME='infocelll-v17';
-var STATIC_CACHE='infocelll-static-v17';
-var DYNAMIC_CACHE='infocelll-dynamic-v17';
+var CACHE_NAME='infocelll-v18';
+var STATIC_CACHE='infocelll-static-v18';
+var DYNAMIC_CACHE='infocelll-dynamic-v18';
 var OFFLINE_URL='offline.html';
 var MAIN_DB_NAME='InfoCelllDB';
 var OFFLINE_DB_NAME='InfoCelllOffline';
