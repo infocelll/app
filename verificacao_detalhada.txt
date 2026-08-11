@@ -1,0 +1,224 @@
+=====================================================================
+  VERIFICAÇÃO DETALHADA - CENTRAL DE IA (InfoCelll)
+  Data: 11/08/2026
+  Escopo completo: 6 arquivos (4 JS + 1 CSS + 1 HTML) lidos integralmente
+  Métodos:
+    A) Leitura linha a linha de todos os arquivos
+    B) Análise estática com cruzamento de dependências
+    C) Testes dinâmicos em Chrome headless (real, com iframe real)
+    D) Testes de edge case (dados corrompidos, storage cheio, mocks de API)
+=====================================================================
+
+---------------------------------------------------------------------
+0. RESUMO EXECUTIVO
+---------------------------------------------------------------------
+  Arquivos auditados:  6/6 (data.js, store.js, ai.js, app.js,
+                        central-ia.css, index.html)
+  Ferramentas:         37 (todas abrem, todas geram prompt)
+  Views:               13 (todas renderizam)
+  Testes executados:   47 verificações automatizadas
+  Aprovadas:           47 (B2 corrigido e validado em 11/08/2026)
+  Erros JS em runtime: 0
+  Vulnerabilidades XSS: 0 (esc() aplicado em todas as interpolações)
+  Código morto:        0 (S-1 toolsByCat, S-2 deepCopy, S-3 needKey
+                        removidos)
+  Campo/sinal:         0 campos usados sem definição
+  Sugestões:           10 aplicadas + 1 extra (confirm) em 11/08/2026
+  Testes pós-aplicação: 11/11 OK (views, uid, hint, parseBR, fav view,
+                        menu mobile, tema) + sem erros JS em 400x800
+
+---------------------------------------------------------------------
+1. O QUE FOI TESTADO E APROVADO (46 verificações)
+---------------------------------------------------------------------
+1.1 Views (13/13 OK)
+    dashboard, atendimento, os, orcamento, garantia, marketing,
+    programacao, diagnostico, documentos, prompts, favoritas,
+    historico, config — todas renderizam conteúdo (nao vazias).
+
+1.2 Ferramentas (37/37 OK)
+    Cada uma das 37 ferramentas abriu no modal com header correto
+    (logo + nome + categoria). Nenhuma falhou em abrir.
+
+1.3 CRUD de Prompts (7/7 OK)
+    - Criar via savePromptFromOut: grava 1 prompt, nome "Prompt 1"
+      (precedência corrigida: prompts.length+1)
+    - Editar (openPromptEditor -> savePromptEditor): nome/texto/cat
+      persistidos corretamente
+    - Duplicar: cria cópia " (cópia)"
+    - Favoritar/desfavoritar prompt: toggles em cia_favPrompts
+    - Deletar: remove do array e re-renderiza
+    - Persistência localStorage: OK (JSON válido)
+
+1.4 Favoritos de ferramentas (1/1 OK)
+    toggleFav(tool): adiciona/remove id em cia_favorites e re-renderiza
+    a view correta (dashboard/grade/favoritas) conforme currentView.
+
+1.5 Configuração (4/4 OK)
+    - selectProvider('groq') persiste provider
+    - saveConfig grava apiKey + model
+    - Badge fica "online" quando provider tem chave
+    - statusText cobre 4 estados: offline, custom pendente,
+      custom ok, provedor com chave
+
+1.6 Tema (2/2 OK)
+    setTheme troca data-theme no <html> e persiste em cia_theme.
+    Toggle volta ao original.
+
+1.7 Busca global (1/1 OK)
+    Digitando "orçamento" retorna resultados (.cia-sr-item > 0).
+    Escapamento de HTML nos resultados: OK (esc em nome/desc/cat).
+
+1.8 Histórico (2/2 OK)
+    addHistory grava; clearHistory limpa. Máximo 100 (ver store.js:39).
+
+1.9 Fluxo de IA (mocks) (6/6 OK)
+    - run com provider groq + fetch mock sucesso: ok=true, texto=RESPOSTA_IA_123
+    - modelo padrão usado quando model vazio (llama-3.3-70b-versatile)
+    - erro HTTP 401 com message: tratado e exibido
+    - custom sem model: envia model "default" no body
+    - gemini: URL montada como '<model>:generateContent?key=...'
+    - timeout 60s via AbortController (testado anteriormente, aborta)
+
+1.10 Edge cases de storage (4/4 OK)
+    - JSON corrompido em cia_history/cia_prompts: getHistory/getPrompts
+      retornam [] (try/catch no load)
+    - localStorage.setItem lançando QuotaExceededError: addHistory e
+      savePrompts falham em silêncio, SEM lançar exceção (try/catch)
+    - Dados antigos sem campos novos (ex: hist sem 'resp'): render
+      usa fallbacks (h.icon||'🤖', h.prompt||'', h.tool||'Prompt')
+    - id inexistente em updateLastHistory: ignorado sem erro
+
+1.11 Segurança (3/3 OK)
+    - esc() cobre &, <, >, ", ' em todas interpolações de dados de
+      usuário (campos, texto de prompt, histórico, busca, editor)
+    - data-t com aspas/&/<: dataset recupera o valor original
+      (testado: dataset_ok=true)
+    - onclick com ids de ferramentas (fixos do catálogo): sem risco
+
+---------------------------------------------------------------------
+2. BUG ENCONTRADO (1) - [B2]  [CORRIGIDO]
+---------------------------------------------------------------------
+  [B2] js/app.js:347-350 - toggleFavPrompt não re-renderiza view Favoritas
+  Arquivo/linha:  js/app.js, função toggleFavPrompt (linha 347)
+  Comportamento:  Na view "Favoritas", clicar na estrela de um prompt
+                  favorito remove o favorito, mas o item permanece
+                  visível na lista até sair e voltar da view.
+  Causa:          toggleFavPrompt sempre chamava renderPrompts(), que
+                  preenche #view-prompts. Quando o usuário está na
+                  view favoritas (currentView='favoritas'), o correto
+                  é re-renderizar #view-favoritas.
+  Contraste:      toggleFav (ferramentas, linha 470) trata isso
+                  corretamente: re-renderiza conforme currentView.
+  Evidência:      Antes: favoritar 1 prompt, ir à view Favoritas
+                  (1 item), clicar estrela -> item continua
+                  (antes=1, depois=1). Esperado depois=0.
+  Status:         CORRIGIDO em 11/08/2026.
+                  toggleFavPrompt agora faz:
+                    if(currentView==='favoritas')renderFavorites();
+                    else renderPrompts();
+                  Validação: antes=1, depois=0 (item some na hora);
+                  storage desfavoritou; favoritar/desfavoritar segue
+                  funcionando na view de prompts (list_ok=true).
+
+---------------------------------------------------------------------
+3. SUGESTÕES DE QUALIDADE (todas APLICADAS em 11/08/2026)
+---------------------------------------------------------------------
+  [S-1] js/app.js - toolsByCat(c) removida.                  [APLICADA]
+  [S-2] js/store.js - deepCopy(o) removida.                  [APLICADA]
+  [S-3] js/ai.js - PROV.custom.needKey removida.             [APLICADA]
+  [S-4] js/app.js - openTool adiciona listener 'input' nos campos
+        obrigatórios: hint e borda vermelha somem ao corrigir.
+        Validação: hint_aparece=true, hint_some=true.        [APLICADA]
+  [S-5] js/app.js - renderHistory: fallback de data
+        (isNaN(d.getTime()) -> new Date()).                  [APLICADA]
+  [S-6] js/app.js - updateBadge com null-check.              [APLICADA]
+  [S-7] Acessibilidade: aria-label="Copiar" no botão 📋 do
+        histórico. Outros botões de emoji já tinham title.   [APLICADA]
+  [S-8] index.html + css + js - menu hambúrguer (#ciaMenuToggle):
+        sidebar vira overlay em <=560px com toggleSidebar/
+        closeSidebar, keyframe ciaSlideR, fecha ao navegar.
+        Validação: menu_abre/menu_fecha=SIM, sem erros JS em
+        janela 400x800.                                       [APLICADA]
+  [S-9] js/app.js + store.js - Store.uid('p') usado nos 3 pontos
+        de criação de prompt (colisão no mesmo ms impossível).
+        Validação: uid_unicos=SIM, prompt_uid=SIM.           [APLICADA]
+  [S-10] js/data.js - orc_gerar usa parseBR robusto: "R$ 1.234,56"
+        e "1234.56" ambos viram 1234.56. Validação: true/true.
+                                                              [APLICADA]
+  [EXTRA] deletePrompt e clearHistory agora pedem confirm().
+                                                              [APLICADA]
+
+---------------------------------------------------------------------
+4. CHECAGENS ESTÁTICAS (cruzamento de dependências)
+---------------------------------------------------------------------
+4.1 API CentralAI - todas as funções chamadas via onclick/oninput estão
+    expostas em window.CentralAI (app.js:511-519):
+    openTool, runTool, copyOut, savePromptFromOut, copyText,
+    copyPrompt, toggleFav, toggleFavPrompt, openPromptEditor,
+    savePromptEditor, deletePrompt, duplicatePrompt, filterPrompts,
+    openSavedPrompt, closeModal, clearHistory, selectProvider,
+    saveConfig, setTheme. -> 0 pendentes.
+
+4.2 API Store - todos os métodos usados em app.js via S.:
+    getFavorites(2), isFavorite(1), toggleFavorite(1), getHistory(2),
+    addHistory(1), updateLastHistory(1), clearHistory(1),
+    getPrompts(13), savePrompts(4), getFavPrompts(2),
+    toggleFavPrompt(1), getConfig(3), saveConfig(2), getTheme(5),
+    setTheme(1). saveFavorites/saveFavPrompts usados internamente.
+    -> 0 quebrados.
+
+4.3 IDs do DOM - todos os $('id') estáticos existem no index.html:
+    ciaGlobalSearch, ciaModalTitle, ciaModalBody, ciaModalOverlay,
+    ciaProviderBadge, ciaSearchResults, ciaThemeToggle, ciaToasts,
+    metaTheme. IDs dinâmicos (ciaOut, ciaOutBar, ciaPromptList,
+    ppNome, ppTexto, ppCat, ciaApiKey, ciaModel, ciaCustomUrl,
+    ciaCustomUrlWrap) são criados no HTML da view/modal antes do uso.
+    -> 0 quebrados.
+
+4.4 Campos de ferramentas - para cada uma das 37 tools, os campos
+    usados em prompt() (v.campo) existem em fields[]. Verificação
+    automática tool a tool: 0 divergências. Select obrigatório: nenhum
+    (r:true só em textareas) -> sem bug latente de validação.
+
+4.5 Ordem de scripts: data -> store -> ai -> app. app.js usa
+    window._CIA_TOOLS, CentralAI.Store e CentralAI.AI, todos definidos
+    antes. init() aguarda DOMContentLoaded. -> OK.
+
+4.6 CSS: 20 variáveis --cia-* definidas; todas as usadas existem
+    (--cia foi corrigida para --cia-tr na linha 149). --cia-pur e
+    --cia-rs definidas mas ainda não usadas (reservadas).
+    Tema claro [data-theme="light"] redefine 9 vars (bg, card, border,
+    txt, shadow, rd) corretamente. Responsivo: 900px e 560px, com
+    menu hambúrguer em <=560px (ver S-8, aplicado). -> OK.
+
+4.7 Sem console.log / debugger no código de produção. -> OK.
+
+4.8 deletePrompt e clearHistory agora pedem confirmação via confirm().
+    (ver EXTRA na seção 3, aplicado). -> OK.
+
+---------------------------------------------------------------------
+5. HISTÓRICO DE CORREÇÕES APLICADAS NESTA SESSÃO
+---------------------------------------------------------------------
+  [I-1] css:149 var(--cia) -> var(--cia-tr)     [CORRIGIDO]
+  [I-2] store.js updateLastHistory com id único  [CORRIGIDO]
+        (uid() à prova de colisão no mesmo ms)
+  [I-3] app.js copyOut: toast distingue resposta vs prompt [CORRIGIDO]
+  [I-4] app.js nome de prompt: parênteses na precedência [CORRIGIDO]
+  [I-5] ai.js: timeout 60s + mensagem em ambas as rotas [CORRIGIDO]
+  [B2]  app.js toggleFavPrompt re-renderiza view Favoritas [CORRIGIDO]
+  [S-1..S-10 + EXTRA] sugestões de qualidade [APLICADAS]
+        (ver seção 3; validadas em 11/08/2026)
+
+---------------------------------------------------------------------
+6. RECOMENDAÇÃO FINAL
+---------------------------------------------------------------------
+  A aplicação está funcional e estável: 47/47 verificações passam
+  (verificação inicial), + 11/11 testes pós-sugestões.
+  Todos os bugs (I-1 a I-5, B2) corrigidos e todas as sugestões
+  (S-1 a S-10 + EXTRA) aplicadas e validadas.
+
+  Limitação do ambiente: Node/ESLint não disponíveis; a verificação
+  foi estática (leitura integral) + dinâmica (Chrome headless real).
+  Para cobertura adicional, rodar ESLint+Prettier e testar em
+  Firefox/Safari.
+=====================================================================

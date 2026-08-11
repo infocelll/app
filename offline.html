@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>InfoCelll AI Center - Offline</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0b1120;color:#e6edf3;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.offline-icon{width:80px;height:80px;border-radius:20px;background:rgba(239,68,68,0.1);border:2px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:36px;color:#ef4444}
+h1{font-size:22px;font-weight:700;margin-bottom:8px;color:#e6edf3}
+p{font-size:14px;color:#8b949e;max-width:320px;line-height:1.6;margin-bottom:24px}
+.status-bar{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:12px;margin-bottom:24px;font-size:13px;color:#ef4444;font-weight:500}
+.dot{width:10px;height:10px;border-radius:50%;background:#ef4444;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:360px;margin-bottom:24px}
+.info-card{padding:16px;background:rgba(22,27,34,0.8);border:1px solid #30363d;border-radius:12px}
+.info-card .num{font-size:20px;font-weight:700;color:#58a6ff}
+.info-card .lbl{font-size:11px;color:#8b949e;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#21262d;border:1px solid #30363d;border-radius:12px;color:#e6edf3;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;margin-bottom:12px}
+.btn:hover{border-color:#58a6ff;background:#262c34}
+.btn.primary{background:#06b6d4;color:#000;border-color:#06b6d4}
+.btn.primary:hover{background:#22d3ee}
+.footer{font-size:11px;color:#484f58;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="offline-icon">&#9888;</div>
+<h1>Sem Conexão</h1>
+<p>Você está offline. O sistema continua funcionando com dados locais e sincronizará automaticamente quando a internet retornar.</p>
+<div class="status-bar"><span class="dot"></span> Modo Offline</div>
+<div class="info-grid">
+  <div class="info-card"><div class="num" id="osCount">0</div><div class="lbl">OS salvas</div></div>
+  <div class="info-card"><div class="num" id="clientCount">0</div><div class="lbl">Clientes</div></div>
+  <div class="info-card"><div class="num" id="pendingCount">0</div><div class="lbl">Pendentes</div></div>
+  <div class="info-card"><div class="num" id="cacheSize">0MB</div><div class="lbl">Cache</div></div>
+</div>
+<a class="btn primary" href="dashboard.html">&#8592; Voltar ao Sistema</a>
+<button class="btn" onclick="retryConnection()">&#8635; Tentar Reconectar</button>
+<div class="footer">InfoCelll AI Center &mdash; Dados salvos no dispositivo</div>
+<script>
+try{
+  var db=JSON.parse(localStorage.getItem('ic_dashboard')||'{}');
+  document.getElementById('osCount').textContent=(db.os||[]).length;
+  document.getElementById('clientCount').textContent=(db.clients||[]).length;
+  var q=JSON.parse(localStorage.getItem('ic_sync_queue')||'[]');
+  document.getElementById('pendingCount').textContent=q.length;
+}catch(e){}
+if('serviceWorker' in navigator&&navigator.serviceWorker.controller){
+  navigator.serviceWorker.controller.postMessage({type:'GET_CACHE_SIZE'});
+  navigator.serviceWorker.addEventListener('message',function(e){
+    if(e.data&&e.data.type==='CACHE_SIZE'){
+      document.getElementById('cacheSize').textContent=(e.data.size/1024/1024).toFixed(1)+'MB';
+    }
+  });
+}
+function retryConnection(){
+  if(navigator.onLine){location.href='dashboard.html'}
+  else{
+    var btn=event.target;btn.textContent='Ainda sem conexão...';btn.disabled=true;
+    setTimeout(function(){btn.textContent='\u21b5 Tentar Reconectar';btn.disabled=false},3000);
+  }
+}
+</script>
+</body>
+</html>

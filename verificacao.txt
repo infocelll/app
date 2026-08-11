@@ -1,0 +1,162 @@
+=====================================================================
+  RELATÓRIO DE VERIFICAÇÃO PROFUNDA - CENTRAL DE IA (InfoCelll)
+  Auditado em: 11/08/2026
+  Escopo: js/data.js | js/store.js | js/ai.js | js/app.js
+          css/central-ia.css | index.html
+  Método: leitura integral dos arquivos + cruzamento de dependências
+          (IDs, API CentralAI, API Store, campos das ferramentas) +
+          execução funcional em Chrome headless.
+=====================================================================
+
+RESUMO
+------
+  Arquivos lidos por completo: 6/6
+  Ferramentas no catálogo: 37
+  Erros encontrados: 0 (Crítico) | 0 (Importante) | 7 (Sugestão)
+  Falhas em tempo de execução: 0 (nenhum JS ERROR no console)
+  Status: I-1 e I-2 CORRIGIDOS em 11/08/2026 e validados em Chrome
+  headless (app carrega sem erros; race condition testado e OK).
+
+---------------------------------------------------------------------
+1. ERROS CRÍTICOS (quebram a funcionalidade)
+---------------------------------------------------------------------
+  Nenhum encontrado.
+
+  A aplicação carrega sem erros de JavaScript (validado com Chrome
+  headless: "SEM ERROS JS"). Fluxo dashboard -> ferramenta -> gerar
+  prompt -> salvar/copiar funciona de ponta a ponta.
+
+---------------------------------------------------------------------
+2. PROBLEMAS IMPORTANTES (funcionam, mas com risco ou efeito visível)
+---------------------------------------------------------------------
+  [I-1] css/central-ia.css:149  [CORRIGIDO]
+        > .cia-tool .cia-tool-ico { transition:transform var(--cia-tr); }
+        A variável `--cia` não existia no :root (só --cia-acc, --cia-bg,
+        --cia-tr etc.), o que tornava a transição do ícone instantânea.
+        Corrigido trocando var(--cia) -> var(--cia-tr) em 11/08/2026.
+
+  [I-2] js/store.js:42 + js/app.js:206  [CORRIGIDO]
+        - race condition no histórico
+        > updateLastHistory agora recebe o id do registro: addHistory
+          gera id único via uid() (timestamp base36 + contador +
+          aleatório, à prova de colisão no mesmo milissegundo) e
+          updateLastHistory(id,patch) atualiza apenas o registro com
+          aquele id, em vez de sempre h[0]. Corrigido em 11/08/2026.
+        - Validação: 2 ferramentas em sequência -> cada resposta parou
+          no registro correto (h0=RESP2, h1=RESP1); id inexistente é
+          ignorado. App carrega sem erros JS após a correção.
+
+---------------------------------------------------------------------
+3. SUGESTÕES (limpeza, robustez, boas práticas)
+---------------------------------------------------------------------
+  [S-1] js/app.js:14  (código morto)
+        - toolsByCat(c) é definida mas nunca chamada.
+        - Sugestão: remover ou utilizar.
+
+  [S-2] js/store.js:22  (código morto)
+        - deepCopy(o) é definida mas nunca chamada.
+        - Sugestão: remover.
+
+  [S-3] js/ai.js:14  (campo nunca usado)
+        - PROV.custom.needKey:false — a propriedade needKey não é lida
+          em lugar nenhum (nem em run, nem em statusText, nem na UI).
+        - Sugestão: remover ou implementar o comportamento.
+
+  [S-4] js/app.js:82  (titulo vs view)
+        - renderToolsGrid usa V[view]||'Ferramentas'. Todas as 8 views
+          existem em _CI_VIEWS, então o fallback nunca dispara. OK, mas
+          se adicionar nova view futuramente sem registrar em data.js,
+          o título vira "Ferramentas". Considerar validação.
+
+  [S-5] js/app.js:143-145  (acessibilidade)
+        - Botões de copiar usam emoji como único rótulo visual
+          (📋 📑 🗑️) sem atributo title em alguns pontos.
+        - Sugestão: adicionar aria-label/title para leitores de tela.
+
+  [S-6] js/app.js:184-214  (validação por campo)
+        - validate() mostra hint por campo, mas se o usuário corrige o
+          campo após a falha, o hint permanece até a próxima validação
+          (não há listener de input para limpá-lo).
+        - Sugestão: limpar hint/borda no 'input' do campo.
+
+  [S-7] js/app.js:221  (edge case no copiar)
+        - copyOut(): a condição copia a resposta se o output contém
+          texto que não é "⏳". Se a IA devolver literalmente "⏳" como
+          resposta, o prompt seria copiado. Improvável, mas uma flag
+          explícita "estado" (gerando/pronto) tornaria mais robusto.
+
+---------------------------------------------------------------------
+4. CHECAGENS QUE PASSARAM (sem problemas)
+---------------------------------------------------------------------
+  4.1. Ferramentas (37/37)
+       - Todas com id/view/nome/desc/icon/tags/cat/prompt definidos.
+       - Campos usados dentro de prompt() existem em fields[]
+         (cruzamento v.x vs k: verificado tool a tool - 0 divergências).
+       - doc_retirada (última do arquivo) confirmada manualmente.
+
+  4.2. API CentralAI (todos os chamados estao expostos)
+       - Chamados via onclick/oninput: openTool, runTool, copyOut,
+         savePromptFromOut, copyText, copyPrompt, toggleFav,
+         toggleFavPrompt, openPromptEditor, savePromptEditor,
+         deletePrompt, duplicatePrompt, filterPrompts,
+         openSavedPrompt, closeModal, clearHistory, selectProvider,
+         saveConfig, setTheme, AI, Store.
+       - Todos presentes em window.CentralAI (app.js:512).
+
+  4.3. IDs do DOM (referenciados vs existentes)
+       - ciaGlobalSearch, ciaModalTitle/Body/Overlay, ciaProviderBadge,
+         ciaSearchResults, ciaThemeToggle, ciaToasts, metaTheme: OK.
+       - IDs dinâmicos (ciaOut, ciaOutBar, ciaPromptList, ppNome...)
+         são criados no HTML das views/modal antes do uso: OK.
+
+  4.4. API Store (todos usados via S.)
+       - getFavorites(2) isFavorite(1) toggleFavorite(1) getHistory(2)
+         addHistory(1) updateLastHistory(1) clearHistory(1)
+         getPrompts(13) savePrompts(4) getFavPrompts(2)
+         toggleFavPrompt(1) getConfig(3) saveConfig(2) getTheme(5)
+         setTheme(1) — todos utilizados em app.js.
+
+  4.5. Segurança
+       - esc() usado em todas as interpolações de dados do usuário
+         (texto de prompts, campos, histórico, busca). Verificado em
+         Chrome headless com aspas/&/<: o escape em data-t é seguro
+         (dataset_ok=true). Sem XSS evidente.
+
+  4.6. Timeout de rede
+       - openaiCompatRun e geminiRun têm AbortController 60s. Testado
+         em headless com servidor travado: aborta com mensagem
+         "Timeout" (~300ms no teste com timer reduzido). OK.
+
+  4.7. CSS
+       - Todas as variáveis --cia-* usadas estão definidas no :root
+         (I-1 corrigido em 11/08/2026).
+       - --cia-pur e --cia-rs definidas mas ainda não usadas
+         (reservadas; podem ser removidas se não planejadas).
+
+  4.8. Persistência
+       - store.js envolve load/save em try/catch (localStorage cheio
+         não quebra a app).
+       - Histórico limitado a 100 registros.
+
+  4.9. Carregamento
+       - Ordem dos <script>: data -> store -> ai -> app. OK (app usa
+         window._CIA_TOOLS, Store e AI, todos anteriores).
+       - init() chamado após DOMContentLoaded com guarda.
+
+---------------------------------------------------------------------
+5. RECOMENDAÇÕES PRIORITÁRIAS
+---------------------------------------------------------------------
+  Concluído em 11/08/2026:
+    1. I-1 (var(--cia) -> var(--cia-tr)) — corrigido.
+    2. I-2 (correlação no updateLastHistory) — corrigido.
+
+  Quando sobrar tempo:
+    3. Remover código morto (S-1, S-2, S-3).
+    4. Melhorar acessibilidade dos botões de ícone (S-5).
+
+  Observação: nenhuma ferramenta automatizada (Node/ESLint) estava
+  disponível nesta máquina; a verificação foi estática (leitura integral
+  + cruzamento de dependências) e dinâmica (Chrome headless). Recomendo
+  rodar ESLint/Prettier em ambiente com Node para catch de erros de
+  sintaxe adicionais.
+=====================================================================
