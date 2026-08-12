@@ -1,12 +1,13 @@
-var CACHE_NAME='infocelll-v19';
-var STATIC_CACHE='infocelll-static-v19';
-var DYNAMIC_CACHE='infocelll-dynamic-v19';
+var CACHE_NAME='infocelll-v22';
+var STATIC_CACHE='infocelll-static-v22';
+var DYNAMIC_CACHE='infocelll-dynamic-v22';
 var OFFLINE_URL='offline.html';
 var MAIN_DB_NAME='InfoCelllDB';
 var OFFLINE_DB_NAME='InfoCelllOffline';
 
 var PRECACHE_URLS=[
   'dashboard.html',
+  'dashboard.app.js',
   'offline.html',
   'retirada-sem-os.html',
   'retirada-sem-os.js',
@@ -165,11 +166,17 @@ function runBackgroundSync(){
   return getLocalDB().then(function(db){
     if(!db)return;
     var url=db.config&&db.config.syncApiUrl;
-    if(!url)return;
+    var tok=db.config&&db.config.syncToken;
+    if(!url||!tok)return;
+    if(/^https:\/\//i.test(url)===false&&/^http:\/\/localhost/i.test(url)===false){
+      console.warn('[SW Sync] URL de sincronização bloqueada: exige HTTPS (ou localhost).');
+      return;
+    }
 
     var x=new XMLHttpRequest();
     x.open('PUT',url+'/api/data',true);
     x.setRequestHeader('Content-Type','application/json');
+    x.setRequestHeader('Authorization','Bearer '+tok);
     x.onload=function(){
       if(x.status>=200&&x.status<300){
         clearOfflineQueue();
