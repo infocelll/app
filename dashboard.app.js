@@ -19246,7 +19246,7 @@ if(window.innerWidth<=768){setTimeout(applyMobileCardView,500)}
 /* ==================== PWA + SAFE AREA CSS INJECTION ==================== */
 (function(){
   var s=document.createElement('style');
-  s.textContent='body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}'
+  s.textContent='body{padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}'
   +'.pwa-mode .sidebar{height:calc(100vh - env(safe-area-inset-top))}'
   +'.pwa-mode .sidebar-footer{padding-bottom:calc(16px + env(safe-area-inset-bottom))}'
   +'.pwa-mode .header{padding-top:calc(12px + env(safe-area-inset-top))}';

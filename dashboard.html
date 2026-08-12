@@ -58,7 +58,7 @@
 [data-theme="minimal"] .card{border:1px solid #e5e5e5}
 [data-theme="minimal"] body{font-family:'DM Sans',sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;overflow-y:scroll}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;overflow-y:scroll;padding-top:var(--hh)}
 input,select,textarea,button{font-family:inherit}
 a{color:var(--cyan);text-decoration:none}
 
@@ -97,7 +97,7 @@ a{color:var(--cyan);text-decoration:none}
 .clock{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);padding:4px 10px;background:var(--input);border-radius:var(--rs);border:1px solid var(--bdr)}
 
 /* Layout */
-.main{margin-left:var(--sw);margin-top:var(--hh);padding:24px;min-height:calc(100vh - var(--hh))}
+.main{margin-left:var(--sw);margin-top:0;padding:24px;min-height:calc(100vh - var(--hh))}
 .section{display:none}.section.active{display:block;animation:fadeUp .3s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -359,7 +359,8 @@ tr:hover td{background:var(--hover)}
   .header-actions #encLock,.header-actions button[onclick="openTONCalc()"]{display:none!important}
   .header-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
   .header-btn svg{width:18px;height:18px}
-  .main{padding:12px;margin-top:calc(52px + env(safe-area-inset-top))}
+  body{padding-top:calc(52px + env(safe-area-inset-top))}
+  .main{margin-top:0;padding:12px}
   .section-header{margin-bottom:14px}
   .section-title{font-size:17px}
   .section-sub{font-size:11px}
@@ -638,7 +639,8 @@ tr:hover td{background:var(--hover)}
 }
 @media(orientation:landscape) and (max-height:500px){
   .header{height:44px}
-  .main{margin-top:44px;padding:8px}
+  body{padding-top:44px}
+  .main{margin-top:0;padding:8px}
   .sidebar{height:100vh;height:100dvh}
   .modal{max-height:95vh;max-height:95dvh}
   .modal-body{max-height:calc(95vh - 80px);max-height:calc(95dvh - 80px)}
@@ -1380,6 +1382,7 @@ th.sorted-desc::after{content:' ?';font-size:10px;color:var(--cyan)}
 /* 68. Print styles */
 @media print{
   .sidebar,.header,.toast-container,.modal-overlay,.confetti-container,.os-notification-bar{display:none!important}
+  body{padding-top:0!important}
   .main{margin-left:0!important;margin-top:0!important}
   body{background:#fff!important;color:#000!important}
   .card{border:1px solid #ccc!important;box-shadow:none!important;page-break-inside:avoid}
@@ -2451,7 +2454,12 @@ tr.os-group-row td .os-group-hdr{padding:6px 4px}
 #dashAlerts{min-height:132px}
 #sec-dashboard .dash-widget[data-id="recent"] .table-wrap{min-height:300px}
 @media(max-width:768px){
-  #sec-dashboard .dash-widget[data-id="recent"] .table-wrap{min-height:430px}
+  #sec-dashboard .dash-widget[data-id="recent"] .table-wrap{min-height:820px}
+  #sec-dashboard .section-header{min-height:128px;align-items:flex-start}
+  #sec-dashboard .dash-widget[data-id="recent"] table.mobile-card-view tbody tr{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;padding:12px 14px;margin-bottom:12px}
+  #sec-dashboard .dash-widget[data-id="recent"] table.mobile-card-view tbody td{min-height:42px;padding:7px 0;border-bottom:1px solid var(--bdr)}
+  #sec-dashboard .dash-widget[data-id="recent"] table.mobile-card-view tbody td:nth-child(odd){border-right:1px solid var(--bdr);padding-right:10px}
+  #sec-dashboard .dash-widget[data-id="recent"] table.mobile-card-view tbody td:nth-last-child(-n+2){border-bottom:none}
 }
 html{scrollbar-gutter:stable}
 .logo,.navbar-brand img,img[src$=".png"]:not([width]):not([height]){aspect-ratio:auto}
@@ -2685,7 +2693,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- DASHBOARD -->
   <div class="section active" id="sec-dashboard">
-    <div class="section-header"><div><h2 class="section-title">Painel Geral <span class="badge-pro">ENTERPRISE</span></h2></div><div style="display:flex;align-items:center;gap:8px"><p class="section-sub" id="dashDate" style="font-size:12px"></p><button class="btn btn-secondary" onclick="toggleDashEdit()" id="dashEditBtn" style="font-size:11px;display:flex;align-items:center;gap:4px"><i data-lucide="pencil"></i> Personalizar</button><button class="btn btn-secondary" onclick="exportDashboardPDF()" title="Exportar Dashboard como PDF" style="font-size:11px;display:flex;align-items:center;gap:4px"><i data-lucide="file-text"></i> PDF</button></div></div>
+    <div class="section-header"><div><h2 class="section-title">Painel Geral <span class="badge-pro">ENTERPRISE</span></h2></div><div style="display:flex;align-items:center;gap:8px"><p class="section-sub" id="dashDate" style="font-size:12px;min-height:34px;line-height:1.4"></p><button class="btn btn-secondary" onclick="toggleDashEdit()" id="dashEditBtn" style="font-size:11px;display:flex;align-items:center;gap:4px"><i data-lucide="pencil"></i> Personalizar</button><button class="btn btn-secondary" onclick="exportDashboardPDF()" title="Exportar Dashboard como PDF" style="font-size:11px;display:flex;align-items:center;gap:4px"><i data-lucide="file-text"></i> PDF</button></div></div>
 
     <div class="dash-edit-bar" id="dashEditBar">
       <span class="edit-label"><i data-lucide="pencil"></i> Editando Dashboard</span>
