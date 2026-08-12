@@ -222,3 +222,71 @@
   Para cobertura adicional, rodar ESLint+Prettier e testar em
   Firefox/Safari.
 =====================================================================
+
+---------------------------------------------------------------------
+7. AUDITORIA DE SEGURANCA (ADICIONAL EM 11/08/2026)
+---------------------------------------------------------------------
+  Escopo extra: dashboard.html (auth/recovery/sync) e central-ia (API key)
+
+  [VULNERABILIDADES CORRIGIDAS]
+  - V-1 CRITICA: resposta secreta era armazenada em TEXTO PURO no
+    localStorage (DB.config.securityAnswer). Corrigido: agora e
+    securityAnswerHash (PBKDF2), com migrateSecurityAnswer() convertendo
+    dados antigos; tela de seguranca nao exibe mais a resposta.
+  - V-2 CRITICA: doPasswordRecovery() sem rate-limit permitia brute-force
+    na pergunta secreta. Corrigido: bloqueio apos 5 tentativas em 15min
+    (ic_recovery_lockout), com compat retroativa para legacy.
+  - V-3 MEDIA: API key da Central de IA em texto puro no cia_config.
+    Corrigido: AES-GCM (WebCrypto), chave 256-bit em cia_cfg_key;
+    descriptografada apenas em memoria (unlockConfig/getApiKey).
+  - V-4 MEDIA: runBackgroundSync() do service worker nao enviava token
+    (banco inteiro via PUT sem auth). Corrigido: Authorization Bearer +
+    bloqueio de URL nao-HTTPS.
+  - V-5 CRITICA: botao "Exportar Encriptado" (exportEncryptedBackup) nao
+    encriptava nada - salvava o banco inteiro em JSON legivel. Corrigido:
+    AES-GCM real com senha (PBKDF2 100k, salt+IV aleatorios), arquivo .icb;
+    importEncryptedBackup pede senha e rejeita senha errada/ct adulterado.
+    Documentado em docs/SEGURANCA_DADOS.md.
+
+  [TESTES ADICIONAIS]
+  - Recovery/hash: 16/16 PASS (hash, rate-limit, lockout, migracao, legacy)
+  - Criptografia AES-GCM API key: 12/12 PASS
+  - Criptografia de backup .icb: 6/6 PASS (sem texto plano, round-trip,
+    senha errada rejeitada, IV unico, salt 16B, ct adulterado detectado)
+  - Sintaxe JS: dashboard.html (5 scripts) e service-worker.js OK (node --check)
+
+  [PENDENCIAS REMANESCENTES]
+  - Dados de producao seguem em localStorage/IndexedDB em texto puro
+    (clientes CPF/telefone, financeiro). Protecao real exigiria backend
+    criptografado ou exclusao apos uso. A senha de tela nao e barreira.
+  - Carregar via HTTP em rede local vs HTTPS: HTTPS recomendado (Compartilhar
+    via PWA/localhost evita o perimetro); sync ja bloqueia nao-HTTPS.
+  - Sem CSP (scripts inline): manter disciplina de escH() em innerHTML.
+=====================================================================
+
+---------------------------------------------------------------------
+8. SYNCRONIZACAO COM MERGE POR REGISTRO (2.16.0, APLICADO 11/08/2026)
+---------------------------------------------------------------------
+  Problema: sync antigo sobrescrevia o banco inteiro; 2 dispositivos
+  editando coisas diferentes perdiam o edit da outra parte (last-write-wins).
+
+  SOLUCAO IMPLEMENTADA (dashboard.html):
+  - _stampChanged(): cada registro ganha updatedAt (novo ou migrado com
+    o ic_db_ts local); detecta mudancas/remocoes por diff em memoria.
+  - _mergeRemote(): junta por id + updatedAt (colecao a colecao) e mescla
+    config/integracoes chave a chave (local preservado).
+  - load() agora carrega o local PRIMEIRO e depois o remote (merge),
+    em vez de substituir o DB pelo servidor.
+  - syncSave() registra syncLastOk/syncLastTs para o diagnostico.
+  - Testar Conexao mostra o ultimo sync com sucesso.
+
+  TESTES (merge por registro, Node): 8/8 PASS
+    - remote mais novo vence; local mais novo vence
+    - uniao preserva registros de ambos os lados (sem perda)
+    - exclusao local respeitada (tombstone) - nao volta
+    - registros legados recebem updatedAt (migracao)
+    - config mesclada: chave local preservada + chave nova do remoto
+
+  LIMITACAO DOCUMENTADA: mesmo registro editado offline em 2 dispositivos
+  -> vence o updatedAt mais recente (perda pontual aceitavel).
+=====================================================================

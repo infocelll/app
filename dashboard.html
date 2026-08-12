@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="InfoCelll">
-<meta name="description" content="InfoCelll - Sistema de Gestão para Assistência Técnica">
+<meta name="description" content="InfoCelll - Sistema de GestÃ£o para AssistÃªncia TÃ©cnica">
 <link rel="apple-touch-icon" href="pwa/icons/icon-192.png">
 <link rel="apple-touch-startup-image" href="pwa/icons/icon-512.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https:; img-src 'self' data: https: blob:; connect-src 'self' https: ws:; font-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; manifest-src 'self'; media-src 'self' blob:;">
@@ -20,13 +20,15 @@
 <div id="appLoader"><div class="ld-logo" style="overflow:hidden"><img src="logo-infocelll.png" alt="InfoCelll" style="width:100%;height:100%;object-fit:contain;border-radius:inherit"></div><div class="ld-bar"><i></i></div></div>
 <script>window.addEventListener('load',function(){var l=document.getElementById('appLoader');if(l){setTimeout(function(){l.classList.add('hide');setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l)},350)},250)}});setTimeout(function(){var l=document.getElementById('appLoader');if(l){l.classList.add('hide');setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l)},350)}},5000);</script>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230a0e17'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='72' fill='%2306b6d4'%3EIC%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="logo-infocelll.png">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230a0e17'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='72' fill='%2306b6d4'%3EIC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=optional" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=optional" rel="stylesheet"></noscript>
 
 <style>
-:root{--bg:#0a0e1a;--bg2:#111827;--card:rgba(17,24,39,0.8);--card-s:#1a2235;--hover:rgba(30,41,59,0.6);--input:rgba(30,41,59,0.5);--bdr:rgba(100,116,139,0.2);--focus:#06b6d4;--txt:#f1f5f9;--txt2:#94a3b8;--txt3:#64748b;--cyan:#06b6d4;--cg:rgba(6,182,212,0.3);--cd:rgba(6,182,212,0.08);--grn:#22c55e;--gd:rgba(34,197,94,0.1);--ylw:#eab308;--yd:rgba(234,179,8,0.1);--red:#ef4444;--rd:rgba(239,68,68,0.1);--org:#f97316;--od:rgba(249,115,22,0.1);--pur:#a855f7;--pd:rgba(168,85,247,0.1);--blu:#3b82f6;--bd:rgba(59,130,246,0.1);--pnk:#ec4899;--sw:260px;--hh:60px;--r:12px;--rs:8px;--sh:0 4px 24px rgba(0,0,0,0.3);--shl:0 8px 40px rgba(0,0,0,0.4);--tr:0.2s ease;--trs:0.4s cubic-bezier(0.4,0,0.2,1)}
+:root{--bg:#0a0e1a;--bg2:#111827;--card:rgba(17,24,39,0.8);--card-s:#1a2235;--hover:rgba(30,41,59,0.6);--input:rgba(30,41,59,0.5);--bdr:rgba(100,116,139,0.2);--focus:#06b6d4;--txt:#f1f5f9;--txt2:#94a3b8;--txt3:#7c8ba1;--cyan:#06b6d4;--cg:rgba(6,182,212,0.3);--cd:rgba(6,182,212,0.08);--grn:#22c55e;--gd:rgba(34,197,94,0.1);--ylw:#eab308;--yd:rgba(234,179,8,0.1);--red:#ef4444;--rd:rgba(239,68,68,0.1);--org:#f97316;--od:rgba(249,115,22,0.1);--pur:#a855f7;--pd:rgba(168,85,247,0.1);--blu:#3b82f6;--bd:rgba(59,130,246,0.1);--pnk:#ec4899;--sw:260px;--hh:60px;--r:12px;--rs:8px;--sh:0 4px 24px rgba(0,0,0,0.3);--shl:0 8px 40px rgba(0,0,0,0.4);--tr:0.2s ease;--trs:0.4s cubic-bezier(0.4,0,0.2,1)}
 [data-theme="ocean"]{--bg:#0a1220;--bg2:#0f1a2e;--card:rgba(15,26,46,0.8);--card-s:#162035;--hover:rgba(20,40,70,0.6);--input:rgba(20,40,70,0.5);--bdr:rgba(50,100,150,0.25);--focus:#38bdf8;--txt:#e8f4fd;--txt2:#7cb8d8;--txt3:#4a8aaa;--cyan:#38bdf8;--cg:rgba(56,189,248,0.3);--cd:rgba(56,189,248,0.08)}
 [data-theme="executive"]{--bg:#0a0f1e;--bg2:#0e1426;--card:rgba(20,27,45,0.95);--card-s:#181f33;--hover:rgba(26,34,56,0.8);--input:rgba(26,34,56,0.6);--bdr:rgba(212,160,83,0.2);--focus:#d4a053;--txt:#e8e6e3;--txt2:#9ca3af;--txt3:#6b7280;--cyan:#d4a053;--cg:rgba(212,160,83,0.15);--cd:rgba(212,160,83,0.08);--grn:#10b981;--gd:rgba(16,185,129,0.12);--ylw:#f59e0b;--yd:rgba(245,158,11,0.12);--red:#ef4444;--rd:rgba(239,68,68,0.12)}
 [data-theme="executive"] .sidebar{border-right:2px solid rgba(212,160,83,0.3)}
@@ -2443,6 +2445,17 @@ tr.os-group-row td .os-group-hdr{padding:6px 4px}
   .ai-config-grid{grid-template-columns:1fr}
 }
 
+
+
+/* ==== PERFORMANCE PATCH (Lighthouse) ==== */
+#dashAlerts{min-height:132px}
+#sec-dashboard .dash-widget[data-id="recent"] .table-wrap{min-height:300px}
+@media(max-width:768px){
+  #sec-dashboard .dash-widget[data-id="recent"] .table-wrap{min-height:430px}
+}
+html{scrollbar-gutter:stable}
+.logo,.navbar-brand img,img[src$=".png"]:not([width]):not([height]){aspect-ratio:auto}
+
 </style>
 <style>.pdv-cols{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}@media(max-width:780px){.pdv-cols{grid-template-columns:1fr!important}}
 .autoos-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:start}@media(max-width:900px){.autoos-grid{grid-template-columns:1fr!important}}
@@ -2552,8 +2565,8 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="logo-icon" style="margin:0 auto 16px"><img src="logo-infocelll.png" alt="InfoCelll" style="width:100%;height:100%;object-fit:contain;border-radius:inherit"></div>
     <h2>InfoCelll</h2>
     <p style="color:var(--txt3);font-size:13px;margin-bottom:12px">Painel de Gesto</p>
-    <div class="os-login-lock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Conexão Segura  Ambiente Protegido</div>
-    <div class="login-field"><label for="loginUser">Usuário</label><input type="text" id="loginUser" name="username" autocomplete="username" placeholder="Digite seu usuário"></div>
+    <div class="os-login-lock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> ConexÃ£o Segura  Ambiente Protegido</div>
+    <div class="login-field"><label for="loginUser">UsuÃ¡rio</label><input type="text" id="loginUser" name="username" autocomplete="username" placeholder="Digite seu usuÃ¡rio"></div>
     <div class="login-field"><label for="loginPass">Senha</label><div class="pwd-toggle"><input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Digite sua senha"><button class="pwd-eye" onclick="togglePwd()"></button></div></div>
     <div class="login-field" id="masterPwdField" style="display:none"><label for="loginMaster">Senha Mestra</label><div class="pwd-toggle"><input type="password" id="loginMaster" autocomplete="off" placeholder="Digite a senha mestra"><button class="pwd-eye" onclick="toggleMasterPwd()"></button></div></div>
     <div id="masterPwdHint" style="font-size:11px;color:var(--txt3);margin-bottom:8px;display:none"></div>
@@ -2584,15 +2597,15 @@ window.addEventListener('DOMContentLoaded',function(){
       <button class="nav-group-toggle" onclick="toggleNavGroup(this)">CRM <span class="arrow">&#9654;</span></button>
       <div class="nav-group-items collapsed">
         <button class="nav-item" data-s="clientes" onclick="showSection('clientes')"><i data-lucide="users"></i>Clientes<span class="nav-badge" id="navBadgeCli">0</span></button>
-        <button class="nav-item" data-s="interacoes" onclick="showSection('interacoes')"><i data-lucide="message-square"></i>Interações</button>
+        <button class="nav-item" data-s="interacoes" onclick="showSection('interacoes')"><i data-lucide="message-square"></i>InteraÃ§Ãµes</button>
       </div>
     </div>
     <div class="nav-group">
       <button class="nav-group-toggle" onclick="toggleNavGroup(this)">Operacoes <span class="arrow">&#9654;</span></button>
       <div class="nav-group-items collapsed">
-        <button class="nav-item" data-s="ordens" onclick="showSection('ordens')"><i data-lucide="clipboard-list"></i>Ordens de Serviço<span class="nav-badge" id="navBadgeOS">0</span></button>
+        <button class="nav-item" data-s="ordens" onclick="showSection('ordens')"><i data-lucide="clipboard-list"></i>Ordens de ServiÃ§o<span class="nav-badge" id="navBadgeOS">0</span></button>
         <button class="nav-item" data-s="pdv" onclick="showSection('pdv')"><i data-lucide="shopping-bag"></i>PDV / Caixa</button>
-        <button class="nav-item" data-s="Serviços" onclick="showSection('Serviços')"><i data-lucide="wrench"></i>Serviços</button>
+        <button class="nav-item" data-s="ServiÃ§os" onclick="showSection('ServiÃ§os')"><i data-lucide="wrench"></i>ServiÃ§os</button>
         <button class="nav-item" data-s="produtos" onclick="showSection('produtos')"><i data-lucide="package"></i>Produtos / Estoque<span class="nav-badge" id="navBadgeEst" style="background:var(--ylw)">!</span></button>
       </div>
     </div>
@@ -2611,15 +2624,15 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="nav-group">
       <button class="nav-group-toggle" onclick="toggleNavGroup(this)">Sistema <span class="arrow">&#9654;</span></button>
       <div class="nav-group-items collapsed">
-        <button class="nav-item" data-s="Relatrios" onclick="showSection('Relatrios')"><i data-lucide="bar-chart-3"></i>Relatórios Avançados</button>
+        <button class="nav-item" data-s="Relatrios" onclick="showSection('Relatrios')"><i data-lucide="bar-chart-3"></i>RelatÃ³rios AvanÃ§ados</button>
         <button class="nav-item" data-s="checklists" onclick="showSection('checklists')"><i data-lucide="clipboard-check"></i>Checklists</button>
-        <button class="nav-item" data-s="Previso" onclick="showSection('Previso')"><i data-lucide="trending-up"></i>Previsão Financeira</button>
-        <button class="nav-item" data-s="Usurios" onclick="showSection('Usurios')"><i data-lucide="user-cog"></i>Usuários e LGPD</button>
-        <button class="nav-item" data-s="Histricos" onclick="showSection('Histricos')"><i data-lucide="history"></i>Históricos e Alertas</button>
-        <button class="nav-item" onclick="zerarTudo()" title="Apagar dados por grupos com confirmação detalhada e senha"><i data-lucide="trash-2" style="color:var(--red)"></i>Limpeza de Dados</button>
+        <button class="nav-item" data-s="Previso" onclick="showSection('Previso')"><i data-lucide="trending-up"></i>PrevisÃ£o Financeira</button>
+        <button class="nav-item" data-s="Usurios" onclick="showSection('Usurios')"><i data-lucide="user-cog"></i>UsuÃ¡rios e LGPD</button>
+        <button class="nav-item" data-s="Histricos" onclick="showSection('Histricos')"><i data-lucide="history"></i>HistÃ³ricos e Alertas</button>
+        <button class="nav-item" onclick="zerarTudo()" title="Apagar dados por grupos com confirmaÃ§Ã£o detalhada e senha"><i data-lucide="trash-2" style="color:var(--red)"></i>Limpeza de Dados</button>
         <button class="nav-item" data-s="ai-config" onclick="showSection('ai-config')"><i data-lucide="cpu"></i>IA Monitor e Config</button>
         <button class="nav-item" data-s="config" onclick="showSection('config')"><i data-lucide="settings"></i>Config</button>
-        <button class="nav-item" data-s="impressao" onclick="showSection('impressao')"><i data-lucide="printer"></i>Impressão</button>
+        <button class="nav-item" data-s="impressao" onclick="showSection('impressao')"><i data-lucide="printer"></i>ImpressÃ£o</button>
         <button class="nav-item" data-s="wa-central" onclick="showSection('wa-central')"><i data-lucide="message-circle"></i>WhatsApp</button>
       </div>
     </div>
@@ -2628,18 +2641,18 @@ window.addEventListener('DOMContentLoaded',function(){
       <div class="nav-group-items collapsed">
         <button class="nav-item" onclick="openCentralIAMod()" title="Central de IA - hub de ferramentas e prompts"><i data-lucide="brain"></i>Central de IA <span class="nav-badge" id="centralIaBadge" style="background:var(--grn)">IA</span></button>
         <button class="nav-item" data-s="os-online" onclick="showSection('os-online')"><i data-lucide="external-link"></i>OS Online</button>
-        <button class="nav-item" data-s="manual" onclick="showSection('manual')"><i data-lucide="book-open"></i>Manual do Usuário</button>
+        <button class="nav-item" data-s="manual" onclick="showSection('manual')"><i data-lucide="book-open"></i>Manual do UsuÃ¡rio</button>
         <button class="nav-item" data-s="novidades" onclick="showSection('novidades')"><i data-lucide="sparkles"></i>Novidades <span class="nav-badge" id="novidadesBadge" style="display:none">NEW</span></button>
       </div>
     </div>
   </nav>
-  <div class="sidebar-footer"><div class="avatar" id="userAvatar" style="cursor:pointer" onclick="var u=getCurrentUser();if(u)openUserModal(u.id)" title="Perfil do Usuário">A</div><button class="header-btn" onclick="openMenuEditor()" title="Personalizar Menu"><i data-lucide="pencil" style="width:16px;height:16px"></i></button><button class="header-btn" onclick="openShortcutEditor()" title="Atalhos de Teclado"><i data-lucide="keyboard" style="width:16px;height:16px"></i></button><button class="header-btn" id="pwaInstallBtn" onclick="installPWA()" title="Instalar Aplicativo" style="display:none"><i data-lucide="download" style="width:16px;height:16px"></i></button></div>
+  <div class="sidebar-footer"><div class="avatar" id="userAvatar" style="cursor:pointer" onclick="var u=getCurrentUser();if(u)openUserModal(u.id)" title="Perfil do UsuÃ¡rio">A</div><button class="header-btn" onclick="openMenuEditor()" title="Personalizar Menu"><i data-lucide="pencil" style="width:16px;height:16px"></i></button><button class="header-btn" onclick="openShortcutEditor()" title="Atalhos de Teclado"><i data-lucide="keyboard" style="width:16px;height:16px"></i></button><button class="header-btn" id="pwaInstallBtn" onclick="installPWA()" title="Instalar Aplicativo" style="display:none"><i data-lucide="download" style="width:16px;height:16px"></i></button></div>
 </aside>
 <div class="sidebar-overlay" onclick="closeSidebarMobile()"></div>
 
 <!-- HEADER -->
 <header class="header" id="header">
-  <button class="menu-toggle" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+  <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menu" title="Menu"><i data-lucide="menu"></i></button>
   <h1 class="header-title" id="headerTitle">Painel</h1>
   <div class="breadcrumb" id="breadcrumb"><span>InfoCelll</span> / <span id="bcSection">Painel</span></div>
   <button class="search-mobile-toggle" onclick="toggleMobileSearch()" title="Buscar"><i data-lucide="search"></i></button>
@@ -2660,7 +2673,7 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
     <span class="header-sep"></span>
     <button class="header-btn" onclick="toggleAlertFlyout()" title="Alertas ativos" style="position:relative"><i data-lucide="bell" style="width:16px;height:16px"></i><span id="alertHeadBadge" style="display:none;position:absolute;top:2px;right:2px;min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:700;align-items:center;justify-content:center;padding:0 4px;line-height:1">0</span></button>
-    <button class="header-btn" onclick="location.reload()" title="Atualizar Página"><i data-lucide="refresh-cw" style="width:16px;height:16px"></i></button>
+    <button class="header-btn" onclick="location.reload()" title="Atualizar PÃ¡gina"><i data-lucide="refresh-cw" style="width:16px;height:16px"></i></button>
   </div>
 </header>
 
@@ -2718,7 +2731,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <div class="dash-quick-btn" onclick="openBarcodeModal()"><div class="q-icon" style="background:rgba(249,115,22,0.1);color:var(--org)"><i data-lucide="scan-line"></i></div><div class="q-label">Scanner</div></div>
         <div class="dash-quick-btn" onclick="showSection('ia')"><div class="q-icon" style="background:rgba(236,72,153,0.1);color:var(--pnk)"><i data-lucide="brain"></i></div><div class="q-label">Central IA</div></div>
         <div class="dash-quick-btn" onclick="showSection('wa-central')"><div class="q-icon" style="background:rgba(37,211,102,0.1);color:#25d366"><i data-lucide="message-circle"></i></div><div class="q-label">WhatsApp</div></div>
-        <div class="dash-quick-btn" onclick="showSection('Relatrios')"><div class="q-icon" style="background:rgba(59,130,246,0.1);color:var(--blu)"><i data-lucide="bar-chart-3"></i></div><div class="q-label">Relatórios</div></div>
+        <div class="dash-quick-btn" onclick="showSection('Relatrios')"><div class="q-icon" style="background:rgba(59,130,246,0.1);color:var(--blu)"><i data-lucide="bar-chart-3"></i></div><div class="q-label">RelatÃ³rios</div></div>
         <div class="dash-quick-btn" onclick="showSection('checklists')"><div class="q-icon" style="background:rgba(20,184,166,0.1);color:var(--cyan)"><i data-lucide="clipboard-check"></i></div><div class="q-label">Checklist</div></div>
       </div>
     </div>
@@ -2733,7 +2746,7 @@ window.addEventListener('DOMContentLoaded',function(){
       <div class="dash-today-strip" id="dashTodayStrip" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
         <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px">
           <div style="width:44px;height:44px;border-radius:12px;background:var(--cd);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="file-text"></i></div>
-          <div><div style="font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">OS Hoje</div><div style="font-size:22px;font-weight:800;color:var(--txt1);font-family:'JetBrains Mono',monospace" id="sOsHoje">0</div><div style="font-size:10px;color:var(--txt3)" id="sOsHojeInfo">0 abertas, 0 concluídas</div></div>
+          <div><div style="font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">OS Hoje</div><div style="font-size:22px;font-weight:800;color:var(--txt1);font-family:'JetBrains Mono',monospace" id="sOsHoje">0</div><div style="font-size:10px;color:var(--txt3)" id="sOsHojeInfo">0 abertas, 0 concluÃ­das</div></div>
         </div>
         <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="circle-dollar-sign"></i></div>
@@ -2741,7 +2754,7 @@ window.addEventListener('DOMContentLoaded',function(){
         </div>
         <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="check-circle"></i></div>
-          <div><div style="font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">Concluídas</div><div style="font-size:22px;font-weight:800;color:var(--grn);font-family:'JetBrains Mono',monospace" id="sConc">0</div><div style="font-size:10px;color:var(--txt3)" id="sConcRate">0% conclusao</div></div>
+          <div><div style="font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">ConcluÃ­das</div><div style="font-size:22px;font-weight:800;color:var(--grn);font-family:'JetBrains Mono',monospace" id="sConc">0</div><div style="font-size:10px;color:var(--txt3)" id="sConcRate">0% conclusao</div></div>
         </div>
         <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(234,179,8,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="clipboard-list"></i></div>
@@ -2791,9 +2804,9 @@ window.addEventListener('DOMContentLoaded',function(){
  
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
       <div class="ai-config" id="aiConfig" style="margin:0">
-        <h3 style="margin:0 0 12px;font-size:14px;font-weight:700">Configuração da IA</h3>
+        <h3 style="margin:0 0 12px;font-size:14px;font-weight:700">ConfiguraÃ§Ã£o da IA</h3>
         <p style="color:var(--txt2);margin:0 0 12px;font-size:12px">Escolha seu provedor e configure sua chave de API para ativar a IA completa.</p>
-        <div class="ai-provider" id="providerGroq" onclick="selectProvider('groq')"><div class="ai-provider-dot"></div><div><div style="font-weight:600;font-size:13px">Groq (Recomendado)</div><div style="font-size:11px;color:var(--txt2);margin-top:2px">Super rápido, 14.400 requests/dia grátis</div></div><div class="ai-provider-check" id="checkGroq"></div></div>
+        <div class="ai-provider" id="providerGroq" onclick="selectProvider('groq')"><div class="ai-provider-dot"></div><div><div style="font-weight:600;font-size:13px">Groq (Recomendado)</div><div style="font-size:11px;color:var(--txt2);margin-top:2px">Super rÃ¡pido, 14.400 requests/dia grÃ¡tis</div></div><div class="ai-provider-check" id="checkGroq"></div></div>
         <div class="ai-provider" id="providerGemini" onclick="selectProvider('gemini')"><div class="ai-provider-dot" style="border-color:var(--blu)"></div><div><div style="font-weight:600;font-size:13px">Google Gemini</div><div style="font-size:11px;color:var(--txt2);margin-top:2px">Fallback, multimodal, 1.500 req/dia</div></div><div class="ai-provider-check" id="checkGemini"></div></div>
         <div class="ai-provider" id="providerOffline" onclick="selectProvider('offline')"><div class="ai-provider-dot" style="border-color:var(--ylw)"></div><div><div style="font-weight:600;font-size:13px">Modo Offline</div><div style="font-size:11px;color:var(--txt2);margin-top:2px">Respostas inteligentes sem API key</div></div><div class="ai-provider-check" id="checkOffline"></div></div>
         <div style="margin-top:12px;display:flex;gap:8px"><input class="input" id="aiApiKey" placeholder="Sua API Key..." style="flex:1;font-size:12px"><button class="btn btn-primary" onclick="saveAIConfig()" style="font-size:12px">Salvar</button></div>
@@ -2802,9 +2815,9 @@ window.addEventListener('DOMContentLoaded',function(){
  
       <div style="display:flex;flex-direction:column;gap:8px">
         <div class="ai-feature-grid" style="margin:0;grid-template-columns:1fr;gap:8px">
-          <div class="ai-feature-card" onclick="document.getElementById('aiInput').value='Quantas OS abertas hoje?';sendAi()"><div class="ai-feature-icon" style="background:rgba(6,182,212,0.1);color:var(--cyan);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📋</div><div style="flex:1"><h4 style="margin:0 0 2px;font-size:12px">Consultas OS</h4><p style="font-size:11px;color:var(--txt3);margin:0">"Quantas OS abertas hoje?"</p></div></div>
-          <div class="ai-feature-card" onclick="document.getElementById('aiInput').value='Quanto faturei este mês?';sendAi()"><div class="ai-feature-icon" style="background:rgba(34,197,94,0.1);color:var(--grn);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">💰</div><div style="flex:1"><h4 style="margin:0 0 2px;font-size:12px">Financeiro</h4><p style="font-size:11px;color:var(--txt3);margin:0">"Quanto faturei este mês?"</p></div></div>
-          <div class="ai-feature-card" onclick="document.getElementById('aiInput').value='Buscar cliente';sendAi()"><div class="ai-feature-icon" style="background:rgba(168,85,247,0.1);color:var(--pur);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">👤</div><div style="flex:1"><h4 style="margin:0 0 2px;font-size:12px">Clientes</h4><p style="font-size:11px;color:var(--txt3);margin:0">"Buscar cliente Fulano"</p></div></div>
+          <div class="ai-feature-card" onclick="document.getElementById('aiInput').value='Quantas OS abertas hoje?';sendAi()"><div class="ai-feature-icon" style="background:rgba(6,182,212,0.1);color:var(--cyan);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">ðŸ“‹</div><div style="flex:1"><h4 style="margin:0 0 2px;font-size:12px">Consultas OS</h4><p style="font-size:11px;color:var(--txt3);margin:0">"Quantas OS abertas hoje?"</p></div></div>
+          <div class="ai-feature-card" onclick="document.getElementById('aiInput').value='Quanto faturei este mÃªs?';sendAi()"><div class="ai-feature-icon" style="background:rgba(34,197,94,0.1);color:var(--grn);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">ðŸ’°</div><div style="flex:1"><h4 style="margin:0 0 2px;font-size:12px">Financeiro</h4><p style="font-size:11px;color:var(--txt3);margin:0">"Quanto faturei este mÃªs?"</p></div></div>
+          <div class="ai-feature-card" onclick="document.getElementById('aiInput').value='Buscar cliente';sendAi()"><div class="ai-feature-icon" style="background:rgba(168,85,247,0.1);color:var(--pur);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">ðŸ‘¤</div><div style="flex:1"><h4 style="margin:0 0 2px;font-size:12px">Clientes</h4><p style="font-size:11px;color:var(--txt3);margin:0">"Buscar cliente Fulano"</p></div></div>
         </div>
       </div>
     </div>
@@ -2818,19 +2831,19 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- OS ONLINE -->
   <div class="section" id="sec-os-online">
-    <div class="section-header"><div><h2 class="section-title">OS Online - Portal do Cliente</h2><p class="section-sub">Gerencie links de acompanhamento e veja o progresso dos serviços</p></div></div>
+    <div class="section-header"><div><h2 class="section-title">OS Online - Portal do Cliente</h2><p class="section-sub">Gerencie links de acompanhamento e veja o progresso dos serviÃ§os</p></div></div>
 
     <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px" id="osOnlineStats"></div>
 
     <div class="card" style="margin-bottom:12px"><div class="card-header"><span class="card-title"><i data-lucide="link" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i>Gerar Link para Cliente</span></div><div class="card-body" style="padding:12px">
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:end">
         <div class="form-group" style="margin:0;flex:2;min-width:160px"><select class="input" id="osOnlineSelect" onchange="document.getElementById('btnGenLink').disabled=!this.value" style="font-size:11px;padding:5px 8px"><option value="">OS...</option></select></div>
-        <div class="form-group" style="margin:0;flex:1;min-width:120px"><select class="input" id="osOnlineMode" style="font-size:11px;padding:5px 8px"><option value="simples">Simples (Status+Timeline)</option><option value="completo">Completo (+Comentários)</option></select></div>
+        <div class="form-group" style="margin:0;flex:1;min-width:120px"><select class="input" id="osOnlineMode" style="font-size:11px;padding:5px 8px"><option value="simples">Simples (Status+Timeline)</option><option value="completo">Completo (+ComentÃ¡rios)</option></select></div>
         <label style="display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 8px;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:var(--rs);cursor:pointer;white-space:nowrap"><input type="checkbox" id="osOnlineUsePin" onchange="document.getElementById('osOnlinePinRow').style.display=this.checked?'block':'none'" style="accent-color:var(--org)"> <i data-lucide="lock" style="width:10px;height:10px;color:var(--org)"></i> PIN</label>
         <button class="btn btn-primary btn-sm" onclick="generateOnlineLink()" id="btnGenLink" disabled style="font-size:10px;padding:5px 10px"><i data-lucide="zap" style="width:12px;height:12px"></i> Gerar</button>
       </div>
       <div id="osOnlinePinRow" style="display:none;margin-top:8px;padding:8px 10px;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:var(--rs)">
-        <div style="display:flex;align-items:center;gap:8px"><i data-lucide="shield" style="width:12px;height:12px;color:var(--org)"></i><input type="text" class="input" id="osOnlinePinInput" maxlength="4" placeholder="0000" style="max-width:80px;font-family:monospace;font-size:14px;letter-spacing:2px;padding:4px 6px"><span style="font-size:10px;color:var(--txt3)">O cliente precisará deste PIN</span></div>
+        <div style="display:flex;align-items:center;gap:8px"><i data-lucide="shield" style="width:12px;height:12px;color:var(--org)"></i><input type="text" class="input" id="osOnlinePinInput" maxlength="4" placeholder="0000" style="max-width:80px;font-family:monospace;font-size:14px;letter-spacing:2px;padding:4px 6px"><span style="font-size:10px;color:var(--txt3)">O cliente precisarÃ¡ deste PIN</span></div>
       </div>
       <div id="onlineLinkResult" style="display:none;margin-top:8px;padding:8px 10px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:var(--rs)">
         <div style="display:flex;gap:6px;align-items:center;font-size:11px;font-weight:600;color:var(--grn);margin-bottom:6px"><i data-lucide="check-circle" style="width:12px;height:12px"></i> Link gerado</div>
@@ -2851,13 +2864,13 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="card"><div class="card-header"><span class="card-title"><i data-lucide="list" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i>Links Ativos</span></div><div class="card-body" style="padding:0"><div class="table-wrap"><table style="font-size:11px"><thead><tr><th>OS</th><th>Cliente</th><th>Tipo</th><th>PIN</th><th>Criado</th><th>Progresso</th><th>Acoes</th></tr></thead><tbody id="osOnlineLinks"></tbody></table></div></div></div>
   </div>
 
-  <!-- Manual do Usuário -->
+  <!-- Manual do UsuÃ¡rio -->
   <div class="section" id="sec-manual">
-    <div class="section-header"><div><h2 class="section-title">Manual do Usuário</h2><p class="section-sub">Guia completo do InfoCelll</p></div></div>
+    <div class="section-header"><div><h2 class="section-title">Manual do UsuÃ¡rio</h2><p class="section-sub">Guia completo do InfoCelll</p></div></div>
     <div class="card"><div class="card-body" style="text-align:center;padding:40px">
       <i data-lucide="book-open"></i>
-      <h3 style="margin:0 0 8px">Manual do Usuário Premium</h3>
-      <p style="color:var(--txt2);margin:0 0 16px">21 capítulos, passos numerados e ilustrações SVG detalhadas. Guia visual completo do sistema.</p>
+      <h3 style="margin:0 0 8px">Manual do UsuÃ¡rio Premium</h3>
+      <p style="color:var(--txt2);margin:0 0 16px">21 capÃ­tulos, passos numerados e ilustraÃ§Ãµes SVG detalhadas. Guia visual completo do sistema.</p>
       <button class="btn btn-primary" onclick="openManualInline()">&#128214; Abrir Manual</button>
     </div></div>
   </div>
@@ -2941,11 +2954,11 @@ window.addEventListener('DOMContentLoaded',function(){
   <div id="manualOverlay" class="manual-overlay">
     <div class="manual-shell">
     <div class="manual-topbar">
-      <div class="manual-brand"><span class="manual-brand-ic" style="overflow:hidden;background:none"><img src="logo-infocelll.png" alt="InfoCelll" style="width:22px;height:22px;object-fit:contain"></span><b>Manual do Usuário</b><span class="manual-ver">InfoCell ERP</span></div>
+      <div class="manual-brand"><span class="manual-brand-ic" style="overflow:hidden;background:none"><img src="logo-infocelll.png" alt="InfoCelll" style="width:22px;height:22px;object-fit:contain"></span><b>Manual do UsuÃ¡rio</b><span class="manual-ver">InfoCell ERP</span></div>
       <div class="manual-top-actions">
         <div class="manual-searchwrap"><i data-lucide="search" style="width:14px;height:14px"></i><input type="text" id="manualSearch" placeholder="Buscar no manual..." oninput="filterManual(this.value)" autocomplete="off"></div>
-        <button class="manual-navbtn" id="manualPrev" onclick="manualNav(-1)" title="Capítulo anterior"><i data-lucide="chevron-left" style="width:14px;height:14px"></i></button>
-        <button class="manual-navbtn" id="manualNext" onclick="manualNav(1)" title="Próximo capítulo"><i data-lucide="chevron-right" style="width:14px;height:14px"></i></button>
+        <button class="manual-navbtn" id="manualPrev" onclick="manualNav(-1)" title="CapÃ­tulo anterior"><i data-lucide="chevron-left" style="width:14px;height:14px"></i></button>
+        <button class="manual-navbtn" id="manualNext" onclick="manualNav(1)" title="PrÃ³ximo capÃ­tulo"><i data-lucide="chevron-right" style="width:14px;height:14px"></i></button>
         <button class="manual-closebtn" onclick="closeManualOverlay()">&#10005; Fechar</button>
       </div>
     </div>
@@ -2979,20 +2992,20 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- INTERACOES -->
   <div class="section" id="sec-interacoes">
-        <div class="section-header"><div><h2 class="section-title">Histórico de Interações</h2></div><button class="btn btn-primary" onclick="openInterAoModal()">+ Nova Interação</button></div>
+        <div class="section-header"><div><h2 class="section-title">HistÃ³rico de InteraÃ§Ãµes</h2></div><button class="btn btn-primary" onclick="openInterAoModal()">+ Nova InteraÃ§Ã£o</button></div>
     <div class="card"><div class="card-body" id="interAoList"></div></div>
   </div>
 
   <!-- ORDENS -->
   <div class="section" id="sec-ordens">
-    <div class="section-header" style="flex-wrap:wrap;gap:8px"><div><h2 class="section-title" style="display:flex;align-items:center;gap:8px">Ordens de Serviço<span class="badge-pro">ENTERPRISE</span></h2></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><div class="os-view-toggle" style="display:flex;border:1px solid var(--bdr);border-radius:20px;overflow:hidden"><button class="btn btn-sm" id="osViewTable" onclick="switchOSView('table')" style="border-radius:20px 0 0 20px;border:none;background:var(--cyan);color:#000;padding:4px 10px;font-size:10px;font-weight:700">Tabela</button><button class="btn btn-sm" id="osViewKanban" onclick="switchOSView('kanban')" style="border-radius:0 20px 20px 0;border:none;background:var(--input);color:var(--txt);padding:4px 10px;font-size:10px">Kanban</button></div><button class="btn btn-primary" onclick="openNewOS()" style="display:flex;align-items:center;gap:4px;padding:4px 12px;font-size:12px;min-height:32px">+ Nova OS</button></div></div>
+    <div class="section-header" style="flex-wrap:wrap;gap:8px"><div><h2 class="section-title" style="display:flex;align-items:center;gap:8px">Ordens de ServiÃ§o<span class="badge-pro">ENTERPRISE</span></h2></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><div class="os-view-toggle" style="display:flex;border:1px solid var(--bdr);border-radius:20px;overflow:hidden"><button class="btn btn-sm" id="osViewTable" onclick="switchOSView('table')" style="border-radius:20px 0 0 20px;border:none;background:var(--cyan);color:#000;padding:4px 10px;font-size:10px;font-weight:700">Tabela</button><button class="btn btn-sm" id="osViewKanban" onclick="switchOSView('kanban')" style="border-radius:0 20px 20px 0;border:none;background:var(--input);color:var(--txt);padding:4px 10px;font-size:10px">Kanban</button></div><button class="btn btn-primary" onclick="openNewOS()" style="display:flex;align-items:center;gap:4px;padding:4px 12px;font-size:12px;min-height:32px">+ Nova OS</button></div></div>
     <div class="card">
       <div class="table-toolbar" style="padding:10px 14px">
         <div style="display:flex;flex-direction:column;gap:8px;width:100%">
           <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <div class="os-search-wrap" style="position:relative;flex:1;min-width:180px;max-width:280px"><input type="text" id="osSearch" placeholder="OS, cliente, aparelho..." style="width:100%;padding:5px 10px;border:1px solid var(--bdr);border-radius:20px;background:var(--input);color:var(--txt);font-size:12px" oninput="debouncedRenderOS()"></div>
-          <div class="os-date-range" style="display:flex;align-items:center;gap:4px;border:1px solid var(--bdr);border-radius:var(--rs);padding:2px 8px;background:var(--input)"><span style="font-size:10px;color:var(--txt3);font-weight:600">De</span><input type="date" id="dateFrom" onchange="renderOS()" style="padding:2px 2px;font-size:11px;border:none;background:transparent;color:var(--txt);width:auto;max-width:115px"><span style="font-size:10px;color:var(--txt3);font-weight:600">Até</span><input type="date" id="dateTo" onchange="renderOS()" style="padding:2px 2px;font-size:11px;border:none;background:transparent;color:var(--txt);width:auto;max-width:115px"></div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportOrdensTXT()" title="Exportar TXT" style="padding:4px 6px;min-height:32px"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importOrdensInput').click()" title="Importar TXT" style="padding:4px 6px;min-height:32px"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importOrdensInput" accept=".txt" style="display:none" onchange="importOrdensTXT(this.files[0])"><button class="btn btn-sm btn-secondary" onclick="quickPrintOrcamento()" title="OS rápida" style="padding:4px 10px;min-height:32px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#f59e0b;border-color:#f59e0b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>OS Rápida</button><button class="btn btn-sm btn-secondary" onclick="generateOSProductivityReport()" title="Relatório de produtividade" style="padding:4px 10px;min-height:32px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#0d9488;border-color:#0d9488"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Relatório</button><button class="btn btn-sm btn-secondary" onclick="openRetiradaModal()" title="Retirada sem OS" style="padding:4px 10px;min-height:32px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Retirada sem OS</button></div>
+          <div class="os-date-range" style="display:flex;align-items:center;gap:4px;border:1px solid var(--bdr);border-radius:var(--rs);padding:2px 8px;background:var(--input)"><span style="font-size:10px;color:var(--txt3);font-weight:600">De</span><input type="date" id="dateFrom" onchange="renderOS()" style="padding:2px 2px;font-size:11px;border:none;background:transparent;color:var(--txt);width:auto;max-width:115px"><span style="font-size:10px;color:var(--txt3);font-weight:600">AtÃ©</span><input type="date" id="dateTo" onchange="renderOS()" style="padding:2px 2px;font-size:11px;border:none;background:transparent;color:var(--txt);width:auto;max-width:115px"></div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportOrdensTXT()" title="Exportar TXT" style="padding:4px 6px;min-height:32px"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importOrdensInput').click()" title="Importar TXT" style="padding:4px 6px;min-height:32px"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importOrdensInput" accept=".txt" style="display:none" onchange="importOrdensTXT(this.files[0])"><button class="btn btn-sm btn-secondary" onclick="quickPrintOrcamento()" title="OS rÃ¡pida" style="padding:4px 10px;min-height:32px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#f59e0b;border-color:#f59e0b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>OS RÃ¡pida</button><button class="btn btn-sm btn-secondary" onclick="generateOSProductivityReport()" title="RelatÃ³rio de produtividade" style="padding:4px 10px;min-height:32px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#0d9488;border-color:#0d9488"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>RelatÃ³rio</button><button class="btn btn-sm btn-secondary" onclick="openRetiradaModal()" title="Retirada sem OS" style="padding:4px 10px;min-height:32px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Retirada sem OS</button></div>
           </div>
           <div class="filter-group" id="filterGroup" style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
             <button class="filter-btn active" onclick="filterOS('todos',this)" style="padding:3px 8px;font-size:10px">Todos <span class="filter-count" id="fAll">0</span></button>
@@ -3006,25 +3019,25 @@ window.addEventListener('DOMContentLoaded',function(){
           </div>
         </div>
       </div>
-      <div class="table-wrap"><table><thead><tr><th onclick="sortTbl('id')">Codigo</th><th onclick="sortTbl('cliente')">Cliente</th><th onclick="sortTbl('aparelho')">Aparelho</th><th onclick="sortTbl('status')">Status</th><th onclick="sortTbl('tecnico')">Técnico</th><th onclick="sortTbl('data')">Data</th><th onclick="sortTbl('valor')">Valor</th><th>Acoes</th></tr></thead><tbody id="osBody"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th onclick="sortTbl('id')">Codigo</th><th onclick="sortTbl('cliente')">Cliente</th><th onclick="sortTbl('aparelho')">Aparelho</th><th onclick="sortTbl('status')">Status</th><th onclick="sortTbl('tecnico')">TÃ©cnico</th><th onclick="sortTbl('data')">Data</th><th onclick="sortTbl('valor')">Valor</th><th>Acoes</th></tr></thead><tbody id="osBody"></tbody></table></div>
       <div class="table-footer"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div class="table-info" id="tableInfo">0 de 0</div><div class="pagination" id="pagination"></div></div></div>
     </div>
   </div>
 
   <!-- SERVICOS -->
-  <div class="section" id="sec-Serviços">
-    <div class="section-header"><div><h2 class="section-title">Serviços</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportServicosTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importServicosInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importServicosInput" accept=".txt" style="display:none" onchange="importServicosTXT(this.files[0])"><button class="btn btn-primary" onclick="openSvcModal()">+ Novo</button></div></div>
+  <div class="section" id="sec-ServiÃ§os">
+    <div class="section-header"><div><h2 class="section-title">ServiÃ§os</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportServicosTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importServicosInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importServicosInput" accept=".txt" style="display:none" onchange="importServicosTXT(this.files[0])"><button class="btn btn-primary" onclick="openSvcModal()">+ Novo</button></div></div>
     <div class="card"><div class="table-toolbar"><div class="filter-group" style="gap:6px">
-        <input class="input" id="svcSearch" placeholder="Buscar por nome ou descrição..." oninput="renderServices()" style="max-width:200px;padding:6px 10px;font-size:12px;margin:0 2px">
-        <input class="input" id="svcPriceMin" type="number" min="0" step="0.01" placeholder="Preço min" oninput="renderServices()" title="Preço mínimo" style="max-width:88px;padding:6px 10px;font-size:12px;margin:0 2px">
-        <input class="input" id="svcPriceMax" type="number" min="0" step="0.01" placeholder="Preço max" oninput="renderServices()" title="Preço máximo" style="max-width:88px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <input class="input" id="svcSearch" placeholder="Buscar por nome ou descriÃ§Ã£o..." oninput="renderServices()" style="max-width:200px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <input class="input" id="svcPriceMin" type="number" min="0" step="0.01" placeholder="PreÃ§o min" oninput="renderServices()" title="PreÃ§o mÃ­nimo" style="max-width:88px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <input class="input" id="svcPriceMax" type="number" min="0" step="0.01" placeholder="PreÃ§o max" oninput="renderServices()" title="PreÃ§o mÃ¡ximo" style="max-width:88px;padding:6px 10px;font-size:12px;margin:0 2px">
         <select class="input" id="svcSort" onchange="renderServices()" title="Ordenar por" style="max-width:190px;padding:6px 10px;font-size:12px">
           <option value="data-desc">Data (mais recentes)</option>
           <option value="data-asc">Data (mais antigas)</option>
           <option value="nome-asc">Nome (A-Z)</option>
           <option value="nome-desc">Nome (Z-A)</option>
-          <option value="preco-asc">Preço (menor p/ maior)</option>
-          <option value="preco-desc">Preço (maior p/ menor)</option>
+          <option value="preco-asc">PreÃ§o (menor p/ maior)</option>
+          <option value="preco-desc">PreÃ§o (maior p/ menor)</option>
           <option value="uso-desc">Mais usados em OS</option>
           <option value="uso-asc">Menos usados em OS</option>
         </select>
@@ -3034,13 +3047,13 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- PDV -->
   <div class="section" id="sec-pdv">
-    <div class="section-header"><div><h2 class="section-title">PDV / Caixa</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="openPDVCashModal()" title="Abrir/fechar caixa, sangria, suprimento e saldo" style="border-color:var(--ylw);color:var(--ylw);font-weight:600"><i data-lucide="banknote" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"></i>Caixa</button><button class="btn btn-sm btn-secondary" onclick="exportPDVTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importPDVInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importPDVInput" accept=".txt" style="display:none" onchange="importPDVTXT(this.files[0])"><button class="btn btn-sm btn-secondary" onclick="openProductScanner()" title="Escanear produto com leitor USB → mostra a foto e adiciona à venda"><i data-lucide="scan-line" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"></i>Scanner de Produtos</button><button class="btn btn-sm btn-secondary" onclick="quickPrintOrcamento()" title="OS rápida - PDF com serviços, peças e pagamento" style="border-color:#f59e0b;color:#f59e0b;font-weight:600"><i data-lucide="file-text" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"></i>OS Rápida</button><button class="btn btn-primary" onclick="openPDV()">+ Nova Venda</button></div></div>
+    <div class="section-header"><div><h2 class="section-title">PDV / Caixa</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="openPDVCashModal()" title="Abrir/fechar caixa, sangria, suprimento e saldo" style="border-color:var(--ylw);color:var(--ylw);font-weight:600"><i data-lucide="banknote" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"></i>Caixa</button><button class="btn btn-sm btn-secondary" onclick="exportPDVTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importPDVInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importPDVInput" accept=".txt" style="display:none" onchange="importPDVTXT(this.files[0])"><button class="btn btn-sm btn-secondary" onclick="openProductScanner()" title="Escanear produto com leitor USB â†’ mostra a foto e adiciona Ã  venda"><i data-lucide="scan-line" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"></i>Scanner de Produtos</button><button class="btn btn-sm btn-secondary" onclick="quickPrintOrcamento()" title="OS rÃ¡pida - PDF com serviÃ§os, peÃ§as e pagamento" style="border-color:#f59e0b;color:#f59e0b;font-weight:600"><i data-lucide="file-text" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"></i>OS RÃ¡pida</button><button class="btn btn-primary" onclick="openPDV()">+ Nova Venda</button></div></div>
     <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
       <div class="stat-card green"><div class="stat-value" id="pdvHoje" style="color:var(--grn)">R$ 0</div><div class="stat-label">Vendas Hoje</div></div>
       <div class="stat-card cyan"><div class="stat-value" id="pdvQtd">0</div><div class="stat-label">Qtd Vendas</div></div>
       <div class="stat-card yellow"><div class="stat-value" id="pdvTicket" style="color:var(--ylw)">R$ 0</div><div class="stat-label">Ticket Medio</div></div>
     </div>
-    <div class="card"><div class="card-header" style="flex-wrap:wrap;gap:8px"><span class="card-title">Histórico de Vendas</span><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto"><input type="text" id="pdvHistSearch" placeholder="Buscar cliente, item, pagamento..." oninput="renderPDV()" style="padding:6px 10px;font-size:12px;border:1px solid var(--bdr);border-radius:var(--rs);background:var(--input);color:var(--txt);width:220px;max-width:100%"><select id="pdvHistRange" onchange="renderPDV()" style="padding:6px 10px;font-size:12px;border:1px solid var(--bdr);border-radius:var(--rs);background:var(--input);color:var(--txt)"><option value="today">Hoje</option><option value="7d">Últimos 7 dias</option><option value="30d">Últimos 30 dias</option><option value="all" selected>Todo o período</option></select><button class="btn btn-sm btn-secondary" onclick="exportPDV()" title="Exportar CSV"><i data-lucide="download" style="width:14px;height:14px"></i> CSV</button></div></div><div class="card-body"><div id="pdvHistInfo" style="font-size:11px;color:var(--txt3);margin-bottom:8px"></div><div class="table-wrap"><table><thead><tr><th>Data/Hora</th><th>Cliente</th><th>Itens</th><th>Pagamento</th><th>Total</th><th>Ações</th></tr></thead><tbody id="pdvHistory"></tbody></table></div></div></div>
+    <div class="card"><div class="card-header" style="flex-wrap:wrap;gap:8px"><span class="card-title">HistÃ³rico de Vendas</span><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto"><input type="text" id="pdvHistSearch" placeholder="Buscar cliente, item, pagamento..." oninput="renderPDV()" style="padding:6px 10px;font-size:12px;border:1px solid var(--bdr);border-radius:var(--rs);background:var(--input);color:var(--txt);width:220px;max-width:100%"><select id="pdvHistRange" onchange="renderPDV()" style="padding:6px 10px;font-size:12px;border:1px solid var(--bdr);border-radius:var(--rs);background:var(--input);color:var(--txt)"><option value="today">Hoje</option><option value="7d">Ãšltimos 7 dias</option><option value="30d">Ãšltimos 30 dias</option><option value="all" selected>Todo o perÃ­odo</option></select><button class="btn btn-sm btn-secondary" onclick="exportPDV()" title="Exportar CSV"><i data-lucide="download" style="width:14px;height:14px"></i> CSV</button></div></div><div class="card-body"><div id="pdvHistInfo" style="font-size:11px;color:var(--txt3);margin-bottom:8px"></div><div class="table-wrap"><table><thead><tr><th>Data/Hora</th><th>Cliente</th><th>Itens</th><th>Pagamento</th><th>Total</th><th>AÃ§Ãµes</th></tr></thead><tbody id="pdvHistory"></tbody></table></div></div></div>
   </div>
 
   <!-- PRODUTOS -->
@@ -3056,10 +3069,10 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
     <div class="card">
       <div class="table-toolbar"><div class="filter-group">
-        <input class="input" id="prdSearchInput" placeholder="Buscar nome, codigo ou preço..." oninput="filterPrdTable()" style="max-width:220px;padding:6px 10px;font-size:12px;margin:0 2px">
+        <input class="input" id="prdSearchInput" placeholder="Buscar nome, codigo ou preÃ§o..." oninput="filterPrdTable()" style="max-width:220px;padding:6px 10px;font-size:12px;margin:0 2px">
       </div>
 
-      <div class="table-wrap"><table><thead><tr><th style="width:50px"></th><th>Produto</th><th>Código</th><th>Categoria</th><th>Custo</th><th>Venda</th><th>Margem</th><th>Estoque</th><th>Acoes</th></tr></thead><tbody id="prdBody"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th style="width:50px"></th><th>Produto</th><th>CÃ³digo</th><th>Categoria</th><th>Custo</th><th>Venda</th><th>Margem</th><th>Estoque</th><th>Acoes</th></tr></thead><tbody id="prdBody"></tbody></table></div>
     </div>
   </div>
 </div>
@@ -3083,20 +3096,20 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- FINANCEIRO -->
   <div class="section" id="sec-financeiro">
-    <div class="section-header"><div><h2 class="section-title">Financeiro</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportFinanceiroCSV()" title="Exportar CSV/Excel"><i data-lucide="table" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="exportFinanceiroChart()" title="Exportar Grafico PNG"><i data-lucide="pie-chart" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="exportFinanceiroTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importFinanceiroInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importFinanceiroInput" accept=".txt" style="display:none" onchange="importFinanceiroTXT(this.files[0])"><button class="btn btn-primary" onclick="openFinModal()">+ Nova Transação</button></div></div>
+    <div class="section-header"><div><h2 class="section-title">Financeiro</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="exportFinanceiroCSV()" title="Exportar CSV/Excel"><i data-lucide="table" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="exportFinanceiroChart()" title="Exportar Grafico PNG"><i data-lucide="pie-chart" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="exportFinanceiroTXT()" title="Exportar TXT"><i data-lucide="download" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-secondary" onclick="document.getElementById('importFinanceiroInput').click()" title="Importar TXT"><i data-lucide="upload" style="width:14px;height:14px"></i></button><input type="file" id="importFinanceiroInput" accept=".txt" style="display:none" onchange="importFinanceiroTXT(this.files[0])"><button class="btn btn-primary" onclick="openFinModal()">+ Nova TransaÃ§Ã£o</button></div></div>
     <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
       <div class="stat-card green"><div class="stat-value" id="fEntrada" style="color:var(--grn)">R$ 0</div><div class="stat-label">Entradas</div></div>
       <div class="stat-card red"><div class="stat-value" id="fSaida" style="color:var(--red)">R$ 0</div><div class="stat-label">Sadas</div></div>
       <div class="stat-card cyan"><div class="stat-value" id="fSaldo" style="color:var(--cyan)">R$ 0</div><div class="stat-label">Saldo</div></div>
       <div class="stat-card yellow"><div class="stat-value" id="fLucro" style="color:var(--ylw)">R$ 0</div><div class="stat-label">Lucro</div></div>
     </div>
-    <div class="card"><div class="table-wrap"><table><thead><tr><th>Data</th><th>Tipo</th><th>Descrição</th><th>Valor</th><th>Pagamento</th><th>Status</th><th>Acoes</th></tr></thead><tbody id="finBody"></tbody></table></div></div>
+    <div class="card"><div class="table-wrap"><table><thead><tr><th>Data</th><th>Tipo</th><th>DescriÃ§Ã£o</th><th>Valor</th><th>Pagamento</th><th>Status</th><th>Acoes</th></tr></thead><tbody id="finBody"></tbody></table></div></div>
   </div>
 
 
   <!-- Relatrios -->
   <div class="section" id="sec-Relatrios">
-    <div class="section-header"><div><h2 class="section-title">Relatórios e BI</h2><p class="section-sub">KPIs, gráficos e geração de PDF/Excel/CSV/TXT</p></div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span style="font-size:11px;color:var(--txt3);font-weight:600">Período:</span><input type="date" id="biFrom" style="padding:3px 6px;font-size:11px;border:1px solid var(--bdr);border-radius:6px;background:var(--input);color:var(--txt)"><input type="date" id="biTo" style="padding:3px 6px;font-size:11px;border:1px solid var(--bdr);border-radius:6px;background:var(--input);color:var(--txt)"><button class="btn btn-sm btn-secondary" onclick="biClearPeriod()" style="font-size:11px" title="Limpar período">Limpar</button><button class="btn btn-sm btn-secondary" onclick="exportDashboardPDF()" style="font-size:11px"><i data-lucide="file-text" style="width:13px;height:13px;vertical-align:-2px;margin-right:3px"></i>PDF do Painel</button><button class="btn btn-sm btn-primary" onclick="biRunReport('geral-pdf')" style="font-size:11px"><i data-lucide="download" style="width:13px;height:13px;vertical-align:-2px;margin-right:3px"></i>Relatório Geral</button></div></div>
+    <div class="section-header"><div><h2 class="section-title">RelatÃ³rios e BI</h2><p class="section-sub">KPIs, grÃ¡ficos e geraÃ§Ã£o de PDF/Excel/CSV/TXT</p></div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span style="font-size:11px;color:var(--txt3);font-weight:600">PerÃ­odo:</span><input type="date" id="biFrom" style="padding:3px 6px;font-size:11px;border:1px solid var(--bdr);border-radius:6px;background:var(--input);color:var(--txt)"><input type="date" id="biTo" style="padding:3px 6px;font-size:11px;border:1px solid var(--bdr);border-radius:6px;background:var(--input);color:var(--txt)"><button class="btn btn-sm btn-secondary" onclick="biClearPeriod()" style="font-size:11px" title="Limpar perÃ­odo">Limpar</button><button class="btn btn-sm btn-secondary" onclick="exportDashboardPDF()" style="font-size:11px"><i data-lucide="file-text" style="width:13px;height:13px;vertical-align:-2px;margin-right:3px"></i>PDF do Painel</button><button class="btn btn-sm btn-primary" onclick="biRunReport('geral-pdf')" style="font-size:11px"><i data-lucide="download" style="width:13px;height:13px;vertical-align:-2px;margin-right:3px"></i>RelatÃ³rio Geral</button></div></div>
     <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
       <div class="stat-card cyan"><div class="stat-value" id="relVendas">0</div><div class="stat-label">Total Vendas</div></div>
       <div class="stat-card green"><div class="stat-value" id="relLucro">R$ 0</div><div class="stat-label">Lucro Liquido</div></div>
@@ -3114,10 +3127,10 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="card"><div class="card-header"><span class="card-title">Desempenho por Tecnico</span></div><div class="card-body" id="relTecnicos"></div></div>
 
     <div class="card" style="margin-top:10px">
-      <div class="card-header"><span class="card-title">Central de Relatórios</span><span style="font-size:11px;color:var(--txt3)">Clique em um card para gerar</span></div>
+      <div class="card-header"><span class="card-title">Central de RelatÃ³rios</span><span style="font-size:11px;color:var(--txt3)">Clique em um card para gerar</span></div>
       <div class="card-body">
         <div class="bi-cats">
-        <div class="bi-cat"><div class="bi-cat-title"><i data-lucide="clipboard-list" style="width:14px;height:14px;vertical-align:-2px"></i> Ordens de Serviço</div>
+        <div class="bi-cat"><div class="bi-cat-title"><i data-lucide="clipboard-list" style="width:14px;height:14px;vertical-align:-2px"></i> Ordens de ServiÃ§o</div>
           <div class="bi-grid">
             <button class="bi-tile" onclick="biRunReport('produtividade-os')"><span class="bi-tile-ic" style="background:rgba(13,148,136,0.12);color:#0d9488">&#9883;</span><span class="bi-tile-t">Produtividade OS</span><span class="bi-tile-f">PDF</span></button>
             <button class="bi-tile" onclick="biRunReport('os-csv')"><span class="bi-tile-ic" style="background:rgba(6,182,212,0.12);color:#06b6d4">&#9881;</span><span class="bi-tile-t">OS Exportar</span><span class="bi-tile-f">CSV</span></button>
@@ -3144,7 +3157,7 @@ window.addEventListener('DOMContentLoaded',function(){
             <button class="bi-tile" onclick="biRunReport('vendas-resumo')"><span class="bi-tile-ic" style="background:rgba(249,115,22,0.12);color:#f97316">&#9883;</span><span class="bi-tile-t">Resumo Vendas</span><span class="bi-tile-f">CSV</span></button>
             <button class="bi-tile" onclick="biRunReport('vendas-json')"><span class="bi-tile-ic" style="background:rgba(168,85,247,0.12);color:#a855f7">&#123;</span><span class="bi-tile-t">Vendas</span><span class="bi-tile-f">JSON</span></button>
             <button class="bi-tile" onclick="biRunReport('vendas-lucro')"><span class="bi-tile-ic" style="background:rgba(13,148,136,0.12);color:#0d9488">&#36;</span><span class="bi-tile-t">Lucro Real (CMV)</span><span class="bi-tile-f">PDF</span></button>
-            <button class="bi-tile" onclick="biRunReport('vendas-chart')"><span class="bi-tile-ic" style="background:rgba(6,182,212,0.12);color:#06b6d4">&#9685;</span><span class="bi-tile-t">Vendas Gráfico</span><span class="bi-tile-f">PDF</span></button>
+            <button class="bi-tile" onclick="biRunReport('vendas-chart')"><span class="bi-tile-ic" style="background:rgba(6,182,212,0.12);color:#06b6d4">&#9685;</span><span class="bi-tile-t">Vendas GrÃ¡fico</span><span class="bi-tile-f">PDF</span></button>
             <button class="bi-tile" onclick="biRunReport('vend-comp')"><span class="bi-tile-ic" style="background:rgba(234,179,8,0.12);color:#eab308">&#8596;</span><span class="bi-tile-t">Comparativo</span><span class="bi-tile-f">PDF</span></button>
           </div>
         </div>
@@ -3165,7 +3178,7 @@ window.addEventListener('DOMContentLoaded',function(){
             <button class="bi-tile" onclick="biRunReport('cliente-top')"><span class="bi-tile-ic" style="background:rgba(34,197,94,0.12);color:#22c55e">&#9733;</span><span class="bi-tile-t">Top Clientes</span><span class="bi-tile-f">PDF</span></button>
           </div>
         </div>
-        <div class="bi-cat"><div class="bi-cat-title"><i data-lucide="wrench" style="width:14px;height:14px;vertical-align:-2px"></i> Serviços</div>
+        <div class="bi-cat"><div class="bi-cat-title"><i data-lucide="wrench" style="width:14px;height:14px;vertical-align:-2px"></i> ServiÃ§os</div>
           <div class="bi-grid">
             <button class="bi-tile" onclick="biRunReport('servicos-pdf')"><span class="bi-tile-ic" style="background:rgba(13,148,136,0.12);color:#0d9488">&#9883;</span><span class="bi-tile-t">Catalogo Servicos</span><span class="bi-tile-f">PDF</span></button>
             <button class="bi-tile" onclick="biRunReport('servicos-txt')"><span class="bi-tile-ic" style="background:rgba(100,116,139,0.12);color:#64748b">&#9776;</span><span class="bi-tile-t">Servicos</span><span class="bi-tile-f">TXT</span></button>
@@ -3178,7 +3191,7 @@ window.addEventListener('DOMContentLoaded',function(){
             <button class="bi-tile" onclick="biRunReport('forn-txt')"><span class="bi-tile-ic" style="background:rgba(100,116,139,0.12);color:#64748b">&#9776;</span><span class="bi-tile-t">Fornecedores</span><span class="bi-tile-f">TXT</span></button>
           </div>
         </div>
-        <div class="bi-cat"><div class="bi-cat-title"><i data-lucide="clipboard-check" style="width:14px;height:14px;vertical-align:-2px"></i> Checklists / Segurança</div>
+        <div class="bi-cat"><div class="bi-cat-title"><i data-lucide="clipboard-check" style="width:14px;height:14px;vertical-align:-2px"></i> Checklists / SeguranÃ§a</div>
           <div class="bi-grid">
             <button class="bi-tile" onclick="biRunReport('chk-txt')"><span class="bi-tile-ic" style="background:rgba(100,116,139,0.12);color:#64748b">&#9776;</span><span class="bi-tile-t">Checklists</span><span class="bi-tile-f">TXT</span></button>
             <button class="bi-tile" onclick="biRunReport('seg-pdf')"><span class="bi-tile-ic" style="background:rgba(239,68,68,0.12);color:#ef4444">&#9888;</span><span class="bi-tile-t">Seguranca</span><span class="bi-tile-f">PDF</span></button>
@@ -3203,12 +3216,12 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- PORTAL DO CLIENTE -->
   <div class="section" id="sec-portal">
-    <div class="section-header"><div><h2 class="section-title">Portal do Cliente</h2><p class="section-sub">Gerencie acessos, PINs, configuraes e veja o log de ações do portal</p></div></div>
+    <div class="section-header"><div><h2 class="section-title">Portal do Cliente</h2><p class="section-sub">Gerencie acessos, PINs, configuraes e veja o log de aÃ§Ãµes do portal</p></div></div>
     <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:16px">
       <div class="stat-card" style="cursor:pointer" onclick="portalConsultOS()"><div class="stat-icon" style="color:var(--cyan)"><i data-lucide="search"></i></div><div class="stat-label">Consultar OS</div><div class="stat-value" style="font-size:12px;color:var(--cyan)">Ver Status</div></div>
-      <div class="stat-card" style="cursor:pointer" onclick="portalApprove()"><div class="stat-icon" style="color:var(--grn)"><i data-lucide="check-circle"></i></div><div class="stat-label">Aprovar Orçamento</div><div class="stat-value" style="font-size:12px;color:var(--grn)">Pendentes</div></div>
+      <div class="stat-card" style="cursor:pointer" onclick="portalApprove()"><div class="stat-icon" style="color:var(--grn)"><i data-lucide="check-circle"></i></div><div class="stat-label">Aprovar OrÃ§amento</div><div class="stat-value" style="font-size:12px;color:var(--grn)">Pendentes</div></div>
       <div class="stat-card" style="cursor:pointer" onclick="portalManagePins()"><div class="stat-icon" style="color:var(--org)"><i data-lucide="lock"></i></div><div class="stat-label">Gerenciar PINs</div><div class="stat-value" style="font-size:12px;color:var(--org)">Segurana</div></div>
-      <div class="stat-card" style="cursor:pointer" onclick="viewPortalLogs()"><div class="stat-icon" style="color:var(--red)"><i data-lucide="activity"></i></div><div class="stat-label">Log de Ações</div><div class="stat-value" style="font-size:12px;color:var(--red)">Registros</div></div>
+      <div class="stat-card" style="cursor:pointer" onclick="viewPortalLogs()"><div class="stat-icon" style="color:var(--red)"><i data-lucide="activity"></i></div><div class="stat-label">Log de AÃ§Ãµes</div><div class="stat-value" style="font-size:12px;color:var(--red)">Registros</div></div>
       <div class="stat-card" style="cursor:pointer" onclick="portalConfig()"><div class="stat-icon" style="color:var(--purple)"><i data-lucide="settings"></i></div><div class="stat-label">Config Portal</div><div class="stat-value" style="font-size:12px;color:var(--purple)">Ajustes</div></div>
     </div>
     <div class="card"><div class="card-header"><span class="card-title" id="portalContentTitle">Painel do Portal</span></div><div class="card-body" id="portalContent"><div class="empty-state">Selecione uma opcao acima</div></div></div>
@@ -3279,12 +3292,12 @@ window.addEventListener('DOMContentLoaded',function(){
         </div>
       </div>
       <div class="chk-section">
-        <div class="chk-section-title"><i data-lucide="wrench"></i> Diagnóstico Técnico</div>
+        <div class="chk-section-title"><i data-lucide="wrench"></i> DiagnÃ³stico TÃ©cnico</div>
         <div class="chk-progress-wrap"><div class="chk-progress-bar"><div class="chk-progress-fill" id="chkProgressFill"></div></div><div class="chk-progress-label" id="chkProgressLabel">0 de 44 itens marcados (0%)</div></div>
         <div class="chk-tables">
           <div>
             <table class="chk-table" id="tabela-estado">
-              <tr><th>ESTADO FÍSICO EXTERNO</th><th>S <input type="checkbox" onchange="chkSelectCol('tabela-estado',1,this)"></th><th>N <input type="checkbox" onchange="chkSelectCol('tabela-estado',2,this)"></th></tr>
+              <tr><th>ESTADO FÃSICO EXTERNO</th><th>S <input type="checkbox" onchange="chkSelectCol('tabela-estado',1,this)"></th><th>N <input type="checkbox" onchange="chkSelectCol('tabela-estado',2,this)"></th></tr>
               <tr><td>Tela trincada</td><td class="check-cell"><input type="checkbox" onchange="chkExclusivo(this)"></td><td class="check-cell"><input type="checkbox" onchange="chkExclusivo(this)"></td></tr>
               <tr><td>Traseira trincada</td><td class="check-cell"><input type="checkbox" onchange="chkExclusivo(this)"></td><td class="check-cell"><input type="checkbox" onchange="chkExclusivo(this)"></td></tr>
               <tr><td>Laterais amassadas</td><td class="check-cell"><input type="checkbox" onchange="chkExclusivo(this)"></td><td class="check-cell"><input type="checkbox" onchange="chkExclusivo(this)"></td></tr>
@@ -3327,7 +3340,7 @@ window.addEventListener('DOMContentLoaded',function(){
             </table>
           </div>
           <div>
-            <div class="form-group"><label>Observações</label><textarea id="chk-obs" rows="6" maxlength="500" placeholder="Detalhes do servico..." oninput="chkUpdateObs()"></textarea><div style="font-size:11px;color:var(--txt3);text-align:right" id="chkObsCounter">0 / 500</div></div>
+            <div class="form-group"><label>ObservaÃ§Ãµes</label><textarea id="chk-obs" rows="6" maxlength="500" placeholder="Detalhes do servico..." oninput="chkUpdateObs()"></textarea><div style="font-size:11px;color:var(--txt3);text-align:right" id="chkObsCounter">0 / 500</div></div>
           </div>
         </div>
       </div>
@@ -3366,18 +3379,18 @@ window.addEventListener('DOMContentLoaded',function(){
   <!-- ALERTAS -->
   <!-- CONFIG -->
   <div class="section" id="sec-config">
-    <div class="section-header"><div><h2 class="section-title">Configurações</h2></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="showSection('Personalizao')" style="font-size:11px"><i data-lucide="sliders-horizontal" style="width:12px;height:12px"></i> Personalização</button><span style="width:8px"></span><button class="btn btn-sm btn-secondary" onclick="cfgCollapseAll(true)" style="font-size:11px"><i data-lucide="chevrons-down-up" style="width:12px;height:12px"></i> Recolher</button><button class="btn btn-sm btn-secondary" onclick="cfgCollapseAll(false)" style="font-size:11px"><i data-lucide="chevrons-up-down" style="width:12px;height:12px"></i> Expandir</button></div></div>
+    <div class="section-header"><div><h2 class="section-title">ConfiguraÃ§Ãµes</h2></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-sm btn-secondary" onclick="showSection('Personalizao')" style="font-size:11px"><i data-lucide="sliders-horizontal" style="width:12px;height:12px"></i> PersonalizaÃ§Ã£o</button><span style="width:8px"></span><button class="btn btn-sm btn-secondary" onclick="cfgCollapseAll(true)" style="font-size:11px"><i data-lucide="chevrons-down-up" style="width:12px;height:12px"></i> Recolher</button><button class="btn btn-sm btn-secondary" onclick="cfgCollapseAll(false)" style="font-size:11px"><i data-lucide="chevrons-up-down" style="width:12px;height:12px"></i> Expandir</button></div></div>
     <div class="cards-grid">
     <div class="cfg-group-title"><i data-lucide="building-2" style="width:13px;height:13px"></i>Empresa e Identidade</div>
     <div class="card"><div class="card-header" onclick="toggleCfgCard(this)"><span class="card-title"><i data-lucide="building-2" style="width:13px;height:13px"></i>Empresa</span><span class="cfg-chev">&#9660;</span></div><div class="card-body"><div class="form-grid">
       <div class="form-group"><label>Nome</label><input type="text" id="cfgEmpresa" value="InfoCelll"></div>
       <div class="form-group"><label>CNPJ</label><input type="text" id="cfgCnpj" placeholder="00.000.000/0001-00"></div>
-      <div class="form-group full"><label>Endereço</label><input type="text" id="cfgEndereco" value="Av. Fagundes Varela, 380 - Loja 11 - Jardim Atlantico - Olinda-PE"></div>
+      <div class="form-group full"><label>EndereÃ§o</label><input type="text" id="cfgEndereco" value="Av. Fagundes Varela, 380 - Loja 11 - Jardim Atlantico - Olinda-PE"></div>
       <div class="form-group"><label>Telefone</label><input type="text" id="cfgTel" value="(81) 98733-2162"></div>
       <div class="form-group"><label>WhatsApp</label><input type="text" id="cfgWhatsApp" placeholder="(81) 98733-2162"></div>
       <div class="form-group"><label>Email</label><input type="email" id="cfgEmail"></div>
       <div class="form-group"><label>Site</label><input type="text" id="cfgSite" placeholder="www.infocelll.com.br"></div>
-      <div class="form-group full"><label>Link de Avaliação no Google (Google Business Profile)</label><input type="text" id="cfgLinkGoogle" placeholder="https://search.google.com/local/writereview?placeid=SEU_ID"></div>
+      <div class="form-group full"><label>Link de AvaliaÃ§Ã£o no Google (Google Business Profile)</label><input type="text" id="cfgLinkGoogle" placeholder="https://search.google.com/local/writereview?placeid=SEU_ID"></div>
     </div><div style="margin-top:16px"><button class="btn btn-primary" onclick="saveConfig()">Salvar</button></div></div></div>
     <div class="card"><div class="card-header" onclick="toggleCfgCard(this)"><span class="card-title"><i data-lucide="image" style="width:13px;height:13px"></i>Logotipo da Empresa</span><span class="cfg-chev">&#9660;</span></div><div class="card-body" style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
       <div class="logo-upload-area" id="logoUploadArea" onclick="document.getElementById('logoFileInput').click()"><span id="logoPreviewIcon">&#128247;</span></div>
@@ -3404,7 +3417,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <button class="btn btn-secondary" onclick="saveTermosConfig()">Salvar Config</button>
       </div>
     </div></div>
-    <div class="cfg-group-title"><i data-lucide="shield" style="width:13px;height:13px"></i>Segurança e Dados</div>
+    <div class="cfg-group-title"><i data-lucide="shield" style="width:13px;height:13px"></i>SeguranÃ§a e Dados</div>
     <div class="card"><div class="card-header" onclick="toggleCfgCard(this)"><span class="card-title"><i data-lucide="shield" style="width:13px;height:13px"></i>Segurana da Conta</span><span class="cfg-chev">&#9660;</span></div><div class="card-body">
       <p style="font-size:12px;color:var(--txt2);margin:0 0 12px">Gerencie senha, bloqueio por tentativa e pergunta secreta.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -3424,7 +3437,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <button class="btn btn-secondary" onclick="openImportMenu()">Importar Clientes/Produtos</button>
       </div>
       <div style="padding-top:12px;border-top:1px solid var(--bdr)">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--txt3);text-transform:uppercase;margin-bottom:8px">Backup Automático</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--txt3);text-transform:uppercase;margin-bottom:8px">Backup AutomÃ¡tico</div>
         <div class="form-grid">
           <div class="form-group"><label>Backup Automatico</label><select id="cfgAutoBackup" onchange="saveSecurityConfig()"><option value="disabled">Desativado</option><option value="daily">Diario</option><option value="weekly">Semanal</option><option value="monthly">Mensal</option></select></div>
           <div class="form-group"><label>Manter Backups</label><select id="cfgBackupKeep" onchange="saveSecurityConfig()"><option value="5">5 ultimos</option><option value="10">10 ultimos</option><option value="20">20 ultimos</option><option value="0">Todos</option></select></div>
@@ -3440,28 +3453,28 @@ window.addEventListener('DOMContentLoaded',function(){
         <div class="backup-progress" id="backupProgress" style="display:none"><div class="fill" id="backupProgressFill"></div></div>
       </div>
     </div></div>
-    <div class="cfg-group-title"><i data-lucide="globe" style="width:13px;height:13px"></i>Conexões e App</div>
-    <div class="card"><div class="card-header" onclick="toggleCfgCard(this)"><span class="card-title"><i data-lucide="globe" style="width:13px;height:13px"></i>Sincronização Online (Servidor)</span><span class="cfg-chev">&#9660;</span></div><div class="card-body">
+    <div class="cfg-group-title"><i data-lucide="globe" style="width:13px;height:13px"></i>ConexÃµes e App</div>
+    <div class="card"><div class="card-header" onclick="toggleCfgCard(this)"><span class="card-title"><i data-lucide="globe" style="width:13px;height:13px"></i>SincronizaÃ§Ã£o Online (Servidor)</span><span class="cfg-chev">&#9660;</span></div><div class="card-body">
       <p style="font-size:12px;color:var(--txt2);margin:0 0 12px">Configure a URL do servidor para sincronizar dados entre dispositivos. Deixe vazio para usar apenas local.</p>
       <div class="form-grid">
         <div class="form-group full"><label>URL do Servidor</label><input type="url" id="cfgSyncUrl" placeholder="https://meu-servidor.onrender.com" style="font-size:12px"></div>
-        <div class="form-group full"><label>Token de Sincronização</label><input type="text" id="cfgSyncToken" placeholder="Token gerado pelo servidor (console)" style="font-size:12px"></div>
-        <div class="form-group full"><label>URL Pública do QR (acesso do cliente)</label><input type="url" id="cfgUrlPublica" placeholder="https://infocelll.github.io/app/dashboard.html" style="font-size:12px"><small style="color:var(--txt3)">Deixe vazio para detectar automaticamente (IP da rede local).</small></div>
-        <div class="form-group full"><label>Supabase URL (banco externo do Portal)</label><input type="url" id="cfgSupaUrl" placeholder="https://xxxx.supabase.co" style="font-size:12px"><small style="color:var(--txt3)">Crie o projeto grátis em supabase.com, crie a tabela <b>os_public</b> (colunas: id int8 PK, data jsonb, updated_at timestamptz) e cole a URL aqui. Sem servidor: o celular consulta direto.</small></div>
-        <div class="form-group full"><label>Supabase Chave Anon</label><input type="text" id="cfgSupaKey" placeholder="eyJhbGciOiJIUzI1NiIs..." style="font-size:12px"><small style="color:var(--txt3)">Configurações → API → anon public key. A chave anon é pública por design (protegida por RLS).</small></div>
+        <div class="form-group full"><label>Token de SincronizaÃ§Ã£o</label><input type="text" id="cfgSyncToken" placeholder="Token gerado pelo servidor (console)" style="font-size:12px"></div>
+        <div class="form-group full"><label>URL PÃºblica do QR (acesso do cliente)</label><input type="url" id="cfgUrlPublica" placeholder="https://infocelll.github.io/app/dashboard.html" style="font-size:12px"><small style="color:var(--txt3)">Deixe vazio para detectar automaticamente (IP da rede local).</small></div>
+        <div class="form-group full"><label>Supabase URL (banco externo do Portal)</label><input type="url" id="cfgSupaUrl" placeholder="https://xxxx.supabase.co" style="font-size:12px"><small style="color:var(--txt3)">Crie o projeto grÃ¡tis em supabase.com, crie a tabela <b>os_public</b> (colunas: id int8 PK, data jsonb, updated_at timestamptz) e cole a URL aqui. Sem servidor: o celular consulta direto.</small></div>
+        <div class="form-group full"><label>Supabase Chave Anon</label><input type="text" id="cfgSupaKey" placeholder="eyJhbGciOiJIUzI1NiIs..." style="font-size:12px"><small style="color:var(--txt3)">ConfiguraÃ§Ãµes â†’ API â†’ anon public key. A chave anon Ã© pÃºblica por design (protegida por RLS).</small></div>
       </div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="saveSyncConfig()">Salvar</button>
-        <button class="btn btn-secondary" onclick="testSyncConnection()">Testar Conexão</button>
+        <button class="btn btn-secondary" onclick="testSyncConnection()">Testar ConexÃ£o</button>
         <span id="syncStatus" style="font-size:11px;color:var(--txt3);margin:auto 0"></span>
       </div>
     </div></div>
     <div class="card"><div class="card-header" onclick="toggleCfgCard(this)"><span class="card-title"><i data-lucide="smartphone" style="width:13px;height:13px"></i>PWA / App Mobile</span><span class="cfg-chev">&#9660;</span></div><div class="card-body">
       <div class="backup-status"><div class="dot" id="pwaStatusDot"></div><div><b style="font-size:13px" id="pwaStatusText">Verificando...</b><div class="meta" id="pwaStatusDetail"></div></div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-secondary" onclick="requestNotifPermission()">Ativar Notificações</button>
+        <button class="btn btn-secondary" onclick="requestNotifPermission()">Ativar NotificaÃ§Ãµes</button>
         <button class="btn btn-secondary" onclick="testNotification()">Testar Notificao</button>
-        <button class="btn btn-secondary" onclick="checkForPWAUpdate()">Verificar Atualizações</button>
+        <button class="btn btn-secondary" onclick="checkForPWAUpdate()">Verificar AtualizaÃ§Ãµes</button>
       </div>
     </div></div>
     </div>
@@ -3469,7 +3482,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- Impressao / Print Manager -->
   <div class="section" id="sec-impressao">
-    <div class="section-header"><div><h2 class="section-title"><i data-lucide="printer" style="width:18px;height:18px;color:var(--cyan)"></i> Central de Impresso</h2><p style="font-size:12px;color:var(--txt3);margin:4px 0 0">Impresso inteligente para trmica 58mm, 80mm, A4 e Laser</p></div><div style="display:flex;gap:6px"><button class="btn btn-secondary" onclick="showPDFDebugPanel()" style="font-size:11px"><i data-lucide="file-text" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"></i>PDF Debug</button><button class="btn btn-secondary" onclick="printManager.newTemplate()" style="font-size:11px">+ Novo Modelo</button><button class="btn btn-primary" onclick="printManager.save();toast('Configurações salvas','success')" style="font-size:11px">Salvar Config</button></div></div>
+    <div class="section-header"><div><h2 class="section-title"><i data-lucide="printer" style="width:18px;height:18px;color:var(--cyan)"></i> Central de Impresso</h2><p style="font-size:12px;color:var(--txt3);margin:4px 0 0">Impresso inteligente para trmica 58mm, 80mm, A4 e Laser</p></div><div style="display:flex;gap:6px"><button class="btn btn-secondary" onclick="showPDFDebugPanel()" style="font-size:11px"><i data-lucide="file-text" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"></i>PDF Debug</button><button class="btn btn-secondary" onclick="printManager.newTemplate()" style="font-size:11px">+ Novo Modelo</button><button class="btn btn-primary" onclick="printManager.save();toast('ConfiguraÃ§Ãµes salvas','success')" style="font-size:11px">Salvar Config</button></div></div>
 
     <!-- Status / Smart Detection -->
     <div class="card" style="margin-bottom:16px;border-left:4px solid var(--cyan)">
@@ -3502,7 +3515,7 @@ window.addEventListener('DOMContentLoaded',function(){
             <span class="status-badge recebida" style="font-size:9px" id="printerStatus58">Disponvel</span>
           </div>
           <div style="font-size:10px;color:var(--txt3);margin-bottom:10px;line-height:1.6">
-            Comprovante de entrada  Protocolo OS  Recibo  QR Code  Código de Barras
+            Comprovante de entrada  Protocolo OS  Recibo  QR Code  CÃ³digo de Barras
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="btn btn-sm" style="background:#f59e0b;color:#fff;padding:6px 12px;border:none;border-radius:var(--rs);cursor:pointer;font-size:11px" onclick="quickPrintThermal58()">Imprimir 58mm</button>
@@ -3519,7 +3532,7 @@ window.addEventListener('DOMContentLoaded',function(){
             <span class="status-badge recebida" style="font-size:9px" id="printerStatus80">Disponvel</span>
           </div>
           <div style="font-size:10px;color:var(--txt3);margin-bottom:10px;line-height:1.6">
-            OS resumida  Recibo  QR Code  Código de Barras  Logotipo  Dados completos
+            OS resumida  Recibo  QR Code  CÃ³digo de Barras  Logotipo  Dados completos
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="btn btn-sm" style="background:#3b82f6;color:#fff;padding:6px 12px;border:none;border-radius:var(--rs);cursor:pointer;font-size:11px" onclick="quickPrintThermal80()">Imprimir 80mm</button>
@@ -3536,7 +3549,7 @@ window.addEventListener('DOMContentLoaded',function(){
             <span class="status-badge recebida" style="font-size:9px" id="printerStatusA4">Disponvel</span>
           </div>
           <div style="font-size:10px;color:var(--txt3);margin-bottom:10px;line-height:1.6">
-            OS completa  Relatório Técnico  Termo de Garantia  Orçamento  Laudo  Fotos
+            OS completa  RelatÃ³rio TÃ©cnico  Termo de Garantia  OrÃ§amento  Laudo  Fotos
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="btn btn-sm" style="background:#22c55e;color:#fff;padding:6px 12px;border:none;border-radius:var(--rs);cursor:pointer;font-size:11px" onclick="quickPrintA4()">Imprimir A4</button>
@@ -3572,7 +3585,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <div style="display:flex;gap:4px;flex-wrap:wrap">
           <button class="print-format-btn" onclick="printManager.filterType='';printManager.renderList()">Todos</button>
           <button class="print-format-btn" onclick="printManager.filterType='os';printManager.renderList()">OS</button>
-          <button class="print-format-btn" onclick="printManager.filterType='orc';printManager.renderList()">Orçamento</button>
+          <button class="print-format-btn" onclick="printManager.filterType='orc';printManager.renderList()">OrÃ§amento</button>
           <button class="print-format-btn" onclick="printManager.filterType='rec';printManager.renderList()">Recibo</button>
           <button class="print-format-btn" onclick="printManager.filterType='garantia';printManager.renderList()">Garantia</button>
           <button class="print-format-btn" onclick="printManager.filterType='etiqueta';printManager.renderList()">Etiqueta</button>
@@ -3585,7 +3598,7 @@ window.addEventListener('DOMContentLoaded',function(){
     <!-- Config / History Row -->
     <div class="print-cfg-grid" id="pmRoot">
       <div class="print-cfg-card">
-        <h4>&#9881; Configurações de Impresso</h4>
+        <h4>&#9881; ConfiguraÃ§Ãµes de Impresso</h4>
         <div class="form-group"><label>Impressora Padro</label><select id="pmDefaultPrinter" class="input" onchange="printManager.cfg.printer=this.value;printManager.save()"><option value="auto">Detectar Automaticamente</option><option value="58mm">Trmica 58mm</option><option value="80mm">Trmica 80mm</option><option value="a4">Jato de Tinta A4</option><option value="laser">Laser A4</option></select></div>
         <div class="form-group"><label>Formato Padro</label><select id="pmDefaultFormat" class="input" onchange="printManager.cfg.format=this.value;printManager.save()"><option value="a4">A4 Retrato</option><option value="a4-landscape">A4 Paisagem</option><option value="80mm">80 mm (Trmica)</option><option value="58mm">58 mm (Trmica)</option><option value="label40">Etiqueta 40x30</option><option value="label50">Etiqueta 50x30</option></select></div>
         <div class="form-group"><label>Orientao</label><select id="pmOrientation" class="input" onchange="printManager.cfg.orientation=this.value;printManager.save()"><option value="portrait">Retrato</option><option value="landscape">Paisagem</option></select></div>
@@ -3610,7 +3623,7 @@ window.addEventListener('DOMContentLoaded',function(){
       </div>
       <div class="print-cfg-card">
         <h4>&#128337; Histrico de Impresso</h4>
-        <div id="pmHistoryList" style="max-height:300px;overflow-y:auto"><p style="font-size:11px;color:var(--txt3)">Nenhuma impressão registrada</p></div>
+        <div id="pmHistoryList" style="max-height:300px;overflow-y:auto"><p style="font-size:11px;color:var(--txt3)">Nenhuma impressÃ£o registrada</p></div>
         <div style="display:flex;gap:6px;margin-top:8px">
           <button class="btn btn-secondary btn-sm" onclick="printManager.clearHistory()" style="font-size:10px">Limpar Histrico</button>
           <button class="btn btn-secondary btn-sm" onclick="reprintLast()" style="font-size:10px">Reimpresso</button>
@@ -3621,7 +3634,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
   <!-- Personalizao Avanada -->
   <div class="section" id="sec-Personalizao">
-    <div class="section-header"><div><h2 class="section-title">&#9881; Personalização Avançada</h2><p style="font-size:12px;color:var(--txt3);margin:4px 0 0">Configure cada detalhe da aparência e comportamento do sistema</p></div><button class="btn btn-secondary" onclick="showSection('config')" style="font-size:11px"><i data-lucide="arrow-left" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"></i>Voltar para Config</button></div>
+    <div class="section-header"><div><h2 class="section-title">&#9881; PersonalizaÃ§Ã£o AvanÃ§ada</h2><p style="font-size:12px;color:var(--txt3);margin:4px 0 0">Configure cada detalhe da aparÃªncia e comportamento do sistema</p></div><button class="btn btn-secondary" onclick="showSection('config')" style="font-size:11px"><i data-lucide="arrow-left" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"></i>Voltar para Config</button></div>
     
     <div class="grid-2">
       <!-- APARiENCIA -->
@@ -3727,13 +3740,13 @@ window.addEventListener('DOMContentLoaded',function(){
       <!-- NOTIFICACOES -->
       <div class="card">
         <div class="card-body">
-          <h3 style="margin-bottom:16px;color:var(--txt1)">&#128276; Notificações</h3>
+          <h3 style="margin-bottom:16px;color:var(--txt1)">&#128276; NotificaÃ§Ãµes</h3>
           <div class="p-row" style="flex-direction:row;justify-content:space-between;align-items:center">
             <label style="margin:0">Som de Notificao</label>
             <label class="p-switch"><input type="checkbox" id="pNotifSound" checked><span class="p-slider"></span></label>
           </div>
           <div class="p-row" style="flex-direction:row;justify-content:space-between;align-items:center">
-            <label style="margin:0">Notificações Desktop</label>
+            <label style="margin:0">NotificaÃ§Ãµes Desktop</label>
             <label class="p-switch"><input type="checkbox" id="pNotifDesktop"><span class="p-slider"></span></label>
           </div>
           <div class="p-row" style="flex-direction:row;justify-content:space-between;align-items:center">
@@ -3776,7 +3789,7 @@ window.addEventListener('DOMContentLoaded',function(){
       <!-- FORMAo DE DADOS -->
       <div class="card">
         <div class="card-body">
-          <h3 style="margin-bottom:16px;color:var(--txt1)">&#128197; Formatação de Dados</h3>
+          <h3 style="margin-bottom:16px;color:var(--txt1)">&#128197; FormataÃ§Ã£o de Dados</h3>
           <div class="p-row">
             <label>Formato de Data</label>
             <select id="pDateFormat" style="width:100%">
@@ -3947,7 +3960,7 @@ window.addEventListener('DOMContentLoaded',function(){
           </div>
         </div>
         <div style="display:flex;gap:8px;margin-top:12px">
-          <button class="btn btn-primary" onclick="applyCustomCode()">&#9654; Aplicar Código</button>
+          <button class="btn btn-primary" onclick="applyCustomCode()">&#9654; Aplicar CÃ³digo</button>
           <button class="btn btn-secondary" onclick="clearCustomCode()">&#128465; Limpar</button>
         </div>
       </div>
@@ -3972,20 +3985,20 @@ window.addEventListener('DOMContentLoaded',function(){
       </div>
     </div>
 
-    <!-- GERENCIAR Configurações (full width) -->
+    <!-- GERENCIAR ConfiguraÃ§Ãµes (full width) -->
     <div class="card" style="margin-top:16px;margin-bottom:40px">
       <div class="card-body">
-        <h3 style="margin-bottom:16px;color:var(--txt1)">&#128193; Gerenciar Todas as Configurações</h3>
+        <h3 style="margin-bottom:16px;color:var(--txt1)">&#128193; Gerenciar Todas as ConfiguraÃ§Ãµes</h3>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-primary" onclick="savePersonalizao()">&#128190; Salvar Todas as Configurações</button>
-          <button class="btn btn-secondary" onclick="exportAllSettings()">&#128228; Exportar Configurações (JSON)</button>
-          <button class="btn btn-secondary" onclick="importAllSettings()">&#128229; Importar Configurações</button>
-          <button class="btn btn-secondary" onclick="shareSettings()">&#128279; Compartilhar Configurações</button>
-          <button class="btn btn-danger" onclick="resetAllSettings()">&#128260; Restaurar Configurações Padrao</button>
+          <button class="btn btn-primary" onclick="savePersonalizao()">&#128190; Salvar Todas as ConfiguraÃ§Ãµes</button>
+          <button class="btn btn-secondary" onclick="exportAllSettings()">&#128228; Exportar ConfiguraÃ§Ãµes (JSON)</button>
+          <button class="btn btn-secondary" onclick="importAllSettings()">&#128229; Importar ConfiguraÃ§Ãµes</button>
+          <button class="btn btn-secondary" onclick="shareSettings()">&#128279; Compartilhar ConfiguraÃ§Ãµes</button>
+          <button class="btn btn-danger" onclick="resetAllSettings()">&#128260; Restaurar ConfiguraÃ§Ãµes Padrao</button>
           <button class="btn btn-secondary" onclick="showPDFDebugPanel()">&#128196; PDF Debug</button>
         </div>
         <div id="importArea" style="display:none;margin-top:12px">
-          <textarea id="importText" rows="4" placeholder="Cole o JSON de Configurações aqui..." style="width:100%;font-family:monospace;font-size:12px;background:var(--bg1);color:var(--txt2);border:1px solid var(--bdr);border-radius:var(--rs);padding:8px"></textarea>
+          <textarea id="importText" rows="4" placeholder="Cole o JSON de ConfiguraÃ§Ãµes aqui..." style="width:100%;font-family:monospace;font-size:12px;background:var(--bg1);color:var(--txt2);border:1px solid var(--bdr);border-radius:var(--rs);padding:8px"></textarea>
           <div style="display:flex;gap:8px;margin-top:8px">
             <button class="btn btn-primary" onclick="applyImportedSettings()">&#10004; Aplicar</button>
             <button class="btn btn-secondary" onclick="document.getElementById('importArea').style.display='none'">Cancelar</button>
@@ -4000,7 +4013,7 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="section" id="sec-Histricos">
     <div class="section-header"><div><h2 class="section-title">Historicos e Alertas</h2></div></div>
     <div class="st-tabs" data-st-group="historico">
-      <button class="st-tab active" data-st-group="historico" data-st-tab="auditoria" onclick="switchSTTab('historico','auditoria');renderAudit();document.getElementById('trashList').style.display='none'"><i data-lucide="history" style="width:14px;height:14px"></i>Históricos</button>
+      <button class="st-tab active" data-st-group="historico" data-st-tab="auditoria" onclick="switchSTTab('historico','auditoria');renderAudit();document.getElementById('trashList').style.display='none'"><i data-lucide="history" style="width:14px;height:14px"></i>HistÃ³ricos</button>
       <button class="st-tab" data-st-group="historico" data-st-tab="alertas" onclick="switchSTTab('historico','alertas');renderAlertas()"><i data-lucide="bell" style="width:14px;height:14px"></i>Alertas</button>
     </div>
     <div id="stPanel-historico-auditoria" class="st-panel active">
@@ -4019,9 +4032,9 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
-  <!-- CENTRAL DE CONFIGURAÇÃO DE IA -->
+  <!-- CENTRAL DE CONFIGURAÃ‡ÃƒO DE IA -->
   <div class="section" id="sec-ai-config">
-    <div class="section-header"><div><h2 class="section-title">Central de Configuração de IA</h2><p class="section-sub">Gerencie provedores, chaves de API, modelos e configurações de inteligência artificial</p></div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-secondary" onclick="renderAIConfigSection()" title="Atualizar"><i data-lucide="refresh-cw" style="width:13px;height:13px"></i></button></div></div>
+    <div class="section-header"><div><h2 class="section-title">Central de ConfiguraÃ§Ã£o de IA</h2><p class="section-sub">Gerencie provedores, chaves de API, modelos e configuraÃ§Ãµes de inteligÃªncia artificial</p></div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-secondary" onclick="renderAIConfigSection()" title="Atualizar"><i data-lucide="refresh-cw" style="width:13px;height:13px"></i></button></div></div>
 
     <div class="ai-config-tabs" id="aiConfigTabs">
       <button class="ai-config-tab active" onclick="switchAITab('dashboard')" data-ai-tab="dashboard"><i data-lucide="layout-dashboard" style="width:14px;height:14px"></i>Dashboard</button>
@@ -4030,9 +4043,9 @@ window.addEventListener('DOMContentLoaded',function(){
       <button class="ai-config-tab" onclick="switchAITab('apikeys')" data-ai-tab="apikeys"><i data-lucide="key" style="width:14px;height:14px"></i>API Keys</button>
       <button class="ai-config-tab" onclick="switchAITab('provedores')" data-ai-tab="provedores"><i data-lucide="building" style="width:14px;height:14px"></i>Provedores</button>
       <button class="ai-config-tab" onclick="switchAITab('agentes')" data-ai-tab="agentes"><i data-lucide="bot" style="width:14px;height:14px"></i>Agentes</button>
-      <button class="ai-config-tab" onclick="switchAITab('historico')" data-ai-tab="historico"><i data-lucide="clock" style="width:14px;height:14px"></i>Histórico</button>
-      <button class="ai-config-tab" onclick="switchAITab('estatisticas')" data-ai-tab="estatisticas"><i data-lucide="bar-chart-3" style="width:14px;height:14px"></i>Estatísticas</button>
-      <button class="ai-config-tab" onclick="switchAITab('configuracoes')" data-ai-tab="configuracoes"><i data-lucide="settings" style="width:14px;height:14px"></i>Configurações</button>
+      <button class="ai-config-tab" onclick="switchAITab('historico')" data-ai-tab="historico"><i data-lucide="clock" style="width:14px;height:14px"></i>HistÃ³rico</button>
+      <button class="ai-config-tab" onclick="switchAITab('estatisticas')" data-ai-tab="estatisticas"><i data-lucide="bar-chart-3" style="width:14px;height:14px"></i>EstatÃ­sticas</button>
+      <button class="ai-config-tab" onclick="switchAITab('configuracoes')" data-ai-tab="configuracoes"><i data-lucide="settings" style="width:14px;height:14px"></i>ConfiguraÃ§Ãµes</button>
     </div>
 
     <!-- DASHBOARD PANEL -->
@@ -4061,7 +4074,7 @@ window.addEventListener('DOMContentLoaded',function(){
         <div style="font-size:12px;color:var(--txt3)"><span id="aiKeyCount">0</span> chave(s) cadastrada(s)</div>
         <button class="btn btn-primary btn-sm" onclick="openAIKeyModal()"><i data-lucide="plus" style="width:13px;height:13px"></i> Nova API Key</button>
       </div>
-      <div class="card"><div class="card-body" style="padding:0"><div class="table-wrap"><table><thead><tr><th>Nome</th><th>Tipo</th><th>Status</th><th>Último Teste</th><th style="width:100px">Ações</th></tr></thead><tbody id="aiKeyTableBody"></tbody></table></div></div></div>
+      <div class="card"><div class="card-body" style="padding:0"><div class="table-wrap"><table><thead><tr><th>Nome</th><th>Tipo</th><th>Status</th><th>Ãšltimo Teste</th><th style="width:100px">AÃ§Ãµes</th></tr></thead><tbody id="aiKeyTableBody"></tbody></table></div></div></div>
     </div>
 
     <!-- MODELOS PANEL -->
@@ -4080,41 +4093,41 @@ window.addEventListener('DOMContentLoaded',function(){
 
     <!-- AGENTES PANEL -->
     <div class="ai-config-panel" id="aiPanel-agentes">
-      <div class="card"><div class="card-header"><span class="card-title">Agentes de IA</span><button class="btn btn-sm btn-primary" disabled>+ Novo Agente</button></div><div class="card-body" id="aiAgentList"><p style="color:var(--txt3);font-size:12px">Módulo de agentes disponível em breve. Utilize os modelos e chaves de API para integrar com assistentes personalizados.</p></div></div>
+      <div class="card"><div class="card-header"><span class="card-title">Agentes de IA</span><button class="btn btn-sm btn-primary" disabled>+ Novo Agente</button></div><div class="card-body" id="aiAgentList"><p style="color:var(--txt3);font-size:12px">MÃ³dulo de agentes disponÃ­vel em breve. Utilize os modelos e chaves de API para integrar com assistentes personalizados.</p></div></div>
     </div>
 
-    <!-- HISTÓRICO PANEL -->
+    <!-- HISTÃ“RICO PANEL -->
     <div class="ai-config-panel" id="aiPanel-historico">
       <div class="table-toolbar" style="padding:0 0 12px 0;border:none">
         <div style="font-size:12px;color:var(--txt3)"><span id="aiHistoryCount">0</span> registro(s)</div>
-        <button class="btn btn-sm btn-secondary" onclick="clearAIHistory()" style="font-size:10px">Limpar Histórico</button>
+        <button class="btn btn-sm btn-secondary" onclick="clearAIHistory()" style="font-size:10px">Limpar HistÃ³rico</button>
       </div>
       <div class="card"><div class="card-body" style="padding:0"><div class="table-wrap"><table><thead><tr><th>Data</th><th>Hora</th><th>Modelo</th><th>Tokens</th><th>Tempo Resp.</th><th>Status</th><th>Erro</th></tr></thead><tbody id="aiHistoryTableBody"></tbody></table></div></div></div>
     </div>
 
-    <!-- ESTATÍSTICAS PANEL -->
+    <!-- ESTATÃSTICAS PANEL -->
     <div class="ai-config-panel" id="aiPanel-estatisticas">
       <div class="ai-config-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px" id="aiStatsCards"></div>
-      <div class="card" style="margin-bottom:16px"><div class="card-header"><span class="card-title">Consumo Diário (7 dias)</span></div><div class="card-body"><div class="ai-bar-chart" id="aiDailyChart"></div></div></div>
+      <div class="card" style="margin-bottom:16px"><div class="card-header"><span class="card-title">Consumo DiÃ¡rio (7 dias)</span></div><div class="card-body"><div class="ai-bar-chart" id="aiDailyChart"></div></div></div>
       <div class="card" style="margin-bottom:16px"><div class="card-header"><span class="card-title">Consumo Mensal</span></div><div class="card-body"><div class="ai-bar-chart" id="aiMonthlyChart"></div></div></div>
       <div class="card"><div class="card-header"><span class="card-title">Uso por Modelo</span></div><div class="card-body"><div id="aiModelUsage"></div></div></div>
     </div>
 
-    <!-- CONFIGURAÇÕES PANEL -->
+    <!-- CONFIGURAÃ‡Ã•ES PANEL -->
     <div class="ai-config-panel" id="aiPanel-configuracoes">
       <div class="card">
-        <div class="card-header"><span class="card-title">Configurações Gerais de IA</span></div>
+        <div class="card-header"><span class="card-title">ConfiguraÃ§Ãµes Gerais de IA</span></div>
         <div class="card-body">
           <div class="ai-form-grid">
             <div class="form-group"><label>IA Principal</label><select class="input" id="aiCfgPrimary"><option value="">Nenhum</option></select></div>
-            <div class="form-group"><label>IA Secundária (Failover)</label><select class="input" id="aiCfgSecondary"><option value="">Nenhum</option></select></div>
+            <div class="form-group"><label>IA SecundÃ¡ria (Failover)</label><select class="input" id="aiCfgSecondary"><option value="">Nenhum</option></select></div>
             <div class="form-group full">
               <div class="ai-toggle-row">
-                <div class="toggle-info"><div class="toggle-title">Failover Automático</div><div class="toggle-desc">Alternar automaticamente para IA secundária em caso de falha</div></div>
+                <div class="toggle-info"><div class="toggle-title">Failover AutomÃ¡tico</div><div class="toggle-desc">Alternar automaticamente para IA secundÃ¡ria em caso de falha</div></div>
                 <label class="ai-toggle"><input type="checkbox" id="aiCfgFailover"><span class="slider"></span></label>
               </div>
             </div>
-            <div class="form-group"><label>Limite Diário de Consumo (tokens)</label><input type="number" class="input" id="aiCfgDailyLimit" placeholder="0 = ilimitado" min="0"></div>
+            <div class="form-group"><label>Limite DiÃ¡rio de Consumo (tokens)</label><input type="number" class="input" id="aiCfgDailyLimit" placeholder="0 = ilimitado" min="0"></div>
             <div class="form-group"><label>Limite Mensal de Consumo (tokens)</label><input type="number" class="input" id="aiCfgMonthlyLimit" placeholder="0 = ilimitado" min="0"></div>
             <div class="form-group"><label>Timeout (ms)</label><input type="number" class="input" id="aiCfgTimeout" placeholder="30000" min="1000" step="1000"></div>
             <div class="form-group full">
@@ -4125,7 +4138,7 @@ window.addEventListener('DOMContentLoaded',function(){
             </div>
           </div>
           <div style="margin-top:16px;display:flex;gap:8px">
-            <button class="btn btn-primary" onclick="saveAIConfigSettings()"><i data-lucide="check" style="width:14px;height:14px"></i> Salvar Configurações</button>
+            <button class="btn btn-primary" onclick="saveAIConfigSettings()"><i data-lucide="check" style="width:14px;height:14px"></i> Salvar ConfiguraÃ§Ãµes</button>
           </div>
           <div id="aiCfgStatus" style="margin-top:8px;font-size:12px;color:var(--txt3)"></div>
         </div>
@@ -4137,9 +4150,9 @@ window.addEventListener('DOMContentLoaded',function(){
   <!-- AI MONITOR -->
   <!-- UsurioS -->
   <div class="section" id="sec-Usurios">
-    <div class="section-header"><div><h2 class="section-title">Usuários e LGPD</h2><p class="section-sub">Gerencie cadastros, senhas, permisses de acesso e proteo de dados</p></div><button class="btn btn-primary" onclick="openUserModal()">+ Novo Usuário</button></div>
+    <div class="section-header"><div><h2 class="section-title">UsuÃ¡rios e LGPD</h2><p class="section-sub">Gerencie cadastros, senhas, permisses de acesso e proteo de dados</p></div><button class="btn btn-primary" onclick="openUserModal()">+ Novo UsuÃ¡rio</button></div>
     <div class="st-tabs" data-st-group="usuarios">
-      <button class="st-tab active" data-st-group="usuarios" data-st-tab="usuarios" onclick="switchSTTab('usuarios','usuarios')"><i data-lucide="user-cog" style="width:14px;height:14px"></i>Usuários</button>
+      <button class="st-tab active" data-st-group="usuarios" data-st-tab="usuarios" onclick="switchSTTab('usuarios','usuarios')"><i data-lucide="user-cog" style="width:14px;height:14px"></i>UsuÃ¡rios</button>
       <button class="st-tab" data-st-group="usuarios" data-st-tab="lgpd" onclick="switchSTTab('usuarios','lgpd');updateLgpdDashboard()"><i data-lucide="shield" style="width:14px;height:14px"></i>LGPD</button>
     </div>
     <div id="stPanel-usuarios-usuarios" class="st-panel active">
@@ -4149,12 +4162,12 @@ window.addEventListener('DOMContentLoaded',function(){
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
           <div style="position:relative;flex:1;min-width:180px">
             <i data-lucide="search" style="width:14px;height:14px;position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txt3)"></i>
-            <input type="text" id="userSearch" class="input" placeholder="Buscar por nome ou usuário..." oninput="_usrSearch=this.value;renderUsers()" style="padding-left:32px">
+            <input type="text" id="userSearch" class="input" placeholder="Buscar por nome ou usuÃ¡rio..." oninput="_usrSearch=this.value;renderUsers()" style="padding-left:32px">
           </div>
           <select id="userRoleFilter" class="input" style="width:auto" onchange="_usrRole=this.value;renderUsers()">
             <option value="">Todos os perfis</option>
             <option value="admin">Administrador</option>
-            <option value="tecnico">Técnico</option>
+            <option value="tecnico">TÃ©cnico</option>
             <option value="vendedor">Vendedor</option>
             <option value="viewer">Visualizador</option>
           </select>
@@ -4172,14 +4185,14 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
     <div class="card" style="margin-top:12px"><div class="card-header"><span class="card-title">Poltica de Privacidade</span></div><div class="card-body">
       <p style="font-size:12px;color:var(--txt2);line-height:1.6;margin:0 0 12px">
-        Em conformidade com a Lei Geral de Proteção de Dados (Lei 13.709/2018), o InfoCelll trata os dados pessoais dos clientes com segurança e transparência.<br><br>
+        Em conformidade com a Lei Geral de ProteÃ§Ã£o de Dados (Lei 13.709/2018), o InfoCelll trata os dados pessoais dos clientes com seguranÃ§a e transparÃªncia.<br><br>
         <b>Controlador:</b> InfoCelll Assessoria em Informatica Ltda<br>
-        <b>Dados coletados:</b> Nome, telefone, CPF/CNPJ, email, Endereco, Histrico de Serviços, dados de pagamento.<br>
-        <b>Finalidades:</b> Execuo de serviços tcnicos, comunicao com o cliente, emissao de documentos, melhoria do atendimento.<br>
+        <b>Dados coletados:</b> Nome, telefone, CPF/CNPJ, email, Endereco, Histrico de ServiÃ§os, dados de pagamento.<br>
+        <b>Finalidades:</b> Execuo de serviÃ§os tcnicos, comunicao com o cliente, emissao de documentos, melhoria do atendimento.<br>
         <b>Base legal:</b> Execuo de contrato (Art. 7, V) e consentimento do titular (Art. 7, I).<br>
         <b>Armazenamento:</b> Dados criptografados AES-256-GCM no dispositivo do operador.<br>
-        <b>Seus direitos:</b> Acesso, correção, exclusão, portabilidade e revogação de consentimento.<br>
-        <b>Segurança:</b> Criptografia de dados sensíveis, validação de entrada, timeout de sessão, registro de auditoria.
+        <b>Seus direitos:</b> Acesso, correÃ§Ã£o, exclusÃ£o, portabilidade e revogaÃ§Ã£o de consentimento.<br>
+        <b>SeguranÃ§a:</b> Criptografia de dados sensÃ­veis, validaÃ§Ã£o de entrada, timeout de sessÃ£o, registro de auditoria.
       </p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="showLgpdConsentModal()">Gerenciar Consentimentos</button>
@@ -4212,7 +4225,7 @@ window.addEventListener('DOMContentLoaded',function(){
 </main>
 
 <!-- FLOATING AI CHAT -->
-<div class="ai-fab" id="aiFab" onclick="toggleFloatingAI()" title="IA Assistente" aria-label="IA Assistente">
+<div class="ai-fab" id="aiFab" onclick="toggleFloatingAI()" role="button" tabindex="0" aria-label="IA Assistente" title="IA Assistente" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFloatingAI()}">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
 </div>
 <div class="ai-fab-panel" id="aiFabPanel">
@@ -4233,7 +4246,7 @@ window.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
   <div class="ai-fab-messages" id="aiFabMessages">
-    <div class="ai-msg ai-bot"><div class="ai-bubble">Olá! Sou a IA InfoCelll. Posso consultar dados do sistema. Pergunte sobre OS, clientes, produtos, financeiro, etc.</div></div>
+    <div class="ai-msg ai-bot"><div class="ai-bubble">OlÃ¡! Sou a IA InfoCelll. Posso consultar dados do sistema. Pergunte sobre OS, clientes, produtos, financeiro, etc.</div></div>
   </div>
   <div class="ai-fab-input">
     <input type="text" id="aiFabInput" placeholder="Pergunte algo..." onkeydown="if(event.key==='Enter')sendFloatingAI()" autocomplete="off">
@@ -4251,7 +4264,7 @@ window.addEventListener('DOMContentLoaded',function(){
 <!-- NOTIFICATION PANEL -->
 <div class="notif-panel" id="notifPanel">
   <div class="notif-panel-head">
-    <h3>&#128276; Notificações</h3>
+    <h3>&#128276; NotificaÃ§Ãµes</h3>
     <button onclick="clearAllNotifs()" style="background:none;border:none;color:var(--cyan);font-size:11px;cursor:pointer">Limpar Tudo</button>
   </div>
   <div class="notif-panel-body" id="notifPanelBody"></div>
@@ -4266,14 +4279,14 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <!-- LGPD CONSENT BANNER -->
 <div class="lgpd-banner" id="lgpdBanner" style="display:none">
-  <p>&#128274; Utilizamos cookies e armazenamos dados locais para o funcionamento do sistema. Ao continuar, você concorda com nossa <span style="color:var(--cyan);cursor:pointer" onclick="showLgpdPrivacyModal()">Política de Privacidade</span>.</p>
+  <p>&#128274; Utilizamos cookies e armazenamos dados locais para o funcionamento do sistema. Ao continuar, vocÃª concorda com nossa <span style="color:var(--cyan);cursor:pointer" onclick="showLgpdPrivacyModal()">PolÃ­tica de Privacidade</span>.</p>
   <button class="btn btn-primary" onclick="acceptLgpdConsent()">Aceitar</button>
   <button class="btn btn-secondary" onclick="showLgpdPrivacyModal()">Configurar</button>
 </div>
 
 <!-- PWA UPDATE NOTIFICATION -->
 <div class="lgpd-banner" id="pwaUpdateBanner" style="display:none;border-top-color:var(--grn);background:linear-gradient(135deg,rgba(34,197,94,.08),var(--card-s))">
-  <p>&#128640; <b>Nova versão disponível!</b> <span style="font-size:11px">Atualize para obter as últimas melhorias.</span></p>
+  <p>&#128640; <b>Nova versÃ£o disponÃ­vel!</b> <span style="font-size:11px">Atualize para obter as Ãºltimas melhorias.</span></p>
   <button class="btn btn-primary" onclick="applyPWAUpdate()">Atualizar</button>
   <button class="btn btn-secondary" onclick="document.getElementById('pwaUpdateBanner').style.display='none'">Depois</button>
 </div>
@@ -4283,10 +4296,10 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="modal"><div class="modal-header"><h3 class="modal-title">Gerenciar Consentimentos</h3><button class="modal-close" onclick="closeModal('lgpdConsentModal')">&times;</button></div><div class="modal-body" id="lgpdConsentModalBody"></div></div>
 </div>
 <div class="modal-overlay" id="lgpdDeletionModal" onclick="if(event.target===this)closeModal('lgpdDeletionModal')">
-  <div class="modal"><div class="modal-header"><h3 class="modal-title">Solicitar Exclusão de Dados</h3><button class="modal-close" onclick="closeModal('lgpdDeletionModal')">&times;</button></div><div class="modal-body" id="lgpdDeletionModalBody"></div></div>
+  <div class="modal"><div class="modal-header"><h3 class="modal-title">Solicitar ExclusÃ£o de Dados</h3><button class="modal-close" onclick="closeModal('lgpdDeletionModal')">&times;</button></div><div class="modal-body" id="lgpdDeletionModalBody"></div></div>
 </div>
 <div class="modal-overlay" id="lgpdRetentionModal" onclick="if(event.target===this)closeModal('lgpdRetentionModal')">
-  <div class="modal"><div class="modal-header"><h3 class="modal-title">Configurar Retenção de Dados</h3><button class="modal-close" onclick="closeModal('lgpdRetentionModal')">&times;</button></div><div class="modal-body" id="lgpdRetentionModalBody"></div></div>
+  <div class="modal"><div class="modal-header"><h3 class="modal-title">Configurar RetenÃ§Ã£o de Dados</h3><button class="modal-close" onclick="closeModal('lgpdRetentionModal')">&times;</button></div><div class="modal-body" id="lgpdRetentionModalBody"></div></div>
 </div>
 <div class="modal-overlay" id="lgpdPrivacyModal" onclick="if(event.target===this)closeModal('lgpdPrivacyModal')">
   <div class="modal"><div class="modal-header"><h3 class="modal-title">Poltica de Privacidade - LGPD</h3><button class="modal-close" onclick="closeModal('lgpdPrivacyModal')">&times;</button></div><div class="modal-body" id="lgpdPrivacyModalBody"></div></div>
@@ -4297,13 +4310,13 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <!-- AI MONITOR MODALS -->
 <div class="modal-overlay" id="aiDetailModal" onclick="if(event.target===this)closeModal('aiDetailModal')">
-  <div class="modal"><div class="modal-header"><h3 class="modal-title">Detalhes da Análise</h3><button class="modal-close" onclick="closeModal('aiDetailModal')">&times;</button></div><div class="modal-body" id="aiDetailModalBody"></div></div>
+  <div class="modal"><div class="modal-header"><h3 class="modal-title">Detalhes da AnÃ¡lise</h3><button class="modal-close" onclick="closeModal('aiDetailModal')">&times;</button></div><div class="modal-body" id="aiDetailModalBody"></div></div>
 </div>
 
 <!-- OFFLINE/SYNC PANEL -->
 <div class="sync-panel" id="syncPanel">
   <div class="sync-panel-header">
-    <h3>Sincronização & Backup</h3>
+    <h3>SincronizaÃ§Ã£o & Backup</h3>
     <button class="modal-close" onclick="toggleSyncPanel()">&times;</button>
   </div>
   <div class="sync-body">
@@ -4334,7 +4347,7 @@ window.addEventListener('DOMContentLoaded',function(){
     <div id="syncProgressArea" style="display:none"><div class="sync-progress"><div class="sync-progress-bar" id="syncProgressBar" style="width:0%"></div><span class="sync-progress-text" id="syncProgressText">0%</span></div></div>
     <div id="syncErrorList" style="display:none;margin-bottom:12px"></div>
     <button class="btn-sync" id="syncBtn" onclick="performSync()"><i data-lucide="refresh-cw" style="width:18px;height:18px"></i><span>Sincronizar Agora</span></button>
-    <div style="margin-top:16px;font-size:13px;font-weight:600;color:var(--txt1);margin-bottom:4px">Fila de Sincronização</div>
+    <div style="margin-top:16px;font-size:13px;font-weight:600;color:var(--txt1);margin-bottom:4px">Fila de SincronizaÃ§Ã£o</div>
     <div id="syncQueueList" style="max-height:200px;overflow-y:auto;margin-bottom:16px"><div style="color:var(--txt3);font-size:12px;padding:8px;text-align:center">Nenhuma Operao pendente</div></div>
     <div style="border-top:1px solid var(--bdr);padding-top:16px;margin-top:8px">
       <div style="font-size:13px;font-weight:600;color:var(--txt1);margin-bottom:8px">Backup</div>
@@ -4375,7 +4388,7 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="modal-body" style="padding:10px">
       <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
         <input type="text" id="pmEditorName" placeholder="Nome do modelo" style="flex:1;min-width:150px;padding:6px 10px;border:1px solid var(--bdr);border-radius:var(--rs);background:var(--input);color:var(--txt);font-size:12px">
-        <select id="pmEditorDocType" class="input" style="width:auto;font-size:11px"><option value="os">Ordem de Serviço</option><option value="comprovante-entrada">Comprovante de Entrada</option><option value="comprovante-retirada">Comprovante de Retirada</option><option value="orcamento">Orçamento</option><option value="recibo">Recibo</option><option value="venda">Venda</option><option value="garantia">Garantia</option><option value="etiqueta">Etiqueta</option><option value="checklist">Checklist</option><option value="laudo">Laudo Técnico</option><option value="cliente">Cadastro Cliente</option><option value="relatorio">Relatório</option></select>
+        <select id="pmEditorDocType" class="input" style="width:auto;font-size:11px"><option value="os">Ordem de ServiÃ§o</option><option value="comprovante-entrada">Comprovante de Entrada</option><option value="comprovante-retirada">Comprovante de Retirada</option><option value="orcamento">OrÃ§amento</option><option value="recibo">Recibo</option><option value="venda">Venda</option><option value="garantia">Garantia</option><option value="etiqueta">Etiqueta</option><option value="checklist">Checklist</option><option value="laudo">Laudo TÃ©cnico</option><option value="cliente">Cadastro Cliente</option><option value="relatorio">RelatÃ³rio</option></select>
         <div class="print-format-btn" onclick="printManager.editorSetFormat('80mm')" id="pmFmt80">80mm</div>
         <div class="print-format-btn" onclick="printManager.editorSetFormat('58mm')" id="pmFmt58">58mm</div>
         <div class="print-format-btn active" onclick="printManager.editorSetFormat('a4')" id="pmFmtA4">A4</div>
@@ -4465,7 +4478,7 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="modal" style="max-width:480px">
     <div class="modal-header"><span class="modal-title">Compartilhar OS</span><button class="modal-close" onclick="closeModal('shareModal')">&times;</button></div>
     <div class="modal-body">
-      <p style="font-size:13px;color:var(--txt3);margin-bottom:12px">Envie este link para o cliente acompanhar a Ordem de Serviço em tempo real.</p>
+      <p style="font-size:13px;color:var(--txt3);margin-bottom:12px">Envie este link para o cliente acompanhar a Ordem de ServiÃ§o em tempo real.</p>
       <div class="share-link-box">
         <input type="text" id="shareLinkInput" readonly>
         <button class="btn btn-primary btn-sm" onclick="copyShareLink()" id="copyLinkBtn">Copiar</button>
@@ -4488,11 +4501,11 @@ window.addEventListener('DOMContentLoaded',function(){
         </label>
         <label style="font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:8px">
           <input type="checkbox" id="shareWithApproval" checked style="accent-color:var(--cyan)">
-          Permitir aprovação do orçamento
+          Permitir aprovaÃ§Ã£o do orÃ§amento
         </label>
         <label style="font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:8px">
           <input type="checkbox" id="shareWithRating" checked style="accent-color:var(--cyan)">
-          Permitir avaliação do serviço
+          Permitir avaliaÃ§Ã£o do serviÃ§o
         </label>
       </div>
     </div>
@@ -4511,7 +4524,7 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="form-group"><label>Telefone</label><input type="tel" id="osTelefone" placeholder="(00) 00000-0000" oninput="this.value=fmtPhone(this.value)"></div>
     <div class="form-group"><label>CPF/CNPJ</label><input type="text" inputmode="numeric" id="osCPF" placeholder="000.000.000-00 ou 00.000.000/0000-00" maxlength="18" oninput="this.value=fmtCPFOrCNPJ(this.value)"></div>
     <div class="form-group os-span2"><label>Rua / Logradouro</label><input type="text" id="osLogradouro" placeholder="Rua / Avenida" oninput="osComposeEndereco()"></div>
-    <div class="form-group"><label>Número</label><input type="text" id="osNumero" placeholder="Nº" oninput="osComposeEndereco()"></div>
+    <div class="form-group"><label>NÃºmero</label><input type="text" id="osNumero" placeholder="NÂº" oninput="osComposeEndereco()"></div>
     <div class="form-group"><label>Bairro</label><input type="text" id="osBairro" placeholder="Bairro" oninput="osComposeEndereco()"></div>
     <div class="form-group"><label>Cidade</label><input type="text" id="osCidade" placeholder="Cidade" oninput="osComposeEndereco()"></div>
     <div class="form-group"><label>CEP</label><input type="text" id="osCEP" placeholder="00000-000" maxlength="9" oninput="this.value=fmtCEP(this.value)" onblur="osLookupCEP()"></div>
@@ -4523,17 +4536,17 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="form-group"><label>Aparelho</label><input type="text" id="osTipoAparelho" list="osTipoAparelhoList" placeholder="Celular, Notebook..."><datalist id="osTipoAparelhoList"><option value="Celular"><option value="Tablet"><option value="Notebook"><option value="Desktop"><option value="Computador Gamer"><option value="Mini PC"><option value="All-in-One"><option value="Servidor"><option value="Impressora"><option value="Acessorio"><option value="Outro"></datalist></div>
     <div class="form-group"><label>Marca</label><input type="text" id="osMarca" list="osMarcaList" placeholder="Samsung, Apple..." oninput="updateModelDatalist('osMarca','osModelo','osModeloList')"><datalist id="osMarcaList"></datalist></div>
     <div class="form-group"><label>Modelo</label><input type="text" id="osModelo" list="osModeloList" placeholder="Ex: Galaxy S24 Ultra"><datalist id="osModeloList"></datalist></div>
-    <div class="form-group"><label>IMEI / Série</label><input type="text" inputmode="numeric" id="osIMEI"></div>
+    <div class="form-group"><label>IMEI / SÃ©rie</label><input type="text" inputmode="numeric" id="osIMEI"></div>
     <div class="form-group full"><label>Defeito relatado pelo cliente</label><input type="text" id="osDefeito" placeholder="Descreva o defeito relatado pelo cliente"></div>
     <div class="form-group full" id="osAutoData" style="grid-column:1/-1"></div>
   </div></div>
   <div class="os-form-card"><div class="form-grid">
     <div class="os-sec"><i data-lucide="wrench" style="width:13px;height:13px"></i> Reparo</div>
-    <div class="form-group"><label>Diagnóstico</label><input type="text" id="osDiag"></div>
-    <div class="form-group"><label>Solução</label><input type="text" id="osSolucao"></div>
-    <div class="form-group"><label>Técnico</label><select id="osTecnico"><option value="">Selecione...</option><option>Silvio</option><option>Tecnico 2</option><option>Tecnico 3</option></select></div>
-    <div class="form-group"><label>Prioridade</label><select id="osPrioridade"><option value="baixa">Baixa</option><option value="media" selected>Média</option><option value="alta">Alta</option><option value="urgente">Urgente</option></select></div>
-    <div class="form-group full"><label>Status</label><select id="osStatus"><option value="recebida">Recebida</option><option value="em-diagnostico">Em Diagnóstico</option><option value="aguardando-Aprovao">Aguardando Aprovação</option><option value="em-reparo">Em Reparo</option><option value="teste">Teste</option><option value="pronta">Pronta</option><option value="entregue">Entregue</option><option value="cancelado">Cancelado</option></select></div>
+    <div class="form-group"><label>DiagnÃ³stico</label><input type="text" id="osDiag"></div>
+    <div class="form-group"><label>SoluÃ§Ã£o</label><input type="text" id="osSolucao"></div>
+    <div class="form-group"><label>TÃ©cnico</label><select id="osTecnico"><option value="">Selecione...</option><option>Silvio</option><option>Tecnico 2</option><option>Tecnico 3</option></select></div>
+    <div class="form-group"><label>Prioridade</label><select id="osPrioridade"><option value="baixa">Baixa</option><option value="media" selected>MÃ©dia</option><option value="alta">Alta</option><option value="urgente">Urgente</option></select></div>
+    <div class="form-group full"><label>Status</label><select id="osStatus"><option value="recebida">Recebida</option><option value="em-diagnostico">Em DiagnÃ³stico</option><option value="aguardando-Aprovao">Aguardando AprovaÃ§Ã£o</option><option value="em-reparo">Em Reparo</option><option value="teste">Teste</option><option value="pronta">Pronta</option><option value="entregue">Entregue</option><option value="cancelado">Cancelado</option></select></div>
   </div></div>
   <div class="os-form-card"><div class="form-grid">
     <div class="os-sec"><i data-lucide="dollar-sign" style="width:13px;height:13px"></i> Valores &amp; Datas</div>
@@ -4544,17 +4557,17 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="form-group full"><label>Data Entrega</label><input type="date" id="osDataEntrega"></div>
   </div></div>
   <div class="os-form-card"><div class="form-grid">
-    <div class="os-sec"><i data-lucide="wrench" style="width:13px;height:13px"></i> Serviços</div>
-    <div class="form-group full"><label>Serviços</label><div id="osSvcTags" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div><button type="button" class="btn btn-sm btn-secondary" onclick="toggleSvcPicker()">+ Serviço</button><div id="svcPicker" style="display:none;margin-top:8px;max-height:150px;overflow-y:auto;background:var(--input);border-radius:8px;padding:8px"></div></div>
+    <div class="os-sec"><i data-lucide="wrench" style="width:13px;height:13px"></i> ServiÃ§os</div>
+    <div class="form-group full"><label>ServiÃ§os</label><div id="osSvcTags" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div><button type="button" class="btn btn-sm btn-secondary" onclick="toggleSvcPicker()">+ ServiÃ§o</button><div id="svcPicker" style="display:none;margin-top:8px;max-height:150px;overflow-y:auto;background:var(--input);border-radius:8px;padding:8px"></div></div>
   </div></div>
   <div class="os-form-card"><div class="form-grid">
-    <div class="os-sec"><i data-lucide="package" style="width:13px;height:13px"></i> Peças Utilizadas</div>
-    <div class="form-group full"><div id="osPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div><div style="display:flex;gap:6px;flex-wrap:wrap"><input type="text" id="osPecaSearch" placeholder="Buscar peça por nome/código..." oninput="searchOsPeca(this.value)" style="flex:1;min-width:120px"><button type="button" class="btn btn-sm btn-primary" onclick="addOsPecaManual()">+ Manual</button></div><div id="osPecaAC" class="ac-list" style="position:relative"></div></div>
+    <div class="os-sec"><i data-lucide="package" style="width:13px;height:13px"></i> PeÃ§as Utilizadas</div>
+    <div class="form-group full"><div id="osPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div><div style="display:flex;gap:6px;flex-wrap:wrap"><input type="text" id="osPecaSearch" placeholder="Buscar peÃ§a por nome/cÃ³digo..." oninput="searchOsPeca(this.value)" style="flex:1;min-width:120px"><button type="button" class="btn btn-sm btn-primary" onclick="addOsPecaManual()">+ Manual</button></div><div id="osPecaAC" class="ac-list" style="position:relative"></div></div>
   </div></div>
   <div class="os-form-card" style="grid-column:1/-1"><div class="form-grid">
-    <div class="os-sec"><i data-lucide="file-text" style="width:13px;height:13px"></i> Observações</div>
-    <div class="form-group"><label>Observações</label><textarea id="osObs" rows="2"></textarea></div>
-    <div class="form-group"><label>Laudo Técnico</label><textarea id="osLaudo" rows="2" placeholder="Laudo técnico detalhado do serviço realizado..."></textarea></div>
+    <div class="os-sec"><i data-lucide="file-text" style="width:13px;height:13px"></i> ObservaÃ§Ãµes</div>
+    <div class="form-group"><label>ObservaÃ§Ãµes</label><textarea id="osObs" rows="2"></textarea></div>
+    <div class="form-group"><label>Laudo TÃ©cnico</label><textarea id="osLaudo" rows="2" placeholder="Laudo tÃ©cnico detalhado do serviÃ§o realizado..."></textarea></div>
   </div></div>
 </div><div class="os-totalbar" style="margin-top:14px;padding:12px 14px;background:var(--input);border-radius:8px"><div><label style="font-size:11px;color:var(--txt3)">Desconto (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="osDesconto" oninput="calcTotal()" placeholder="0,00"></div><div><label style="font-size:11px;color:var(--txt3)">Desconto (%)</label><input type="number" min="0" max="100" step="0.5" id="osDescPct" value="0" oninput="calcTotal()" title="Percentual de desconto sobre o total" placeholder="0"></div><div class="os-totalbox"><div style="display:flex;justify-content:flex-end;align-items:center;gap:8px"><span style="font-size:13px;color:var(--txt2)">Total:</span><span style="font-size:20px;font-weight:800;color:var(--grn)" id="osTotalDisp">R$ 0,00</span></div><div id="osPecasTotal" style="display:none;font-size:11px;color:var(--txt3);margin-top:4px;text-align:right"></div><div id="osDescontoDisp" style="display:none;font-size:11px;color:var(--red);margin-top:2px;text-align:right"></div></div></div></div><div class="modal-footer"><div id="osQuickActions" style="display:none;gap:6px;flex-wrap:wrap;margin-right:auto;align-items:center"></div><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('osModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveOS()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
@@ -4562,16 +4575,16 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <div class="modal-overlay" id="centralIAModal"><div class="modal" style="max-width:100vw;width:98vw;height:98vh"><div class="modal-header"><span class="modal-title"><i data-lucide="brain" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Central de IA</span><button class="modal-close" onclick="closeCentralIAMod()">&times;</button></div><div class="modal-body" style="padding:0;height:calc(98vh - 60px);overflow:hidden"><iframe id="centralIAFrame" src="about:blank" style="width:100%;height:100%;border:none;border-radius:0"></iframe></div></div></div>
 
-<div class="modal-overlay" id="scannerModal" style="display:none"><div class="modal" style="max-width:420px"><div class="modal-header"><span class="modal-title"><i data-lucide="scan-line" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Scanner de Produtos</span><button class="modal-close" onclick="closeProductScanner()">&times;</button></div><div class="modal-body" style="padding:12px"><input type="text" id="scannerInput" placeholder="Escaneie ou digite o código..." onkeydown="scannerKeyNav(event)" oninput="scannerInputCheck(this.value)" autocomplete="off" style="width:100%;padding:10px 12px;font-size:15px;font-family:JetBrains Mono,monospace;text-align:center;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);color:var(--txt,#e6edf3)"><div id="scannerStatus" style="font-size:11px;color:var(--txt3,#8b949e);margin-top:6px;text-align:center">Pronto → escaneie um código de barras ou digite e pressione Enter</div><div id="scannerResult" style="margin-top:12px"></div></div></div></div>
-<div class="modal-overlay" id="detailModal"><div class="modal" style="max-width:640px"><div class="modal-header"><span class="modal-title" id="detTitle">Detalhes</span><button class="modal-close" onclick="closeModal('detailModal')">&times;</button></div><div class="modal-body" id="detBody"></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('detailModal')" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" id="detEditBtn" title="Editar" style="padding:6px 8px"><i data-lucide="pencil" style="width:14px;height:14px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 10px" onclick="if(detCurrentOS)openComCenter(detCurrentOS)" title="Central de Comunicação"><i data-lucide="send" style="width:14px;height:14px"></i></button><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 10px" onclick="if(detCurrentOS)openPrintMenu(detCurrentOS)" title="Imprimir OS"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button><button class="btn btn-sm" style="background:var(--cyan);color:#000;font-size:16px;line-height:1;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');generateOSQRCode(detCurrentOS)}" title="QR Code da OS"><i data-lucide="scan" style="width:16px;height:16px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');generateOSBarcode(detCurrentOS)}" title="Codigo de Barras"><svg width="16" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="2" height="14"/><rect x="6" y="5" width="1" height="14"/><rect x="8" y="5" width="3" height="14"/><rect x="12" y="5" width="1" height="14"/><rect x="14" y="5" width="2" height="14"/><rect x="17" y="5" width="1" height="14"/><rect x="19" y="5" width="3" height="14"/></svg></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="closeModal('detailModal');openShareModal(detCurrentOS)" title="Compartilhar OS Online"><i data-lucide="share-2" style="width:16px;height:16px"></i></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');sendOSPdfWhatsApp(detCurrentOS)}" title="Enviar Resumo OS WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');autoWhatsAppReminder(detCurrentOS)}" title="WhatsApp"><i data-lucide="message-circle" style="width:16px;height:16px"></i></button><a class="whatsapp-btn" id="detWhatsApp" href="javascript:void(0)" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px"><i data-lucide="external-link" style="width:14px;height:14px"></i></a><button class="btn btn-sm" style="background:var(--cyan);color:#000;padding:6px 10px;font-weight:700" onclick="if(detCurrentOS){var _id=detCurrentOS;closeModal('detailModal');openComCenter(_id)}" title="Central de Comunicação - WhatsApp, E-mail, PDF, modelos e histórico"><i data-lucide="message-circle" style="width:14px;height:14px"></i> Comunicar</button></div></div></div>
+<div class="modal-overlay" id="scannerModal" style="display:none"><div class="modal" style="max-width:420px"><div class="modal-header"><span class="modal-title"><i data-lucide="scan-line" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"></i>Scanner de Produtos</span><button class="modal-close" onclick="closeProductScanner()">&times;</button></div><div class="modal-body" style="padding:12px"><input type="text" id="scannerInput" placeholder="Escaneie ou digite o cÃ³digo..." onkeydown="scannerKeyNav(event)" oninput="scannerInputCheck(this.value)" autocomplete="off" style="width:100%;padding:10px 12px;font-size:15px;font-family:JetBrains Mono,monospace;text-align:center;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);color:var(--txt,#e6edf3)"><div id="scannerStatus" style="font-size:11px;color:var(--txt3,#8b949e);margin-top:6px;text-align:center">Pronto â†’ escaneie um cÃ³digo de barras ou digite e pressione Enter</div><div id="scannerResult" style="margin-top:12px"></div></div></div></div>
+<div class="modal-overlay" id="detailModal"><div class="modal" style="max-width:640px"><div class="modal-header"><span class="modal-title" id="detTitle">Detalhes</span><button class="modal-close" onclick="closeModal('detailModal')">&times;</button></div><div class="modal-body" id="detBody"></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('detailModal')" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" id="detEditBtn" title="Editar" style="padding:6px 8px"><i data-lucide="pencil" style="width:14px;height:14px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 10px" onclick="if(detCurrentOS)openComCenter(detCurrentOS)" title="Central de ComunicaÃ§Ã£o"><i data-lucide="send" style="width:14px;height:14px"></i></button><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 10px" onclick="if(detCurrentOS)openPrintMenu(detCurrentOS)" title="Imprimir OS"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button><button class="btn btn-sm" style="background:var(--cyan);color:#000;font-size:16px;line-height:1;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');generateOSQRCode(detCurrentOS)}" title="QR Code da OS"><i data-lucide="scan" style="width:16px;height:16px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');generateOSBarcode(detCurrentOS)}" title="Codigo de Barras"><svg width="16" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="2" height="14"/><rect x="6" y="5" width="1" height="14"/><rect x="8" y="5" width="3" height="14"/><rect x="12" y="5" width="1" height="14"/><rect x="14" y="5" width="2" height="14"/><rect x="17" y="5" width="1" height="14"/><rect x="19" y="5" width="3" height="14"/></svg></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="closeModal('detailModal');openShareModal(detCurrentOS)" title="Compartilhar OS Online"><i data-lucide="share-2" style="width:16px;height:16px"></i></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');sendOSPdfWhatsApp(detCurrentOS)}" title="Enviar Resumo OS WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></button><button class="btn btn-sm" style="background:#25d366;color:#fff;padding:6px 10px" onclick="if(detCurrentOS){closeModal('detailModal');autoWhatsAppReminder(detCurrentOS)}" title="WhatsApp"><i data-lucide="message-circle" style="width:16px;height:16px"></i></button><a class="whatsapp-btn" id="detWhatsApp" href="https://wa.me/55" target="_blank" rel="noopener" aria-label="Abrir WhatsApp" style="display:inline-flex;align-items:center;gap:4px"><i data-lucide="external-link" style="width:14px;height:14px"></i></a><button class="btn btn-sm" style="background:var(--cyan);color:#000;padding:6px 10px;font-weight:700" onclick="if(detCurrentOS){var _id=detCurrentOS;closeModal('detailModal');openComCenter(_id)}" title="Central de ComunicaÃ§Ã£o - WhatsApp, E-mail, PDF, modelos e histÃ³rico"><i data-lucide="message-circle" style="width:14px;height:14px"></i> Comunicar</button></div></div></div>
 
-<div class="modal-overlay" id="svcModal"><div class="modal"><div class="modal-header"><span class="modal-title" id="svcTitle">Novo Serviço</span><button class="modal-close" onclick="closeModal('svcModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
+<div class="modal-overlay" id="svcModal"><div class="modal"><div class="modal-header"><span class="modal-title" id="svcTitle">Novo ServiÃ§o</span><button class="modal-close" onclick="closeModal('svcModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
   <div class="form-group full"><label>Nome</label><input type="text" id="svcNome"></div>
-  <div class="form-group full"><label>Descrição</label><textarea id="svcDesc" rows="2"></textarea></div>
-  <div class="form-group"><label>Preço (R$)</label><input type="number" id="svcPreo" step="0.01"></div>
-  <div class="form-group"><label>Categoria</label><select id="svcCategoria"><option value="reparo">Reparo</option><option value="manutencao">Manutenção</option><option value="mao-de-obra">Mão de obra</option><option value="instalacao">Instalação</option><option value="consultoria">Consultoria</option><option value="formatacao">Formatação</option><option value="diagnostico">Diagnóstico</option><option value="limpeza">Limpeza</option><option value="desbloqueio">Desbloqueio</option><option value="recuperacao">Recuperação de Dados</option><option value="outro">Outro</option></select></div>
+  <div class="form-group full"><label>DescriÃ§Ã£o</label><textarea id="svcDesc" rows="2"></textarea></div>
+  <div class="form-group"><label>PreÃ§o (R$)</label><input type="number" id="svcPreo" step="0.01"></div>
+  <div class="form-group"><label>Categoria</label><select id="svcCategoria"><option value="reparo">Reparo</option><option value="manutencao">ManutenÃ§Ã£o</option><option value="mao-de-obra">MÃ£o de obra</option><option value="instalacao">InstalaÃ§Ã£o</option><option value="consultoria">Consultoria</option><option value="formatacao">FormataÃ§Ã£o</option><option value="diagnostico">DiagnÃ³stico</option><option value="limpeza">Limpeza</option><option value="desbloqueio">Desbloqueio</option><option value="recuperacao">RecuperaÃ§Ã£o de Dados</option><option value="outro">Outro</option></select></div>
   <div class="form-group"><label>Garantia (dias)</label><input type="number" id="svcGarantia" value="90"></div>
-  <div class="form-group"><label>Duração Estimada</label><input type="text" id="svcDurAo" placeholder="ex: 2h"></div>
+  <div class="form-group"><label>DuraÃ§Ã£o Estimada</label><input type="text" id="svcDurAo" placeholder="ex: 2h"></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('svcModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveService()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
 <div class="modal-overlay" id="prdModal"><div class="modal" style="max-width:600px"><div class="modal-header"><span class="modal-title" id="prdTitle">Novo Produto</span><button class="modal-close" onclick="closeModal('prdModal')">&times;</button></div><div class="modal-body" style="padding:10px"><div class="form-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px;align-items:start">
@@ -4579,22 +4592,22 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="form-group"><label>Categoria</label><select id="prdCategoria"><option value="acessorio">Acessorio</option><option value="peca">Peca</option><option value="produto">Produto</option><option value="insumo">Insumo</option><option value="capa">Capa</option><option value="pelcula">Pelicula</option><option value="carregador">Carregador</option><option value="fone">Fone</option><option value="cabo">Cabo</option><option value="tela">Tela</option><option value="bateria">Bateria</option><option value="conector">Conector</option><option value="ferramenta">Ferramenta</option><option value="embalagem">Embalagem</option><option value="outro">Outro</option></select></div>
   <div class="form-group"><label>Marca</label><input type="text" id="prdMarca" list="prdMarcaList" oninput="updateModelDatalist('prdMarca','prdModelo','prdModeloList')"><datalist id="prdMarcaList"></datalist></div>
   <div class="form-group"><label>Modelo</label><input type="text" id="prdModelo" list="prdModeloList"><datalist id="prdModeloList"></datalist></div>
-  <div class="form-group"><label>Código</label><input type="text" id="prdCodigo"></div>
-  <div class="form-group"><label>Código de Barras</label><div style="position:relative"><input type="text" id="prdBarcode" onkeydown="prdBarcodeKeyNav(event)" oninput="prdBarcodeCheck(this.value);prdBarcodeAutoResolve(this.value)" style="padding-right:34px"><button type="button" onclick="prdBarcodeScanMode()" title="Escanear código de barras" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:var(--cyan,#22d3ee);cursor:pointer;padding:2px;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="7" y2="12"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="17" y1="12" x2="17" y2="12"/></svg></button></div><small id="prdBarcodeHint" style="display:block;font-size:10px;min-height:13px;color:var(--txt3,#8b949e);margin-top:2px"></small></div>
+  <div class="form-group"><label>CÃ³digo</label><input type="text" id="prdCodigo"></div>
+  <div class="form-group"><label>CÃ³digo de Barras</label><div style="position:relative"><input type="text" id="prdBarcode" onkeydown="prdBarcodeKeyNav(event)" oninput="prdBarcodeCheck(this.value);prdBarcodeAutoResolve(this.value)" style="padding-right:34px"><button type="button" onclick="prdBarcodeScanMode()" title="Escanear cÃ³digo de barras" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:var(--cyan,#22d3ee);cursor:pointer;padding:2px;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="7" y2="12"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="17" y1="12" x2="17" y2="12"/></svg></button></div><small id="prdBarcodeHint" style="display:block;font-size:10px;min-height:13px;color:var(--txt3,#8b949e);margin-top:2px"></small></div>
    <div class="form-group"><label>Fornecedor</label><input type="text" id="prdForn"></div>
   <div class="form-group"><label>Custo (R$)</label><input type="text" class="currency-input" id="prdCusto" oninput="calcPrdMargem()"></div>
   <div class="form-group"><label>Venda (R$)</label><input type="text" class="currency-input" id="prdVenda" oninput="calcPrdMargem()"></div>
   <div class="form-group"><label>Margem</label><input type="text" id="prdMargemCalc" readonly style="color:var(--grn);font-weight:700"></div>
   <div class="form-group"><label>Estoque</label><input type="number" id="prdEstoque" value="0"></div>
   <div class="form-group"><label>Estoque Min</label><input type="number" id="prdEstMin" value="5"></div>
-  <div class="form-group full"><label>Descrição</label><textarea id="prdDesc" rows="2" placeholder="Descrição detalhada do produto..."></textarea></div>
+  <div class="form-group full"><label>DescriÃ§Ã£o</label><textarea id="prdDesc" rows="2" placeholder="DescriÃ§Ã£o detalhada do produto..."></textarea></div>
   <div class="form-group full" style="border-top:1px solid var(--bdr);padding-top:12px;margin-top:4px"><label>Fotos & Videos</label><div id="prdMediaGallery" style="display:flex;gap:8px;flex-wrap:wrap;min-height:60px;padding:8px;background:var(--input);border-radius:var(--rs);border:1px solid var(--bdr)"></div><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-sm" style="font-size:10px;padding:4px 10px" onclick="document.getElementById('prdPhotoInput').click()">+ Foto</button><button class="btn btn-sm" style="font-size:10px;padding:4px 10px" onclick="document.getElementById('prdVideoInput').click()">+ Video</button><input type="file" id="prdPhotoInput" accept="image/*" multiple style="display:none" onchange="addPrdMedia(this.files,'photo')"><input type="file" id="prdVideoInput" accept="video/*" style="display:none" onchange="addPrdMedia(this.files,'video')"></div></div>
-  <div class="form-group full" id="prdPriceHistorySection" style="display:none"><label>Histórico de Preços</label><div id="prdPriceHistory" style="max-height:120px;overflow-y:auto;font-size:12px;color:var(--txt2)"></div></div>
+  <div class="form-group full" id="prdPriceHistorySection" style="display:none"><label>HistÃ³rico de PreÃ§os</label><div id="prdPriceHistory" style="max-height:120px;overflow-y:auto;font-size:12px;color:var(--txt2)"></div></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('prdModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveProduct()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
 <div class="modal-overlay" id="orcModal"><div class="modal" style="max-width:820px;max-height:92vh;overflow-y:auto"><div class="modal-header"><span class="modal-title">OS R&#225;pida</span><button class="modal-close" onclick="closeModal('orcModal')">&times;</button></div><div class="modal-body" style="padding:10px">
   <div class="form-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 8px;align-items:start">
-  <div class="form-group" style="grid-column:span 2"><label>Cliente</label><div style="display:flex;gap:4px"><input type="text" id="qoCliente" list="qoClienteList" placeholder="Nome do cliente" oninput="qoClienteSync(this.value)"><datalist id="qoClienteList"></datalist><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:4px 6px;border:none;border-radius:var(--rs,8px);cursor:pointer;font-size:10px;white-space:nowrap" onclick="qoQuickClient()" title="Cadastro rápido de cliente">+ Rápido</button></div></div>
+  <div class="form-group" style="grid-column:span 2"><label>Cliente</label><div style="display:flex;gap:4px"><input type="text" id="qoCliente" list="qoClienteList" placeholder="Nome do cliente" oninput="qoClienteSync(this.value)"><datalist id="qoClienteList"></datalist><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:4px 6px;border:none;border-radius:var(--rs,8px);cursor:pointer;font-size:10px;white-space:nowrap" onclick="qoQuickClient()" title="Cadastro rÃ¡pido de cliente">+ RÃ¡pido</button></div></div>
   <div class="form-group"><label>Telefone</label><input type="tel" id="qoTelefone" placeholder="(00) 00000-0000" maxlength="14" inputmode="numeric" oninput="this.value=fmtPhone(this.value)"></div>
   <div class="form-group"><label>CPF/CNPJ</label><input type="text" id="qoCPF" placeholder="000.000.000-00" maxlength="18" inputmode="numeric" oninput="this.value=fmtCPFOrCNPJ(this.value)"></div>
   <div class="form-group"><label>Data / Hora</label><input type="text" id="qoData" readonly style="color:var(--txt2,#c9d1d9);cursor:default"></div>
@@ -4602,14 +4615,14 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="form-group"><label>Tipos de Aparelhos</label><input type="text" id="qoAparelho" list="qoAparelhoList" placeholder="ex: iPhone 12" oninput="qoAparelhoSync(this.value)"><datalist id="qoAparelhoList"></datalist></div>
   <div class="form-group"><label>Marca</label><input type="text" id="qoMarca" list="qoMarcaList" placeholder="ex: Apple" oninput="qoMarcaChanged(this.value)"><datalist id="qoMarcaList"></datalist></div>
   <div class="form-group"><label>Modelo</label><input type="text" id="qoModelo" list="qoModeloList" placeholder="ex: A2403"><datalist id="qoModeloList"></datalist></div>
-  <div class="form-group full"><label>Defeito Relatado</label><input type="text" id="qoDefeito" placeholder="Ex.: tela trincada, não liga, bateria viciada..."></div>
-  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Serviços <button type="button" class="btn btn-sm" style="padding:2px 6px;font-size:9px" onclick="qoAddSvcManual()" title="Adicionar serviço manualmente">+ Manual</button></label>
-    <input type="text" id="qoSvcSearch" placeholder="Buscar serviço (banco de dados)..." oninput="qoSearchSvc(this.value)" onkeydown="qoSearchSvcKey(event)" style="width:100%">
+  <div class="form-group full"><label>Defeito Relatado</label><input type="text" id="qoDefeito" placeholder="Ex.: tela trincada, nÃ£o liga, bateria viciada..."></div>
+  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">ServiÃ§os <button type="button" class="btn btn-sm" style="padding:2px 6px;font-size:9px" onclick="qoAddSvcManual()" title="Adicionar serviÃ§o manualmente">+ Manual</button></label>
+    <input type="text" id="qoSvcSearch" placeholder="Buscar serviÃ§o (banco de dados)..." oninput="qoSearchSvc(this.value)" onkeydown="qoSearchSvcKey(event)" style="width:100%">
     <div id="qoSvcAC" style="position:relative;max-height:100px;overflow-y:auto"></div>
     <div id="qoSvcTags" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px"></div>
   </div>
-  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Produtos / Peças <button type="button" class="btn btn-sm" style="padding:2px 6px;font-size:9px" onclick="qoAddPecaManual()" title="Adicionar produto manualmente">+ Manual</button></label>
-    <input type="text" id="qoPecaSearch" placeholder="Buscar produto por nome/código..." oninput="qoSearchPeca(this.value)" onkeydown="qoSearchPecaKey(event)" style="width:100%">
+  <div class="form-group full" style="border-top:1px solid var(--bdr,#30363d);padding-top:6px;margin-top:0"><label style="display:flex;align-items:center;justify-content:space-between;width:100%">Produtos / PeÃ§as <button type="button" class="btn btn-sm" style="padding:2px 6px;font-size:9px" onclick="qoAddPecaManual()" title="Adicionar produto manualmente">+ Manual</button></label>
+    <input type="text" id="qoPecaSearch" placeholder="Buscar produto por nome/cÃ³digo..." oninput="qoSearchPeca(this.value)" onkeydown="qoSearchPecaKey(event)" style="width:100%">
     <div id="qoPecaAC" style="position:relative;max-height:100px;overflow-y:auto"></div>
     <div id="qoPecasList" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px"></div>
   </div>
@@ -4618,22 +4631,22 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="pdv-pay-group" style="margin-top:2px">
       <button type="button" class="pdv-pay-btn active" data-qpg="pix" onclick="qoSetPag('pix')"><i data-lucide="qr-code" style="width:14px;height:14px"></i><span>PIX</span></button>
       <button type="button" class="pdv-pay-btn" data-qpg="dinheiro" onclick="qoSetPag('dinheiro')"><i data-lucide="banknote" style="width:14px;height:14px"></i><span>Dinheiro</span></button>
-      <button type="button" class="pdv-pay-btn" data-qpg="cartao" onclick="qoSetPag('cartao')"><i data-lucide="credit-card" style="width:14px;height:14px"></i><span>Cartão</span></button>
+      <button type="button" class="pdv-pay-btn" data-qpg="cartao" onclick="qoSetPag('cartao')"><i data-lucide="credit-card" style="width:14px;height:14px"></i><span>CartÃ£o</span></button>
     </div>
-    <select id="qoPagamento" style="display:none" onchange="qoPagSim()"><option value="pix">PIX</option><option value="dinheiro">Dinheiro</option><option value="cartao">Cartão</option><option value="juros">Cartão c/ juros</option></select>
+    <select id="qoPagamento" style="display:none" onchange="qoPagSim()"><option value="pix">PIX</option><option value="dinheiro">Dinheiro</option><option value="cartao">CartÃ£o</option><option value="juros">CartÃ£o c/ juros</option></select>
     <div id="qoParcelasRow" style="display:none;margin-top:6px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
         <div class="form-group" style="margin:0"><label style="font-size:10px">Parcelas</label><select id="qoParcelas" onchange="qoPagSim()"><option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="9">9x</option><option value="12">12x</option></select></div>
-        <div class="form-group" style="margin:0"><label style="font-size:10px">Taxa %/mês</label><input type="number" id="qoTaxa" value="3.99" step="0.01" min="0" oninput="qoPagSim()"></div>
+        <div class="form-group" style="margin:0"><label style="font-size:10px">Taxa %/mÃªs</label><input type="number" id="qoTaxa" value="3.99" step="0.01" min="0" oninput="qoPagSim()"></div>
       </div>
-      <label class="pdv-toggle-label" style="margin-top:4px"><input type="checkbox" id="qoComJuros" onchange="qoPagSim()"> Cobrar juros no cartão</label>
+      <label class="pdv-toggle-label" style="margin-top:4px"><input type="checkbox" id="qoComJuros" onchange="qoPagSim()"> Cobrar juros no cartÃ£o</label>
     </div>
     <div id="qoDinheiroRow" style="display:none;margin-top:6px">
       <div class="form-group" style="margin-bottom:4px"><label style="font-size:10px">Valor Recebido (R$)</label><input type="text" class="currency-input" id="qoRecebido" oninput="qoPagSim()"></div>
       <div style="display:flex;justify-content:space-between;padding:7px 10px;background:rgba(250,204,21,.08);border-radius:6px"><span style="color:var(--ylw);font-weight:600;font-size:12px">Troco</span><span id="qoTroco" style="font-weight:800;font-size:14px;color:var(--ylw)">R$ 0,00</span></div>
       <div id="qoTrocoAlert" style="display:none;margin-top:4px;font-size:11px;color:var(--red);font-weight:600"></div>
     </div>
-    <div id="qoPagDisp" style="margin-top:6px;font-size:11px;font-weight:700;color:var(--cyan,#22d3ee)">PIX à vista</div>
+    <div id="qoPagDisp" style="margin-top:6px;font-size:11px;font-weight:700;color:var(--cyan,#22d3ee)">PIX Ã  vista</div>
     <button type="button" class="btn btn-sm btn-primary" onclick="qoConfirmarPagamento()" style="width:100%;margin-top:8px;padding:6px 10px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px"><i data-lucide="check" style="width:13px;height:13px"></i> Confirmar Pagamento</button>
   </div>
   <div class="form-group full" style="display:flex;align-items:center;justify-content:space-between;background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);padding:6px 10px;margin-top:0">
@@ -4641,10 +4654,10 @@ window.addEventListener('DOMContentLoaded',function(){
     <div style="font-size:17px;font-weight:800;color:var(--grn,#3fb950)" id="qoTotalDisp">R$ 0,00</div>
   </div>
   </div>
-</div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red,#f85149);color:#fff;padding:5px 8px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoCloseOrc()" title="Cancelar"><i data-lucide="x" style="width:13px;height:13px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 12px;font-size:11px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoOpenShare()" title="Central de compartilhamento"><i data-lucide="share-2" style="width:13px;height:13px"></i> Compartilhar</button><button class="btn btn-sm btn-primary" onclick="qoGerarPDF()" title="Gerar orçamento em PDF/impressão" style="padding:6px 12px;font-size:11px">Gerar PDF do Orçamento</button></div></div></div>
+</div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red,#f85149);color:#fff;padding:5px 8px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoCloseOrc()" title="Cancelar"><i data-lucide="x" style="width:13px;height:13px"></i></button><button class="btn btn-sm" style="background:var(--blu,#3b82f6);color:#fff;padding:6px 12px;font-size:11px;border:none;border-radius:var(--rs,8px);cursor:pointer" onclick="qoOpenShare()" title="Central de compartilhamento"><i data-lucide="share-2" style="width:13px;height:13px"></i> Compartilhar</button><button class="btn btn-sm btn-primary" onclick="qoGerarPDF()" title="Gerar orÃ§amento em PDF/impressÃ£o" style="padding:6px 12px;font-size:11px">Gerar PDF do OrÃ§amento</button></div></div></div>
 
 <div class="modal-overlay" id="qoShareModal"><div class="modal" style="max-width:500px"><div class="modal-header"><span class="modal-title">Central de Compartilhamento</span><button class="modal-close" onclick="closeModal('qoShareModal')">&times;</button></div><div class="modal-body">
-  <p style="font-size:12px;color:var(--txt3,#8b949e);margin-bottom:10px">Compartilhe este orçamento com o cliente por WhatsApp, e-mail ou SMS.</p>
+  <p style="font-size:12px;color:var(--txt3,#8b949e);margin-bottom:10px">Compartilhe este orÃ§amento com o cliente por WhatsApp, e-mail ou SMS.</p>
   <div style="background:var(--input,#21262d);border:1px solid var(--bdr,#30363d);border-radius:var(--rs,8px);padding:10px 12px;margin-bottom:12px;max-height:140px;overflow-y:auto;font-size:12px;white-space:pre-wrap" id="qoSharePreview"></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn btn-sm" style="background:#25d366;color:#fff;flex:1;min-width:110px" onclick="qoShareViaWhatsApp()"><i data-lucide="message-circle" style="width:14px;height:14px"></i> WhatsApp</button>
@@ -4665,14 +4678,14 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="form-group"><label>Email</label><input type="email" id="cliEmail"></div>
   <div class="form-group"><label>Data Nascimento</label><input type="text" id="cliNasc" placeholder="DD/MM/AAAA" oninput="this.value=fmtDateBR(this.value)" maxlength="10"></div>
   <div class="form-group"><label>CEP</label><input type="text" id="cliCEP" placeholder="00000-000" oninput="this.value=fmtCEP(this.value)" maxlength="9" onblur="lookupCEP()"></div>
-  <div class="form-group full"><label>Endereço</label><input type="text" id="cliEndereco" placeholder="Rua, numero - Bairro"></div>
-  <div class="form-group"><label>Referência</label><input type="text" id="cliPrefs" placeholder="Ex.: indicação, anúncio, vitrine..."></div>
-  <div class="form-group full"><label>Observações</label><textarea id="cliObs" rows="2"></textarea></div>
+  <div class="form-group full"><label>EndereÃ§o</label><input type="text" id="cliEndereco" placeholder="Rua, numero - Bairro"></div>
+  <div class="form-group"><label>ReferÃªncia</label><input type="text" id="cliPrefs" placeholder="Ex.: indicaÃ§Ã£o, anÃºncio, vitrine..."></div>
+  <div class="form-group full"><label>ObservaÃ§Ãµes</label><textarea id="cliObs" rows="2"></textarea></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('clienteModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveCliente()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
 <div class="modal-overlay" id="tplModal"><div class="modal"><div class="modal-header"><span class="modal-title" id="tplTitle">Novo Template</span><button class="modal-close" onclick="closeModal('tplModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
   <div class="form-group full"><label>Nome</label><input type="text" id="tplNome"></div>
-  <div class="form-group"><label>Tipo</label><select id="tplTipo"><option value="entrada">Recebimento</option><option value="diagnostico">Diagnóstico</option><option value="entrega">Entrega</option></select></div>
+  <div class="form-group"><label>Tipo</label><select id="tplTipo"><option value="entrada">Recebimento</option><option value="diagnostico">DiagnÃ³stico</option><option value="entrega">Entrega</option></select></div>
   <div class="form-group full"><label>Itens (um por linha)</label><textarea id="tplItens" rows="6"></textarea></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('tplModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveTemplate()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
@@ -4689,12 +4702,12 @@ window.addEventListener('DOMContentLoaded',function(){
     <div id="pdvDescDisp" style="display:none;justify-content:space-between;align-items:center;font-size:11px;color:var(--red);margin:-4px 0 8px"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><div class="form-group" style="margin-bottom:0"><label>Desconto (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="pdvDescRS" oninput="updPDVTotal()" placeholder="0,00"></div>
     <div class="form-group" style="margin-bottom:0"><label>Desconto (%)</label><input type="number" min="0" max="100" step="0.5" id="pdvDesc" value="0" oninput="updPDVTotal()" title="Informe o percentual de desconto (ex.: 10 = 10%)"></div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><div class="form-group" style="margin-bottom:0"><label>Acréscimo (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="pdvAcresc" oninput="updPDVTotal()" placeholder="0,00" title="Ex.: frete, taxa extra"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><div class="form-group" style="margin-bottom:0"><label>AcrÃ©scimo (R$)</label><input type="text" class="currency-input" inputmode="decimal" id="pdvAcresc" oninput="updPDVTotal()" placeholder="0,00" title="Ex.: frete, taxa extra"></div>
     <div class="form-group" style="margin-bottom:0"><label>Obs. da venda</label><input type="text" id="pdvObs" placeholder="Opcional..." maxlength="120" style="font-size:11px"></div></div>
     <div class="form-group" style="margin-bottom:0"><label>Forma de Pagamento</label><div class="pdv-pay-group">
       <button type="button" class="pdv-pay-btn active" data-pg="dinheiro" onclick="setPdvPag('dinheiro')"><i data-lucide="banknote" style="width:16px;height:16px"></i><span>Dinheiro</span></button>
       <button type="button" class="pdv-pay-btn" data-pg="pix" onclick="setPdvPag('pix')"><i data-lucide="qr-code" style="width:16px;height:16px"></i><span>Pix</span></button>
-      <button type="button" class="pdv-pay-btn" data-pg="cartao" onclick="setPdvPag('cartao')"><i data-lucide="credit-card" style="width:16px;height:16px"></i><span>Cartão</span></button>
+      <button type="button" class="pdv-pay-btn" data-pg="cartao" onclick="setPdvPag('cartao')"><i data-lucide="credit-card" style="width:16px;height:16px"></i><span>CartÃ£o</span></button>
       <button type="button" class="pdv-pay-btn" data-pg="split" onclick="setPdvPag('split')"><i data-lucide="split" style="width:16px;height:16px"></i><span>Dividido</span></button>
     </div><select id="pdvPagamento" style="display:none" onchange="pdvPagChange()"><option value="dinheiro">Dinheiro</option><option value="pix">Pix</option><option value="cartao">Carto (Maquininha)</option><option value="cartao_sj">Carto (sem juros)</option></select></div>
     <div style="margin-top:8px"><label class="pdv-toggle-label" style="margin:0"><input type="checkbox" id="pdvSplitToggle" onchange="pdvSplitMode(this.checked)"> Pagamento dividido (2+ formas)</label>
@@ -4731,9 +4744,9 @@ window.addEventListener('DOMContentLoaded',function(){
   <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:10px 14px;background:var(--gd);border-radius:var(--rs)"><span style="font-size:13px;font-weight:700;color:var(--txt2);display:flex;align-items:center;gap:6px"><i data-lucide="wallet" style="width:16px;height:16px"></i>TOTAL</span><span style="font-size:24px;font-weight:800;color:var(--grn)" id="pdvTotal">R$ 0,00</span></div>
 </div></div></div><div class="modal-footer"><label class="pdv-toggle-label" style="margin-right:auto;font-size:11px"><input type="checkbox" id="pdvPrintAfter" checked> Imprimir cupom ao finalizar</label><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:8px 16px;border:none;border-radius:var(--rs);cursor:pointer;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px" onclick="closeModal('pdvModal')"><i data-lucide="x" style="width:14px;height:14px"></i>Cancelar</button><button class="btn btn-sm btn-primary" onclick="savePDV()" style="padding:8px 16px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px"><i data-lucide="check" style="width:14px;height:14px"></i>Finalizar Venda</button></div></div></div>
 
-<div class="modal-overlay" id="finModal"><div class="modal"><div class="modal-header"><span class="modal-title">Nova Transação</span><button class="modal-close" onclick="closeModal('finModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
+<div class="modal-overlay" id="finModal"><div class="modal"><div class="modal-header"><span class="modal-title">Nova TransaÃ§Ã£o</span><button class="modal-close" onclick="closeModal('finModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
   <div class="form-group"><label>Tipo</label><select id="finTipo"><option value="entrada">Entrada</option><option value="saida">Sada/option></select></div>
-  <div class="form-group"><label>Descrição</label><input type="text" id="finDesc"></div>
+  <div class="form-group"><label>DescriÃ§Ã£o</label><input type="text" id="finDesc"></div>
   <div class="form-group"><label>Valor (R$)</label><input type="text" class="currency-input" id="finValor"></div>
   <div class="form-group"><label>Pagamento</label><select id="finPag"><option value="dinheiro">Dinheiro</option><option value="pix">Pix</option><option value="credito">Credito</option><option value="debito">Debito</option><option value="boleto">Boleto</option></select></div>
   <div class="form-group"><label>Vencimento</label><input type="date" id="finVenc"></div>
@@ -4745,7 +4758,7 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="form-group"><label>Telefone</label><input type="tel" id="forTel"></div>
   <div class="form-group"><label>Email</label><input type="email" id="forEmail"></div>
   <div class="form-group"><label>CEP</label><input type="text" id="forCEP" oninput="this.value=fmtCEP(this.value)" onblur="forLookupCEP()" maxlength="9" placeholder="00000-000"></div>
-  <div class="form-group full"><label>Endereço</label><input type="text" id="forEnd"></div>
+  <div class="form-group full"><label>EndereÃ§o</label><input type="text" id="forEnd"></div>
   <div class="form-group"><label>Prazo Entrega (dias)</label><input type="number" id="forPrazo" value="7"></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('fornecedorModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveFornecedor()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
@@ -4758,8 +4771,8 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <div class="modal-overlay" id="interAoModal"><div class="modal"><div class="modal-header"><span class="modal-title">Nova InterAo</span><button class="modal-close" onclick="closeModal('interAoModal')">&times;</button></div><div class="modal-body"><div class="form-grid">
   <div class="form-group"><label>Cliente</label><select id="intCliente"></select></div>
-  <div class="form-group"><label>Tipo</label><select id="intTipo"><option value="ligAo">Ligação</option><option value="email">E-mail</option><option value="whatsapp">WhatsApp</option><option value="reuniao">Reunião</option><option value="visita">Visita</option></select></div>
-  <div class="form-group full"><label>Descrição</label><textarea id="intDesc" rows="2"></textarea></div>
+  <div class="form-group"><label>Tipo</label><select id="intTipo"><option value="ligAo">LigaÃ§Ã£o</option><option value="email">E-mail</option><option value="whatsapp">WhatsApp</option><option value="reuniao">ReuniÃ£o</option><option value="visita">Visita</option></select></div>
+  <div class="form-group full"><label>DescriÃ§Ã£o</label><textarea id="intDesc" rows="2"></textarea></div>
   <div class="form-group"><label>Follow-up</label><input type="date" id="intFollowup"></div>
 </div></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('interAoModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="saveInterAo()" title="Salvar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
@@ -4771,15 +4784,15 @@ window.addEventListener('DOMContentLoaded',function(){
   <div style="font-size:12px;color:var(--txt3)" id="cfmSub">Esta Ao no pode ser desfeita.</div>
 </div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('confirmModal')" title="Cancelar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-danger" id="cfmBtn" title="Confirmar" style="padding:6px 8px"><i data-lucide="check" style="width:14px;height:14px"></i></button></div></div></div>
 
-<div class="modal-overlay" id="zerarModal"><div class="modal" style="max-width:720px"><div class="modal-header"><span class="modal-title" style="color:var(--red)">&#9888; Limpeza Avançada - Confirmação de Segurança</span><button class="modal-close" onclick="closeModal('zerarModal')">&times;</button></div><div class="modal-body">
+<div class="modal-overlay" id="zerarModal"><div class="modal" style="max-width:720px"><div class="modal-header"><span class="modal-title" style="color:var(--red)">&#9888; Limpeza AvanÃ§ada - ConfirmaÃ§Ã£o de SeguranÃ§a</span><button class="modal-close" onclick="closeModal('zerarModal')">&times;</button></div><div class="modal-body">
   <p style="font-size:12px;color:var(--txt2);margin:0 0 10px">Selecione <b>apenas</b> os grupos de dados que deseja apagar. Marque os checkboxes e confirme abaixo:</p>
   <div style="border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:12px">
     <div style="background:var(--bg1);padding:6px 10px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt3);display:flex;justify-content:space-between;border-bottom:1px solid var(--bdr)"><span>Grupo de dados</span><span style="display:flex;gap:8px"><button class="btn btn-sm" onclick="_zrToggleAll(true)" style="font-size:10px;padding:2px 8px">Marcar Todos</button><button class="btn btn-sm" onclick="_zrToggleAll(false)" style="font-size:10px;padding:2px 8px">Desmarcar</button></span></div>
     <div id="zrList" style="max-height:320px;overflow-y:auto"></div>
   </div>
-  <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;cursor:pointer;margin-bottom:8px"><input type="checkbox" id="zrAck" onchange="_zerarState()" style="margin-top:2px"> <span><b>Entendo</b> que esta ação é <b style="color:var(--red)">irreversível</b> e os dados apagados <b>não podem ser recuperados</b>.</span></label>
-  <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;cursor:pointer;margin-bottom:12px"><input type="checkbox" id="zrCfg" onchange="_zerarState()" style="margin-top:2px"> <span>Apagar <b>também as configurações</b> (loja, políticas, preços e usuários). <small style="color:var(--txt3)">Desmarcado = mantém as configurações atuais.</small></span></label>
-  <div class="form-group"><label>Senha de administrador (obrigatória)</label><input type="password" id="zrPass" class="input" placeholder="Sua senha de acesso" oninput="_zerarState()" autocomplete="off"></div>
+  <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;cursor:pointer;margin-bottom:8px"><input type="checkbox" id="zrAck" onchange="_zerarState()" style="margin-top:2px"> <span><b>Entendo</b> que esta aÃ§Ã£o Ã© <b style="color:var(--red)">irreversÃ­vel</b> e os dados apagados <b>nÃ£o podem ser recuperados</b>.</span></label>
+  <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;cursor:pointer;margin-bottom:12px"><input type="checkbox" id="zrCfg" onchange="_zerarState()" style="margin-top:2px"> <span>Apagar <b>tambÃ©m as configuraÃ§Ãµes</b> (loja, polÃ­ticas, preÃ§os e usuÃ¡rios). <small style="color:var(--txt3)">Desmarcado = mantÃ©m as configuraÃ§Ãµes atuais.</small></span></label>
+  <div class="form-group"><label>Senha de administrador (obrigatÃ³ria)</label><input type="password" id="zrPass" class="input" placeholder="Sua senha de acesso" oninput="_zerarState()" autocomplete="off"></div>
   <div class="form-group"><label>Digite <b style="color:var(--red)">ZERAR TUDO</b> para confirmar</label><input type="text" id="zrWord" class="input" placeholder="ZERAR TUDO" oninput="_zerarState()" autocomplete="off"></div>
   <div id="zrMsg" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red);font-size:11px;padding:8px 10px;border-radius:6px;margin-top:4px"></div>
 </div><div class="modal-footer"><button class="btn btn-sm btn-secondary" onclick="closeModal('zerarModal')">Cancelar</button><button class="btn btn-sm" id="zrBtn" disabled style="background:var(--red);color:#fff;border:none;border-radius:var(--rs);padding:8px 14px;cursor:pointer;font-weight:700;opacity:.5" onclick="zerarExecutar()">&#128465; Apagar Selecionados</button></div></div></div>
@@ -4840,7 +4853,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
 <!-- ====== SECURITY CENTER MODALS ====== -->
 <div class="modal-overlay" id="secReportModal" style="display:none" onclick="if(event.target===this)this.style.display='none'">
-<div class="modal" style="max-width:640px"><div class="modal-header"><span class="modal-title">Relatório Diário de Segurança</span><button class="modal-close" onclick="closeModal('secReportModal')">&times;</button></div><div class="modal-body" id="secReportBody"></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('secReportModal')" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="exportSecurityReport()" title="Exportar" style="padding:6px 8px"><i data-lucide="download" style="width:14px;height:14px"></i></button></div></div></div>
+<div class="modal" style="max-width:640px"><div class="modal-header"><span class="modal-title">RelatÃ³rio DiÃ¡rio de SeguranÃ§a</span><button class="modal-close" onclick="closeModal('secReportModal')">&times;</button></div><div class="modal-body" id="secReportBody"></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('secReportModal')" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="exportSecurityReport()" title="Exportar" style="padding:6px 8px"><i data-lucide="download" style="width:14px;height:14px"></i></button></div></div></div>
 
 <div class="modal-overlay" id="secIncidentModal" style="display:none" onclick="if(event.target===this)this.style.display='none'">
 <div class="modal" style="max-width:600px"><div class="modal-header"><span class="modal-title">Resposta a Incidente</span><button class="modal-close" onclick="closeModal('secIncidentModal')">&times;</button></div><div class="modal-body" id="secIncidentBody"></div><div class="modal-footer"><button class="btn btn-sm" style="background:var(--red);color:#fff;padding:6px 8px;border:none;border-radius:var(--rs);cursor:pointer" onclick="closeModal('secIncidentModal')" title="Fechar"><i data-lucide="x" style="width:14px;height:14px"></i></button><button class="btn btn-sm btn-primary" onclick="sendIncidentNotification()" title="Enviar Notificao" style="padding:6px 8px"><i data-lucide="bell" style="width:14px;height:14px"></i></button></div></div></div>

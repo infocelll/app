@@ -160,3 +160,23 @@ RESUMO
   rodar ESLint/Prettier em ambiente com Node para catch de erros de
   sintaxe adicionais.
 =====================================================================
+
+---------------------------------------------------------------------
+ADENDO SEGURANCA (11/08/2026) - verificacao_detalhada.txt seccao 7
+---------------------------------------------------------------------
+  V-1 a V-4 corrigidos (hash resposta, rate-limit recovery, AES-GCM
+  API key, sync com token + HTTPS).
+  V-5 CRITICO corrigido: 'Exportar Encriptado' nao encriptava nada;
+  agora gera .icb com AES-GCM+PBKDF2 e senha (6/6 testes PASS).
+  Guia: docs/SEGURANCA_DADOS.md.
+=====================================================================
+
+  V-5 CRITICO corrigido: 'Exportar Encriptado' nao encriptava nada;
+  agora gera .icb com AES-GCM+PBKDF2 e senha (6/6 testes PASS).
+  Guia: docs/SEGURANCA_DADOS.md.
+
+ADENDO SYNC MERGE (2.16.0, 11/08/2026)
+  Sync antigo sobrescrevia o banco inteiro (perda entre dispositivos).
+  Agora merge por registro (id + updatedAt) + tombstone de exclusoes
+  + mescla de config; 8/8 testes PASS. Ver seccao 8 do detalhado.
+=====================================================================
